@@ -20,3 +20,4 @@ C:\Users\ngsha\Documents\GitHub\sc-survey2\TestingWinForms\obj\Debug\TestingWinF
 C:\Users\ngsha\Documents\GitHub\sc-survey2\TestingWinForms\obj\Debug\TestingWinForms.csproj.CoreCompileInputs.cache
 C:\Users\ngsha\Documents\GitHub\sc-survey2\TestingWinForms\obj\Debug\TestingWinForms.exe
 C:\Users\ngsha\Documents\GitHub\sc-survey2\TestingWinForms\obj\Debug\TestingWinForms.pdb
+C:\Users\ngsha\Documents\GitHub\sc-survey2\TestingWinForms\obj\Debug\TestingWinForms.AdminForm.resources

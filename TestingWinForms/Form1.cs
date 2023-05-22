@@ -119,5 +119,12 @@ namespace TestingWinForms
         {
             lbl_clickMessage.Text = $"X: {position.X}, Y: {position.Y}";
         }
+
+        private void btnAdmin_Click(object sender, EventArgs e)
+        {
+            AdminForm newForm = new AdminForm();
+            newForm.Show();
+            this.Hide();
+        }
     }
 }
