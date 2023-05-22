@@ -142,7 +142,6 @@ namespace TestingWinForms
             this.textBoxYAxis.Name = "textBoxYAxis";
             this.textBoxYAxis.Size = new System.Drawing.Size(259, 22);
             this.textBoxYAxis.TabIndex = 5;
-            this.textBoxYAxis.TextChanged += new System.EventHandler(this.textBoxYAxis_TextChanged);
             // 
             // textBoxXAxis
             // 
@@ -150,7 +149,6 @@ namespace TestingWinForms
             this.textBoxXAxis.Name = "textBoxXAxis";
             this.textBoxXAxis.Size = new System.Drawing.Size(259, 22);
             this.textBoxXAxis.TabIndex = 4;
-            this.textBoxXAxis.TextChanged += new System.EventHandler(this.textBoxXAxis_TextChanged);
             // 
             // textBoxTitle
             // 
@@ -158,7 +156,6 @@ namespace TestingWinForms
             this.textBoxTitle.Name = "textBoxTitle";
             this.textBoxTitle.Size = new System.Drawing.Size(261, 22);
             this.textBoxTitle.TabIndex = 3;
-            this.textBoxTitle.TextChanged += new System.EventHandler(this.textBoxTitle_TextChanged);
             // 
             // labelYAxis
             // 
@@ -168,7 +165,6 @@ namespace TestingWinForms
             this.labelYAxis.Size = new System.Drawing.Size(91, 17);
             this.labelYAxis.TabIndex = 2;
             this.labelYAxis.Text = "Y Axis Name:";
-            this.labelYAxis.Click += new System.EventHandler(this.labelYAxis_Click);
             // 
             // labelXAxis
             // 
@@ -178,7 +174,6 @@ namespace TestingWinForms
             this.labelXAxis.Size = new System.Drawing.Size(91, 17);
             this.labelXAxis.TabIndex = 1;
             this.labelXAxis.Text = "X Axis Name:";
-            this.labelXAxis.Click += new System.EventHandler(this.labelXAxis_Click);
             // 
             // labelTitle
             // 
@@ -188,7 +183,6 @@ namespace TestingWinForms
             this.labelTitle.Size = new System.Drawing.Size(79, 17);
             this.labelTitle.TabIndex = 0;
             this.labelTitle.Text = "Table Title:";
-            this.labelTitle.Click += new System.EventHandler(this.labelTitle_Click);
             // 
             // tabQuestion1
             // 
@@ -714,7 +708,6 @@ namespace TestingWinForms
             this.buttonSave.TabIndex = 3;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.button2_Click);
             // 
             // AdminForm
             // 

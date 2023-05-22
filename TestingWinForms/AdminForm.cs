@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,11 @@ namespace TestingWinForms
 {
     public partial class AdminForm : Form
     {
+        private string csvAdminQuestionsFilePath = "admin_questions.csv"; // Path to the CSV file
+        private string csvAdminTableFilePath = "admin_table.csv";
+        private string csvAdminDownloadFilePath = "admin_download.csv";
+        private string csvAdminAdvanceFilePath = "admin_advance.csv";
+
         public AdminForm()
         {
             InitializeComponent();
@@ -124,39 +130,33 @@ namespace TestingWinForms
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        /*private void LoadPointsFromCSV()
         {
+            if (File.Exists(csvAdminQuestionsFilePath))
+            {
+                string[] lines = File.ReadAllLines(csvAdminQuestionsFilePath);
 
+                foreach (string line in lines)
+                {
+                    string[] parts = line.Split(',');
+                    if (parts.Length == 2 && int.TryParse(parts[0], out int x) && int.TryParse(parts[1], out int y))
+                    {
+                        clickedPositions.Add(new Point(x, y));
+                    }
+                }
+
+                Refresh(); // Redraw the form to display the loaded points
+            }
         }
-
-        private void labelTitle_Click(object sender, EventArgs e)
+        private void SavePointsToCSV()
         {
-
-        }
-
-        private void textBoxTitle_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxXAxis_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelXAxis_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelYAxis_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxYAxis_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+            using (StreamWriter writer = new StreamWriter(csvAdminQuestionsFilePath))
+            {
+                foreach (Point position in clickedPositions)
+                {
+                    writer.WriteLine($"{position.X},{position.Y}");
+                }
+            }
+        }*/
     }
 }
