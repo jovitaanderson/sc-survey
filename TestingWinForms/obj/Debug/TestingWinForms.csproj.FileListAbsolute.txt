@@ -9,3 +9,4 @@ C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWin
 C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.pdb
 C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.Form1.resources
 C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.Form2.resources
+C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.csproj.SuggestedBindingRedirects.cache

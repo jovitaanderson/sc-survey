@@ -28,9 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.optionARadioButton = new System.Windows.Forms.RadioButton();
-            this.optionBRadioButton = new System.Windows.Forms.RadioButton();
-            this.optionCRadioButton = new System.Windows.Forms.RadioButton();
             this.questionLabel = new System.Windows.Forms.Label();
             this.submitButton = new System.Windows.Forms.Button();
             this.optionACheckBox = new System.Windows.Forms.CheckBox();
@@ -38,62 +35,29 @@
             this.optionCCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // optionARadioButton
-            // 
-            this.optionARadioButton.AutoSize = true;
-            this.optionARadioButton.Location = new System.Drawing.Point(226, 185);
-            this.optionARadioButton.Name = "optionARadioButton";
-            this.optionARadioButton.Size = new System.Drawing.Size(126, 24);
-            this.optionARadioButton.TabIndex = 1;
-            this.optionARadioButton.TabStop = true;
-            this.optionARadioButton.Text = "radioButton1";
-            this.optionARadioButton.UseVisualStyleBackColor = true;
-            // 
-            // optionBRadioButton
-            // 
-            this.optionBRadioButton.AutoSize = true;
-            this.optionBRadioButton.Location = new System.Drawing.Point(226, 216);
-            this.optionBRadioButton.Name = "optionBRadioButton";
-            this.optionBRadioButton.Size = new System.Drawing.Size(126, 24);
-            this.optionBRadioButton.TabIndex = 2;
-            this.optionBRadioButton.TabStop = true;
-            this.optionBRadioButton.Text = "radioButton2";
-            this.optionBRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // optionCRadioButton
-            // 
-            this.optionCRadioButton.AutoSize = true;
-            this.optionCRadioButton.Location = new System.Drawing.Point(226, 247);
-            this.optionCRadioButton.Name = "optionCRadioButton";
-            this.optionCRadioButton.Size = new System.Drawing.Size(126, 24);
-            this.optionCRadioButton.TabIndex = 3;
-            this.optionCRadioButton.TabStop = true;
-            this.optionCRadioButton.Text = "radioButton3";
-            this.optionCRadioButton.UseVisualStyleBackColor = true;
-            // 
             // questionLabel
             // 
             this.questionLabel.AutoSize = true;
             this.questionLabel.Location = new System.Drawing.Point(226, 130);
             this.questionLabel.Name = "questionLabel";
-            this.questionLabel.Size = new System.Drawing.Size(51, 20);
+            this.questionLabel.Size = new System.Drawing.Size(70, 20);
             this.questionLabel.TabIndex = 4;
-            this.questionLabel.Text = "label1";
+            this.questionLabel.Text = "question";
             // 
             // submitButton
             // 
-            this.submitButton.Location = new System.Drawing.Point(630, 352);
+            this.submitButton.Location = new System.Drawing.Point(603, 335);
             this.submitButton.Name = "submitButton";
-            this.submitButton.Size = new System.Drawing.Size(75, 23);
+            this.submitButton.Size = new System.Drawing.Size(92, 46);
             this.submitButton.TabIndex = 5;
-            this.submitButton.Text = "button1";
+            this.submitButton.Text = "Submit";
             this.submitButton.UseVisualStyleBackColor = true;
             this.submitButton.Click += new System.EventHandler(this.submitButton_Click);
             // 
             // optionACheckBox
             // 
             this.optionACheckBox.AutoSize = true;
-            this.optionACheckBox.Location = new System.Drawing.Point(415, 184);
+            this.optionACheckBox.Location = new System.Drawing.Point(230, 174);
             this.optionACheckBox.Name = "optionACheckBox";
             this.optionACheckBox.Size = new System.Drawing.Size(113, 24);
             this.optionACheckBox.TabIndex = 6;
@@ -103,7 +67,7 @@
             // optionBCheckBox
             // 
             this.optionBCheckBox.AutoSize = true;
-            this.optionBCheckBox.Location = new System.Drawing.Point(415, 216);
+            this.optionBCheckBox.Location = new System.Drawing.Point(230, 206);
             this.optionBCheckBox.Name = "optionBCheckBox";
             this.optionBCheckBox.Size = new System.Drawing.Size(113, 24);
             this.optionBCheckBox.TabIndex = 7;
@@ -113,7 +77,7 @@
             // optionCCheckBox
             // 
             this.optionCCheckBox.AutoSize = true;
-            this.optionCCheckBox.Location = new System.Drawing.Point(415, 246);
+            this.optionCCheckBox.Location = new System.Drawing.Point(230, 236);
             this.optionCCheckBox.Name = "optionCCheckBox";
             this.optionCCheckBox.Size = new System.Drawing.Size(113, 24);
             this.optionCCheckBox.TabIndex = 8;
@@ -130,9 +94,6 @@
             this.Controls.Add(this.optionACheckBox);
             this.Controls.Add(this.submitButton);
             this.Controls.Add(this.questionLabel);
-            this.Controls.Add(this.optionCRadioButton);
-            this.Controls.Add(this.optionBRadioButton);
-            this.Controls.Add(this.optionARadioButton);
             this.Name = "Form2";
             this.Text = "Form2";
             this.ResumeLayout(false);
@@ -141,9 +102,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.RadioButton optionARadioButton;
-        private System.Windows.Forms.RadioButton optionBRadioButton;
-        private System.Windows.Forms.RadioButton optionCRadioButton;
         private System.Windows.Forms.Label questionLabel;
         private System.Windows.Forms.Button submitButton;
         private System.Windows.Forms.CheckBox optionACheckBox;

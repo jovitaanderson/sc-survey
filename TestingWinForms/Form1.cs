@@ -14,15 +14,12 @@ namespace TestingWinForms
 {
     public partial class Form1 : Form
     {
-        private int xValue = -1;
-        private int yValue = -1;
-        private Point clickPosition; // Stores the clicked position
+
         private List<Point> clickedPositions; // Stores the clicked positions
         private Rectangle drawingArea; // Defines the drawing area
         private int drawingAreaBorderWidth = 2; // Specify the width of the border
         private System.Threading.Timer timer; // Timer to wait for 3 seconds
         private string csvFilePath = "points.csv"; // Path to the CSV file
-
 
         public Form1()
         {
@@ -60,14 +57,6 @@ namespace TestingWinForms
                     writer.WriteLine($"{position.X},{position.Y}");
                 }
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            lbl_clickMessage.Text = "Hello";
-            Form2 newForm = new Form2();
-            newForm.Show();
-            this.Hide();
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
