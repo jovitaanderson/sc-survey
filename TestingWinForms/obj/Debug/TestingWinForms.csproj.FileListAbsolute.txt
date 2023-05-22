@@ -1,0 +1,11 @@
+C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\bin\Debug\TestingWinForms.exe.config
+C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\bin\Debug\TestingWinForms.exe
+C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\bin\Debug\TestingWinForms.pdb
+C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.csproj.AssemblyReference.cache
+C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.Properties.Resources.resources
+C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.csproj.GenerateResource.cache
+C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.csproj.CoreCompileInputs.cache
+C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.exe
+C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.pdb
+C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.Form1.resources
+C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.Form2.resources
