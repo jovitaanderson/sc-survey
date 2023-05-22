@@ -110,6 +110,7 @@ namespace TestingWinForms
 
         private void SaveSelectedOptions(List<string> selectedOptions)
         {
+            //TODO: update the saving format
             // Create a string representing the current selected options
             string selectedOptionsString = string.Join(";", selectedOptions);
 
@@ -155,13 +156,8 @@ namespace TestingWinForms
         {
             // Timer elapsed, redirect to Form1
             timer.Stop();
-           // MessageBox.Show("Time's up! Redirecting to Form1...");
-            //timer.Stop();
-            //ResetTimer();
-            //this.Hide();
             Form1 form1 = new Form1();
             form1.Show();
-            //form1.ShowDialog();
             this.Close();
         }
 
