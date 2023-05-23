@@ -150,6 +150,10 @@ namespace TestingWinForms
 
         private void LoadPointsFromCSV()
         {
+
+            // Clear the existing points
+            existingClickedPositions.Clear();
+
             // Load all existing points to screen
             if (File.Exists(csvFilePath))
             {
