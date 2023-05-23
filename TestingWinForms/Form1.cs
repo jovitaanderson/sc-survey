@@ -186,7 +186,7 @@ namespace TestingWinForms
 
                         // Scale back the coordinates to the original dimensions
                         float originalX = (x * inverseScaleX) + drawingArea.X;
-                         float originalY = (y * inverseScaleY) + drawingArea.Y;
+                        float originalY = (y * inverseScaleY) + drawingArea.Y;
 
                         existingClickedPositions.Add(new PointF(originalX, originalY));
                     }
@@ -276,12 +276,12 @@ namespace TestingWinForms
             }
 
             // Draw X and Y axis labels
-            int xSteps = 5; // Specify the number of steps on the X axis
-            int ySteps = 5; // Specify the number of steps on the Y axis
+            int xSteps = 10; // Specify the number of steps on the X axis
+            int ySteps = 10; // Specify the number of steps on the Y axis
             int stepSizeX = drawingArea.Width / xSteps;
             int stepSizeY = drawingArea.Height / ySteps;
 
-            using (Font font = new Font("Arial", 8))
+            using (Font font = new Font("Arial", 10))
             {
                 using (StringFormat format = new StringFormat())
                 {
@@ -294,7 +294,7 @@ namespace TestingWinForms
                         int labelX = drawingArea.Left + (i * stepSizeX);
                         int labelY = drawingArea.Bottom + 5;
 
-                        string label = (i * 10).ToString(); // Adjust the label based on your requirements
+                        string label = (i).ToString(); // Adjust the label based on your requirements
                         e.Graphics.DrawString(label, font, Brushes.Black, labelX, labelY, format);
                     }
 
@@ -304,7 +304,7 @@ namespace TestingWinForms
                         int labelX = drawingArea.Left - 25;
                         int labelY = drawingArea.Bottom - (i * stepSizeY);
 
-                        string label = (i * 10).ToString(); // Adjust the label based on your requirements
+                        string label = (i).ToString(); // Adjust the label based on your requirements
                         e.Graphics.DrawString(label, font, Brushes.Black, labelX, labelY, format);
                     }
                 }

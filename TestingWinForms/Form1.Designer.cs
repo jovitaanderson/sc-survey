@@ -50,11 +50,11 @@
             // 
             // labelXAxis
             // 
-            this.labelXAxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelXAxis.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.labelXAxis.AutoSize = true;
             this.labelXAxis.BackColor = System.Drawing.Color.Transparent;
             this.labelXAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelXAxis.Location = new System.Drawing.Point(212, 297);
+            this.labelXAxis.Location = new System.Drawing.Point(253, 307);
             this.labelXAxis.Name = "labelXAxis";
             this.labelXAxis.Size = new System.Drawing.Size(79, 29);
             this.labelXAxis.TabIndex = 4;
@@ -83,10 +83,11 @@
             // 
             // labelTitle
             // 
+            this.labelTitle.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelTitle.AutoSize = true;
             this.labelTitle.BackColor = System.Drawing.Color.Transparent;
             this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTitle.Location = new System.Drawing.Point(212, 30);
+            this.labelTitle.Location = new System.Drawing.Point(253, 23);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(79, 29);
             this.labelTitle.TabIndex = 7;
@@ -94,6 +95,7 @@
             // 
             // lbl_clickMessage
             // 
+            this.lbl_clickMessage.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lbl_clickMessage.AutoSize = true;
             this.lbl_clickMessage.BackColor = System.Drawing.Color.Transparent;
             this.lbl_clickMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
