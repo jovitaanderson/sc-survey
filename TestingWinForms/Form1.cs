@@ -33,15 +33,17 @@ namespace TestingWinForms
         public Form1()
         {
 
-            InitializeComponent();
+
+            existingClickedPositions = new List<PointF>();
 
             // Wire up the Resize event handler
             this.Resize += Form1_Resize;
 
             // Initial calculation of the drawing area
-            CalculateDrawingArea();
+            //CalculateDrawingArea();
 
-            existingClickedPositions = new List<PointF>();
+            InitializeComponent();
+
 
             //Create file with column header if file does not exits
             if (!File.Exists(csvFilePath))
@@ -54,7 +56,7 @@ namespace TestingWinForms
             WindowState = FormWindowState.Maximized; // Maximize the window
 
             this.MouseClick += Form1_MouseClick; // Wire up the event handler
-            LoadPointsFromCSV(); // Load points from CSV file
+            //LoadPointsFromCSV(); // Load points from CSV file
             LoadTableFromCSV();
 
             //Display Background Image
@@ -68,25 +70,13 @@ namespace TestingWinForms
                 // Adjust the background image display settings
                 this.BackgroundImageLayout = ImageLayout.Stretch;
             }
-
-            // Set the Anchor property for labels and buttons
-            //labelTitle.Anchor = AnchorStyles.Left;
-            //labelXAxis.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            //labelYAxis.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-
-            // Set the properties for labelXAxis and labelYAxis
-            //labelXAxis.AutoSize = false;
-            //labelXAxis.MaximumSize = new Size(200, 0); // Adjust the desired width
-
-            //labelYAxis.AutoSize = false;
-            //labelYAxis.MaximumSize = new Size(200, 0); // Adjust the desired width
-
         }
 
         private void Form1_Resize(object sender, EventArgs e)
         {
             // Recalculate the drawing area when the form is resized
             CalculateDrawingArea();
+            LoadPointsFromCSV();
             Refresh();
         }
 
@@ -95,8 +85,8 @@ namespace TestingWinForms
             int margin = 100; // Minimum margin size
 
             // Calculate the available width and height for the square
-            int availableWidth = this.ClientSize.Width - 2 * margin;
-            int availableHeight = this.ClientSize.Height - 2 * margin;
+            int availableWidth = this.Size.Width - 2 * margin;
+            int availableHeight = this.Size.Height - 2 * margin;
 
             // Determine the size of the square based on the smaller dimension
             int squareSize = Math.Min(availableWidth, availableHeight);
@@ -251,6 +241,7 @@ namespace TestingWinForms
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+
             ControlPaint.DrawBorder(e.Graphics, drawingArea, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid);
 
             // Paint existing dots
