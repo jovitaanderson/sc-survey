@@ -18,6 +18,8 @@ namespace TestingWinForms
         private string csvAdminDownloadFilePath = "admin_download.csv";
         private string csvAdminAdvanceFilePath = "admin_advance.csv";
 
+        private string csvPlayerFilePath = "player_answers.csv";
+
         public AdminForm()
         {
             InitializeComponent();
@@ -154,6 +156,8 @@ namespace TestingWinForms
                 sw.WriteLine(row2);
                 sw.WriteLine(row3);
             }
+            string columnHeader = "date,point_x,point_y," + question1 + "," + question2 + "," + question3;
+            UpdatePlayerCSVHeader(columnHeader);
 
             //Download
             DateTime selectedStartDate = dateTimePickerStartDate.Value;
@@ -211,7 +215,21 @@ namespace TestingWinForms
                 sw.WriteLine(data);
             }
 
+
+
             MessageBox.Show("Data saved to CSV file.");
+        }
+
+        void UpdatePlayerCSVHeader(String columnHeader) {
+
+            // Read all lines from the CSV file
+            string[] lines = File.ReadAllLines(csvPlayerFilePath);
+
+            // Replace the first line (header) with the new column names
+            lines[0] = columnHeader;
+
+            // Write the updated lines back to the CSV file
+            File.WriteAllLines(csvPlayerFilePath, lines);
         }
 
         private void LoadDataFromCSV()
