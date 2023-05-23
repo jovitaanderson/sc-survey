@@ -17,6 +17,7 @@ namespace TestingWinForms
         private int currentQuestionIndex;
         private Timer timer;
         private const int TimerInterval = 5000; // 3 seconds in milliseconds
+        private string csvFilePath = "player_answers.csv";
 
         public Form2()
         {
@@ -79,6 +80,11 @@ namespace TestingWinForms
                 optionBCheckBox.Enabled = false;
                 optionCCheckBox.Enabled = false;
                 submitButton.Enabled = false;
+
+                //timer = new System.Threading.Timer(OnTimerElapsed, null, 2000, Timeout.Infinite); // Start the timer for 3 seconds
+                Form1 form1 = new Form1();
+                form1.Show();
+                this.Close();
             }
         }
 
