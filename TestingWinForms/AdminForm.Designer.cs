@@ -94,6 +94,7 @@ namespace TestingWinForms
             this.labelTimeOut = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
+            this.btnDownload = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabTable.SuspendLayout();
             this.tabQuestion1.SuspendLayout();
@@ -538,6 +539,7 @@ namespace TestingWinForms
             // 
             // tabDownload
             // 
+            this.tabDownload.Controls.Add(this.btnDownload);
             this.tabDownload.Controls.Add(this.dateTimePickerEndDate);
             this.tabDownload.Controls.Add(this.dateTimePickerStartDate);
             this.tabDownload.Controls.Add(this.label13);
@@ -604,9 +606,9 @@ namespace TestingWinForms
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(152, 183);
+            this.pictureBox.Location = new System.Drawing.Point(59, 183);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(157, 123);
+            this.pictureBox.Size = new System.Drawing.Size(250, 169);
             this.pictureBox.TabIndex = 9;
             this.pictureBox.TabStop = false;
             // 
@@ -710,6 +712,15 @@ namespace TestingWinForms
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
+            // btnDownload
+            // 
+            this.btnDownload.Location = new System.Drawing.Point(164, 106);
+            this.btnDownload.Name = "btnDownload";
+            this.btnDownload.Size = new System.Drawing.Size(141, 23);
+            this.btnDownload.TabIndex = 6;
+            this.btnDownload.Text = "Download";
+            this.btnDownload.UseVisualStyleBackColor = true;
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -806,5 +817,6 @@ namespace TestingWinForms
         private System.Windows.Forms.TextBox textBoxEndMessage;
         private System.Windows.Forms.ComboBox comboBoxRandomQns;
         private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.Button btnDownload;
     }
 }
