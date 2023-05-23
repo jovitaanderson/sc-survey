@@ -36,9 +36,28 @@ namespace TestingWinForms
                 string csvHeader = $"{columnNames}" + Environment.NewLine;
                 File.WriteAllText(csvFilePath, csvHeader, Encoding.UTF8);
             }
+            FormBorderStyle = FormBorderStyle.None; // Remove the border
+            WindowState = FormWindowState.Maximized; // Maximize the window
+
+
+            // Subscribe to the SizeChanged event
+            this.SizeChanged += Form1_SizeChanged;
 
             this.MouseClick += Form1_MouseClick; // Wire up the event handler
             LoadPointsFromCSV(); // Load points from CSV file
+        }
+
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            // Get the new size of the form's client area
+            Size newSize = this.ClientSize;
+
+            // Update the rectangle's dimensions based on the new size
+            drawingArea.Width = newSize.Width / 2;
+            drawingArea.Height = newSize.Height / 2;
+
+            // Redraw the form to reflect the updated rectangle
+            Refresh();
         }
 
         private void LoadPointsFromCSV()
@@ -104,10 +123,7 @@ namespace TestingWinForms
                 timer.Dispose(); // Dispose the timer
                 timer = null; // Set the timer reference to null
 
-                int currentRowNumber = lastRowNumber; // Get the last row number and increment by 1
-
-
-                Form2 newForm = new Form2(currentRowNumber); // Navigate to a new page
+                Form2 newForm = new Form2(lastRowNumber); // Navigate to a new page
                 newForm.Show();
                 this.Hide();
             }));
