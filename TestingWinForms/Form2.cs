@@ -227,6 +227,9 @@ namespace TestingWinForms
                 optionECheckBox.Enabled = false;
                 submitButton.Enabled = false;
 
+                AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
+
+
                 timer.Stop();
                 //timer = new System.Threading.Timer(OnTimerElapsed, null, 2000, Timeout.Infinite); // Start the timer for 3 seconds
                 ThankYouScreen thankYouForm = new ThankYouScreen();
@@ -255,11 +258,11 @@ namespace TestingWinForms
         private void submitButton_Click(object sender, EventArgs e)
         {
             String selectedOptions = string.Join(";", autoSelectedOptions);
-            //savedAnswers[questions[currentQuestionIndex].Index] =
+            savedAnswers[questions[currentQuestionIndex].Index] = selectedOptions;
             autoSelectedOptions.Clear();
             // Reset the timer
             ResetTimer();
-            AppendDataToSpecificRow(csvFilePath, rowNumber, selectedOptions);
+            //AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
 
             // Move to the next question
             currentQuestionIndex++;
@@ -295,7 +298,9 @@ namespace TestingWinForms
         private void Timer_Tick(object sender, EventArgs e)
         {
             // Timer elapsed, redirect to Form1
-            AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(";", autoSelectedOptions));
+            AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
+
+            //AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(";", autoSelectedOptions));
             timer.Stop();
             Form1 form1 = new Form1();
             form1.Show();
