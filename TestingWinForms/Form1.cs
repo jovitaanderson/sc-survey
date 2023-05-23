@@ -20,11 +20,8 @@ namespace TestingWinForms
         private int drawingAreaBorderWidth = 2; // Specify the width of the border
         private int dotSize = 10;
         private System.Threading.Timer timer; // Timer to wait for 3 seconds
-        private string csvFilePath = "points.csv"; // Path to the CSV file
 
-        private string csvAdminQuestionsFilePath = "admin_questions.csv"; // Path to the CSV file
         private string csvAdminTableFilePath = "admin_table.csv";
-        private string csvAdminDownloadFilePath = "admin_download.csv";
         private string csvAdminAdvanceFilePath = "admin_advance.csv";
 
         private string csvFilePath = "player_answers.csv"; // Path to the CSV file
