@@ -18,10 +18,12 @@ namespace TestingWinForms
         private Timer timer;
         private const int TimerInterval = 5000; // 3 seconds in milliseconds
         private string csvFilePath = "player_answers.csv";
+        private int rowNumber; 
 
-        public Form2()
+        public Form2(int rowNumber)
         {
             InitializeComponent();
+            this.rowNumber = rowNumber;
 
             // Initialize the list of questions
             questions = new List<Question>()
@@ -105,7 +107,8 @@ namespace TestingWinForms
                 selectedOptions.Add(optionCCheckBox.Text);
 
             // Save the selected options (you can modify this to save the data to a file or a database)
-            SaveSelectedOptions(selectedOptions);
+            //SaveSelectedOptions(selectedOptions);
+            AppendDataToSpecificRow(csvFilePath, rowNumber, "wee");
 
             // Move to the next question
             currentQuestionIndex++;
@@ -114,47 +117,27 @@ namespace TestingWinForms
             DisplayQuestion();
         }
 
-        private void SaveSelectedOptions(List<string> selectedOptions)
+        private void AppendDataToSpecificRow(string csvFilePath, int rowNumber, string rowData)
         {
-            //TODO: update the saving format
-            // Create a string representing the current selected options
-            string selectedOptionsString = string.Join(";", selectedOptions);
-
-            // Create the CSV header if the file doesn't exist
-            if (!File.Exists("selected_options.csv"))
+            if (File.Exists(csvFilePath))
             {
-                string header = "q1,q2,q3" + Environment.NewLine;
-                File.WriteAllText("selected_options.csv", header);
+                string[] lines = File.ReadAllLines(csvFilePath);
+                if (rowNumber >= 0 && rowNumber < lines.Length)
+                {
+                    lines[rowNumber] = lines[rowNumber] + "," + rowData; // Replace the row with the new data
+                    File.WriteAllLines(csvFilePath, lines); // Rewrite the entire file with the updated row
+                }
+                else
+                {
+                    // Row number is out of range
+                    Console.WriteLine("Invalid row number.");
+                }
             }
-
-            // Read the existing content of the CSV file
-            string existingContent = File.ReadAllText("selected_options.csv");
-
-            // Split the existing content by lines
-            string[] lines = existingContent.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-
-            // Determine the row index to update
-            int rowIndex = lines.Length;
-
-            // Split each line by commas
-            string[] columns = lines[rowIndex - 1].Split(',');
-
-            // Update the current selected options for each column
-            for (int i = 0; i < selectedOptions.Count; i++)
+            else
             {
-                // Append the selected option to the existing value in the corresponding column
-                columns[i] = columns[i].Trim() + ";" + selectedOptions[i];
+                // File doesn't exist
+                Console.WriteLine("CSV file does not exist.");
             }
-
-            // Join the columns back into a single line
-            lines[rowIndex - 1] = string.Join(",", columns);
-
-            // Concatenate all lines back into the updated content
-            string newContent = string.Join(Environment.NewLine, lines);
-
-            // Rewrite the entire file with the updated content
-            File.WriteAllText("selected_options.csv", newContent);
-
         }
 
         // Timer for question
