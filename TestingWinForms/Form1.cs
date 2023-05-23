@@ -14,71 +14,85 @@ namespace TestingWinForms
 {
     public partial class Form1 : Form
     {
-        private int xValue = -1;
-        private int yValue = -1;
-        private Point clickPosition; // Stores the clicked position
-        private List<Point> clickedPositions; // Stores the clicked positions
-        private Rectangle drawingArea; // Defines the drawing area
+        private List<Point> existingClickedPositions; // Stores the previous saved clicked positions
+        private Point clickedPosition; // Stores the current clicked positions
+        private Rectangle drawingArea = new Rectangle(100, 50, 200, 200); // Defines the drawing area 
         private int drawingAreaBorderWidth = 2; // Specify the width of the border
+        private int dotSize = 10;
         private System.Threading.Timer timer; // Timer to wait for 3 seconds
-        private string csvFilePath = "points.csv"; // Path to the CSV file
-
+        private string csvFilePath = "player_answers.csv"; // Path to the CSV file
+        private const string columnNames = "date,point_x,point_y,question1,question2,question3";
+        private int timerToQuestionPage = 1000;
+        private int lastRowNumber;
 
         public Form1()
         {
             InitializeComponent();
-            clickedPositions = new List<Point>();
-            drawingArea = new Rectangle(100, 50, 200, 200); // Define the drawing area
+            existingClickedPositions = new List<Point>();
+
+            //Create file with column header if file does not exits
+            if (!File.Exists(csvFilePath))
+            {
+                string csvHeader = $"{columnNames}" + Environment.NewLine;
+                File.WriteAllText(csvFilePath, csvHeader, Encoding.UTF8);
+            }
+
             this.MouseClick += Form1_MouseClick; // Wire up the event handler
             LoadPointsFromCSV(); // Load points from CSV file
         }
 
         private void LoadPointsFromCSV()
         {
+            // Load all existing points to screen
             if (File.Exists(csvFilePath))
             {
                 string[] lines = File.ReadAllLines(csvFilePath);
+                lastRowNumber = lines.Length;
 
-                foreach (string line in lines)
+                // Get the index of the "point_x" and "point_y" columns
+                string[] headers = lines[0].Split(',');
+                int pointXIndex = Array.IndexOf(headers, "point_x");
+                int pointYIndex = Array.IndexOf(headers, "point_y");
+
+                for (int i = 1; i < lines.Length; i++) // Start from index 1 to skip the header row
                 {
-                    string[] parts = line.Split(',');
-                    if (parts.Length == 2 && int.TryParse(parts[0], out int x) && int.TryParse(parts[1], out int y))
+                    //Console.WriteLine(lines[i]);
+                    string[] parts = lines[i].Split(',');
+                    if (parts.Length > pointXIndex && parts.Length > pointYIndex &&
+                        int.TryParse(parts[pointXIndex], out int x) && int.TryParse(parts[pointYIndex], out int y))
                     {
-                        clickedPositions.Add(new Point(x, y));
+                        existingClickedPositions.Add(new Point(x, y));
                     }
                 }
 
                 Refresh(); // Redraw the form to display the loaded points
             }
         }
+
         private void SavePointsToCSV()
         {
-            using (StreamWriter writer = new StreamWriter(csvFilePath))
+            using (StreamWriter writer = new StreamWriter(csvFilePath, true))
             {
-                foreach (Point position in clickedPositions)
-                {
-                    writer.WriteLine($"{position.X},{position.Y}");
-                }
-            }
-        }
+                string currentDate = DateTime.Now.ToString("dd/MM/yyyy");
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            lbl_clickMessage.Text = "Hello";
-            Form2 newForm = new Form2();
-            newForm.Show();
-            this.Hide();
+                writer.WriteLine($"{currentDate},{clickedPosition.X},{clickedPosition.Y}");
+            }
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
             if (drawingArea.Contains(e.Location))
             {
-                clickedPositions.Add(e.Location);
+                existingClickedPositions.Add(e.Location);
+                clickedPosition = e.Location; 
+
                 Refresh(); // Redraw the form to display the dots
-                UpdatePositionLabel(e.Location); // Update the position label
-                timer = new System.Threading.Timer(OnTimerElapsed, null, 2000, Timeout.Infinite); // Start the timer for 3 seconds
                 SavePointsToCSV();
+
+                //For debugging
+                UpdatePositionLabel(e.Location); // Update the position label
+
+                timer = new System.Threading.Timer(OnTimerElapsed, null, timerToQuestionPage, Timeout.Infinite); // Start the timer for x seconds
             }
         }
 
@@ -90,8 +104,10 @@ namespace TestingWinForms
                 timer.Dispose(); // Dispose the timer
                 timer = null; // Set the timer reference to null
 
-                // Navigate to a new page
-                Form2 newForm = new Form2();
+                int currentRowNumber = lastRowNumber; // Get the last row number and increment by 1
+
+
+                Form2 newForm = new Form2(currentRowNumber); // Navigate to a new page
                 newForm.Show();
                 this.Hide();
             }));
@@ -102,19 +118,29 @@ namespace TestingWinForms
             base.OnPaint(e);
             ControlPaint.DrawBorder(e.Graphics, drawingArea, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid);
 
-            foreach (Point position in clickedPositions)
+            // Paint existing dots
+            foreach (Point position in existingClickedPositions)
             {
                 if (drawingArea.Contains(position))
                 {
-                    int dotSize = 10;
                     int dotX = position.X - dotSize / 2;
                     int dotY = position.Y - dotSize / 2;
 
-                    e.Graphics.FillEllipse(Brushes.Red, dotX, dotY, dotSize, dotSize);
+                    e.Graphics.FillEllipse(Brushes.Blue, dotX, dotY, dotSize, dotSize);
                 }
+            }
+
+            //Paint current dot
+            if (drawingArea.Contains(clickedPosition))
+            {
+                int dotX = clickedPosition.X - dotSize / 2;
+                int dotY = clickedPosition.Y - dotSize / 2;
+
+                e.Graphics.FillEllipse(Brushes.Red, dotX, dotY, dotSize, dotSize);
             }
         }
 
+        //For debugging
         private void UpdatePositionLabel(Point position)
         {
             lbl_clickMessage.Text = $"X: {position.X}, Y: {position.Y}";

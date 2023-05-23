@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.lbl_clickMessage = new System.Windows.Forms.Label();
-            this.btn_click = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnAdmin = new System.Windows.Forms.Button();
@@ -44,17 +43,7 @@
             this.lbl_clickMessage.Size = new System.Drawing.Size(46, 17);
             this.lbl_clickMessage.TabIndex = 2;
             this.lbl_clickMessage.Text = "label1";
-            // 
-            // btn_click
-            // 
-            this.btn_click.Location = new System.Drawing.Point(541, 110);
-            this.btn_click.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btn_click.Name = "btn_click";
-            this.btn_click.Size = new System.Drawing.Size(137, 54);
-            this.btn_click.TabIndex = 0;
-            this.btn_click.Text = "Test btn";
-            this.btn_click.UseVisualStyleBackColor = true;
-            this.btn_click.Click += new System.EventHandler(this.button1_Click);
+           
             // 
             // label1
             // 
@@ -101,7 +90,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbl_clickMessage);
-            this.Controls.Add(this.btn_click);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -112,7 +100,6 @@
 
         #endregion
         private System.Windows.Forms.Label lbl_clickMessage;
-        private System.Windows.Forms.Button btn_click;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnAdmin;
