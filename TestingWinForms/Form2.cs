@@ -111,6 +111,8 @@ namespace TestingWinForms
         {
             List<Question> questions = new List<Question>();
 
+            int currQuestionIndex = 0;
+
             if (File.Exists(csvAdminQuestionsFilePath))
             {
                 using (var reader = new StreamReader(csvAdminQuestionsFilePath))
@@ -125,7 +127,8 @@ namespace TestingWinForms
                             string questionText = values[0];
                             List<string> options = new List<string> { values[1], values[2], values[3], values[4], values[5], values[5] };
 
-                            questions.Add(new Question(questionText, options));
+                            questions.Add(new Question(currQuestionIndex, questionText, options));
+                            currQuestionIndex++;
                         }
                         else
                         {
@@ -133,6 +136,8 @@ namespace TestingWinForms
                         }
                     }
                 }
+
+                currQuestionIndex = 0;
             }
             else
             {
@@ -175,7 +180,6 @@ namespace TestingWinForms
         {
             if (currentQuestionIndex < questions.Count)
             {
-                Console.WriteLine(questions.Count);
                 // Reset the timer
                 ResetTimer();
 
@@ -305,10 +309,12 @@ namespace TestingWinForms
 
     public class Question
     {
+        public int Index { get; set; }
         public string Text { get; set; }
         public List<string> Options { get; set; }
-        public Question(string text, List<string> options)
+        public Question(int index, string text, List<string> options)
         {
+            Index = index;
             Text = text;
             Options = options;
         }
