@@ -17,6 +17,7 @@ namespace TestingWinForms
         private string csvAdminTableFilePath = "admin_table.csv";
         private string csvAdminDownloadFilePath = "admin_download.csv";
         private string csvAdminAdvanceFilePath = "admin_advance.csv";
+        private string csvFilePath = "player_answers.csv";
 
         public AdminForm()
         {
@@ -343,6 +344,67 @@ namespace TestingWinForms
         private void label16_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void tabTable_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDownload_Click(object sender, EventArgs e)
+        {
+            
+            // Filter the player answers based on the selected date range
+            List<string> filteredPlayerAnswers = FilterPlayerAnswersByDateRange(dateTimePickerStartDate.Value, dateTimePickerEndDate.Value);
+
+            // Check if there are any matching answers
+            if (filteredPlayerAnswers.Count > 0)
+            {
+                // Open a SaveFileDialog to specify the download location
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
+                saveFileDialog.FileName = "playeranswers.csv";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string savePath = saveFileDialog.FileName;
+
+                    // Write the filtered player answers to the selected file
+                    File.WriteAllLines(savePath, filteredPlayerAnswers);
+
+                    MessageBox.Show("Player answers downloaded successfully.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No player answers found for the selected date range.");
+            }
+        }
+
+        private List<string> FilterPlayerAnswersByDateRange(DateTime startDate, DateTime endDate)
+        {
+            List<string> filteredAnswers = new List<string>();
+
+            if (File.Exists(csvFilePath))
+            {
+                string[] allAnswers = File.ReadAllLines(csvFilePath);
+
+                foreach (string answer in allAnswers)
+                {
+                    // Assuming the date is the first column in the player answers CSV file
+                    string[] values = answer.Split(',');
+
+                    if (values.Length > 0 && DateTime.TryParse(values[0], out DateTime answerDate))
+                    {
+                        if (answerDate >= startDate && answerDate <= endDate)
+                        {
+                            filteredAnswers.Add(answer);
+                        }
+                    }
+                }
+            }
+
+            return filteredAnswers;
         }
     }
 }

@@ -132,13 +132,14 @@ namespace TestingWinForms
             this.tabTable.Controls.Add(this.labelYAxis);
             this.tabTable.Controls.Add(this.labelXAxis);
             this.tabTable.Controls.Add(this.labelTitle);
-            this.tabTable.Location = new System.Drawing.Point(46, 4);
+            this.tabTable.Location = new System.Drawing.Point(25, 4);
             this.tabTable.Name = "tabTable";
             this.tabTable.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTable.Size = new System.Drawing.Size(726, 367);
+            this.tabTable.Size = new System.Drawing.Size(1114, 661);
             this.tabTable.TabIndex = 0;
             this.tabTable.Text = "Table";
             this.tabTable.UseVisualStyleBackColor = true;
+            this.tabTable.Click += new System.EventHandler(this.tabTable_Click);
             // 
             // textBoxYAxis
             // 
@@ -635,6 +636,7 @@ namespace TestingWinForms
             this.btnDownload.TabIndex = 6;
             this.btnDownload.Text = "Download";
             this.btnDownload.UseVisualStyleBackColor = true;
+            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
             // 
             // dateTimePickerEndDate
             // 
