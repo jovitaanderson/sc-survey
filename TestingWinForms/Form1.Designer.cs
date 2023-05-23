@@ -31,43 +31,77 @@
             this.lbl_clickMessage = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnAdmin = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lbl_clickMessage
             // 
             this.lbl_clickMessage.AutoSize = true;
-            this.lbl_clickMessage.Location = new System.Drawing.Point(660, 103);
+            this.lbl_clickMessage.Location = new System.Drawing.Point(587, 82);
             this.lbl_clickMessage.Name = "lbl_clickMessage";
-            this.lbl_clickMessage.Size = new System.Drawing.Size(51, 20);
+            this.lbl_clickMessage.Size = new System.Drawing.Size(46, 17);
             this.lbl_clickMessage.TabIndex = 2;
             this.lbl_clickMessage.Text = "label1";
+            // 
+            // btn_click
+            // 
+            this.btn_click.Location = new System.Drawing.Point(541, 110);
+            this.btn_click.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_click.Name = "btn_click";
+            this.btn_click.Size = new System.Drawing.Size(137, 54);
+            this.btn_click.TabIndex = 0;
+            this.btn_click.Text = "Test btn";
+            this.btn_click.UseVisualStyleBackColor = true;
+            this.btn_click.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(54, 204);
+            this.label1.Location = new System.Drawing.Point(48, 163);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 20);
+            this.label1.Size = new System.Drawing.Size(47, 17);
             this.label1.TabIndex = 3;
             this.label1.Text = "Text 1";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(235, 401);
+            this.label2.Location = new System.Drawing.Point(209, 321);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 20);
+            this.label2.Size = new System.Drawing.Size(47, 17);
             this.label2.TabIndex = 4;
             this.label2.Text = "Text 2";
             // 
+            // btnAdmin
+            // 
+            this.btnAdmin.Location = new System.Drawing.Point(548, 284);
+            this.btnAdmin.Name = "btnAdmin";
+            this.btnAdmin.Size = new System.Drawing.Size(129, 53);
+            this.btnAdmin.TabIndex = 5;
+            this.btnAdmin.Text = "Admin";
+            this.btnAdmin.UseVisualStyleBackColor = true;
+            this.btnAdmin.Click += new System.EventHandler(this.btnAdmin_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(558, 256);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 22);
+            this.textBox1.TabIndex = 6;
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(711, 360);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btnAdmin);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbl_clickMessage);
+            this.Controls.Add(this.btn_click);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -79,6 +113,8 @@
         private System.Windows.Forms.Label lbl_clickMessage;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnAdmin;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

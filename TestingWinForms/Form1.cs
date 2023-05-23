@@ -143,5 +143,33 @@ namespace TestingWinForms
         {
             lbl_clickMessage.Text = $"X: {position.X}, Y: {position.Y}";
         }
+
+        private void btnAdmin_Click(object sender, EventArgs e)
+        {
+            // Perform the password check here
+            bool isPasswordClickedProperly = CheckPasswordClickedProperly();
+
+            if (isPasswordClickedProperly)
+            {
+                AdminForm newForm = new AdminForm();
+                newForm.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Incorrect password click!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+        }
+
+        private bool CheckPasswordClickedProperly()
+        {
+            // Implement your password click check logic here
+            // Return true if the password is clicked properly, otherwise return false
+            // Example:
+            string enteredPassword = textBox1.Text;
+            string correctPassword = "123456";
+            return enteredPassword == correctPassword;
+        }
     }
 }
