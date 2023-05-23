@@ -121,23 +121,6 @@ namespace TestingWinForms
             autoSelectedOptions.Clear();
             // Reset the timer
             ResetTimer();
-
-            // Get the selected options
-            /*
-            List<string> selectedOptions = new List<string>();
-
-            if (optionACheckBox.Checked)
-                selectedOptions.Add(optionACheckBox.Text);
-            if (optionBCheckBox.Checked)
-                selectedOptions.Add(optionBCheckBox.Text);
-            if (optionCCheckBox.Checked)
-                selectedOptions.Add(optionCCheckBox.Text);
-
-            string joinedOptions = string.Join(";", selectedOptions);
-            */
-
-            // Save the selected options (you can modify this to save the data to a file or a database)
-            //SaveSelectedOptions(selectedOptions);
             AppendDataToSpecificRow(csvFilePath, rowNumber, selectedOptions);
 
             // Move to the next question
