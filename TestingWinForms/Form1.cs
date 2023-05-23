@@ -30,6 +30,7 @@ namespace TestingWinForms
         private string columnNames;
         private int timerToQuestionPage = 1000;
         private int lastRowNumber;
+        private bool hasClicked = false;
 
         String loadColumnNames()
         {
@@ -237,7 +238,7 @@ namespace TestingWinForms
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            if (drawingArea.Contains(e.Location))
+            if (!hasClicked && drawingArea.Contains(e.Location))
             {
                 // Calculate the scaled coordinates within the rectangle
                 float scaleX = 10f / drawingArea.Width;
@@ -255,6 +256,7 @@ namespace TestingWinForms
 
                 Refresh(); // Redraw the form to display the dots
                 SavePointToCSV(point);
+                hasClicked = true;
 
                 timer = new System.Threading.Timer(OnTimerElapsed, null, timerToQuestionPage, Timeout.Infinite); // Start the timer for x seconds
             }
@@ -262,6 +264,7 @@ namespace TestingWinForms
 
         private void OnTimerElapsed(object state)
         {
+            hasClicked = false;
             // Invoke the navigation to a new page on the UI thread
             Invoke(new Action(() =>
             {
