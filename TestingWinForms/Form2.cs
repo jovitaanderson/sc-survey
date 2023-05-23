@@ -26,6 +26,8 @@ namespace TestingWinForms
         private List<string> autoSelectedOptions = new List<string>(); // Stores the selected checkboxes
         private string randomQuestionsText = null;
 
+        String[] savedAnswers = new String[3];
+
         public Form2(int rowNumber)
         {
             InitializeComponent();
@@ -253,6 +255,7 @@ namespace TestingWinForms
         private void submitButton_Click(object sender, EventArgs e)
         {
             String selectedOptions = string.Join(";", autoSelectedOptions);
+            //savedAnswers[questions[currentQuestionIndex].Index] =
             autoSelectedOptions.Clear();
             // Reset the timer
             ResetTimer();
