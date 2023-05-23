@@ -39,6 +39,8 @@ namespace TestingWinForms
             optionACheckBox.CheckedChanged += CheckBox_CheckedChanged;
             optionBCheckBox.CheckedChanged += CheckBox_CheckedChanged;
             optionCCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionDCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionECheckBox.CheckedChanged += CheckBox_CheckedChanged;
 
             // Initialize the list of questions
             /*questions = new List<Question>()

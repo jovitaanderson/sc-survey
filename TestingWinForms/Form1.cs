@@ -138,13 +138,14 @@ namespace TestingWinForms
                 {
                     //Console.WriteLine(lines[i]);
                     string[] parts = lines[i].Split(',');
-                    if (parts.Length > pointXIndex && parts.Length > pointYIndex )
+                    if (parts.Length > pointXIndex && parts.Length > pointYIndex &&
+                        float.TryParse(parts[pointXIndex], out float x) && float.TryParse(parts[pointYIndex], out float y))
                     {
                         //to fix 
 
                         // Scale back the coordinates to the original dimensions
-                         float originalX = (pointXIndex * inverseScaleX) + drawingArea.X;
-                         float originalY = (pointYIndex * inverseScaleY) + drawingArea.Y;
+                        float originalX = (x * inverseScaleX) + drawingArea.X;
+                         float originalY = (y * inverseScaleY) + drawingArea.Y;
 
                         existingClickedPositions.Add(new PointF(originalX, originalY));
                     }
