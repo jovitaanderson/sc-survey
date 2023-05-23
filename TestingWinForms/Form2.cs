@@ -22,11 +22,18 @@ namespace TestingWinForms
 
         private string csvAdminQuestionsFilePath = "admin_questions.csv"; // Path to the CSV file
         private string csvAdminAdvanceFilePath = "admin_advance.csv";
+        private List<string> autoSelectedOptions = new List<string>(); // Stores the selected checkboxes
+
 
         public Form2(int rowNumber)
         {
             InitializeComponent();
             this.rowNumber = rowNumber;
+
+            // Subscribe the same event handler method to the CheckedChanged event of each checkbox
+            optionACheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionBCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionCCheckBox.CheckedChanged += CheckBox_CheckedChanged;
 
             // Initialize the list of questions
             /*questions = new List<Question>()
@@ -187,27 +194,30 @@ namespace TestingWinForms
             }
         }
 
+        private void CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+
+            if (checkBox.Checked)
+            {
+                // Add the selected checkbox to the selectedOptions list
+                autoSelectedOptions.Add(checkBox.Text);
+            }
+            else
+            {
+                // Remove the deselected checkbox from the selectedOptions list
+                autoSelectedOptions.Remove(checkBox.Text);
+            }
+            questionLabel.Text = string.Join(",", autoSelectedOptions);
+        }
+
         private void submitButton_Click(object sender, EventArgs e)
         {
-
+            String selectedOptions = string.Join(";", autoSelectedOptions);
+            autoSelectedOptions.Clear();
             // Reset the timer
             ResetTimer();
-
-            // Get the selected options
-            List<string> selectedOptions = new List<string>();
-
-            if (optionACheckBox.Checked)
-                selectedOptions.Add(optionACheckBox.Text);
-            if (optionBCheckBox.Checked)
-                selectedOptions.Add(optionBCheckBox.Text);
-            if (optionCCheckBox.Checked)
-                selectedOptions.Add(optionCCheckBox.Text);
-
-            string joinedOptions = string.Join(";", selectedOptions);
-
-            // Save the selected options (you can modify this to save the data to a file or a database)
-            //SaveSelectedOptions(selectedOptions);
-            AppendDataToSpecificRow(csvFilePath, rowNumber, joinedOptions);
+            AppendDataToSpecificRow(csvFilePath, rowNumber, selectedOptions);
 
             // Move to the next question
             currentQuestionIndex++;
@@ -243,6 +253,7 @@ namespace TestingWinForms
         private void Timer_Tick(object sender, EventArgs e)
         {
             // Timer elapsed, redirect to Form1
+            AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(";", autoSelectedOptions));
             timer.Stop();
             Form1 form1 = new Form1();
             form1.Show();
@@ -261,7 +272,6 @@ namespace TestingWinForms
     {
         public string Text { get; set; }
         public List<string> Options { get; set; }
-
         public Question(string text, List<string> options)
         {
             Text = text;

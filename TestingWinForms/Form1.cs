@@ -42,6 +42,9 @@ namespace TestingWinForms
                 File.WriteAllText(csvFilePath, csvHeader, Encoding.UTF8);
             }
 
+            //FormBorderStyle = FormBorderStyle.None; // Remove the border
+            //WindowState = FormWindowState.Maximized; // Maximize the window
+
             this.MouseClick += Form1_MouseClick; // Wire up the event handler
             LoadPointsFromCSV(); // Load points from CSV file
             LoadTableFromCSV();
@@ -178,10 +181,7 @@ namespace TestingWinForms
                 timer.Dispose(); // Dispose the timer
                 timer = null; // Set the timer reference to null
 
-                int currentRowNumber = lastRowNumber; // Get the last row number and increment by 1
-
-
-                Form2 newForm = new Form2(currentRowNumber); // Navigate to a new page
+                Form2 newForm = new Form2(lastRowNumber); // Navigate to a new page
                 newForm.Show();
                 this.Hide();
             }));
