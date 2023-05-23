@@ -181,8 +181,8 @@ namespace TestingWinForms
 
                 timer.Stop();
                 //timer = new System.Threading.Timer(OnTimerElapsed, null, 2000, Timeout.Infinite); // Start the timer for 3 seconds
-                Form1 form1 = new Form1();
-                form1.Show();
+                ThankYouScreen thankYouForm = new ThankYouScreen();
+                thankYouForm.Show();
                 this.Close();
             }
         }

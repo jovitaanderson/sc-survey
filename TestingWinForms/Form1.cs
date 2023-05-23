@@ -16,7 +16,7 @@ namespace TestingWinForms
     {
         private List<Point> existingClickedPositions; // Stores the previous saved clicked positions
         private Point clickedPosition; // Stores the current clicked positions
-        private Rectangle drawingArea = new Rectangle(100, 50, 200, 200); // Defines the drawing area 
+        private Rectangle drawingArea = new Rectangle(100, 50, 200, 200); // Defines the drawing area (x, y, height, width)
         private int drawingAreaBorderWidth = 2; // Specify the width of the border
         private int dotSize = 10;
         private System.Threading.Timer timer; // Timer to wait for 3 seconds
@@ -31,6 +31,7 @@ namespace TestingWinForms
 
         public Form1()
         {
+
             InitializeComponent();
             existingClickedPositions = new List<Point>();
 
@@ -55,7 +56,14 @@ namespace TestingWinForms
                 // Adjust the background image display settings
                 this.BackgroundImageLayout = ImageLayout.Stretch;
             }
-            
+
+            // Set the Anchor property for labels and buttons
+            //labelTitle.Anchor = AnchorStyles.Left;
+            //labelXAxis.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            //labelYAxis.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            //button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            //button2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+
         }
 
         private void LoadTableFromCSV()
@@ -203,6 +211,41 @@ namespace TestingWinForms
                 int dotY = clickedPosition.Y - dotSize / 2;
 
                 e.Graphics.FillEllipse(Brushes.Red, dotX, dotY, dotSize, dotSize);
+            }
+
+            // Draw X and Y axis labels
+            int xSteps = 5; // Specify the number of steps on the X axis
+            int ySteps = 5; // Specify the number of steps on the Y axis
+            int stepSizeX = drawingArea.Width / xSteps;
+            int stepSizeY = drawingArea.Height / ySteps;
+
+            using (Font font = new Font("Arial", 8))
+            {
+                using (StringFormat format = new StringFormat())
+                {
+                    format.Alignment = StringAlignment.Center;
+                    format.LineAlignment = StringAlignment.Center;
+
+                    // Draw X axis labels
+                    for (int i = 1; i <= xSteps; i++)
+                    {
+                        int labelX = drawingArea.Left + (i * stepSizeX);
+                        int labelY = drawingArea.Bottom + 5;
+
+                        string label = (i * 10).ToString(); // Adjust the label based on your requirements
+                        e.Graphics.DrawString(label, font, Brushes.Black, labelX, labelY, format);
+                    }
+
+                    // Draw Y axis labels
+                    for (int i = 1; i <= ySteps; i++)
+                    {
+                        int labelX = drawingArea.Left - 25;
+                        int labelY = drawingArea.Bottom - (i * stepSizeY);
+
+                        string label = (i * 10).ToString(); // Adjust the label based on your requirements
+                        e.Graphics.DrawString(label, font, Brushes.Black, labelX, labelY, format);
+                    }
+                }
             }
         }
 
