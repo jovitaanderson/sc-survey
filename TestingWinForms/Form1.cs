@@ -150,7 +150,7 @@ namespace TestingWinForms
                         labelYAxis.Text = values[2];
                     }
                 }
-            }
+            } 
         }
 
         private string LoadBackgroundImageFromCSV()
@@ -256,9 +256,6 @@ namespace TestingWinForms
                 Refresh(); // Redraw the form to display the dots
                 SavePointToCSV(point);
 
-                //For debugging
-                UpdatePositionLabel(point); // Update the position label
-
                 timer = new System.Threading.Timer(OnTimerElapsed, null, timerToQuestionPage, Timeout.Infinite); // Start the timer for x seconds
             }
         }
@@ -341,11 +338,6 @@ namespace TestingWinForms
             }
         }
 
-        //For debugging
-        private void UpdatePositionLabel(PointF position)
-        {
-            lbl_clickMessage.Text = $"X: {position.X}, Y: {position.Y}";
-        }
 
         private void btnAdmin_Click(object sender, EventArgs e)
         {

@@ -1,4 +1,4 @@
-date,point_x,point_y,do u enjoy this trip??,Do you like our Exhibition,Would you come again?
+date,point_x,point_y,Do you enjoy this exhibition?,Do you like Food,What is your blood type?
 23/2/2023,7.75,7.85,,,
 23/7/2023,5.95,7.4,,,
 2/3/2023,7.5,3.95,,,
@@ -6,8 +6,8 @@ date,point_x,point_y,do u enjoy this trip??,Do you like our Exhibition,Would you
 3/5/2023,2.8,7.2,No,,Meh;Not really
 23/5/2023,6.7,2.75,Maybe;No;Yes,,
 23/5/2023,8.7,2.1,Not really;Yes Alot,Maybe,Yes
-23/5/2023,7.05,4.85,Maybe,,
-23/5/2023,9.900001,9.900001,,,
+23/1/2023,7.05,4.85,Maybe,,
+25/1/2023,9.900001,9.900001,,,
 23/5/2023,0.25,0.15,,Maybe,Not really
 23/5/2023,9.25,5.75,No,No,Not really
 23/5/2023,7,6.8,Yes Alot,,No
@@ -36,4 +36,16 @@ date,point_x,point_y,do u enjoy this trip??,Do you like our Exhibition,Would you
 23/5/2023,4.141566,5,,,
 23/5/2023,9.35241,6.430723,Worst Ever;No,Yes,Maybe;Never Again
 23/5/2023,3.418675,5.737952,Yes Alot,,
-23/05/2023,5.288462,5.576923
+23/5/2023,5.288462,5.576923,,,
+23/5/2023,0.1506024,9.819278,Worst Ever,No,No
+23/5/2023,0.5722892,8.313253,,,
+23/5/2023,1.084337,1.762048,Yes Alot,HATE it,B+
+23/5/2023,2.364458,0.7379518,Yes Alot;Not really;Meh;No;Worst Ever,Yes;No;HATE it,O;B+;B-;A;None
+23/5/2023,9.216867,9.171687,,,
+23/5/2023,6.114458,5.286145,,,
+23/5/2023,6.21988,4.939759,,,
+23/5/2023,1.837349,9.849398,Yes Alot;Not really;Meh;No;Worst Ever,Yes;No;HATE it,O;B+;B-;A;None
+23/5/2023,9.939759,0,,,
+23/5/2023,0,0,,,
+23/05/2023,8.027108,9.307229,,,
+23/05/2023,8.855422,8.328314,,,
