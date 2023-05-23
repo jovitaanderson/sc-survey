@@ -83,6 +83,19 @@ namespace TestingWinForms
 
         }
 
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            // Center the label and checkboxes on the form
+            questionLabel.TextAlign = ContentAlignment.MiddleCenter;
+            optionACheckBox.TextAlign = ContentAlignment.MiddleCenter;
+            optionBCheckBox.TextAlign = ContentAlignment.MiddleCenter;
+            optionCCheckBox.TextAlign = ContentAlignment.MiddleCenter;
+            optionDCheckBox.TextAlign = ContentAlignment.MiddleCenter;
+            optionECheckBox.TextAlign = ContentAlignment.MiddleCenter;
+
+        }
+
+
         private string LoadBackgroundImageFromCSV()
         {
             if (File.Exists(csvAdminAdvanceFilePath))
