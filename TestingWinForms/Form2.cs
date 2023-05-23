@@ -208,7 +208,7 @@ namespace TestingWinForms
                 // Remove the deselected checkbox from the selectedOptions list
                 autoSelectedOptions.Remove(checkBox.Text);
             }
-            questionLabel.Text = string.Join(",", autoSelectedOptions);
+            //questionLabel.Text = string.Join(",", autoSelectedOptions);
         }
 
         private void submitButton_Click(object sender, EventArgs e)

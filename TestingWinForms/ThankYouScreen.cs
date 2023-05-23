@@ -19,8 +19,50 @@ namespace TestingWinForms
         {
             InitializeComponent();
 
+            //Display Background Image
+            string imagePath = LoadBackgroundImageFromCSV();
+
+            if (!string.IsNullOrEmpty(imagePath))
+            {
+                // Set the background image of the Windows Forms application
+                this.BackgroundImage = Image.FromFile(imagePath);
+
+                // Adjust the background image display settings
+                this.BackgroundImageLayout = ImageLayout.Stretch;
+            }
+
             // Subscribe to the Timer's Tick event
             timer1.Tick += Timer1_Tick;
+        }
+
+        private string LoadBackgroundImageFromCSV()
+        {
+            if (File.Exists(csvAdminAdvanceFilePath))
+            {
+                string[] lines = File.ReadAllLines(csvAdminAdvanceFilePath);
+                if (lines.Length > 0)
+                {
+                    string[] values = lines[lines.Length - 1].Split(',');
+
+                    if (values[3] != null)
+                    {
+                        string imagePath = Path.Combine(values[3]);
+                        return imagePath;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private void Timer1_Tick(object sender, EventArgs e)

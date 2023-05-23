@@ -49,6 +49,7 @@ namespace TestingWinForms
             LoadPointsFromCSV(); // Load points from CSV file
             LoadTableFromCSV();
 
+            //Display Background Image
             string imagePath = LoadBackgroundImageFromCSV();
 
             if (!string.IsNullOrEmpty(imagePath))
@@ -64,8 +65,6 @@ namespace TestingWinForms
             //labelTitle.Anchor = AnchorStyles.Left;
             //labelXAxis.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             //labelYAxis.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            //button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            //button2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 
         }
 
