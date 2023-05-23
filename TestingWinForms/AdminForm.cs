@@ -17,12 +17,17 @@ namespace TestingWinForms
         private string csvAdminTableFilePath = "admin_table.csv";
         private string csvAdminDownloadFilePath = "admin_download.csv";
         private string csvAdminAdvanceFilePath = "admin_advance.csv";
+        private string csvFilePath = "player_answers.csv";
 
         private string csvPlayerFilePath = "player_answers.csv";
 
         public AdminForm()
         {
             InitializeComponent();
+
+            FormBorderStyle = FormBorderStyle.None; // Remove the border
+            WindowState = FormWindowState.Maximized; // Maximize the window
+
         }
 
         private void AdminForm_Load(object sender, EventArgs e)
@@ -48,6 +53,10 @@ namespace TestingWinForms
             Graphics g = e.Graphics;
             Rectangle bounds = tabControl.GetTabRect(e.Index);
 
+            // Set the desired font size
+            Font tabFont = new Font(tabControl.Font.FontFamily, 16, tabControl.Font.Style);
+
+
             /*if (e.Index == tabControl.SelectedIndex)
             {
                 using (Brush selectedTabBrush = new SolidBrush(Color.LightBlue))
@@ -62,7 +71,7 @@ namespace TestingWinForms
                 stringFormat.Alignment = StringAlignment.Center;
                 stringFormat.LineAlignment = StringAlignment.Center;
 
-                g.DrawString(tabControl.TabPages[e.Index].Text, tabControl.Font, tabTextBrush, bounds, stringFormat);
+                g.DrawString(tabControl.TabPages[e.Index].Text, tabFont, tabTextBrush, bounds, stringFormat);
             }
 
         }
@@ -348,6 +357,72 @@ namespace TestingWinForms
                     }
                 }
             }
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabTable_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDownload_Click(object sender, EventArgs e)
+        {
+            
+            // Filter the player answers based on the selected date range
+            List<string> filteredPlayerAnswers = FilterPlayerAnswersByDateRange(dateTimePickerStartDate.Value, dateTimePickerEndDate.Value);
+
+            // Check if there are any matching answers
+            if (filteredPlayerAnswers.Count > 0)
+            {
+                // Open a SaveFileDialog to specify the download location
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
+                saveFileDialog.FileName = "playeranswers.csv";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string savePath = saveFileDialog.FileName;
+
+                    // Write the filtered player answers to the selected file
+                    File.WriteAllLines(savePath, filteredPlayerAnswers);
+
+                    MessageBox.Show("Player answers downloaded successfully.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No player answers found for the selected date range.");
+            }
+        }
+
+        private List<string> FilterPlayerAnswersByDateRange(DateTime startDate, DateTime endDate)
+        {
+            List<string> filteredAnswers = new List<string>();
+
+            if (File.Exists(csvFilePath))
+            {
+                string[] allAnswers = File.ReadAllLines(csvFilePath);
+
+                foreach (string answer in allAnswers)
+                {
+                    // Assuming the date is the first column in the player answers CSV file
+                    string[] values = answer.Split(',');
+
+                    if (values.Length > 0 && DateTime.TryParse(values[0], out DateTime answerDate))
+                    {
+                        if (answerDate >= startDate && answerDate <= endDate)
+                        {
+                            filteredAnswers.Add(answer);
+                        }
+                    }
+                }
+            }
+
+            return filteredAnswers;
         }
     }
 }

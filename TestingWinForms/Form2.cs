@@ -35,6 +35,9 @@ namespace TestingWinForms
             // Check if admin wants questions to be in random
             LoadRandomQuestionsAndTimerIntervalData();
 
+            FormBorderStyle = FormBorderStyle.None; // Remove the border
+            WindowState = FormWindowState.Maximized; // Maximize the window
+
 
             this.rowNumber = rowNumber;
 
