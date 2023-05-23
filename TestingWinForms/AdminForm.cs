@@ -175,6 +175,7 @@ namespace TestingWinForms
             string endSurveyText = textBoxEndMessage.Text;
             // Get the image from the PictureBox
             Image image = pictureBox.Image;
+            string imagePath = null;
 
             //save as root directory
             if (image != null)
@@ -192,25 +193,17 @@ namespace TestingWinForms
                 }
 
                 // Generate a unique file name for the image
-                string fileName = "background" + ".png"; 
+                string fileName = Guid.NewGuid().ToString() + ".png";
 
                 // Save the image to the specified directory
-                string imagePath = Path.Combine(directoryPath, fileName);
+                imagePath = Path.Combine(directoryPath, fileName);
                 image.Save(imagePath);
 
                 // Optionally, you can store the imagePath for future reference or use it as needed
             }
 
-            //save as csv
-            /*string base64Image = null;
-            if (image != null)
-            {
-                // Convert the image to Base64 string
-                base64Image = ConvertImageToBase64(image);
-            }*/
-
             // Concatenate the data into a comma-separated string
-            string data = string.Format("{0},{1},{2}", timeOut, randomQuestions, endSurveyText); //, base64Image);
+            string data = string.Format("{0},{1},{2},{3}", timeOut, randomQuestions, endSurveyText, imagePath); //, base64Image);
 
             // Append the data to the CSV file
             using (StreamWriter sw = new StreamWriter(csvAdminAdvanceFilePath, true))
@@ -318,16 +311,16 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 3)
+                    if (values.Length == 4)
                     {
                         textBoxTimeOut.Text = values[0];
                         comboBoxRandomQns.Text = values[1];
                         textBoxEndMessage.Text = values[2];
 
                         // Load the image if it exists
-                        string rootPath = Directory.GetCurrentDirectory();
-                        string directoryPath = Path.Combine(rootPath, "Images");
-                        string imagePath = Path.Combine(directoryPath, "background.png");
+                        //string rootPath = Directory.GetCurrentDirectory();
+                        //string directoryPath = Path.Combine(rootPath, "Images");
+                        string imagePath = Path.Combine(values[3]);
 
                         if (File.Exists(imagePath))
                         {
