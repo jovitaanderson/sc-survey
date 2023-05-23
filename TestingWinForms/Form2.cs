@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +15,16 @@ namespace TestingWinForms
     {
         private List<Question> questions;
         private int currentQuestionIndex;
-        public Form2()
+        private Timer timer;
+        private const int TimerInterval = 5000; // 3 seconds in milliseconds
+        private string csvFilePath = "player_answers.csv";
+        private int rowNumber; 
+
+        public Form2(int rowNumber)
         {
             InitializeComponent();
+            this.rowNumber = rowNumber;
+
             // Initialize the list of questions
             questions = new List<Question>()
             {
@@ -27,14 +35,25 @@ namespace TestingWinForms
 
             currentQuestionIndex = 0;
 
+            // Set up the timer
+            timer = new Timer();
+            timer.Interval = TimerInterval;
+            timer.Tick += Timer_Tick;
+            timer.Start();
+
             // Display the first question
             DisplayQuestion();
+
         }
 
         private void DisplayQuestion()
         {
             if (currentQuestionIndex < questions.Count)
             {
+                Console.WriteLine(questions.Count);
+                // Reset the timer
+                ResetTimer();
+
                 Question currentQuestion = questions[currentQuestionIndex];
 
                 // Update the question label
@@ -63,13 +82,21 @@ namespace TestingWinForms
                 optionBCheckBox.Enabled = false;
                 optionCCheckBox.Enabled = false;
                 submitButton.Enabled = false;
+
+                timer.Stop();
+                //timer = new System.Threading.Timer(OnTimerElapsed, null, 2000, Timeout.Infinite); // Start the timer for 3 seconds
+                Form1 form1 = new Form1();
+                form1.Show();
+                this.Close();
             }
         }
 
-
-
         private void submitButton_Click(object sender, EventArgs e)
         {
+
+            // Reset the timer
+            ResetTimer();
+
             // Get the selected options
             List<string> selectedOptions = new List<string>();
 
@@ -80,8 +107,11 @@ namespace TestingWinForms
             if (optionCCheckBox.Checked)
                 selectedOptions.Add(optionCCheckBox.Text);
 
+            string joinedOptions = string.Join(";", selectedOptions);
+
             // Save the selected options (you can modify this to save the data to a file or a database)
-            SaveSelectedOptions(selectedOptions);
+            //SaveSelectedOptions(selectedOptions);
+            AppendDataToSpecificRow(csvFilePath, rowNumber, joinedOptions);
 
             // Move to the next question
             currentQuestionIndex++;
@@ -90,10 +120,44 @@ namespace TestingWinForms
             DisplayQuestion();
         }
 
-        private void SaveSelectedOptions(List<string> selectedOptions)
+        private void AppendDataToSpecificRow(string csvFilePath, int rowNumber, string rowData)
         {
-            // Implement your own code to save the selected options
-            Console.WriteLine("Selected Options: " + string.Join(", ", selectedOptions));
+            if (File.Exists(csvFilePath))
+            {
+                string[] lines = File.ReadAllLines(csvFilePath);
+                if (rowNumber >= 0 && rowNumber < lines.Length)
+                {
+                    lines[rowNumber] = lines[rowNumber] + "," + rowData; // Replace the row with the new data
+                    File.WriteAllLines(csvFilePath, lines); // Rewrite the entire file with the updated row
+                }
+                else
+                {
+                    // Row number is out of range
+                    Console.WriteLine("Invalid row number.");
+                }
+            }
+            else
+            {
+                // File doesn't exist
+                Console.WriteLine("CSV file does not exist.");
+            }
+        }
+
+        // Timer for question
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            // Timer elapsed, redirect to Form1
+            timer.Stop();
+            Form1 form1 = new Form1();
+            form1.Show();
+            this.Close();
+        }
+
+        private void ResetTimer()
+        {
+            // Reset the timer
+            timer.Stop();
+            timer.Start();
         }
     }
 

@@ -9,6 +9,9 @@ C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWin
 C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.pdb
 C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.Form1.resources
 C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.Form2.resources
+<<<<<<< HEAD
+C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.csproj.SuggestedBindingRedirects.cache
+=======
 C:\Users\ngsha\Documents\GitHub\sc-survey2\TestingWinForms\bin\Debug\TestingWinForms.exe.config
 C:\Users\ngsha\Documents\GitHub\sc-survey2\TestingWinForms\bin\Debug\TestingWinForms.exe
 C:\Users\ngsha\Documents\GitHub\sc-survey2\TestingWinForms\bin\Debug\TestingWinForms.pdb
@@ -21,3 +24,5 @@ C:\Users\ngsha\Documents\GitHub\sc-survey2\TestingWinForms\obj\Debug\TestingWinF
 C:\Users\ngsha\Documents\GitHub\sc-survey2\TestingWinForms\obj\Debug\TestingWinForms.exe
 C:\Users\ngsha\Documents\GitHub\sc-survey2\TestingWinForms\obj\Debug\TestingWinForms.pdb
 C:\Users\ngsha\Documents\GitHub\sc-survey2\TestingWinForms\obj\Debug\TestingWinForms.AdminForm.resources
+>>>>>>> 5515cda86b9787c73976585b14b6e80fe1ba5b19
+C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.AdminForm.resources
