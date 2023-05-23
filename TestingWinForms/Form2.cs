@@ -16,7 +16,8 @@ namespace TestingWinForms
         private List<Question> questions;
         private int currentQuestionIndex;
         private Timer timer;
-        private const int TimerInterval = 5000; // 3 seconds in milliseconds
+        //private const int TimerInterval = 5000; // 3 seconds in milliseconds
+        private int timerInterval = 0;
         private string csvFilePath = "player_answers.csv";
         private int rowNumber;
 
@@ -30,7 +31,8 @@ namespace TestingWinForms
         {
             InitializeComponent();
             // Check if admin wants questions to be in random
-            LoadRandomQuestionsData();
+            LoadRandomQuestionsAndTimerIntervalData();
+
 
             this.rowNumber = rowNumber;
 
@@ -51,7 +53,7 @@ namespace TestingWinForms
 
             // Set up the timer
             timer = new Timer();
-            timer.Interval = TimerInterval;
+            timer.Interval = timerInterval;
             timer.Tick += Timer_Tick;
             timer.Start();
 
@@ -147,7 +149,7 @@ namespace TestingWinForms
 
         }
 
-        private void LoadRandomQuestionsData()
+        private void LoadRandomQuestionsAndTimerIntervalData()
         {
             if (File.Exists(csvAdminAdvanceFilePath))
             {
@@ -159,6 +161,10 @@ namespace TestingWinForms
                     if (values[1] != null)
                     {
                         randomQuestionsText = values[1];
+                    }
+                    if (values[0] != null && int.TryParse(values[0], out int interval))
+                    {
+                        timerInterval = interval * 1000;
                     }
                 }
             }
