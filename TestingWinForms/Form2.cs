@@ -174,6 +174,7 @@ namespace TestingWinForms
         private void Timer_Tick(object sender, EventArgs e)
         {
             // Timer elapsed, redirect to Form1
+            AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(";", autoSelectedOptions));
             timer.Stop();
             Form1 form1 = new Form1();
             form1.Show();
