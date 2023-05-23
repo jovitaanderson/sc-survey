@@ -1,43 +1,6 @@
-point_x,point_y,question1,question2,question3
-217,128,,,
-243,168,,,
-141,100,,,
-202,200,,,
-147,170,,,
-253,192,,,
-269,120,,,
-233,95,,,
-214,195,,,
-191,176,,,
-167,107,,,
-291,171,,,
-189,81,,,
-170,156,,,
-252,234,,,
-100,238,,,
-174,200,,,
-126,149,,,
-190,86,,,
-253,236,,,
-257,83,,,
-202,129,,,
-138,215,,,
-285,90,,,
-257,158,,,
-230,81,,,
-258,72,,,
-207,156,,,
-136,70,,,
-276,194,,,
-194,234,,,
-206,51,,,
-265,139,,,
-239,139,Option B;Option C,Option D;Option F,Option G;Option H
-147,132
-165,66,Option B;Option C
-239,64
-242,112,Option C,Option E,Option G
-200,114,Option C,Option F,Option H;Option I
-288,134,Option B,,
-273,219,Option B,,Option H;Option I
-275,168,Option B,Option F,Option G;Option H
+date,point_x,point_y,question1,question2,question3
+23/05/2023,224,189,Option B;Option C,Option D,Option H
+23/05/2023,211,106,Option B,Option D,Option H;Option I
+23/05/2023,228,93
+23/05/2023,173,193,Option B,Option F
+23/05/2023,268,146

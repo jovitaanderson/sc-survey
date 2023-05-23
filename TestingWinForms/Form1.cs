@@ -21,7 +21,7 @@ namespace TestingWinForms
         private int dotSize = 10;
         private System.Threading.Timer timer; // Timer to wait for 3 seconds
         private string csvFilePath = "player_answers.csv"; // Path to the CSV file
-        private const string columnNames = "point_x,point_y,question1,question2,question3";
+        private const string columnNames = "date,point_x,point_y,question1,question2,question3";
         private int timerToQuestionPage = 1000;
         private int lastRowNumber;
 
@@ -73,7 +73,9 @@ namespace TestingWinForms
         {
             using (StreamWriter writer = new StreamWriter(csvFilePath, true))
             {
-                writer.WriteLine($"{clickedPosition.X},{clickedPosition.Y}");
+                string currentDate = DateTime.Now.ToString("dd/MM/yyyy");
+
+                writer.WriteLine($"{currentDate},{clickedPosition.X},{clickedPosition.Y}");
             }
         }
 
