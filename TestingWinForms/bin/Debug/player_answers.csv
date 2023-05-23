@@ -38,3 +38,6 @@ point_x,point_y,question1,question2,question3
 239,64
 242,112,Option C,Option E,Option G
 200,114,Option C,Option F,Option H;Option I
+288,134,Option B,,
+273,219,Option B,,Option H;Option I
+275,168,Option B,Option F,Option G;Option H
