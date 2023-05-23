@@ -14,7 +14,7 @@ namespace TestingWinForms
 {
     public partial class Form1 : Form
     {
-        private List<Point> existingClickedPositions; // Stores the previous saved clicked positions
+        private List<PointF> existingClickedPositions; // Stores the previous saved clicked positions
         private Point clickedPosition; // Stores the current clicked positions
         private Rectangle drawingArea = new Rectangle(100, 50, 200, 200); // Defines the drawing area 
         private int drawingAreaBorderWidth = 2; // Specify the width of the border
@@ -28,7 +28,7 @@ namespace TestingWinForms
         public Form1()
         {
             InitializeComponent();
-            existingClickedPositions = new List<Point>();
+            existingClickedPositions = new List<PointF>();
 
             //Create file with column header if file does not exits
             if (!File.Exists(csvFilePath))
@@ -49,6 +49,10 @@ namespace TestingWinForms
             // Load all existing points to screen
             if (File.Exists(csvFilePath))
             {
+                // Calculate the inverse scaling factors
+                float inverseScaleX = drawingArea.Width / 10f;
+                float inverseScaleY = drawingArea.Height / 10f;
+
                 string[] lines = File.ReadAllLines(csvFilePath);
                 lastRowNumber = lines.Length;
 
@@ -61,10 +65,15 @@ namespace TestingWinForms
                 {
                     //Console.WriteLine(lines[i]);
                     string[] parts = lines[i].Split(',');
-                    if (parts.Length > pointXIndex && parts.Length > pointYIndex &&
-                        int.TryParse(parts[pointXIndex], out int x) && int.TryParse(parts[pointYIndex], out int y))
+                    if (parts.Length > pointXIndex && parts.Length > pointYIndex )
                     {
-                        existingClickedPositions.Add(new Point(x, y));
+                        //to fix 
+
+                        // Scale back the coordinates to the original dimensions
+                         float originalX = (pointXIndex * inverseScaleX) + drawingArea.X;
+                         float originalY = (pointYIndex * inverseScaleY) + drawingArea.Y;
+
+                        existingClickedPositions.Add(new PointF(originalX, originalY));
                     }
                 }
 
@@ -72,13 +81,13 @@ namespace TestingWinForms
             }
         }
 
-        private void SavePointsToCSV()
+        private void SavePointToCSV(PointF currPoint)
         {
             using (StreamWriter writer = new StreamWriter(csvFilePath, true))
             {
                 string currentDate = DateTime.Now.ToString("dd/MM/yyyy");
 
-                writer.WriteLine($"{currentDate},{clickedPosition.X},{clickedPosition.Y}");
+                writer.WriteLine($"{currentDate},{currPoint.X},{currPoint.Y}");
             }
         }
 
@@ -86,14 +95,25 @@ namespace TestingWinForms
         {
             if (drawingArea.Contains(e.Location))
             {
-                existingClickedPositions.Add(e.Location);
+                // Calculate the scaled coordinates within the rectangle
+                float scaleX = 10f / drawingArea.Width;
+                float scaleY = 10f / drawingArea.Height;
+
+                float scaledX = (e.Location.X - drawingArea.X) * scaleX;
+                float scaledY = (e.Location.Y - drawingArea.Y) * scaleY;
+                //int scaledXInt = (int)Math.Round(scaledX);
+                //int scaledYInt = (int)Math.Round(scaledY);
+
+                PointF point = new PointF(scaledX, scaledY); // Create a PointF instance with the float values
+
+                existingClickedPositions.Add(point);
                 clickedPosition = e.Location; 
 
                 Refresh(); // Redraw the form to display the dots
-                SavePointsToCSV();
+                SavePointToCSV(point);
 
                 //For debugging
-                UpdatePositionLabel(e.Location); // Update the position label
+                UpdatePositionLabel(point); // Update the position label
 
                 timer = new System.Threading.Timer(OnTimerElapsed, null, timerToQuestionPage, Timeout.Infinite); // Start the timer for x seconds
             }
@@ -119,12 +139,13 @@ namespace TestingWinForms
             ControlPaint.DrawBorder(e.Graphics, drawingArea, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid);
 
             // Paint existing dots
-            foreach (Point position in existingClickedPositions)
+            foreach (PointF position in existingClickedPositions)
             {
-                if (drawingArea.Contains(position))
+                Point roundedPosition = Point.Round(position); // Convert PointF to Point
+                if (drawingArea.Contains(roundedPosition))
                 {
-                    int dotX = position.X - dotSize / 2;
-                    int dotY = position.Y - dotSize / 2;
+                    float dotX = position.X - dotSize / 2;
+                    float dotY = position.Y - dotSize / 2;
 
                     e.Graphics.FillEllipse(Brushes.Blue, dotX, dotY, dotSize, dotSize);
                 }
@@ -141,7 +162,7 @@ namespace TestingWinForms
         }
 
         //For debugging
-        private void UpdatePositionLabel(Point position)
+        private void UpdatePositionLabel(PointF position)
         {
             lbl_clickMessage.Text = $"X: {position.X}, Y: {position.Y}";
         }

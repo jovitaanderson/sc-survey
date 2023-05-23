@@ -21,7 +21,6 @@ namespace TestingWinForms
         private int rowNumber;
         private List<string> autoSelectedOptions = new List<string>(); // Stores the selected checkboxes
 
-
         public Form2(int rowNumber)
         {
             InitializeComponent();
