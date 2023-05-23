@@ -33,22 +33,25 @@
             this.optionACheckBox = new System.Windows.Forms.CheckBox();
             this.optionBCheckBox = new System.Windows.Forms.CheckBox();
             this.optionCCheckBox = new System.Windows.Forms.CheckBox();
+            this.optionDCheckBox = new System.Windows.Forms.CheckBox();
+            this.optionECheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // questionLabel
             // 
             this.questionLabel.AutoSize = true;
-            this.questionLabel.Location = new System.Drawing.Point(226, 130);
+            this.questionLabel.Location = new System.Drawing.Point(201, 104);
             this.questionLabel.Name = "questionLabel";
-            this.questionLabel.Size = new System.Drawing.Size(70, 20);
+            this.questionLabel.Size = new System.Drawing.Size(62, 17);
             this.questionLabel.TabIndex = 4;
             this.questionLabel.Text = "question";
             // 
             // submitButton
             // 
-            this.submitButton.Location = new System.Drawing.Point(603, 335);
+            this.submitButton.Location = new System.Drawing.Point(536, 268);
+            this.submitButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.submitButton.Name = "submitButton";
-            this.submitButton.Size = new System.Drawing.Size(92, 46);
+            this.submitButton.Size = new System.Drawing.Size(82, 37);
             this.submitButton.TabIndex = 5;
             this.submitButton.Text = "Submit";
             this.submitButton.UseVisualStyleBackColor = true;
@@ -57,9 +60,10 @@
             // optionACheckBox
             // 
             this.optionACheckBox.AutoSize = true;
-            this.optionACheckBox.Location = new System.Drawing.Point(230, 174);
+            this.optionACheckBox.Location = new System.Drawing.Point(204, 139);
+            this.optionACheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.optionACheckBox.Name = "optionACheckBox";
-            this.optionACheckBox.Size = new System.Drawing.Size(113, 24);
+            this.optionACheckBox.Size = new System.Drawing.Size(98, 21);
             this.optionACheckBox.TabIndex = 6;
             this.optionACheckBox.Text = "checkBox1";
             this.optionACheckBox.UseVisualStyleBackColor = true;
@@ -67,9 +71,10 @@
             // optionBCheckBox
             // 
             this.optionBCheckBox.AutoSize = true;
-            this.optionBCheckBox.Location = new System.Drawing.Point(230, 206);
+            this.optionBCheckBox.Location = new System.Drawing.Point(204, 165);
+            this.optionBCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.optionBCheckBox.Name = "optionBCheckBox";
-            this.optionBCheckBox.Size = new System.Drawing.Size(113, 24);
+            this.optionBCheckBox.Size = new System.Drawing.Size(98, 21);
             this.optionBCheckBox.TabIndex = 7;
             this.optionBCheckBox.Text = "checkBox2";
             this.optionBCheckBox.UseVisualStyleBackColor = true;
@@ -77,23 +82,49 @@
             // optionCCheckBox
             // 
             this.optionCCheckBox.AutoSize = true;
-            this.optionCCheckBox.Location = new System.Drawing.Point(230, 236);
+            this.optionCCheckBox.Location = new System.Drawing.Point(204, 189);
+            this.optionCCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.optionCCheckBox.Name = "optionCCheckBox";
-            this.optionCCheckBox.Size = new System.Drawing.Size(113, 24);
+            this.optionCCheckBox.Size = new System.Drawing.Size(98, 21);
             this.optionCCheckBox.TabIndex = 8;
             this.optionCCheckBox.Text = "checkBox3";
             this.optionCCheckBox.UseVisualStyleBackColor = true;
             // 
+            // optionDCheckBox
+            // 
+            this.optionDCheckBox.AutoSize = true;
+            this.optionDCheckBox.Location = new System.Drawing.Point(204, 214);
+            this.optionDCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.optionDCheckBox.Name = "optionDCheckBox";
+            this.optionDCheckBox.Size = new System.Drawing.Size(98, 21);
+            this.optionDCheckBox.TabIndex = 9;
+            this.optionDCheckBox.Text = "checkBox4";
+            this.optionDCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // optionECheckBox
+            // 
+            this.optionECheckBox.AutoSize = true;
+            this.optionECheckBox.Location = new System.Drawing.Point(204, 239);
+            this.optionECheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.optionECheckBox.Name = "optionECheckBox";
+            this.optionECheckBox.Size = new System.Drawing.Size(98, 21);
+            this.optionECheckBox.TabIndex = 10;
+            this.optionECheckBox.Text = "checkBox5";
+            this.optionECheckBox.UseVisualStyleBackColor = true;
+            // 
             // Form2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(711, 360);
+            this.Controls.Add(this.optionECheckBox);
+            this.Controls.Add(this.optionDCheckBox);
             this.Controls.Add(this.optionCCheckBox);
             this.Controls.Add(this.optionBCheckBox);
             this.Controls.Add(this.optionACheckBox);
             this.Controls.Add(this.submitButton);
             this.Controls.Add(this.questionLabel);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form2";
             this.Text = "Form2";
             this.ResumeLayout(false);
@@ -107,5 +138,7 @@
         private System.Windows.Forms.CheckBox optionACheckBox;
         private System.Windows.Forms.CheckBox optionBCheckBox;
         private System.Windows.Forms.CheckBox optionCCheckBox;
+        private System.Windows.Forms.CheckBox optionDCheckBox;
+        private System.Windows.Forms.CheckBox optionECheckBox;
     }
 }

@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.lbl_clickMessage = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelYAxis = new System.Windows.Forms.Label();
+            this.labelXAxis = new System.Windows.Forms.Label();
             this.btnAdmin = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.labelTitle = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbl_clickMessage
@@ -45,23 +46,23 @@
             this.lbl_clickMessage.Text = "label1";
            
             // 
-            // label1
+            // labelYAxis
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(48, 163);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 17);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Text 1";
+            this.labelYAxis.AutoSize = true;
+            this.labelYAxis.Location = new System.Drawing.Point(48, 163);
+            this.labelYAxis.Name = "labelYAxis";
+            this.labelYAxis.Size = new System.Drawing.Size(47, 17);
+            this.labelYAxis.TabIndex = 3;
+            this.labelYAxis.Text = "Text 1";
             // 
-            // label2
+            // labelXAxis
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(209, 321);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 17);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Text 2";
+            this.labelXAxis.AutoSize = true;
+            this.labelXAxis.Location = new System.Drawing.Point(209, 321);
+            this.labelXAxis.Name = "labelXAxis";
+            this.labelXAxis.Size = new System.Drawing.Size(47, 17);
+            this.labelXAxis.TabIndex = 4;
+            this.labelXAxis.Text = "Text 2";
             // 
             // btnAdmin
             // 
@@ -80,15 +81,25 @@
             this.textBox1.Size = new System.Drawing.Size(100, 22);
             this.textBox1.TabIndex = 6;
             // 
+            // labelTitle
+            // 
+            this.labelTitle.AutoSize = true;
+            this.labelTitle.Location = new System.Drawing.Point(212, 30);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(46, 17);
+            this.labelTitle.TabIndex = 7;
+            this.labelTitle.Text = "label1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 360);
+            this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnAdmin);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelXAxis);
+            this.Controls.Add(this.labelYAxis);
             this.Controls.Add(this.lbl_clickMessage);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
@@ -100,10 +111,11 @@
 
         #endregion
         private System.Windows.Forms.Label lbl_clickMessage;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelYAxis;
+        private System.Windows.Forms.Label labelXAxis;
         private System.Windows.Forms.Button btnAdmin;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label labelTitle;
     }
 }
 

@@ -16,10 +16,14 @@ namespace TestingWinForms
     {
         private List<PointF> existingClickedPositions; // Stores the previous saved clicked positions
         private Point clickedPosition; // Stores the current clicked positions
-        private Rectangle drawingArea = new Rectangle(100, 50, 200, 200); // Defines the drawing area 
+        private Rectangle drawingArea = new Rectangle(100, 50, 200, 200); // Defines the drawing area (x, y, height, width)
         private int drawingAreaBorderWidth = 2; // Specify the width of the border
         private int dotSize = 10;
         private System.Threading.Timer timer; // Timer to wait for 3 seconds
+
+        private string csvAdminTableFilePath = "admin_table.csv";
+        private string csvAdminAdvanceFilePath = "admin_advance.csv";
+
         private string csvFilePath = "player_answers.csv"; // Path to the CSV file
         private const string columnNames = "date,point_x,point_y,question1,question2,question3";
         private int timerToQuestionPage = 1000;
@@ -27,6 +31,7 @@ namespace TestingWinForms
 
         public Form1()
         {
+
             InitializeComponent();
             existingClickedPositions = new List<PointF>();
 
@@ -42,6 +47,74 @@ namespace TestingWinForms
 
             this.MouseClick += Form1_MouseClick; // Wire up the event handler
             LoadPointsFromCSV(); // Load points from CSV file
+            LoadTableFromCSV();
+
+            //Display Background Image
+            string imagePath = LoadBackgroundImageFromCSV();
+
+            if (!string.IsNullOrEmpty(imagePath))
+            {
+                // Set the background image of the Windows Forms application
+                this.BackgroundImage = Image.FromFile(imagePath);
+
+                // Adjust the background image display settings
+                this.BackgroundImageLayout = ImageLayout.Stretch;
+            }
+
+            // Set the Anchor property for labels and buttons
+            //labelTitle.Anchor = AnchorStyles.Left;
+            //labelXAxis.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            //labelYAxis.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+
+        }
+
+        private void LoadTableFromCSV()
+        {
+            if (File.Exists(csvAdminTableFilePath))
+            {
+                string[] lines = File.ReadAllLines(csvAdminTableFilePath);
+                if (lines.Length > 0)
+                {
+                    string[] values = lines[lines.Length - 1].Split(',');
+
+                    if (values.Length == 3)
+                    {
+                        labelTitle.Text = values[0];
+                        labelXAxis.Text = values[1];
+                        labelYAxis.Text = values[2];
+                    }
+                }
+            }
+        }
+
+        private string LoadBackgroundImageFromCSV()
+        {
+            if (File.Exists(csvAdminAdvanceFilePath))
+            {
+                string[] lines = File.ReadAllLines(csvAdminAdvanceFilePath);
+                if (lines.Length > 0)
+                {
+                    string[] values = lines[lines.Length - 1].Split(',');
+
+                    if (values[3] != null)
+                    {
+                        string imagePath = Path.Combine(values[3]);
+                        return imagePath;
+                    } 
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            } 
+            else
+            {
+                return null;
+            }
         }
 
         private void LoadPointsFromCSV()
@@ -158,6 +231,41 @@ namespace TestingWinForms
                 int dotY = clickedPosition.Y - dotSize / 2;
 
                 e.Graphics.FillEllipse(Brushes.Red, dotX, dotY, dotSize, dotSize);
+            }
+
+            // Draw X and Y axis labels
+            int xSteps = 5; // Specify the number of steps on the X axis
+            int ySteps = 5; // Specify the number of steps on the Y axis
+            int stepSizeX = drawingArea.Width / xSteps;
+            int stepSizeY = drawingArea.Height / ySteps;
+
+            using (Font font = new Font("Arial", 8))
+            {
+                using (StringFormat format = new StringFormat())
+                {
+                    format.Alignment = StringAlignment.Center;
+                    format.LineAlignment = StringAlignment.Center;
+
+                    // Draw X axis labels
+                    for (int i = 1; i <= xSteps; i++)
+                    {
+                        int labelX = drawingArea.Left + (i * stepSizeX);
+                        int labelY = drawingArea.Bottom + 5;
+
+                        string label = (i * 10).ToString(); // Adjust the label based on your requirements
+                        e.Graphics.DrawString(label, font, Brushes.Black, labelX, labelY, format);
+                    }
+
+                    // Draw Y axis labels
+                    for (int i = 1; i <= ySteps; i++)
+                    {
+                        int labelX = drawingArea.Left - 25;
+                        int labelY = drawingArea.Bottom - (i * stepSizeY);
+
+                        string label = (i * 10).ToString(); // Adjust the label based on your requirements
+                        e.Graphics.DrawString(label, font, Brushes.Black, labelX, labelY, format);
+                    }
+                }
             }
         }
 
