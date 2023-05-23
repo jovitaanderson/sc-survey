@@ -21,6 +21,10 @@ namespace TestingWinForms
         public AdminForm()
         {
             InitializeComponent();
+
+            FormBorderStyle = FormBorderStyle.None; // Remove the border
+            WindowState = FormWindowState.Maximized; // Maximize the window
+
         }
 
         private void AdminForm_Load(object sender, EventArgs e)
@@ -46,6 +50,10 @@ namespace TestingWinForms
             Graphics g = e.Graphics;
             Rectangle bounds = tabControl.GetTabRect(e.Index);
 
+            // Set the desired font size
+            Font tabFont = new Font(tabControl.Font.FontFamily, 16, tabControl.Font.Style);
+
+
             /*if (e.Index == tabControl.SelectedIndex)
             {
                 using (Brush selectedTabBrush = new SolidBrush(Color.LightBlue))
@@ -60,7 +68,7 @@ namespace TestingWinForms
                 stringFormat.Alignment = StringAlignment.Center;
                 stringFormat.LineAlignment = StringAlignment.Center;
 
-                g.DrawString(tabControl.TabPages[e.Index].Text, tabControl.Font, tabTextBrush, bounds, stringFormat);
+                g.DrawString(tabControl.TabPages[e.Index].Text, tabFont, tabTextBrush, bounds, stringFormat);
             }
 
         }
@@ -330,6 +338,11 @@ namespace TestingWinForms
                     }
                 }
             }
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

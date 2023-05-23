@@ -37,18 +37,24 @@ namespace TestingWinForms
             // 
             // labelEndMessage
             // 
+            this.labelEndMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelEndMessage.AutoSize = true;
+            this.labelEndMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelEndMessage.Location = new System.Drawing.Point(342, 126);
             this.labelEndMessage.Name = "labelEndMessage";
-            this.labelEndMessage.Size = new System.Drawing.Size(46, 17);
+            this.labelEndMessage.Size = new System.Drawing.Size(93, 32);
             this.labelEndMessage.TabIndex = 0;
             this.labelEndMessage.Text = "label1";
             // 
             // btnMain
             // 
-            this.btnMain.Location = new System.Drawing.Point(302, 192);
+            this.btnMain.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMain.Location = new System.Drawing.Point(288, 195);
             this.btnMain.Name = "btnMain";
-            this.btnMain.Size = new System.Drawing.Size(126, 23);
+            this.btnMain.Size = new System.Drawing.Size(201, 40);
             this.btnMain.TabIndex = 1;
             this.btnMain.Text = "Back to Main";
             this.btnMain.UseVisualStyleBackColor = true;

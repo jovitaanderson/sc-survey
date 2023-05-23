@@ -19,6 +19,9 @@ namespace TestingWinForms
         {
             InitializeComponent();
 
+            FormBorderStyle = FormBorderStyle.None; // Remove the border
+            WindowState = FormWindowState.Maximized; // Maximize the window
+
             //Display Background Image
             string imagePath = LoadBackgroundImageFromCSV();
 

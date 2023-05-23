@@ -40,9 +40,11 @@
             // 
             this.labelYAxis.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelYAxis.AutoSize = true;
-            this.labelYAxis.Location = new System.Drawing.Point(12, 163);
+            this.labelYAxis.BackColor = System.Drawing.Color.Transparent;
+            this.labelYAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelYAxis.Location = new System.Drawing.Point(24, 162);
             this.labelYAxis.Name = "labelYAxis";
-            this.labelYAxis.Size = new System.Drawing.Size(47, 17);
+            this.labelYAxis.Size = new System.Drawing.Size(79, 29);
             this.labelYAxis.TabIndex = 3;
             this.labelYAxis.Text = "Text 1";
             // 
@@ -50,18 +52,21 @@
             // 
             this.labelXAxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelXAxis.AutoSize = true;
-            this.labelXAxis.Location = new System.Drawing.Point(209, 321);
+            this.labelXAxis.BackColor = System.Drawing.Color.Transparent;
+            this.labelXAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelXAxis.Location = new System.Drawing.Point(212, 297);
             this.labelXAxis.Name = "labelXAxis";
-            this.labelXAxis.Size = new System.Drawing.Size(47, 17);
+            this.labelXAxis.Size = new System.Drawing.Size(79, 29);
             this.labelXAxis.TabIndex = 4;
             this.labelXAxis.Text = "Text 2";
             // 
             // btnAdmin
             // 
             this.btnAdmin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAdmin.Location = new System.Drawing.Point(571, 306);
+            this.btnAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdmin.Location = new System.Drawing.Point(571, 307);
             this.btnAdmin.Name = "btnAdmin";
-            this.btnAdmin.Size = new System.Drawing.Size(106, 31);
+            this.btnAdmin.Size = new System.Drawing.Size(106, 41);
             this.btnAdmin.TabIndex = 5;
             this.btnAdmin.Text = "Admin";
             this.btnAdmin.UseVisualStyleBackColor = true;
@@ -70,7 +75,8 @@
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(571, 278);
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(571, 279);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(106, 22);
             this.textBox1.TabIndex = 6;
@@ -78,18 +84,22 @@
             // labelTitle
             // 
             this.labelTitle.AutoSize = true;
+            this.labelTitle.BackColor = System.Drawing.Color.Transparent;
+            this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.Location = new System.Drawing.Point(212, 30);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(46, 17);
+            this.labelTitle.Size = new System.Drawing.Size(79, 29);
             this.labelTitle.TabIndex = 7;
             this.labelTitle.Text = "label1";
             // 
             // lbl_clickMessage
             // 
             this.lbl_clickMessage.AutoSize = true;
+            this.lbl_clickMessage.BackColor = System.Drawing.Color.Transparent;
+            this.lbl_clickMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_clickMessage.Location = new System.Drawing.Point(592, 56);
             this.lbl_clickMessage.Name = "lbl_clickMessage";
-            this.lbl_clickMessage.Size = new System.Drawing.Size(46, 17);
+            this.lbl_clickMessage.Size = new System.Drawing.Size(79, 29);
             this.lbl_clickMessage.TabIndex = 8;
             this.lbl_clickMessage.Text = "label1";
             // 

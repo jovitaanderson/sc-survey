@@ -16,7 +16,8 @@ namespace TestingWinForms
     {
         private List<Point> existingClickedPositions; // Stores the previous saved clicked positions
         private Point clickedPosition; // Stores the current clicked positions
-        private Rectangle drawingArea = new Rectangle(100, 50, 200, 200); // Defines the drawing area (x, y, height, width)
+        //private Rectangle drawingArea = new Rectangle(100, 50, 200, 200); // Defines the drawing area (x, y, height, width)
+        private Rectangle drawingArea;
         private int drawingAreaBorderWidth = 2; // Specify the width of the border
         private int dotSize = 10;
         private System.Threading.Timer timer; // Timer to wait for 3 seconds
@@ -33,6 +34,13 @@ namespace TestingWinForms
         {
 
             InitializeComponent();
+
+            // Wire up the Resize event handler
+            this.Resize += Form1_Resize;
+
+            // Initial calculation of the drawing area
+            CalculateDrawingArea();
+
             existingClickedPositions = new List<Point>();
 
             //Create file with column header if file does not exits
@@ -42,8 +50,8 @@ namespace TestingWinForms
                 File.WriteAllText(csvFilePath, csvHeader, Encoding.UTF8);
             }
 
-            //FormBorderStyle = FormBorderStyle.None; // Remove the border
-            //WindowState = FormWindowState.Maximized; // Maximize the window
+            FormBorderStyle = FormBorderStyle.None; // Remove the border
+            WindowState = FormWindowState.Maximized; // Maximize the window
 
             this.MouseClick += Form1_MouseClick; // Wire up the event handler
             LoadPointsFromCSV(); // Load points from CSV file
@@ -66,6 +74,39 @@ namespace TestingWinForms
             //labelXAxis.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             //labelYAxis.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 
+            // Set the properties for labelXAxis and labelYAxis
+            //labelXAxis.AutoSize = false;
+            //labelXAxis.MaximumSize = new Size(200, 0); // Adjust the desired width
+
+            //labelYAxis.AutoSize = false;
+            //labelYAxis.MaximumSize = new Size(200, 0); // Adjust the desired width
+
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            // Recalculate the drawing area when the form is resized
+            CalculateDrawingArea();
+            Refresh();
+        }
+
+        private void CalculateDrawingArea()
+        {
+            int margin = 100; // Minimum margin size
+
+            // Calculate the available width and height for the square
+            int availableWidth = this.ClientSize.Width - 2 * margin;
+            int availableHeight = this.ClientSize.Height - 2 * margin;
+
+            // Determine the size of the square based on the smaller dimension
+            int squareSize = Math.Min(availableWidth, availableHeight);
+
+            // Calculate the coordinates of the square to center it within the available space
+            int x = margin + (availableWidth - squareSize) / 2;
+            int y = margin + (availableHeight - squareSize) / 2;
+
+            // Update the drawing area rectangle
+            drawingArea = new Rectangle(x, y, squareSize, squareSize);
         }
 
         private void LoadTableFromCSV()
