@@ -33,7 +33,6 @@
             this.btnAdmin = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.labelTitle = new System.Windows.Forms.Label();
-            this.lbl_clickMessage = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelYAxis
@@ -93,24 +92,11 @@
             this.labelTitle.TabIndex = 7;
             this.labelTitle.Text = "label1";
             // 
-            // lbl_clickMessage
-            // 
-            this.lbl_clickMessage.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.lbl_clickMessage.AutoSize = true;
-            this.lbl_clickMessage.BackColor = System.Drawing.Color.Transparent;
-            this.lbl_clickMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_clickMessage.Location = new System.Drawing.Point(592, 56);
-            this.lbl_clickMessage.Name = "lbl_clickMessage";
-            this.lbl_clickMessage.Size = new System.Drawing.Size(79, 29);
-            this.lbl_clickMessage.TabIndex = 8;
-            this.lbl_clickMessage.Text = "label1";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 360);
-            this.Controls.Add(this.lbl_clickMessage);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnAdmin);
@@ -130,7 +116,6 @@
         private System.Windows.Forms.Button btnAdmin;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label labelTitle;
-        private System.Windows.Forms.Label lbl_clickMessage;
     }
 }
 

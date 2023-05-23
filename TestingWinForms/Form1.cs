@@ -66,13 +66,16 @@ namespace TestingWinForms
         public Form1()
         {
 
-            InitializeComponent();
+
+            existingClickedPositions = new List<PointF>();
 
             // Wire up the Resize event handler
             this.Resize += Form1_Resize;
 
             // Initial calculation of the drawing area
-            CalculateDrawingArea();
+            //CalculateDrawingArea();
+
+            InitializeComponent();
 
             existingClickedPositions = new List<PointF>();
             columnNames = loadColumnNames();
@@ -88,7 +91,7 @@ namespace TestingWinForms
             WindowState = FormWindowState.Maximized; // Maximize the window
 
             this.MouseClick += Form1_MouseClick; // Wire up the event handler
-            LoadPointsFromCSV(); // Load points from CSV file
+            //LoadPointsFromCSV(); // Load points from CSV file
             LoadTableFromCSV();
 
             //Display Background Image
@@ -102,25 +105,13 @@ namespace TestingWinForms
                 // Adjust the background image display settings
                 this.BackgroundImageLayout = ImageLayout.Stretch;
             }
-
-            // Set the Anchor property for labels and buttons
-            //labelTitle.Anchor = AnchorStyles.Left;
-            //labelXAxis.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            //labelYAxis.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-
-            // Set the properties for labelXAxis and labelYAxis
-            //labelXAxis.AutoSize = false;
-            //labelXAxis.MaximumSize = new Size(200, 0); // Adjust the desired width
-
-            //labelYAxis.AutoSize = false;
-            //labelYAxis.MaximumSize = new Size(200, 0); // Adjust the desired width
-
         }
 
         private void Form1_Resize(object sender, EventArgs e)
         {
             // Recalculate the drawing area when the form is resized
             CalculateDrawingArea();
+            LoadPointsFromCSV();
             Refresh();
         }
 
@@ -129,8 +120,8 @@ namespace TestingWinForms
             int margin = 100; // Minimum margin size
 
             // Calculate the available width and height for the square
-            int availableWidth = this.ClientSize.Width - 2 * margin;
-            int availableHeight = this.ClientSize.Height - 2 * margin;
+            int availableWidth = this.Size.Width - 2 * margin;
+            int availableHeight = this.Size.Height - 2 * margin;
 
             // Determine the size of the square based on the smaller dimension
             int squareSize = Math.Min(availableWidth, availableHeight);
@@ -159,7 +150,7 @@ namespace TestingWinForms
                         labelYAxis.Text = values[2];
                     }
                 }
-            }
+            } 
         }
 
         private string LoadBackgroundImageFromCSV()
@@ -194,6 +185,10 @@ namespace TestingWinForms
 
         private void LoadPointsFromCSV()
         {
+
+            // Clear the existing points
+            existingClickedPositions.Clear();
+
             // Load all existing points to screen
             if (File.Exists(csvFilePath))
             {
@@ -261,9 +256,6 @@ namespace TestingWinForms
                 Refresh(); // Redraw the form to display the dots
                 SavePointToCSV(point);
 
-                //For debugging
-                UpdatePositionLabel(point); // Update the position label
-
                 timer = new System.Threading.Timer(OnTimerElapsed, null, timerToQuestionPage, Timeout.Infinite); // Start the timer for x seconds
             }
         }
@@ -285,6 +277,7 @@ namespace TestingWinForms
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+
             ControlPaint.DrawBorder(e.Graphics, drawingArea, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid);
 
             // Paint existing dots
@@ -345,11 +338,6 @@ namespace TestingWinForms
             }
         }
 
-        //For debugging
-        private void UpdatePositionLabel(PointF position)
-        {
-            lbl_clickMessage.Text = $"X: {position.X}, Y: {position.Y}";
-        }
 
         private void btnAdmin_Click(object sender, EventArgs e)
         {
