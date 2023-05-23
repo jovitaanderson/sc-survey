@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.IO;
+using Microsoft.VisualBasic.FileIO;
 
 namespace TestingWinForms
 {
@@ -26,9 +27,41 @@ namespace TestingWinForms
         private string csvAdminAdvanceFilePath = "admin_advance.csv";
 
         private string csvFilePath = "player_answers.csv"; // Path to the CSV file
-        private const string columnNames = "date,point_x,point_y,question1,question2,question3";
+        private string columnNames;
         private int timerToQuestionPage = 1000;
         private int lastRowNumber;
+
+        String loadColumnNames()
+        {
+            string csvFilePath = "admin_questions.csv";
+
+            List<string> firstColumnValues = new List<string>();
+
+            if (File.Exists(csvFilePath))
+            {
+                using (TextFieldParser parser = new TextFieldParser(csvFilePath))
+                {
+                    parser.TextFieldType = FieldType.Delimited;
+                    parser.SetDelimiters(",");
+
+                    while (!parser.EndOfData)
+                    {
+                        string[] fields = parser.ReadFields();
+                        if (fields.Length > 0)
+                        {
+                            string value = fields[0]; // Read the value from the first column
+                            firstColumnValues.Add(value);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("CSV file does not exist.");
+                return "date,point_x,point_y,question1,question2,question3";
+            }
+            return "date,point_x,point_y," + string.Join(",", firstColumnValues);
+        }
 
         public Form1()
         {
@@ -44,6 +77,8 @@ namespace TestingWinForms
 
             InitializeComponent();
 
+            existingClickedPositions = new List<PointF>();
+            columnNames = loadColumnNames();
 
             //Create file with column header if file does not exits
             if (!File.Exists(csvFilePath))
