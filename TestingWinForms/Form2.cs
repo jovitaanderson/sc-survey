@@ -23,11 +23,15 @@ namespace TestingWinForms
         private string csvAdminQuestionsFilePath = "admin_questions.csv"; // Path to the CSV file
         private string csvAdminAdvanceFilePath = "admin_advance.csv";
         private List<string> autoSelectedOptions = new List<string>(); // Stores the selected checkboxes
+        private string randomQuestionsText = null;
 
 
         public Form2(int rowNumber)
         {
             InitializeComponent();
+            // Check if admin wants questions to be in random
+            LoadRandomQuestionsData();
+
             this.rowNumber = rowNumber;
 
             // Subscribe the same event handler method to the CheckedChanged event of each checkbox
@@ -132,8 +136,32 @@ namespace TestingWinForms
                 Console.WriteLine("CSV file does not exist: " + csvFilePath);
             }
 
+            if (randomQuestionsText == "Yes")
+            {
+                // Shuffle the questions randomly
+                Random random = new Random();
+                questions = questions.OrderBy(q => random.Next()).ToList();
+            }
+
             return questions;
 
+        }
+
+        private void LoadRandomQuestionsData()
+        {
+            if (File.Exists(csvAdminAdvanceFilePath))
+            {
+                string[] lines = File.ReadAllLines(csvAdminAdvanceFilePath);
+                if (lines.Length > 0)
+                {
+                    string[] values = lines[lines.Length - 1].Split(',');
+
+                    if (values[1] != null)
+                    {
+                        randomQuestionsText = values[1];
+                    }
+                }
+            }
         }
 
         private void DisplayQuestion()
