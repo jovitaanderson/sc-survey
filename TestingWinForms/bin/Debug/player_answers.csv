@@ -1,5 +1,5 @@
 point_x,point_y,question1,question2,question3
-217,128,a;b,,
+217,128,,,
 243,168,,,
 141,100,,,
 202,200,,,
@@ -17,18 +17,24 @@ point_x,point_y,question1,question2,question3
 100,238,,,
 174,200,,,
 126,149,,,
-190,86
-253,236
-257,83
-202,129
-138,215
-285,90
-257,158
-230,81
-258,72
-207,156
-136,70
-276,194
-194,234,wee,wee,wee
-206,51,wee,wee,wee
-265,139,wee,wee,wee
+190,86,,,
+253,236,,,
+257,83,,,
+202,129,,,
+138,215,,,
+285,90,,,
+257,158,,,
+230,81,,,
+258,72,,,
+207,156,,,
+136,70,,,
+276,194,,,
+194,234,,,
+206,51,,,
+265,139,,,
+239,139,Option B;Option C,Option D;Option F,Option G;Option H
+147,132
+165,66,Option B;Option C
+239,64
+242,112,Option C,Option E,Option G
+200,114,Option C,Option F,Option H;Option I

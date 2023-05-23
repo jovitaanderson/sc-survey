@@ -83,6 +83,7 @@ namespace TestingWinForms
                 optionCCheckBox.Enabled = false;
                 submitButton.Enabled = false;
 
+                timer.Stop();
                 //timer = new System.Threading.Timer(OnTimerElapsed, null, 2000, Timeout.Infinite); // Start the timer for 3 seconds
                 Form1 form1 = new Form1();
                 form1.Show();
@@ -106,9 +107,11 @@ namespace TestingWinForms
             if (optionCCheckBox.Checked)
                 selectedOptions.Add(optionCCheckBox.Text);
 
+            string joinedOptions = string.Join(";", selectedOptions);
+
             // Save the selected options (you can modify this to save the data to a file or a database)
             //SaveSelectedOptions(selectedOptions);
-            AppendDataToSpecificRow(csvFilePath, rowNumber, "wee");
+            AppendDataToSpecificRow(csvFilePath, rowNumber, joinedOptions);
 
             // Move to the next question
             currentQuestionIndex++;
