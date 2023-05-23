@@ -64,7 +64,7 @@ namespace TestingWinForms
             //Display background image
             string imagePath = LoadBackgroundImageFromCSV();
 
-            if (!string.IsNullOrEmpty(imagePath))
+            if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
             {
                 // Set the background image of the Windows Forms application
                 this.BackgroundImage = Image.FromFile(imagePath);
