@@ -13,7 +13,7 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace TestingWinForms
 {
-    public partial class Form1 : Form
+    public partial class TableForm : Form
     {
         private List<PointF> existingClickedPositions; // Stores the previous saved clicked positions
         private Point clickedPosition; // Stores the current clicked positions
@@ -64,7 +64,7 @@ namespace TestingWinForms
             return "date,point_x,point_y," + string.Join(",", firstColumnValues);
         }
 
-        public Form1()
+        public TableForm()
         {
 
 
@@ -332,7 +332,7 @@ namespace TestingWinForms
                 timer.Dispose(); // Dispose the timer
                 timer = null; // Set the timer reference to null
 
-                Form2 newForm = new Form2(lastRowNumber); // Navigate to a new page
+                QuestionForm newForm = new QuestionForm(lastRowNumber); // Navigate to a new page
                 newForm.Show();
                 this.Hide();
             }));

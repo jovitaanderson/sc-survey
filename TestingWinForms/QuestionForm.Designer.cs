@@ -1,6 +1,6 @@
 ﻿namespace TestingWinForms
 {
-    partial class Form2
+    partial class QuestionForm
     {
         /// <summary>
         /// Required designer variable.

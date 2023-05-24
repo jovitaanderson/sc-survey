@@ -89,7 +89,7 @@ namespace TestingWinForms
             timer1.Stop();
 
             // Close the Thank You screen and show the home screen (Form1)
-            Form1 form1 = new Form1();
+            TableForm form1 = new TableForm();
             form1.Show();
             this.Close();
         }
@@ -130,7 +130,7 @@ namespace TestingWinForms
 
         private void btnMain_Click(object sender, EventArgs e)
         {
-            Form1 form1 = new Form1();
+            TableForm form1 = new TableForm();
             form1.Show();
             this.Close();
         }
