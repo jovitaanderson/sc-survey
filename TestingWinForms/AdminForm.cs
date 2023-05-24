@@ -21,6 +21,8 @@ namespace TestingWinForms
 
         private string csvPlayerFilePath = "player_answers.csv";
 
+        private int questionsNumber = 3;
+
         public AdminForm()
         {
             InitializeComponent();
@@ -32,6 +34,12 @@ namespace TestingWinForms
 
         private void AdminForm_Load(object sender, EventArgs e)
         {
+            LoadNumQuestions();
+            for (int i = 0; i < questionsNumber - 3; i++)
+            {
+                addTab();
+            }
+
             // Customize the appearance of the TabControl for vertical tabs
             tabControl.Alignment = TabAlignment.Left;
             tabControl.SizeMode = TabSizeMode.Fixed;
@@ -117,6 +125,26 @@ namespace TestingWinForms
             }
         }
 
+        // Helper method to retrieve the question TextBox based on the question index
+        private TextBox GetQuestionTextBox(int questionIndex)
+        {
+            // Modify this method based on your control naming convention
+            // For example, if your TextBoxes are named textBoxQ1, textBoxQ2, etc.
+            // you can use the following code:
+            string textBoxName = "textBoxQ" + (questionIndex + 1);
+            return Controls.Find(textBoxName, true).FirstOrDefault() as TextBox;
+        }
+
+        // Helper method to retrieve the answer TextBox based on the question and answer indices
+        private TextBox GetAnswerTextBox(int questionIndex, int answerIndex)
+        {
+            // Modify this method based on your control naming convention
+            // For example, if your TextBoxes are named textBoxA11, textBoxA12, etc.
+            // you can use the following code:
+            string textBoxName = "textBoxA" + (questionIndex + 1) + (answerIndex + 1);
+            return Controls.Find(textBoxName, true).FirstOrDefault() as TextBox;
+        }
+
         private void buttonSave_Click(object sender, EventArgs e)
         {
             // Clear the contents of the CSV files
@@ -149,29 +177,29 @@ namespace TestingWinForms
                 }
             }
 
-            //Q1
+            /*//Q1
             string question1 = textBoxQ1.Text;
-            string q1a1 = textBox1A1.Text;
-            string q1a2 = textBox1A2.Text;
-            string q1a3 = textBox1A3.Text;
-            string q1a4 = textBox1A4.Text;
-            string q1a5 = textBox1A5.Text;
+            string q1a1 = textBoxA11.Text;
+            string q1a2 = textBoxA12.Text;
+            string q1a3 = textBoxA13.Text;
+            string q1a4 = textBoxA14.Text;
+            string q1a5 = textBoxA15.Text;
 
             //Q2
             string question2 = textBoxQ2.Text;
-            string q2a1 = textBox2A1.Text;
-            string q2a2 = textBox2A2.Text;
-            string q2a3 = textBox2A3.Text;
-            string q2a4 = textBox2A4.Text;
-            string q2a5 = textBox2A5.Text;
+            string q2a1 = textBoxA21.Text;
+            string q2a2 = textBoxA22.Text;
+            string q2a3 = textBoxA23.Text;
+            string q2a4 = textBoxA24.Text;
+            string q2a5 = textBoxA25.Text;
 
             //Q3
             string question3 = textBoxQ3.Text;
-            string q3a1 = textBox3A1.Text;
-            string q3a2 = textBox3A2.Text;
-            string q3a3 = textBox3A3.Text;
-            string q3a4 = textBox3A4.Text;
-            string q3a5 = textBox3A5.Text;
+            string q3a1 = textBoxA31.Text;
+            string q3a2 = textBoxA32.Text;
+            string q3a3 = textBoxA33.Text;
+            string q3a4 = textBoxA34.Text;
+            string q3a5 = textBoxA35.Text;
 
             // Concatenate the data into comma-separated rows
             string row1 = string.Format("{0},{1},{2},{3},{4},{5}", question1, q1a1, q1a2, q1a3, q1a4, q1a5);
@@ -196,9 +224,64 @@ namespace TestingWinForms
 
                     MessageBox.Show(ex.Message);
                 }
+            }*/
+
+            // Store the question and answer data in lists
+            List<string> questions = new List<string>();
+            List<List<string>> answers = new List<List<string>>();
+
+            // Loop through the questions
+            for (int i = 0; i < questionsNumber; i++)
+            {
+                // Get the question text
+                TextBox textBoxQuestion = GetQuestionTextBox(i);
+                string question = "";
+                if (textBoxQuestion.Text != null)
+                    question = textBoxQuestion.Text;
+                questions.Add(question);
+
+                // Get the answer texts
+                List<string> answerOptions = new List<string>();
+                for (int j = 0; j < 5; j++)
+                {
+                    TextBox textBoxAnswer = GetAnswerTextBox(i, j);
+                    string answer = textBoxAnswer.Text;
+                    answerOptions.Add(answer);
+                }
+                answers.Add(answerOptions);
             }
-            string columnHeader = "date,point_x,point_y," + question1 + "," + question2 + "," + question3;
-            UpdatePlayerCSVHeader(columnHeader);
+
+            // Save the questions and answers to the CSV file
+            for (int i = 0; i < questions.Count; i++)
+            {
+                string question = questions[i];
+                List<string> answerOptions = answers[i];
+
+                // Concatenate the data into comma-separated rows
+                string rowData = string.Format("{0},{1}", question, string.Join(",", answerOptions));
+
+                // Append the rows to the CSV file
+                while (true)
+                {
+                    try
+                    {
+                        using (StreamWriter sw = new StreamWriter(csvAdminQuestionsFilePath, true))
+                        {
+                            sw.WriteLine(rowData);
+                        }
+                        break;
+                    }
+                    catch (IOException ex)
+                    {
+
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+
+
+            //string columnHeader = "date,point_x,point_y," + question1 + "," + question2 + "," + question3;
+            //UpdatePlayerCSVHeader(columnHeader);
 
             //Download
             DateTime selectedStartDate = dateTimePickerStartDate.Value;
@@ -313,7 +396,7 @@ namespace TestingWinForms
             // Load data for the Table tab
             LoadTableData();
 
-            // Load data for the Question1 tab
+            /*// Load data for the Question1 tab
             LoadQuestionData(tabQuestion1, csvAdminQuestionsFilePath, 0);
 
             // Load data for the Question2 tab
@@ -321,12 +404,19 @@ namespace TestingWinForms
 
             // Load data for the Question3 tab
             LoadQuestionData(tabQuestion3, csvAdminQuestionsFilePath, 2);
+            */
 
             // Load data for the Download tab
             LoadDownloadData();
 
             // Load data for the Advance tab
             LoadAdvanceData();
+
+            for (int i = 0; i < questionsNumber; i++)
+            {
+                TabPage tabPage = tabControl.TabPages[i + 3];
+                LoadQuestionData(tabPage, csvAdminQuestionsFilePath, i);
+            }
         }
 
         private void LoadTableData()
@@ -363,11 +453,21 @@ namespace TestingWinForms
 
         }
 
+        private void LoadNumQuestions()
+        {
+            if (File.Exists(csvAdminQuestionsFilePath))
+            {
+                string[] lines = File.ReadAllLines(csvAdminQuestionsFilePath);
+                questionsNumber = lines.Length;
+            }
+        }
+
         private void LoadQuestionData(TabPage tabPage, string csvFilePath, int questionIndex)
         {
                 if (File.Exists(csvFilePath))
                 {
                     string[] lines = File.ReadAllLines(csvFilePath);
+                    //questionsNumber = lines.Length;
                     while (true)
                     {
                         try
@@ -386,7 +486,7 @@ namespace TestingWinForms
                         string[] values = lines[questionIndex].Split(',');
 
                         TextBox questionTextBox = tabPage.Controls.OfType<TextBox>().FirstOrDefault(c => c.Name.StartsWith("textBoxQ"));
-                        TextBox[] answerTextBoxes = tabPage.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + (questionIndex + 1) + "A")).ToArray();
+                        TextBox[] answerTextBoxes = tabPage.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + "A" + (questionIndex + 1))).ToArray();
 
                         if (questionTextBox != null && answerTextBoxes.Length == 5)
                         {
@@ -561,6 +661,113 @@ namespace TestingWinForms
         private void btnEndApp_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void addTab()
+        {
+            string labelText = "";
+            if (tabControl.TabPages.Count > 0)
+            {
+                TabPage lastTabPage = tabControl.TabPages[tabControl.TabPages.Count - 1];
+                if (lastTabPage != null)
+                {
+                    labelText = lastTabPage.Text;
+                }
+            }
+
+            int newQuestionNumber = 0;
+            // Extract the current question number from the previous tab text
+            string numberText = labelText.Substring("Question ".Length);
+            if (int.TryParse(numberText, out newQuestionNumber))
+            {
+                // Increment the question number
+                newQuestionNumber++;
+            }
+
+            TabPage newTabPage = new TabPage();
+            newTabPage.Text = "Question " + newQuestionNumber;
+            // Copy the controls from the previous tab to the new tab
+            if (tabControl.TabPages.Count > 0)
+            {
+                TabPage previousTabPage = tabControl.TabPages[tabControl.TabPages.Count - 1];
+                foreach (Control control in previousTabPage.Controls)
+                {
+                    Control newControl = (Control)Activator.CreateInstance(control.GetType());
+                    newControl.Location = control.Location;
+                    newControl.Size = control.Size;
+
+                    if (newControl is TextBox textBox && (control.Name.StartsWith("textBoxQ")))
+                    {
+                        string previousControlName = control.Name;
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        textBox.Name = newTabName; // Update the Label with the new tab name
+
+                        textBox.Text = ""; // Set the TextBox to blank
+                    }
+                    else if (newControl is TextBox textBoxA)
+                    {
+                        string previousControlName = control.Name;
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        textBoxA.Name = newTabName;
+
+                        textBoxA.Text = "";
+                    }
+                    //This is correct
+                    else if (newControl is Label label && (control.Name.StartsWith("labelQ")))
+                    {
+                        string previousControlName = control.Name;
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        label.Name = newTabName; // Update the Label with the new tab name
+
+                        string previousControlText = control.Text;
+                        string newTabText = previousControlText.Substring(0, previousControlText.Length - 1) + (lastDigitValue + 1);
+                        label.Text = newTabName;// newTabText;
+                    }
+                    //this is controls for answers
+                    else if (newControl is Label labelA)
+                    {
+                        string previousControlName = control.Name;
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        labelA.Name = newTabName; // Update the Label with the new tab name
+
+                        labelA.Text = control.Text;
+                    }
+
+                    // Copy any other desired properties or event handlers
+                    newTabPage.Controls.Add(newControl);
+                }
+                
+            }
+            tabControl.TabPages.Add(newTabPage);
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            addTab();
+            questionsNumber++;
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+           if (tabControl.TabPages.Count > 6)
+            {
+                TabPage lastTabPage = tabControl.TabPages[tabControl.TabPages.Count - 1];
+                tabControl.TabPages.Remove(lastTabPage);
+                questionsNumber--;
+            }
+        }
+
+        private void labelQ2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
