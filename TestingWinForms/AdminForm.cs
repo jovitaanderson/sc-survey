@@ -246,7 +246,7 @@ namespace TestingWinForms
                 string directoryPath = Path.Combine(rootPath, "Images");
 
                 // Create the directory if it doesn't exist
-                if (!Directory.Exists(directoryPath))
+                if (!Directory.Exists(directoryPath)) 
                 {
                     Directory.CreateDirectory(directoryPath);
                 }
@@ -446,7 +446,7 @@ namespace TestingWinForms
                     {
                         try
                         {
-                            lines = File.ReadAllLines(csvAdminDownloadFilePath);
+                            lines = File.ReadAllLines(csvAdminAdvanceFilePath);
                             break;
                         }
                         catch (IOException ex)
