@@ -184,6 +184,10 @@ namespace TestingWinForms
 
             //Advance
             string timeOut = textBoxTimeOut.Text;
+            if (string.IsNullOrEmpty(timeOut))
+            {
+                timeOut = "10"; // Assigning default value of 10
+            }
             string randomQuestions = comboBoxRandomQns.Text;
             string endSurveyText = textBoxEndMessage.Text;
             // Get the image from the PictureBox
@@ -211,8 +215,6 @@ namespace TestingWinForms
                 // Save the image to the specified directory
                 imagePath = Path.Combine(directoryPath, fileName);
                 image.Save(imagePath);
-
-                // Optionally, you can store the imagePath for future reference or use it as needed
             }
 
             // Concatenate the data into a comma-separated string
