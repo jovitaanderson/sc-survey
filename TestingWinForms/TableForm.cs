@@ -67,7 +67,6 @@ namespace TestingWinForms
         public TableForm()
         {
 
-
             existingClickedPositions = new List<PointF>();
 
             // Wire up the Resize event handler

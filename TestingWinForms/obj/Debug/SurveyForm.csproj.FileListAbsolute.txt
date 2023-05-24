@@ -11,3 +11,4 @@ C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\SurveyForm
 C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\SurveyForm.csproj.CoreCompileInputs.cache
 C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.exe
 C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.pdb
+C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\SurveyForm.csproj.AssemblyReference.cache
