@@ -27,7 +27,7 @@ namespace TestingWinForms
         private List<string> autoSelectedOptions = new List<string>(); // Stores the selected checkboxes
         private string randomQuestionsText = null;
 
-        String[] savedAnswers = new String[3];
+        String[] savedAnswers;
 
 
         public QuestionForm(int rowNumber)
@@ -67,6 +67,7 @@ namespace TestingWinForms
             timer.Start();
 
             questions = LoadQuestionsFromCSV();
+            savedAnswers = new String[questions.Count];
 
             // Display the first question
             DisplayQuestion();
