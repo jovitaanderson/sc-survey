@@ -190,6 +190,9 @@ namespace TestingWinForms
                     if (values[0] != null && int.TryParse(values[0], out int interval))
                     {
                         timerInterval = interval * 1000;
+                    } else
+                    {
+                        timerInterval = 10 * 1000; // Default timer interval is 10s
                     }
                 }
             }
