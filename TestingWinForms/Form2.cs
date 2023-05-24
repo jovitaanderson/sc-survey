@@ -298,12 +298,15 @@ namespace TestingWinForms
                 autoSelectedOptions.Remove(checkBox.Text);
             }
             //questionLabel.Text = string.Join(",", autoSelectedOptions);
+            String selectedOptions = string.Join(";", autoSelectedOptions);
+            savedAnswers[questions[currentQuestionIndex].Index] = selectedOptions;
+
         }
 
         private void submitButton_Click(object sender, EventArgs e)
         {
-            String selectedOptions = string.Join(";", autoSelectedOptions);
-            savedAnswers[questions[currentQuestionIndex].Index] = selectedOptions;
+            //String selectedOptions = string.Join(";", autoSelectedOptions);
+            //savedAnswers[questions[currentQuestionIndex].Index] = selectedOptions;
             autoSelectedOptions.Clear();
             // Reset the timer
             ResetTimer();
