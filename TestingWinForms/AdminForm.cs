@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,8 @@ namespace TestingWinForms
         private string csvFilePath = "player_answers.csv";
 
         private string csvPlayerFilePath = "player_answers.csv";
+
+        string format = "dd/MM/yyyy";
 
         public AdminForm()
         {
@@ -502,7 +505,15 @@ namespace TestingWinForms
                 // Open a SaveFileDialog to specify the download location
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
-                saveFileDialog.FileName = "playeranswers.csv";
+
+                // Get the current date and time
+                DateTime currentDate = DateTime.Now;
+
+                // Format the date and time as strings
+                string dateString = currentDate.ToString("dd-MM-yyyy");
+                string timeString = currentDate.ToString("HH:mm:ss");
+
+                saveFileDialog.FileName = $"{dateString}_{timeString}.csv";
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -545,7 +556,7 @@ namespace TestingWinForms
                     // Assuming the date is the first column in the player answers CSV file
                     string[] values = answer.Split(',');
 
-                    if (values.Length > 0 && DateTime.TryParse(values[0], out DateTime answerDate))
+                    if (values.Length > 0 && DateTime.TryParseExact(values[0], format, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime answerDate))
                     {
                         if (answerDate >= startDate && answerDate <= endDate)
                         {
