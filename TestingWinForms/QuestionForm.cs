@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace TestingWinForms
 {
-    public partial class Form2 : Form
+    public partial class QuestionForm : Form
     {
         private List<Question> questions;
         private int currentQuestionIndex;
@@ -29,7 +29,7 @@ namespace TestingWinForms
         String[] savedAnswers = new String[3];
 
 
-        public Form2(int rowNumber)
+        public QuestionForm(int rowNumber)
         {
             InitializeComponent();
             // Check if admin wants questions to be in random
@@ -364,7 +364,7 @@ namespace TestingWinForms
 
             //AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(";", autoSelectedOptions));
             timer.Stop();
-            Form1 form1 = new Form1();
+            TableForm form1 = new TableForm();
             form1.Show();
             this.Close();
         }

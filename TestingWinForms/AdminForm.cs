@@ -78,7 +78,7 @@ namespace TestingWinForms
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            Form1 firstForm = new Form1();
+            TableForm firstForm = new TableForm();
             firstForm.Show();
             this.Close();
         }
