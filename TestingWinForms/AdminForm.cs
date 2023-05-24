@@ -345,7 +345,7 @@ namespace TestingWinForms
                         {
                             MessageBox.Show(ex.Message);
                         }
-                    }
+                    } 
 
 
                     if (lines.Length > 0)
