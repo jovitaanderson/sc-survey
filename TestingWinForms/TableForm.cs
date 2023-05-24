@@ -167,6 +167,8 @@ namespace TestingWinForms
 
                         labelYAxis.AutoSize = true;
                         labelYAxis.MaximumSize = new Size(300, 0);
+                        labelYAxis.MinimumSize = new Size(300, 0);
+                        labelYAxis.TextAlign = ContentAlignment.TopCenter;
 
                         labelTitle.Left = (this.ClientSize.Width - labelTitle.Width) / 2;
                         labelXAxis.Left = (this.ClientSize.Width - labelXAxis.Width) / 2;
