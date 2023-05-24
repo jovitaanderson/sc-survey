@@ -262,7 +262,7 @@ namespace TestingWinForms
             }
         }
 
-        private void OnTimerElapsed(object state)
+        private void OnTimerElapsed(object state) 
         {
             hasClicked = false;
             // Invoke the navigation to a new page on the UI thread
