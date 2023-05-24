@@ -47,6 +47,7 @@
             this.labelYAxis.Size = new System.Drawing.Size(97, 36);
             this.labelYAxis.TabIndex = 3;
             this.labelYAxis.Text = "Text 1";
+            this.labelYAxis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelXAxis
             // 
@@ -60,6 +61,7 @@
             this.labelXAxis.Size = new System.Drawing.Size(97, 36);
             this.labelXAxis.TabIndex = 4;
             this.labelXAxis.Text = "Text 2";
+            this.labelXAxis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnAdmin
             // 
@@ -94,6 +96,7 @@
             this.labelTitle.Size = new System.Drawing.Size(95, 36);
             this.labelTitle.TabIndex = 7;
             this.labelTitle.Text = "label1";
+            this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
