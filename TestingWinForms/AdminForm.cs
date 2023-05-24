@@ -22,7 +22,11 @@ namespace TestingWinForms
 
         private string csvPlayerFilePath = "player_answers.csv";
 
-        string format = "dd/MM/yyyy";
+        private string format = "dd/MM/yyyy";
+
+        private int[] xAxisIntervalCounts = new int[21];  // Array to store the count of values from 0 to 10 (inclusive) with intervals of 0.5 for roundedFirstValue
+        private int[] yAxisIntervalCounts = new int[21]; // Array to store the count of values from 0 to 10 (inclusive) with intervals of 0.5 for roundedSecondValue
+
 
         public AdminForm()
         {
@@ -498,7 +502,10 @@ namespace TestingWinForms
             
             // Filter the player answers based on the selected date range
             List<string> filteredPlayerAnswers = FilterPlayerAnswersByDateRange(dateTimePickerStartDate.Value, dateTimePickerEndDate.Value);
-
+            List<string> pointsFilterePlayerAnswers = separateData(filteredPlayerAnswers);
+            List<string> roundedFilterePlayerAnswers = roundDataPoints(pointsFilterePlayerAnswers);
+            countPoints(roundedFilterePlayerAnswers);
+            List<string> consolidatedPointAnswers = consolidatedPointsFormat(filteredPlayerAnswers.Count);
             // Check if there are any matching answers
             if (filteredPlayerAnswers.Count > 0)
             {
@@ -511,7 +518,7 @@ namespace TestingWinForms
 
                 // Format the date and time as strings
                 string dateString = currentDate.ToString("dd-MM-yyyy");
-                string timeString = currentDate.ToString("HH:mm:ss");
+                string timeString = currentDate.ToString("HHmmss");
 
                 saveFileDialog.FileName = $"{dateString}_{timeString}.csv";
 
@@ -520,7 +527,7 @@ namespace TestingWinForms
                     string savePath = saveFileDialog.FileName;
 
                     // Write the filtered player answers to the selected file
-                    File.WriteAllLines(savePath, filteredPlayerAnswers);
+                    File.WriteAllLines(savePath, consolidatedPointAnswers);
 
                     MessageBox.Show("Player answers downloaded successfully.");
                 }
@@ -529,6 +536,109 @@ namespace TestingWinForms
             {
                 MessageBox.Show("No player answers found for the selected date range.");
             }
+        }
+
+        private List<string> separateData(List<string> filteredPlayerAnswers) {
+            // Assuming you have a List<string> called dataList containing the comma-separated values
+
+            List<string> points = new List<string>();
+            List<string> questions = new List<string>();
+
+            foreach (string item in filteredPlayerAnswers)
+            {
+                string[] values = item.Split(',');
+
+                if (values.Length >= 3)
+                {
+                    string point = values[1].Trim() + "," + values[2].Trim();
+                    points.Add(point);
+                }
+
+                if (values.Length >= 6)
+                {
+                    string question = values[3].Trim() + ", " + values[4].Trim() + ", " + values[5].Trim();
+                    questions.Add(question);
+                }
+            }
+            return points;
+        }
+
+        private List<string> roundDataPoints(List<string> pointsFilterePlayerAnswers)
+        {
+            List<string> roundedPoints = new List<string>();
+
+            foreach (string item in pointsFilterePlayerAnswers)
+            {
+                string[] values = item.Split(',');
+                if (values.Length >= 2)
+                {
+                    if (float.TryParse(values[0], out float firstValue) && float.TryParse(values[1], out float secondValue))
+                    {
+                        float roundedFirstValue = RoundToNearestHalf(firstValue);
+                        float roundedSecondValue = RoundToNearestHalf(secondValue);
+
+                        string roundedItem = roundedFirstValue.ToString() + ", " + roundedSecondValue.ToString();
+                        roundedPoints.Add(roundedItem);
+                    }
+                }
+            }
+            return roundedPoints;
+        }
+
+        void countPoints(List<string> roundedPoints) {
+
+            foreach (string item in roundedPoints)
+            {
+                string[] values = item.Split(',');
+                if (values.Length >= 2)
+                {
+                    if (float.TryParse(values[0], out float roundedFirstValue) && float.TryParse(values[1], out float roundedSecondValue))
+                    {
+                        int x_axis = (int)(roundedFirstValue * 2);
+                        int y_axis = (int)(roundedSecondValue * 2);
+
+                        xAxisIntervalCounts[x_axis]++;
+                        yAxisIntervalCounts[y_axis]++;
+                    }
+                }
+            }
+
+            // Output the counts
+            for (int i = 0; i < 21; i++)
+            {
+
+                float value = i / 2f;
+                Console.WriteLine("First Value {0}: {1}", value, xAxisIntervalCounts[i]);
+            }
+
+            for (int i = 0; i < 21; i++)
+            {
+                float value = i / 2f;
+                Console.WriteLine("Second Value {0}: {1}", value, yAxisIntervalCounts[i]);
+            }
+        }
+
+        private List<string> consolidatedPointsFormat(int totalReponses) {
+            List<string> pointsConslidatedFormat = new List<string>();
+            string csvColumnHeader = "Answer,0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,Total";
+
+            pointsConslidatedFormat.Add(csvColumnHeader);
+
+            string xAxisData = "x-axis," + string.Join(",", xAxisIntervalCounts) + "," + totalReponses.ToString();
+            pointsConslidatedFormat.Add(xAxisData);
+            string yAxisData = "x-axis," + string.Join(",", yAxisIntervalCounts) + "," + totalReponses.ToString();
+            pointsConslidatedFormat.Add(yAxisData);
+
+            return pointsConslidatedFormat;
+
+        }
+
+
+
+        // Helper method to round to the nearest 0.5 decimal place
+        private float RoundToNearestHalf(float value)
+        {
+            return (float)Math.Round(value * 2, MidpointRounding.AwayFromZero) / 2;
         }
 
         private List<string> FilterPlayerAnswersByDateRange(DateTime startDate, DateTime endDate)
