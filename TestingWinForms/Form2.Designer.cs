@@ -39,15 +39,13 @@
             // 
             // questionLabel
             // 
-            this.questionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.questionLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.questionLabel.AutoSize = true;
             this.questionLabel.BackColor = System.Drawing.Color.Transparent;
-            this.questionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.questionLabel.Location = new System.Drawing.Point(273, 52);
+            this.questionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.questionLabel.Location = new System.Drawing.Point(204, 19);
             this.questionLabel.Name = "questionLabel";
-            this.questionLabel.Size = new System.Drawing.Size(124, 32);
+            this.questionLabel.Size = new System.Drawing.Size(171, 46);
             this.questionLabel.TabIndex = 4;
             this.questionLabel.Text = "question";
             // 
@@ -55,7 +53,7 @@
             // 
             this.submitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.submitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.submitButton.Location = new System.Drawing.Point(531, 272);
+            this.submitButton.Location = new System.Drawing.Point(458, 252);
             this.submitButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.submitButton.Name = "submitButton";
             this.submitButton.Size = new System.Drawing.Size(133, 46);
@@ -66,80 +64,70 @@
             // 
             // optionACheckBox
             // 
-            this.optionACheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.optionACheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.optionACheckBox.AutoSize = true;
             this.optionACheckBox.BackColor = System.Drawing.Color.Transparent;
-            this.optionACheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionACheckBox.Location = new System.Drawing.Point(245, 98);
+            this.optionACheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionACheckBox.Location = new System.Drawing.Point(212, 74);
             this.optionACheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.optionACheckBox.Name = "optionACheckBox";
-            this.optionACheckBox.Size = new System.Drawing.Size(176, 36);
+            this.optionACheckBox.Size = new System.Drawing.Size(241, 50);
             this.optionACheckBox.TabIndex = 6;
             this.optionACheckBox.Text = "checkBox1";
             this.optionACheckBox.UseVisualStyleBackColor = false;
             // 
             // optionBCheckBox
             // 
-            this.optionBCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.optionBCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.optionBCheckBox.AutoSize = true;
             this.optionBCheckBox.BackColor = System.Drawing.Color.Transparent;
-            this.optionBCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionBCheckBox.Location = new System.Drawing.Point(245, 138);
+            this.optionBCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionBCheckBox.Location = new System.Drawing.Point(212, 128);
             this.optionBCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.optionBCheckBox.Name = "optionBCheckBox";
-            this.optionBCheckBox.Size = new System.Drawing.Size(176, 36);
+            this.optionBCheckBox.Size = new System.Drawing.Size(241, 50);
             this.optionBCheckBox.TabIndex = 7;
             this.optionBCheckBox.Text = "checkBox2";
             this.optionBCheckBox.UseVisualStyleBackColor = false;
             // 
             // optionCCheckBox
             // 
-            this.optionCCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.optionCCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.optionCCheckBox.AutoSize = true;
             this.optionCCheckBox.BackColor = System.Drawing.Color.Transparent;
-            this.optionCCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionCCheckBox.Location = new System.Drawing.Point(245, 178);
+            this.optionCCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionCCheckBox.Location = new System.Drawing.Point(211, 182);
             this.optionCCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.optionCCheckBox.Name = "optionCCheckBox";
-            this.optionCCheckBox.Size = new System.Drawing.Size(176, 36);
+            this.optionCCheckBox.Size = new System.Drawing.Size(241, 50);
             this.optionCCheckBox.TabIndex = 8;
             this.optionCCheckBox.Text = "checkBox3";
             this.optionCCheckBox.UseVisualStyleBackColor = false;
             // 
             // optionDCheckBox
             // 
-            this.optionDCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.optionDCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.optionDCheckBox.AutoSize = true;
             this.optionDCheckBox.BackColor = System.Drawing.Color.Transparent;
-            this.optionDCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionDCheckBox.Location = new System.Drawing.Point(245, 218);
+            this.optionDCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionDCheckBox.Location = new System.Drawing.Point(211, 236);
             this.optionDCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.optionDCheckBox.Name = "optionDCheckBox";
-            this.optionDCheckBox.Size = new System.Drawing.Size(176, 36);
+            this.optionDCheckBox.Size = new System.Drawing.Size(241, 50);
             this.optionDCheckBox.TabIndex = 9;
             this.optionDCheckBox.Text = "checkBox4";
             this.optionDCheckBox.UseVisualStyleBackColor = false;
             // 
             // optionECheckBox
             // 
-            this.optionECheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.optionECheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.optionECheckBox.AutoSize = true;
             this.optionECheckBox.BackColor = System.Drawing.Color.Transparent;
-            this.optionECheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionECheckBox.Location = new System.Drawing.Point(245, 258);
+            this.optionECheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionECheckBox.Location = new System.Drawing.Point(211, 290);
             this.optionECheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.optionECheckBox.Name = "optionECheckBox";
-            this.optionECheckBox.Size = new System.Drawing.Size(176, 36);
+            this.optionECheckBox.Size = new System.Drawing.Size(241, 50);
             this.optionECheckBox.TabIndex = 10;
             this.optionECheckBox.Text = "checkBox5";
             this.optionECheckBox.UseVisualStyleBackColor = false;
