@@ -15,6 +15,7 @@ namespace TestingWinForms
 {
     public partial class TableForm : Form
     {
+
         private List<PointF> existingClickedPositions; // Stores the previous saved clicked positions
         private Point clickedPosition; // Stores the current clicked positions
         //private Rectangle drawingArea = new Rectangle(100, 50, 200, 200); // Defines the drawing area (x, y, height, width)
