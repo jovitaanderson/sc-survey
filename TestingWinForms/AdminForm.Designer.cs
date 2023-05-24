@@ -118,12 +118,12 @@ namespace TestingWinForms
             this.tabControl.Controls.Add(this.tabQuestion3);
             this.tabControl.Controls.Add(this.tabDownload);
             this.tabControl.Controls.Add(this.tabAdvance);
-            this.tabControl.Location = new System.Drawing.Point(14, 15);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabControl.Location = new System.Drawing.Point(192, 192);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(20);
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(773, 356);
+            this.tabControl.Size = new System.Drawing.Size(350, 250);
             this.tabControl.TabIndex = 0;
             // 
             // tabTable
@@ -134,11 +134,10 @@ namespace TestingWinForms
             this.tabTable.Controls.Add(this.labelYAxis);
             this.tabTable.Controls.Add(this.labelXAxis);
             this.tabTable.Controls.Add(this.labelTitle);
-            this.tabTable.Location = new System.Drawing.Point(52, 4);
-            this.tabTable.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabTable.Location = new System.Drawing.Point(46, 4);
             this.tabTable.Name = "tabTable";
-            this.tabTable.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabTable.Size = new System.Drawing.Size(717, 348);
+            this.tabTable.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabTable.Size = new System.Drawing.Size(637, 277);
             this.tabTable.TabIndex = 0;
             this.tabTable.Text = "Table";
             this.tabTable.UseVisualStyleBackColor = true;
@@ -149,10 +148,9 @@ namespace TestingWinForms
             this.textBoxYAxis.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxYAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxYAxis.Location = new System.Drawing.Point(218, 162);
-            this.textBoxYAxis.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBoxYAxis.Location = new System.Drawing.Point(194, 130);
             this.textBoxYAxis.Name = "textBoxYAxis";
-            this.textBoxYAxis.Size = new System.Drawing.Size(486, 44);
+            this.textBoxYAxis.Size = new System.Drawing.Size(432, 38);
             this.textBoxYAxis.TabIndex = 5;
             // 
             // textBoxXAxis
@@ -160,10 +158,9 @@ namespace TestingWinForms
             this.textBoxXAxis.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxXAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxXAxis.Location = new System.Drawing.Point(218, 82);
-            this.textBoxXAxis.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBoxXAxis.Location = new System.Drawing.Point(194, 66);
             this.textBoxXAxis.Name = "textBoxXAxis";
-            this.textBoxXAxis.Size = new System.Drawing.Size(486, 44);
+            this.textBoxXAxis.Size = new System.Drawing.Size(432, 38);
             this.textBoxXAxis.TabIndex = 4;
             // 
             // textBoxTitle
@@ -171,19 +168,18 @@ namespace TestingWinForms
             this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTitle.Location = new System.Drawing.Point(218, 4);
-            this.textBoxTitle.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBoxTitle.Location = new System.Drawing.Point(194, 3);
             this.textBoxTitle.Name = "textBoxTitle";
-            this.textBoxTitle.Size = new System.Drawing.Size(486, 44);
+            this.textBoxTitle.Size = new System.Drawing.Size(432, 38);
             this.textBoxTitle.TabIndex = 3;
             // 
             // labelYAxis
             // 
             this.labelYAxis.AutoSize = true;
             this.labelYAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelYAxis.Location = new System.Drawing.Point(3, 162);
+            this.labelYAxis.Location = new System.Drawing.Point(3, 130);
             this.labelYAxis.Name = "labelYAxis";
-            this.labelYAxis.Size = new System.Drawing.Size(216, 38);
+            this.labelYAxis.Size = new System.Drawing.Size(185, 32);
             this.labelYAxis.TabIndex = 2;
             this.labelYAxis.Text = "Y Axis Name:";
             // 
@@ -191,9 +187,9 @@ namespace TestingWinForms
             // 
             this.labelXAxis.AutoSize = true;
             this.labelXAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelXAxis.Location = new System.Drawing.Point(3, 82);
+            this.labelXAxis.Location = new System.Drawing.Point(3, 66);
             this.labelXAxis.Name = "labelXAxis";
-            this.labelXAxis.Size = new System.Drawing.Size(216, 38);
+            this.labelXAxis.Size = new System.Drawing.Size(185, 32);
             this.labelXAxis.TabIndex = 1;
             this.labelXAxis.Text = "X Axis Name:";
             // 
@@ -201,9 +197,9 @@ namespace TestingWinForms
             // 
             this.labelTitle.AutoSize = true;
             this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTitle.Location = new System.Drawing.Point(3, 4);
+            this.labelTitle.Location = new System.Drawing.Point(3, 3);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(177, 38);
+            this.labelTitle.Size = new System.Drawing.Size(157, 32);
             this.labelTitle.TabIndex = 0;
             this.labelTitle.Text = "Table Title:";
             // 
@@ -221,11 +217,10 @@ namespace TestingWinForms
             this.tabQuestion1.Controls.Add(this.label1A2);
             this.tabQuestion1.Controls.Add(this.label1A1);
             this.tabQuestion1.Controls.Add(this.labelQ1);
-            this.tabQuestion1.Location = new System.Drawing.Point(52, 4);
-            this.tabQuestion1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabQuestion1.Location = new System.Drawing.Point(46, 4);
             this.tabQuestion1.Name = "tabQuestion1";
-            this.tabQuestion1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabQuestion1.Size = new System.Drawing.Size(717, 348);
+            this.tabQuestion1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabQuestion1.Size = new System.Drawing.Size(637, 277);
             this.tabQuestion1.TabIndex = 1;
             this.tabQuestion1.Text = "Question 1";
             this.tabQuestion1.UseVisualStyleBackColor = true;
@@ -235,10 +230,9 @@ namespace TestingWinForms
             this.textBox1A5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1A5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1A5.Location = new System.Drawing.Point(220, 305);
-            this.textBox1A5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox1A5.Location = new System.Drawing.Point(196, 244);
             this.textBox1A5.Name = "textBox1A5";
-            this.textBox1A5.Size = new System.Drawing.Size(489, 44);
+            this.textBox1A5.Size = new System.Drawing.Size(435, 38);
             this.textBox1A5.TabIndex = 11;
             // 
             // textBox1A4
@@ -246,10 +240,9 @@ namespace TestingWinForms
             this.textBox1A4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1A4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1A4.Location = new System.Drawing.Point(220, 250);
-            this.textBox1A4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox1A4.Location = new System.Drawing.Point(196, 200);
             this.textBox1A4.Name = "textBox1A4";
-            this.textBox1A4.Size = new System.Drawing.Size(489, 44);
+            this.textBox1A4.Size = new System.Drawing.Size(435, 38);
             this.textBox1A4.TabIndex = 10;
             // 
             // textBox1A3
@@ -257,10 +250,9 @@ namespace TestingWinForms
             this.textBox1A3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1A3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1A3.Location = new System.Drawing.Point(220, 190);
-            this.textBox1A3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox1A3.Location = new System.Drawing.Point(196, 152);
             this.textBox1A3.Name = "textBox1A3";
-            this.textBox1A3.Size = new System.Drawing.Size(489, 44);
+            this.textBox1A3.Size = new System.Drawing.Size(435, 38);
             this.textBox1A3.TabIndex = 9;
             // 
             // textBox1A2
@@ -268,10 +260,9 @@ namespace TestingWinForms
             this.textBox1A2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1A2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1A2.Location = new System.Drawing.Point(220, 135);
-            this.textBox1A2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox1A2.Location = new System.Drawing.Point(196, 108);
             this.textBox1A2.Name = "textBox1A2";
-            this.textBox1A2.Size = new System.Drawing.Size(489, 44);
+            this.textBox1A2.Size = new System.Drawing.Size(435, 38);
             this.textBox1A2.TabIndex = 8;
             // 
             // textBox1A1
@@ -279,10 +270,9 @@ namespace TestingWinForms
             this.textBox1A1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1A1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1A1.Location = new System.Drawing.Point(220, 74);
-            this.textBox1A1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox1A1.Location = new System.Drawing.Point(196, 59);
             this.textBox1A1.Name = "textBox1A1";
-            this.textBox1A1.Size = new System.Drawing.Size(489, 44);
+            this.textBox1A1.Size = new System.Drawing.Size(435, 38);
             this.textBox1A1.TabIndex = 7;
             // 
             // textBoxQ1
@@ -290,19 +280,18 @@ namespace TestingWinForms
             this.textBoxQ1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxQ1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxQ1.Location = new System.Drawing.Point(220, 11);
-            this.textBoxQ1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBoxQ1.Location = new System.Drawing.Point(196, 9);
             this.textBoxQ1.Name = "textBoxQ1";
-            this.textBoxQ1.Size = new System.Drawing.Size(489, 44);
+            this.textBoxQ1.Size = new System.Drawing.Size(435, 38);
             this.textBoxQ1.TabIndex = 6;
             // 
             // label1A5
             // 
             this.label1A5.AutoSize = true;
             this.label1A5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1A5.Location = new System.Drawing.Point(42, 305);
+            this.label1A5.Location = new System.Drawing.Point(37, 244);
             this.label1A5.Name = "label1A5";
-            this.label1A5.Size = new System.Drawing.Size(150, 38);
+            this.label1A5.Size = new System.Drawing.Size(129, 32);
             this.label1A5.TabIndex = 5;
             this.label1A5.Text = "answer 5";
             // 
@@ -310,9 +299,9 @@ namespace TestingWinForms
             // 
             this.label1A4.AutoSize = true;
             this.label1A4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1A4.Location = new System.Drawing.Point(42, 250);
+            this.label1A4.Location = new System.Drawing.Point(37, 200);
             this.label1A4.Name = "label1A4";
-            this.label1A4.Size = new System.Drawing.Size(150, 38);
+            this.label1A4.Size = new System.Drawing.Size(129, 32);
             this.label1A4.TabIndex = 4;
             this.label1A4.Text = "answer 4";
             // 
@@ -320,9 +309,9 @@ namespace TestingWinForms
             // 
             this.label1A3.AutoSize = true;
             this.label1A3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1A3.Location = new System.Drawing.Point(42, 194);
+            this.label1A3.Location = new System.Drawing.Point(37, 155);
             this.label1A3.Name = "label1A3";
-            this.label1A3.Size = new System.Drawing.Size(150, 38);
+            this.label1A3.Size = new System.Drawing.Size(129, 32);
             this.label1A3.TabIndex = 3;
             this.label1A3.Text = "answer 3";
             // 
@@ -330,9 +319,9 @@ namespace TestingWinForms
             // 
             this.label1A2.AutoSize = true;
             this.label1A2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1A2.Location = new System.Drawing.Point(42, 135);
+            this.label1A2.Location = new System.Drawing.Point(37, 108);
             this.label1A2.Name = "label1A2";
-            this.label1A2.Size = new System.Drawing.Size(150, 38);
+            this.label1A2.Size = new System.Drawing.Size(129, 32);
             this.label1A2.TabIndex = 2;
             this.label1A2.Text = "answer 2";
             // 
@@ -340,9 +329,9 @@ namespace TestingWinForms
             // 
             this.label1A1.AutoSize = true;
             this.label1A1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1A1.Location = new System.Drawing.Point(42, 74);
+            this.label1A1.Location = new System.Drawing.Point(37, 59);
             this.label1A1.Name = "label1A1";
-            this.label1A1.Size = new System.Drawing.Size(150, 38);
+            this.label1A1.Size = new System.Drawing.Size(129, 32);
             this.label1A1.TabIndex = 1;
             this.label1A1.Text = "answer 1";
             // 
@@ -350,9 +339,9 @@ namespace TestingWinForms
             // 
             this.labelQ1.AutoSize = true;
             this.labelQ1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQ1.Location = new System.Drawing.Point(6, 15);
+            this.labelQ1.Location = new System.Drawing.Point(5, 12);
             this.labelQ1.Name = "labelQ1";
-            this.labelQ1.Size = new System.Drawing.Size(184, 38);
+            this.labelQ1.Size = new System.Drawing.Size(161, 32);
             this.labelQ1.TabIndex = 0;
             this.labelQ1.Text = "Question 1:";
             // 
@@ -370,10 +359,9 @@ namespace TestingWinForms
             this.tabQuestion2.Controls.Add(this.label5);
             this.tabQuestion2.Controls.Add(this.label6);
             this.tabQuestion2.Controls.Add(this.labelQ2);
-            this.tabQuestion2.Location = new System.Drawing.Point(52, 4);
-            this.tabQuestion2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabQuestion2.Location = new System.Drawing.Point(46, 4);
             this.tabQuestion2.Name = "tabQuestion2";
-            this.tabQuestion2.Size = new System.Drawing.Size(717, 348);
+            this.tabQuestion2.Size = new System.Drawing.Size(637, 277);
             this.tabQuestion2.TabIndex = 2;
             this.tabQuestion2.Text = "Question 2";
             this.tabQuestion2.UseVisualStyleBackColor = true;
@@ -383,10 +371,9 @@ namespace TestingWinForms
             this.textBox2A5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2A5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2A5.Location = new System.Drawing.Point(190, 298);
-            this.textBox2A5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox2A5.Location = new System.Drawing.Point(169, 238);
             this.textBox2A5.Name = "textBox2A5";
-            this.textBox2A5.Size = new System.Drawing.Size(523, 44);
+            this.textBox2A5.Size = new System.Drawing.Size(465, 38);
             this.textBox2A5.TabIndex = 22;
             // 
             // textBox2A4
@@ -394,10 +381,9 @@ namespace TestingWinForms
             this.textBox2A4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2A4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2A4.Location = new System.Drawing.Point(190, 242);
-            this.textBox2A4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox2A4.Location = new System.Drawing.Point(169, 194);
             this.textBox2A4.Name = "textBox2A4";
-            this.textBox2A4.Size = new System.Drawing.Size(523, 44);
+            this.textBox2A4.Size = new System.Drawing.Size(465, 38);
             this.textBox2A4.TabIndex = 21;
             // 
             // textBox2A3
@@ -405,10 +391,9 @@ namespace TestingWinForms
             this.textBox2A3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2A3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2A3.Location = new System.Drawing.Point(190, 182);
-            this.textBox2A3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox2A3.Location = new System.Drawing.Point(169, 146);
             this.textBox2A3.Name = "textBox2A3";
-            this.textBox2A3.Size = new System.Drawing.Size(523, 44);
+            this.textBox2A3.Size = new System.Drawing.Size(465, 38);
             this.textBox2A3.TabIndex = 20;
             // 
             // textBox2A2
@@ -416,10 +401,9 @@ namespace TestingWinForms
             this.textBox2A2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2A2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2A2.Location = new System.Drawing.Point(190, 128);
-            this.textBox2A2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox2A2.Location = new System.Drawing.Point(169, 102);
             this.textBox2A2.Name = "textBox2A2";
-            this.textBox2A2.Size = new System.Drawing.Size(523, 44);
+            this.textBox2A2.Size = new System.Drawing.Size(465, 38);
             this.textBox2A2.TabIndex = 19;
             // 
             // textBox2A1
@@ -427,10 +411,9 @@ namespace TestingWinForms
             this.textBox2A1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2A1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2A1.Location = new System.Drawing.Point(190, 66);
-            this.textBox2A1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox2A1.Location = new System.Drawing.Point(169, 53);
             this.textBox2A1.Name = "textBox2A1";
-            this.textBox2A1.Size = new System.Drawing.Size(523, 44);
+            this.textBox2A1.Size = new System.Drawing.Size(465, 38);
             this.textBox2A1.TabIndex = 18;
             // 
             // textBoxQ2
@@ -438,19 +421,18 @@ namespace TestingWinForms
             this.textBoxQ2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxQ2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxQ2.Location = new System.Drawing.Point(190, 4);
-            this.textBoxQ2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBoxQ2.Location = new System.Drawing.Point(169, 3);
             this.textBoxQ2.Name = "textBoxQ2";
-            this.textBoxQ2.Size = new System.Drawing.Size(523, 44);
+            this.textBoxQ2.Size = new System.Drawing.Size(465, 38);
             this.textBoxQ2.TabIndex = 17;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(20, 301);
+            this.label2.Location = new System.Drawing.Point(18, 241);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(150, 38);
+            this.label2.Size = new System.Drawing.Size(129, 32);
             this.label2.TabIndex = 16;
             this.label2.Text = "answer 5";
             // 
@@ -458,9 +440,9 @@ namespace TestingWinForms
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(20, 246);
+            this.label3.Location = new System.Drawing.Point(18, 197);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(150, 38);
+            this.label3.Size = new System.Drawing.Size(129, 32);
             this.label3.TabIndex = 15;
             this.label3.Text = "answer 4";
             // 
@@ -468,9 +450,9 @@ namespace TestingWinForms
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(20, 190);
+            this.label4.Location = new System.Drawing.Point(18, 152);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(150, 38);
+            this.label4.Size = new System.Drawing.Size(129, 32);
             this.label4.TabIndex = 14;
             this.label4.Text = "answer 3";
             // 
@@ -478,9 +460,9 @@ namespace TestingWinForms
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(20, 131);
+            this.label5.Location = new System.Drawing.Point(18, 105);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(150, 38);
+            this.label5.Size = new System.Drawing.Size(129, 32);
             this.label5.TabIndex = 13;
             this.label5.Text = "answer 2";
             // 
@@ -488,9 +470,9 @@ namespace TestingWinForms
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(20, 70);
+            this.label6.Location = new System.Drawing.Point(18, 56);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(150, 38);
+            this.label6.Size = new System.Drawing.Size(129, 32);
             this.label6.TabIndex = 12;
             this.label6.Text = "answer 1";
             // 
@@ -498,9 +480,9 @@ namespace TestingWinForms
             // 
             this.labelQ2.AutoSize = true;
             this.labelQ2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQ2.Location = new System.Drawing.Point(2, 11);
+            this.labelQ2.Location = new System.Drawing.Point(2, 9);
             this.labelQ2.Name = "labelQ2";
-            this.labelQ2.Size = new System.Drawing.Size(184, 38);
+            this.labelQ2.Size = new System.Drawing.Size(161, 32);
             this.labelQ2.TabIndex = 1;
             this.labelQ2.Text = "Question 2:";
             // 
@@ -518,10 +500,9 @@ namespace TestingWinForms
             this.tabQuestion3.Controls.Add(this.label9);
             this.tabQuestion3.Controls.Add(this.label10);
             this.tabQuestion3.Controls.Add(this.label11);
-            this.tabQuestion3.Location = new System.Drawing.Point(52, 4);
-            this.tabQuestion3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabQuestion3.Location = new System.Drawing.Point(46, 4);
             this.tabQuestion3.Name = "tabQuestion3";
-            this.tabQuestion3.Size = new System.Drawing.Size(717, 348);
+            this.tabQuestion3.Size = new System.Drawing.Size(637, 277);
             this.tabQuestion3.TabIndex = 3;
             this.tabQuestion3.Text = "Question 3";
             this.tabQuestion3.UseVisualStyleBackColor = true;
@@ -531,10 +512,9 @@ namespace TestingWinForms
             this.textBox3A5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox3A5.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3A5.Location = new System.Drawing.Point(192, 318);
-            this.textBox3A5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox3A5.Location = new System.Drawing.Point(171, 254);
             this.textBox3A5.Name = "textBox3A5";
-            this.textBox3A5.Size = new System.Drawing.Size(520, 44);
+            this.textBox3A5.Size = new System.Drawing.Size(463, 38);
             this.textBox3A5.TabIndex = 34;
             // 
             // textBox3A4
@@ -542,10 +522,9 @@ namespace TestingWinForms
             this.textBox3A4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox3A4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3A4.Location = new System.Drawing.Point(192, 250);
-            this.textBox3A4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox3A4.Location = new System.Drawing.Point(171, 200);
             this.textBox3A4.Name = "textBox3A4";
-            this.textBox3A4.Size = new System.Drawing.Size(520, 44);
+            this.textBox3A4.Size = new System.Drawing.Size(463, 38);
             this.textBox3A4.TabIndex = 33;
             // 
             // textBox3A3
@@ -553,10 +532,9 @@ namespace TestingWinForms
             this.textBox3A3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox3A3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3A3.Location = new System.Drawing.Point(192, 190);
-            this.textBox3A3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox3A3.Location = new System.Drawing.Point(171, 152);
             this.textBox3A3.Name = "textBox3A3";
-            this.textBox3A3.Size = new System.Drawing.Size(520, 44);
+            this.textBox3A3.Size = new System.Drawing.Size(463, 38);
             this.textBox3A3.TabIndex = 32;
             // 
             // textBox3A2
@@ -564,10 +542,9 @@ namespace TestingWinForms
             this.textBox3A2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox3A2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3A2.Location = new System.Drawing.Point(192, 135);
-            this.textBox3A2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox3A2.Location = new System.Drawing.Point(171, 108);
             this.textBox3A2.Name = "textBox3A2";
-            this.textBox3A2.Size = new System.Drawing.Size(520, 44);
+            this.textBox3A2.Size = new System.Drawing.Size(463, 38);
             this.textBox3A2.TabIndex = 31;
             // 
             // textBox3A1
@@ -575,10 +552,9 @@ namespace TestingWinForms
             this.textBox3A1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox3A1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3A1.Location = new System.Drawing.Point(192, 74);
-            this.textBox3A1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox3A1.Location = new System.Drawing.Point(171, 59);
             this.textBox3A1.Name = "textBox3A1";
-            this.textBox3A1.Size = new System.Drawing.Size(520, 44);
+            this.textBox3A1.Size = new System.Drawing.Size(463, 38);
             this.textBox3A1.TabIndex = 30;
             // 
             // textBoxQ3
@@ -586,19 +562,18 @@ namespace TestingWinForms
             this.textBoxQ3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxQ3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxQ3.Location = new System.Drawing.Point(192, 11);
-            this.textBoxQ3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBoxQ3.Location = new System.Drawing.Point(171, 9);
             this.textBoxQ3.Name = "textBoxQ3";
-            this.textBoxQ3.Size = new System.Drawing.Size(520, 44);
+            this.textBoxQ3.Size = new System.Drawing.Size(463, 38);
             this.textBoxQ3.TabIndex = 29;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(22, 318);
+            this.label1.Location = new System.Drawing.Point(20, 254);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(150, 38);
+            this.label1.Size = new System.Drawing.Size(129, 32);
             this.label1.TabIndex = 28;
             this.label1.Text = "answer 5";
             // 
@@ -606,9 +581,9 @@ namespace TestingWinForms
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(22, 254);
+            this.label7.Location = new System.Drawing.Point(20, 203);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(150, 38);
+            this.label7.Size = new System.Drawing.Size(129, 32);
             this.label7.TabIndex = 27;
             this.label7.Text = "answer 4";
             // 
@@ -616,9 +591,9 @@ namespace TestingWinForms
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(22, 194);
+            this.label8.Location = new System.Drawing.Point(20, 155);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(150, 38);
+            this.label8.Size = new System.Drawing.Size(129, 32);
             this.label8.TabIndex = 26;
             this.label8.Text = "answer 3";
             // 
@@ -626,9 +601,9 @@ namespace TestingWinForms
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(22, 135);
+            this.label9.Location = new System.Drawing.Point(20, 108);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(150, 38);
+            this.label9.Size = new System.Drawing.Size(129, 32);
             this.label9.TabIndex = 25;
             this.label9.Text = "answer 2";
             // 
@@ -636,9 +611,9 @@ namespace TestingWinForms
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(22, 74);
+            this.label10.Location = new System.Drawing.Point(20, 59);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(150, 38);
+            this.label10.Size = new System.Drawing.Size(129, 32);
             this.label10.TabIndex = 24;
             this.label10.Text = "answer 1";
             // 
@@ -646,9 +621,9 @@ namespace TestingWinForms
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(4, 15);
+            this.label11.Location = new System.Drawing.Point(4, 12);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(184, 38);
+            this.label11.Size = new System.Drawing.Size(161, 32);
             this.label11.TabIndex = 23;
             this.label11.Text = "Question 3:";
             // 
@@ -659,10 +634,9 @@ namespace TestingWinForms
             this.tabDownload.Controls.Add(this.dateTimePickerStartDate);
             this.tabDownload.Controls.Add(this.label13);
             this.tabDownload.Controls.Add(this.label12);
-            this.tabDownload.Location = new System.Drawing.Point(52, 4);
-            this.tabDownload.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabDownload.Location = new System.Drawing.Point(46, 4);
             this.tabDownload.Name = "tabDownload";
-            this.tabDownload.Size = new System.Drawing.Size(717, 348);
+            this.tabDownload.Size = new System.Drawing.Size(637, 277);
             this.tabDownload.TabIndex = 4;
             this.tabDownload.Text = "Download";
             this.tabDownload.UseVisualStyleBackColor = true;
@@ -670,10 +644,9 @@ namespace TestingWinForms
             // btnDownload
             // 
             this.btnDownload.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDownload.Location = new System.Drawing.Point(184, 132);
-            this.btnDownload.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnDownload.Location = new System.Drawing.Point(164, 106);
             this.btnDownload.Name = "btnDownload";
-            this.btnDownload.Size = new System.Drawing.Size(190, 51);
+            this.btnDownload.Size = new System.Drawing.Size(169, 41);
             this.btnDownload.TabIndex = 6;
             this.btnDownload.Text = "Download";
             this.btnDownload.UseVisualStyleBackColor = true;
@@ -684,10 +657,9 @@ namespace TestingWinForms
             this.dateTimePickerEndDate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePickerEndDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePickerEndDate.Location = new System.Drawing.Point(184, 74);
-            this.dateTimePickerEndDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dateTimePickerEndDate.Location = new System.Drawing.Point(164, 59);
             this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
-            this.dateTimePickerEndDate.Size = new System.Drawing.Size(500, 44);
+            this.dateTimePickerEndDate.Size = new System.Drawing.Size(445, 38);
             this.dateTimePickerEndDate.TabIndex = 5;
             // 
             // dateTimePickerStartDate
@@ -695,19 +667,18 @@ namespace TestingWinForms
             this.dateTimePickerStartDate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePickerStartDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePickerStartDate.Location = new System.Drawing.Point(184, 15);
-            this.dateTimePickerStartDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dateTimePickerStartDate.Location = new System.Drawing.Point(164, 12);
             this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
-            this.dateTimePickerStartDate.Size = new System.Drawing.Size(500, 44);
+            this.dateTimePickerStartDate.Size = new System.Drawing.Size(445, 38);
             this.dateTimePickerStartDate.TabIndex = 4;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(7, 74);
+            this.label13.Location = new System.Drawing.Point(6, 59);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(165, 38);
+            this.label13.Size = new System.Drawing.Size(144, 32);
             this.label13.TabIndex = 1;
             this.label13.Text = "End date: ";
             // 
@@ -715,9 +686,9 @@ namespace TestingWinForms
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(7, 15);
+            this.label12.Location = new System.Drawing.Point(6, 12);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(176, 38);
+            this.label12.Size = new System.Drawing.Size(153, 32);
             this.label12.TabIndex = 0;
             this.label12.Text = "Start date: ";
             // 
@@ -734,11 +705,10 @@ namespace TestingWinForms
             this.tabAdvance.Controls.Add(this.label14);
             this.tabAdvance.Controls.Add(this.labelTimeOut);
             this.tabAdvance.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabAdvance.Location = new System.Drawing.Point(52, 4);
-            this.tabAdvance.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabAdvance.Location = new System.Drawing.Point(46, 4);
             this.tabAdvance.Name = "tabAdvance";
             this.tabAdvance.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tabAdvance.Size = new System.Drawing.Size(717, 348);
+            this.tabAdvance.Size = new System.Drawing.Size(300, 242);
             this.tabAdvance.TabIndex = 5;
             this.tabAdvance.Text = "Advance";
             this.tabAdvance.UseVisualStyleBackColor = true;
@@ -748,10 +718,9 @@ namespace TestingWinForms
             this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox.Location = new System.Drawing.Point(24, 365);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pictureBox.Location = new System.Drawing.Point(21, 292);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(516, 458);
+            this.pictureBox.Size = new System.Drawing.Size(122, 331);
             this.pictureBox.TabIndex = 9;
             this.pictureBox.TabStop = false;
             // 
@@ -760,10 +729,9 @@ namespace TestingWinForms
             this.btnUploadImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUploadImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUploadImage.Location = new System.Drawing.Point(312, 265);
-            this.btnUploadImage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnUploadImage.Location = new System.Drawing.Point(277, 212);
             this.btnUploadImage.Name = "btnUploadImage";
-            this.btnUploadImage.Size = new System.Drawing.Size(910, 68);
+            this.btnUploadImage.Size = new System.Drawing.Size(12, 54);
             this.btnUploadImage.TabIndex = 8;
             this.btnUploadImage.Text = "Upload Background Image";
             this.btnUploadImage.UseVisualStyleBackColor = true;
@@ -774,10 +742,9 @@ namespace TestingWinForms
             this.textBoxEndMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxEndMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxEndMessage.Location = new System.Drawing.Point(312, 188);
-            this.textBoxEndMessage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBoxEndMessage.Location = new System.Drawing.Point(277, 150);
             this.textBoxEndMessage.Name = "textBoxEndMessage";
-            this.textBoxEndMessage.Size = new System.Drawing.Size(910, 44);
+            this.textBoxEndMessage.Size = new System.Drawing.Size(12, 38);
             this.textBoxEndMessage.TabIndex = 7;
             // 
             // comboBoxRandomQns
@@ -789,10 +756,9 @@ namespace TestingWinForms
             this.comboBoxRandomQns.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxRandomQns.Location = new System.Drawing.Point(312, 109);
-            this.comboBoxRandomQns.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.comboBoxRandomQns.Location = new System.Drawing.Point(277, 87);
             this.comboBoxRandomQns.Name = "comboBoxRandomQns";
-            this.comboBoxRandomQns.Size = new System.Drawing.Size(627, 45);
+            this.comboBoxRandomQns.Size = new System.Drawing.Size(12, 39);
             this.comboBoxRandomQns.TabIndex = 6;
             // 
             // label17
@@ -800,9 +766,9 @@ namespace TestingWinForms
             this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(946, 31);
+            this.label17.Location = new System.Drawing.Point(504, 25);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(74, 38);
+            this.label17.Size = new System.Drawing.Size(64, 32);
             this.label17.TabIndex = 5;
             this.label17.Text = "Sec";
             // 
@@ -811,19 +777,18 @@ namespace TestingWinForms
             this.textBoxTimeOut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxTimeOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTimeOut.Location = new System.Drawing.Point(312, 24);
-            this.textBoxTimeOut.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBoxTimeOut.Location = new System.Drawing.Point(277, 19);
             this.textBoxTimeOut.Name = "textBoxTimeOut";
-            this.textBoxTimeOut.Size = new System.Drawing.Size(627, 44);
+            this.textBoxTimeOut.Size = new System.Drawing.Size(12, 38);
             this.textBoxTimeOut.TabIndex = 4;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(17, 280);
+            this.label16.Location = new System.Drawing.Point(15, 224);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(298, 38);
+            this.label16.Size = new System.Drawing.Size(260, 32);
             this.label16.TabIndex = 3;
             this.label16.Text = "Background image:";
             this.label16.Click += new System.EventHandler(this.label16_Click);
@@ -832,9 +797,9 @@ namespace TestingWinForms
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(17, 188);
+            this.label15.Location = new System.Drawing.Point(15, 150);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(267, 38);
+            this.label15.Size = new System.Drawing.Size(229, 32);
             this.label15.TabIndex = 2;
             this.label15.Text = "End Survey msg:";
             // 
@@ -842,9 +807,9 @@ namespace TestingWinForms
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(17, 111);
+            this.label14.Location = new System.Drawing.Point(15, 89);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(219, 38);
+            this.label14.Size = new System.Drawing.Size(189, 32);
             this.label14.TabIndex = 1;
             this.label14.Text = "Random Qns:";
             // 
@@ -852,9 +817,9 @@ namespace TestingWinForms
             // 
             this.labelTimeOut.AutoSize = true;
             this.labelTimeOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTimeOut.Location = new System.Drawing.Point(17, 28);
+            this.labelTimeOut.Location = new System.Drawing.Point(15, 22);
             this.labelTimeOut.Name = "labelTimeOut";
-            this.labelTimeOut.Size = new System.Drawing.Size(152, 38);
+            this.labelTimeOut.Size = new System.Drawing.Size(133, 32);
             this.labelTimeOut.TabIndex = 0;
             this.labelTimeOut.Text = "Time out:";
             // 
@@ -862,10 +827,9 @@ namespace TestingWinForms
             // 
             this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(500, 379);
-            this.btnExit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnExit.Location = new System.Drawing.Point(444, 303);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(132, 50);
+            this.btnExit.Size = new System.Drawing.Size(117, 40);
             this.btnExit.TabIndex = 1;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -875,10 +839,9 @@ namespace TestingWinForms
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSave.Location = new System.Drawing.Point(638, 379);
-            this.buttonSave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.buttonSave.Location = new System.Drawing.Point(567, 303);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(132, 50);
+            this.buttonSave.Size = new System.Drawing.Size(117, 40);
             this.buttonSave.TabIndex = 3;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -888,10 +851,9 @@ namespace TestingWinForms
             // 
             this.btnEndApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEndApp.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEndApp.Location = new System.Drawing.Point(229, 379);
-            this.btnEndApp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnEndApp.Location = new System.Drawing.Point(204, 303);
             this.btnEndApp.Name = "btnEndApp";
-            this.btnEndApp.Size = new System.Drawing.Size(265, 50);
+            this.btnEndApp.Size = new System.Drawing.Size(236, 40);
             this.btnEndApp.TabIndex = 4;
             this.btnEndApp.Text = "End Application";
             this.btnEndApp.UseVisualStyleBackColor = true;
@@ -899,14 +861,13 @@ namespace TestingWinForms
             // 
             // AdminForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(711, 360);
             this.Controls.Add(this.btnEndApp);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.tabControl);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "AdminForm";
             this.Text = "AdminForm";
             this.Load += new System.EventHandler(this.AdminForm_Load);

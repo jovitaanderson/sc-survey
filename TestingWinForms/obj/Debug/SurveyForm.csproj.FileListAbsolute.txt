@@ -24,3 +24,4 @@ C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\obj\Debug\SurveyForm.c
 C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\obj\Debug\SurveyForm.csproj.CoreCompileInputs.cache
 C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\obj\Debug\TestingWinForms.exe
 C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\obj\Debug\TestingWinForms.pdb
+C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\obj\Debug\SurveyForm.csproj.AssemblyReference.cache

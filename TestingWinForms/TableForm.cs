@@ -36,7 +36,16 @@ namespace TestingWinForms
 
         private bool isOpenedBefore = false;
 
-        
+        private void TableForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.A)
+            {
+                AdminForm newForm = new AdminForm();
+                newForm.Show();
+                this.Hide();
+            }
+
+        }
 
         String loadColumnNames()
         {
@@ -82,6 +91,8 @@ namespace TestingWinForms
             //CalculateDrawingArea();
 
             InitializeComponent();
+            this.KeyPreview = true;
+            this.KeyDown += new KeyEventHandler(TableForm_KeyDown);
 
             existingClickedPositions = new List<PointF>();
             columnNames = loadColumnNames();
@@ -419,7 +430,7 @@ namespace TestingWinForms
         }
 
 
-        private void btnAdmin_Click(object sender, EventArgs e)
+        /*private void btnAdmin_Click(object sender, EventArgs e)
         {
             // Perform the password check here
             bool isPasswordClickedProperly = CheckPasswordClickedProperly();
@@ -445,6 +456,6 @@ namespace TestingWinForms
             string enteredPassword = textBox1.Text;
             string correctPassword = "123456";
             return enteredPassword == correctPassword;
-        }
+        }*/
     }
 }
