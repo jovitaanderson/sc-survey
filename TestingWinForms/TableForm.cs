@@ -25,12 +25,18 @@ namespace TestingWinForms
 
         private string csvAdminTableFilePath = "admin_table.csv";
         private string csvAdminAdvanceFilePath = "admin_advance.csv";
+        private string csvAdminQuestionsFilePath = "admin_questions.csv"; // Path to the CSV file
+        private string csvAdminDownloadFilePath = "admin_download.csv";
 
         private string csvFilePath = "player_answers.csv"; // Path to the CSV file
         private string columnNames;
         private int timerToQuestionPage = 1000;
         private int lastRowNumber;
         private bool hasClicked = false;
+
+        private bool isOpenedBefore = false;
+
+        
 
         String loadColumnNames()
         {
@@ -66,7 +72,7 @@ namespace TestingWinForms
 
         public TableForm()
         {
-
+            
             existingClickedPositions = new List<PointF>();
 
             // Wire up the Resize event handler
@@ -300,28 +306,37 @@ namespace TestingWinForms
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            if (!hasClicked && drawingArea.Contains(e.Location))
+            // check if all admin csv exixts, if dosent prompt message box
+            if (!File.Exists(csvAdminAdvanceFilePath) && !File.Exists(csvAdminQuestionsFilePath))
             {
-                // Calculate the scaled coordinates within the rectangle
-                float scaleX = 10f / drawingArea.Width;
-                float scaleY = 10f / drawingArea.Height;
+                MessageBox.Show("Please set details in admin page and save!");
+            } 
+            else
+            {
+                if (!hasClicked && drawingArea.Contains(e.Location))
+                {
+                    // Calculate the scaled coordinates within the rectangle
+                    float scaleX = 10f / drawingArea.Width;
+                    float scaleY = 10f / drawingArea.Height;
 
-                float scaledX = (e.Location.X - drawingArea.X) * scaleX;
-                float scaledY = (e.Location.Y - drawingArea.Y) * scaleY;
-                //int scaledXInt = (int)Math.Round(scaledX);
-                //int scaledYInt = (int)Math.Round(scaledY);
+                    float scaledX = (e.Location.X - drawingArea.X) * scaleX;
+                    float scaledY = (e.Location.Y - drawingArea.Y) * scaleY;
+                    //int scaledXInt = (int)Math.Round(scaledX);
+                    //int scaledYInt = (int)Math.Round(scaledY);
 
-                PointF point = new PointF(scaledX, scaledY); // Create a PointF instance with the float values
+                    PointF point = new PointF(scaledX, scaledY); // Create a PointF instance with the float values
 
-                existingClickedPositions.Add(point);
-                clickedPosition = e.Location; 
+                    existingClickedPositions.Add(point);
+                    clickedPosition = e.Location;
 
-                Refresh(); // Redraw the form to display the dots
-                SavePointToCSV(point);
-                hasClicked = true;
+                    Refresh(); // Redraw the form to display the dots
+                    SavePointToCSV(point);
+                    hasClicked = true;
 
-                timer = new System.Threading.Timer(OnTimerElapsed, null, timerToQuestionPage, Timeout.Infinite); // Start the timer for x seconds
+                    timer = new System.Threading.Timer(OnTimerElapsed, null, timerToQuestionPage, Timeout.Infinite); // Start the timer for x seconds
+                }
             }
+            
         }
 
         private void OnTimerElapsed(object state) 
