@@ -727,7 +727,7 @@ namespace TestingWinForms
 
                         string previousControlText = control.Text;
                         string newTabText = previousControlText.Substring(0, previousControlText.Length - 1) + (lastDigitValue + 1);
-                        label.Text = newTabName;// newTabText;
+                        label.Text = newTabText;// newTabText;
                     }
                     //this is controls for answers
                     else if (newControl is Label labelA)
@@ -747,6 +747,18 @@ namespace TestingWinForms
                 
             }
             tabControl.TabPages.Add(newTabPage);
+
+            foreach (TabPage tabPage in tabControl.TabPages)
+            {
+                tabPage.Font = new Font(tabPage.Font.FontFamily, 16, FontStyle.Regular);
+                foreach (Control control in tabPage.Controls)
+                {
+                    if (control is TextBox textBox)
+                    {
+                        textBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                    }
+                }
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
