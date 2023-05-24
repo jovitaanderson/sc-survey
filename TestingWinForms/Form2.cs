@@ -100,7 +100,20 @@ namespace TestingWinForms
         {
             if (File.Exists(csvAdminAdvanceFilePath))
             {
-                string[] lines = File.ReadAllLines(csvAdminAdvanceFilePath);
+                string[] lines;
+                while (true)
+                {
+                    try
+                    {
+                        lines = File.ReadAllLines(csvAdminAdvanceFilePath);
+                        break;
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
                 if (lines.Length > 0)
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
@@ -178,7 +191,19 @@ namespace TestingWinForms
         {
             if (File.Exists(csvAdminAdvanceFilePath))
             {
-                string[] lines = File.ReadAllLines(csvAdminAdvanceFilePath);
+                string[] lines;
+                while (true)
+                {
+                    try
+                    {
+                        lines = File.ReadAllLines(csvAdminAdvanceFilePath);
+                        break;
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
                 if (lines.Length > 0)
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
@@ -295,7 +320,21 @@ namespace TestingWinForms
         {
             if (File.Exists(csvFilePath))
             {
-                string[] lines = File.ReadAllLines(csvFilePath);
+                string[] lines;
+
+                while (true)
+                {
+                    try
+                    {
+                        lines = File.ReadAllLines(csvFilePath);
+                        break;
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
                 if (rowNumber >= 0 && rowNumber < lines.Length)
                 {
                     lines[rowNumber] = lines[rowNumber] + "," + rowData; // Replace the row with the new data
