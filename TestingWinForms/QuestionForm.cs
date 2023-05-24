@@ -157,7 +157,7 @@ namespace TestingWinForms
                         if (values.Length >= 2) // Assuming each line in the CSV has at least 4 values: question, option1, option2, option3
                         {
                             string questionText = values[0];
-                            List<string> options = new List<string> { values[1], values[2], values[3], values[4], values[5], values[5] };
+                            List<string> options = new List<string> { values[1], values[2], values[3], values[4], values[5]};
 
                             questions.Add(new Question(currQuestionIndex, questionText, options));
                             currQuestionIndex++;
