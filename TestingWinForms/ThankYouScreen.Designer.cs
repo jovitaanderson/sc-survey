@@ -37,17 +37,16 @@ namespace TestingWinForms
             // 
             // labelEndMessage
             // 
-            this.labelEndMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelEndMessage.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelEndMessage.AutoSize = true;
             this.labelEndMessage.BackColor = System.Drawing.Color.Transparent;
-            this.labelEndMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelEndMessage.Location = new System.Drawing.Point(342, 126);
+            this.labelEndMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelEndMessage.Location = new System.Drawing.Point(292, 133);
             this.labelEndMessage.Name = "labelEndMessage";
-            this.labelEndMessage.Size = new System.Drawing.Size(93, 32);
+            this.labelEndMessage.Size = new System.Drawing.Size(126, 46);
             this.labelEndMessage.TabIndex = 0;
             this.labelEndMessage.Text = "label1";
+            this.labelEndMessage.Click += new System.EventHandler(this.labelEndMessage_Click);
             // 
             // btnMain
             // 

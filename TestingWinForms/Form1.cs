@@ -149,6 +149,13 @@ namespace TestingWinForms
                         labelTitle.Text = values[0];
                         labelXAxis.Text = values[1];
                         labelYAxis.Text = values[2];
+
+                        labelYAxis.AutoSize = true;
+                        labelYAxis.MaximumSize = new Size(300, 0);
+
+                        labelTitle.Left = (this.ClientSize.Width - labelTitle.Width) / 2;
+                        labelXAxis.Left = (this.ClientSize.Width - labelXAxis.Width) / 2;
+
                     }
                 }
             } 
@@ -262,7 +269,7 @@ namespace TestingWinForms
             }
         }
 
-        private void OnTimerElapsed(object state)
+        private void OnTimerElapsed(object state) 
         {
             hasClicked = false;
             // Invoke the navigation to a new page on the UI thread

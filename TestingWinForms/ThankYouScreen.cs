@@ -36,6 +36,8 @@ namespace TestingWinForms
 
             // Subscribe to the Timer's Tick event
             timer1.Tick += Timer1_Tick;
+
+            
         }
 
         private string LoadBackgroundImageFromCSV()
@@ -91,6 +93,9 @@ namespace TestingWinForms
                     {
                         labelEndMessage.Text = values[2];
 
+                        labelEndMessage.Location = new Point((this.ClientSize.Width - labelEndMessage.Width) / 2, (this.ClientSize.Height - labelEndMessage.Height) / 2);
+                        btnMain.Location = new Point((this.ClientSize.Width - btnMain.Width) / 2, labelEndMessage.Bottom + 20);
+
                     }
                 }
             }
@@ -105,6 +110,9 @@ namespace TestingWinForms
             this.Close();
         }
 
-        
+        private void labelEndMessage_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
