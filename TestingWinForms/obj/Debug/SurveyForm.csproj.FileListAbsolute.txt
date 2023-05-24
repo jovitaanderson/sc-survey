@@ -11,3 +11,15 @@ C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\SurveyForm
 C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\SurveyForm.csproj.CoreCompileInputs.cache
 C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.exe
 C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.pdb
+C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\bin\Debug\TestingWinForms.exe.config
+C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\bin\Debug\TestingWinForms.exe
+C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\bin\Debug\TestingWinForms.pdb
+C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\obj\Debug\TestingWinForms.AdminForm.resources
+C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\obj\Debug\TestingWinForms.TableForm.resources
+C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\obj\Debug\TestingWinForms.QuestionForm.resources
+C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\obj\Debug\TestingWinForms.Properties.Resources.resources
+C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\obj\Debug\TestingWinForms.ThankYouScreen.resources
+C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\obj\Debug\SurveyForm.csproj.GenerateResource.cache
+C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\obj\Debug\SurveyForm.csproj.CoreCompileInputs.cache
+C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\obj\Debug\TestingWinForms.exe
+C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\obj\Debug\TestingWinForms.pdb

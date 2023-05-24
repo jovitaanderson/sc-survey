@@ -14,6 +14,7 @@ namespace TestingWinForms
     public partial class QuestionForm : Form
     {
         private List<Question> questions;
+        private List<Question> defaultQuestions;
         private int currentQuestionIndex;
         private Timer timer;
         //private const int TimerInterval = 5000; // 3 seconds in milliseconds
@@ -31,6 +32,14 @@ namespace TestingWinForms
 
         public QuestionForm(int rowNumber)
         {
+            // Initialize the list of questions
+            defaultQuestions = new List<Question>()
+            {
+                new Question(0,"Question 1", new List<string> { "Option A", "Option B", "Option C", "Option D", "Option E" }),
+                new Question(1, "Question 2", new List<string> { "Option D", "Option E", "Option F", "Option D", "Option E"}),
+                new Question(2, "Question 3", new List<string> { "Option G", "Option H", "Option I", "Option D", "Option E" })
+            };
+
             InitializeComponent();
             // Check if admin wants questions to be in random
             LoadRandomQuestionsAndTimerIntervalData();
@@ -48,14 +57,7 @@ namespace TestingWinForms
             optionDCheckBox.CheckedChanged += CheckBox_CheckedChanged;
             optionECheckBox.CheckedChanged += CheckBox_CheckedChanged;
 
-            // Initialize the list of questions
-            /*questions = new List<Question>()
-            {
-                new Question("Question 1", new List<string> { "Option A", "Option B", "Option C" }),
-                new Question("Question 2", new List<string> { "Option D", "Option E", "Option F" }),
-                new Question("Question 3", new List<string> { "Option G", "Option H", "Option I" })
-            };*/
-
+            
             currentQuestionIndex = 0;
 
             // Set up the timer
@@ -157,7 +159,7 @@ namespace TestingWinForms
                         if (values.Length >= 2) // Assuming each line in the CSV has at least 4 values: question, option1, option2, option3
                         {
                             string questionText = values[0];
-                            List<string> options = new List<string> { values[1], values[2], values[3], values[4], values[5], values[5] };
+                            List<string> options = new List<string> { values[1], values[2], values[3], values[4], values[5] };
 
                             questions.Add(new Question(currQuestionIndex, questionText, options));
                             currQuestionIndex++;
@@ -174,6 +176,7 @@ namespace TestingWinForms
             else
             {
                 Console.WriteLine("CSV file does not exist: " + csvFilePath);
+                questions = defaultQuestions;
             }
 
             if (randomQuestionsText == "Yes")
@@ -220,6 +223,14 @@ namespace TestingWinForms
                         timerInterval = 10 * 1000; // Default timer interval is 10s
                     }
                 }
+                else
+                {
+                    timerInterval = 10 * 1000; // Default timer interval is 10s
+                }
+            }
+            else
+            {
+                timerInterval = 10 * 1000; // Default timer interval is 10s
             }
         }
 
