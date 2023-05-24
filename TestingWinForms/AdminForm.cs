@@ -504,8 +504,9 @@ namespace TestingWinForms
             List<string> filteredPlayerAnswers = FilterPlayerAnswersByDateRange(dateTimePickerStartDate.Value, dateTimePickerEndDate.Value);
             List<string> pointsFilterePlayerAnswers = separateData(filteredPlayerAnswers);
             List<string> roundedFilterePlayerAnswers = roundDataPoints(pointsFilterePlayerAnswers);
-            countPoints(roundedFilterePlayerAnswers);
-            List<string> consolidatedPointAnswers = consolidatedPointsFormat(filteredPlayerAnswers.Count);
+            List<string> consolidatedPointAnswers = countPoints(roundedFilterePlayerAnswers); //Vertical
+            //List<string> consolidatedPointAnswersF2 = consolidatedPointsFormat(filteredPlayerAnswers.Count); //Horizontal
+            
             // Check if there are any matching answers
             if (filteredPlayerAnswers.Count > 0)
             {
@@ -585,7 +586,11 @@ namespace TestingWinForms
             return roundedPoints;
         }
 
-        void countPoints(List<string> roundedPoints) {
+        private List<string> countPoints(List<string> roundedPoints) {
+
+            List<string> pointsConslidatedFormat = new List<string>();
+            string csvColumnHeader = "Answer,x-axis,y-axis";
+            pointsConslidatedFormat.Add(csvColumnHeader);
 
             foreach (string item in roundedPoints)
             {
@@ -608,16 +613,16 @@ namespace TestingWinForms
             {
 
                 float value = i / 2f;
-                Console.WriteLine("First Value {0}: {1}", value, xAxisIntervalCounts[i]);
+                pointsConslidatedFormat.Add($"{value},{xAxisIntervalCounts[i]},{yAxisIntervalCounts[i]}");
+                //Console.WriteLine("First Value {0}: {1}", value, xAxisIntervalCounts[i]);
+                //Console.WriteLine("Second Value {0}: {1}", value, yAxisIntervalCounts[i]);
             }
+            pointsConslidatedFormat.Add($"Total,{roundedPoints.Count},{roundedPoints.Count}");
+            return pointsConslidatedFormat;
 
-            for (int i = 0; i < 21; i++)
-            {
-                float value = i / 2f;
-                Console.WriteLine("Second Value {0}: {1}", value, yAxisIntervalCounts[i]);
-            }
         }
 
+        /*
         private List<string> consolidatedPointsFormat(int totalReponses) {
             List<string> pointsConslidatedFormat = new List<string>();
             string csvColumnHeader = "Answer,0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,Total";
@@ -630,8 +635,7 @@ namespace TestingWinForms
             pointsConslidatedFormat.Add(yAxisData);
 
             return pointsConslidatedFormat;
-
-        }
+        }*/
 
 
 
