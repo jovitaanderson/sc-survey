@@ -1,4 +1,4 @@
-date,point_x,point_y,Do you enjoy this exhibition?,Do you like Food,What is your blood type?
+date,point_x,point_y,Do you like to play football?,Do you like food?,How are you?
 23/2/2023,7.75,7.85,,,
 23/7/2023,5.95,7.4,,,
 2/3/2023,7.5,3.95,,,
@@ -61,3 +61,8 @@ date,point_x,point_y,Do you enjoy this exhibition?,Do you like Food,What is your
 23/05/2023,5.461539,3.634615,,,
 23/05/2023,5.903846,1.576923,,,
 23/05/2023,5.23077,4.48077
+24/05/2023,7.461539,1.269231,,,
+24/05/2023,8.269231,5.576923,No,HATE it,A
+24/05/2023,1.403846,2.461539,No,,
+24/05/2023,8.519231,7.076923
+24/05/2023,7.73077,6.346154,,,

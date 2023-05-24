@@ -139,7 +139,22 @@ namespace TestingWinForms
         {
             if (File.Exists(csvAdminTableFilePath))
             {
-                string[] lines = File.ReadAllLines(csvAdminTableFilePath);
+
+                string[] lines;
+
+                while (true)
+                {
+                    try
+                    {
+                        lines = File.ReadAllLines(csvAdminTableFilePath);
+                        break;
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
                 if (lines.Length > 0)
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
@@ -158,7 +173,19 @@ namespace TestingWinForms
         {
             if (File.Exists(csvAdminAdvanceFilePath))
             {
-                string[] lines = File.ReadAllLines(csvAdminAdvanceFilePath);
+                string[] lines;
+                while (true)
+                {
+                    try
+                    {
+                        lines = File.ReadAllLines(csvAdminAdvanceFilePath);
+                        break;
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
                 if (lines.Length > 0)
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
@@ -197,7 +224,21 @@ namespace TestingWinForms
                 float inverseScaleX = drawingArea.Width / 10f;
                 float inverseScaleY = drawingArea.Height / 10f;
 
-                string[] lines = File.ReadAllLines(csvFilePath);
+                string[] lines;
+
+                while (true)
+                {
+                    try
+                    {
+                        lines = File.ReadAllLines(csvFilePath);
+                        break;
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
                 lastRowNumber = lines.Length;
 
                 // Get the index of the "point_x" and "point_y" columns
@@ -228,11 +269,24 @@ namespace TestingWinForms
 
         private void SavePointToCSV(PointF currPoint)
         {
-            using (StreamWriter writer = new StreamWriter(csvFilePath, true))
+            while (true)
             {
-                string currentDate = DateTime.Now.ToString("dd/MM/yyyy");
+                try
+                {
+                    using (StreamWriter writer = new StreamWriter(csvFilePath, true))
+                    {
+                        string currentDate = DateTime.Now.ToString("dd/MM/yyyy");
 
-                writer.WriteLine($"{currentDate},{currPoint.X},{currPoint.Y}");
+                        writer.WriteLine($"{currentDate},{currPoint.X},{currPoint.Y}");
+                    }
+                    break;
+                }
+                catch (IOException ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                    SavePointToCSV(currPoint);
+                }
             }
         }
 

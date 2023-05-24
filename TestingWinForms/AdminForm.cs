@@ -103,10 +103,18 @@ namespace TestingWinForms
 
         private void ClearCSVFiles()
         {
-            File.WriteAllText(csvAdminQuestionsFilePath, string.Empty);
-            File.WriteAllText(csvAdminTableFilePath, string.Empty);
-            File.WriteAllText(csvAdminDownloadFilePath, string.Empty);
-            File.WriteAllText(csvAdminAdvanceFilePath, string.Empty);
+            try
+            {
+                File.WriteAllText(csvAdminQuestionsFilePath, string.Empty);
+                File.WriteAllText(csvAdminTableFilePath, string.Empty);
+                File.WriteAllText(csvAdminDownloadFilePath, string.Empty);
+                File.WriteAllText(csvAdminAdvanceFilePath, string.Empty);
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.Message);
+                ClearCSVFiles();
+            }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -124,9 +132,21 @@ namespace TestingWinForms
             string titleDate = string.Format("{0},{1},{2}", title, x_axis, y_axis);
 
             // Append the data to the CSV file
-            using (StreamWriter sw = new StreamWriter(csvAdminTableFilePath, true))
+            while (true)
             {
-                sw.WriteLine(titleDate);
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(csvAdminTableFilePath, true))
+                    {
+                        sw.WriteLine(titleDate);
+                    }
+                    break;
+                }
+                catch (IOException ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
             }
 
             //Q1
@@ -159,11 +179,23 @@ namespace TestingWinForms
             string row3 = string.Format("{0},{1},{2},{3},{4},{5}", question3, q3a1, q3a2, q3a3, q3a4, q3a5);
 
             // Append the rows to the CSV file
-            using (StreamWriter sw = new StreamWriter(csvAdminQuestionsFilePath, true))
+            while (true)
             {
-                sw.WriteLine(row1);
-                sw.WriteLine(row2);
-                sw.WriteLine(row3);
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(csvAdminQuestionsFilePath, true))
+                    {
+                        sw.WriteLine(row1);
+                        sw.WriteLine(row2);
+                        sw.WriteLine(row3);
+                    }
+                    break;
+                }
+                catch (IOException ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
             }
             string columnHeader = "date,point_x,point_y," + question1 + "," + question2 + "," + question3;
             UpdatePlayerCSVHeader(columnHeader);
@@ -177,9 +209,19 @@ namespace TestingWinForms
             string downloadData = string.Format("{0},{1}", startDate, endDate);
 
             // Append the data to the CSV file
-            using (StreamWriter sw = new StreamWriter(csvAdminDownloadFilePath, true))
-            {
-                sw.WriteLine(downloadData);
+            while (true) {
+                try {
+                    using (StreamWriter sw = new StreamWriter(csvAdminDownloadFilePath, true))
+                    {
+                        sw.WriteLine(downloadData);
+                    }
+                    break;
+                }
+                catch (IOException ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
             }
 
             //Advance
@@ -219,12 +261,22 @@ namespace TestingWinForms
             string data = string.Format("{0},{1},{2},{3}", timeOut, randomQuestions, endSurveyText, imagePath); //, base64Image);
 
             // Append the data to the CSV file
-            using (StreamWriter sw = new StreamWriter(csvAdminAdvanceFilePath, true))
+            while (true)
             {
-                sw.WriteLine(data);
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(csvAdminAdvanceFilePath, true))
+                    {
+                        sw.WriteLine(data);
+                    }
+                    break;
+                }
+                catch (IOException ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
             }
-
-
 
             MessageBox.Show("Data saved to CSV file.");
         }
@@ -232,13 +284,26 @@ namespace TestingWinForms
         void UpdatePlayerCSVHeader(String columnHeader) {
 
             // Read all lines from the CSV file
-            string[] lines = File.ReadAllLines(csvPlayerFilePath);
+            string[] lines;
+            while (true)
+            {
+                try
+                {
+                    lines = File.ReadAllLines(csvPlayerFilePath);
+                    break;
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
 
             // Replace the first line (header) with the new column names
             lines[0] = columnHeader;
 
             // Write the updated lines back to the CSV file
             File.WriteAllLines(csvPlayerFilePath, lines);
+
         }
 
         private void LoadDataFromCSV()
@@ -264,99 +329,153 @@ namespace TestingWinForms
 
         private void LoadTableData()
         {
-            if (File.Exists(csvAdminTableFilePath))
-            {
-                string[] lines = File.ReadAllLines(csvAdminTableFilePath);
-                if (lines.Length > 0)
+                if (File.Exists(csvAdminTableFilePath))
                 {
-                    string[] values = lines[lines.Length - 1].Split(',');
-
-                    if (values.Length == 3)
+                    string[] lines;
+                    while (true)
                     {
-                        textBoxTitle.Text = values[0];
-                        textBoxXAxis.Text = values[1];
-                        textBoxYAxis.Text = values[2];
+                        try
+                        {
+                            lines = File.ReadAllLines(csvAdminTableFilePath);
+                            break;
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+
+
+                    if (lines.Length > 0)
+                    {
+                        string[] values = lines[lines.Length - 1].Split(',');
+
+                        if (values.Length == 3)
+                        {
+                            textBoxTitle.Text = values[0];
+                            textBoxXAxis.Text = values[1];
+                            textBoxYAxis.Text = values[2];
+                        }
                     }
                 }
-            }
+
         }
 
         private void LoadQuestionData(TabPage tabPage, string csvFilePath, int questionIndex)
         {
-            if (File.Exists(csvFilePath))
-            {
-                string[] lines = File.ReadAllLines(csvFilePath);
-                if (lines.Length > questionIndex)
+                if (File.Exists(csvFilePath))
                 {
-                    string[] values = lines[questionIndex].Split(',');
-
-                    TextBox questionTextBox = tabPage.Controls.OfType<TextBox>().FirstOrDefault(c => c.Name.StartsWith("textBoxQ"));
-                    TextBox[] answerTextBoxes = tabPage.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + (questionIndex + 1) + "A")).ToArray();
-
-                    if (questionTextBox != null && answerTextBoxes.Length == 5)
+                    string[] lines = File.ReadAllLines(csvFilePath);
+                    while (true)
                     {
-                        questionTextBox.Text = values[0];
-                        for (int i = values.Length - 2; i >= 0; i--)
+                        try
                         {
-                            answerTextBoxes[values.Length - 2 - i].Text = values[i + 1];
+                            lines = File.ReadAllLines(csvFilePath);
+                            break;
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+
+                    if (lines.Length > questionIndex)
+                    {
+                        string[] values = lines[questionIndex].Split(',');
+
+                        TextBox questionTextBox = tabPage.Controls.OfType<TextBox>().FirstOrDefault(c => c.Name.StartsWith("textBoxQ"));
+                        TextBox[] answerTextBoxes = tabPage.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + (questionIndex + 1) + "A")).ToArray();
+
+                        if (questionTextBox != null && answerTextBoxes.Length == 5)
+                        {
+                            questionTextBox.Text = values[0];
+                            for (int i = values.Length - 2; i >= 0; i--)
+                            {
+                                answerTextBoxes[values.Length - 2 - i].Text = values[i + 1];
+                            }
                         }
                     }
                 }
-            }
         }
 
 
         private void LoadDownloadData()
         {
-            if (File.Exists(csvAdminDownloadFilePath))
-            {
-                string[] lines = File.ReadAllLines(csvAdminDownloadFilePath);
-                if (lines.Length > 0)
+                if (File.Exists(csvAdminDownloadFilePath))
                 {
-                    string[] values = lines[lines.Length - 1].Split(',');
-
-                    if (values.Length == 2)
+                    string[] lines;
+                    while (true)
                     {
-                        DateTime startDate;
-                        DateTime endDate;
-                        if (DateTime.TryParse(values[0], out startDate) && DateTime.TryParse(values[1], out endDate))
+                        try
                         {
-                            dateTimePickerStartDate.Value = startDate;
-                            dateTimePickerEndDate.Value = endDate;
+                            lines = File.ReadAllLines(csvAdminDownloadFilePath);
+                            break;
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+
+                    if (lines.Length > 0)
+                    {
+                        string[] values = lines[lines.Length - 1].Split(',');
+
+                        if (values.Length == 2)
+                        {
+                            DateTime startDate;
+                            DateTime endDate;
+                            if (DateTime.TryParse(values[0], out startDate) && DateTime.TryParse(values[1], out endDate))
+                            {
+                                dateTimePickerStartDate.Value = startDate;
+                                dateTimePickerEndDate.Value = endDate;
+                            }
                         }
                     }
                 }
-            }
         }
 
         private void LoadAdvanceData()
         {
-            if (File.Exists(csvAdminAdvanceFilePath))
-            {
-                string[] lines = File.ReadAllLines(csvAdminAdvanceFilePath);
-                if (lines.Length > 0)
+                if (File.Exists(csvAdminAdvanceFilePath))
                 {
-                    string[] values = lines[lines.Length - 1].Split(',');
-
-                    if (values.Length == 4)
+                    string[] lines;
+                    while (true)
                     {
-                        textBoxTimeOut.Text = values[0];
-                        comboBoxRandomQns.Text = values[1];
-                        textBoxEndMessage.Text = values[2];
-
-                        // Load the image if it exists
-                        //string rootPath = Directory.GetCurrentDirectory();
-                        //string directoryPath = Path.Combine(rootPath, "Images");
-                        string imagePath = Path.Combine(values[3]);
-
-                        if (File.Exists(imagePath))
+                        try
                         {
-                            Image image = Image.FromFile(imagePath);
-                            pictureBox.Image = image;
+                            lines = File.ReadAllLines(csvAdminDownloadFilePath);
+                            break;
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                    if (lines.Length > 0)
+                    {
+                        string[] values = lines[lines.Length - 1].Split(',');
+
+                        if (values.Length == 4)
+                        {
+                            textBoxTimeOut.Text = values[0];
+                            comboBoxRandomQns.Text = values[1];
+                            textBoxEndMessage.Text = values[2];
+
+                            // Load the image if it exists
+                            //string rootPath = Directory.GetCurrentDirectory();
+                            //string directoryPath = Path.Combine(rootPath, "Images");
+                            string imagePath = Path.Combine(values[3]);
+
+                            if (File.Exists(imagePath))
+                            {
+                                Image image = Image.FromFile(imagePath);
+                                pictureBox.Image = image;
+                            }
                         }
                     }
                 }
-            }
+
         }
 
         private void label16_Click(object sender, EventArgs e)
@@ -405,7 +524,19 @@ namespace TestingWinForms
 
             if (File.Exists(csvFilePath))
             {
-                string[] allAnswers = File.ReadAllLines(csvFilePath);
+                string[] allAnswers;
+
+                while (true) {
+                    try
+                    {
+                        allAnswers = File.ReadAllLines(csvFilePath);
+                        break;
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
 
                 foreach (string answer in allAnswers)
                 {
