@@ -557,5 +557,10 @@ namespace TestingWinForms
 
             return filteredAnswers;
         }
+
+        private void btnEndApp_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
