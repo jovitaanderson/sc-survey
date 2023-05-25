@@ -72,6 +72,14 @@ namespace TestingWinForms
             questions = LoadQuestionsFromCSV();
             savedAnswers = new String[questions.Count];
 
+            string semicolonString = " " + string.Join("; ", new string[totalOptions]);
+
+            for (int i = 0; i < savedAnswers.Length; i++)
+            {
+                savedAnswers[i] = semicolonString;
+            }
+
+
             DisplayBackground();
             DisplayQuestion(); //Display first question
         }
@@ -389,6 +397,7 @@ namespace TestingWinForms
         // Timer for question
         private void Timer_Tick(object sender, EventArgs e)
         {
+
             saveAnswersToArray();
             // Timer elapsed, redirect to Form1
             AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
