@@ -285,9 +285,7 @@ namespace TestingWinForms
                 }
             }
 
-
-            //string columnHeader = "date,point_x,point_y," + question1 + "," + question2 + "," + question3;
-            //UpdatePlayerCSVHeader(columnHeader);
+            UpdatePlayerCSVHeader();
 
             //Download
             DateTime selectedStartDate = dateTimePickerStartDate.Value;
@@ -372,7 +370,17 @@ namespace TestingWinForms
             MessageBox.Show("Data saved to CSV file.");
         }
 
-        void UpdatePlayerCSVHeader(String columnHeader) {
+        void UpdatePlayerCSVHeader() {
+
+            string columnHeader = "date,point_x,point_y,";
+
+            for (int i = 1; i <= questionsNumber; i++)
+            {
+                string questionX = "question" + i;
+                columnHeader += questionX + ",";
+            }
+
+            columnHeader = columnHeader.TrimEnd(',');
 
             // Read all lines from the CSV file
             string[] lines;

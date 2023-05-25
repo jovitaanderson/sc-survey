@@ -389,6 +389,7 @@ namespace TestingWinForms
         // Timer for question
         private void Timer_Tick(object sender, EventArgs e)
         {
+            saveAnswersToArray();
             // Timer elapsed, redirect to Form1
             AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
             
