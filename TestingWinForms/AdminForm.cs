@@ -796,16 +796,20 @@ namespace TestingWinForms
             double[] percentageCountX = new double[21]; 
             double[] percentageCountY = new double[21];
 
-            List<string> pointsConslidatedFormat = new List<string>();
+            //List<string> pointsConslidatedFormat = new List<string>();
 
-            pointsConslidatedFormat.Add("Response count for each interval");
+            //pointsConslidatedFormat.Add("Response count for each interval");
             string csvColumnHeader = "Answer,x-axis,y-axis";
-            pointsConslidatedFormat.Add(csvColumnHeader);
+            //pointsConslidatedFormat.Add(csvColumnHeader);
 
-            List<string> conslidatedPercentagePoint = new List<string>();
-            conslidatedPercentagePoint.Add(csvColumnHeader);
-            conslidatedPercentagePoint.Add("Percentage of each response per interval");
+            //List<string> conslidatedPercentagePoint = new List<string>();
+            //conslidatedPercentagePoint.Add(csvColumnHeader);
+            //conslidatedPercentagePoint.Add("Percentage of each response per interval");
 
+
+            List<string> combinedData = new List<string>(); //seprataed by two columns
+            combinedData.Add(" ,Response count for each interval, , , ,Percentage of each response per interval");
+            combinedData.Add($"{csvColumnHeader},,,{csvColumnHeader}");
 
             foreach (string item in roundedPoints)
             {
@@ -823,16 +827,7 @@ namespace TestingWinForms
                 }
             }
 
-
-            // Output the counts
-            for (int i = 0; i < 21; i++)
-            {
-                float value = i / 2f;
-                pointsConslidatedFormat.Add($"{value},{xAxisIntervalCounts[i]},{yAxisIntervalCounts[i]}");
-
-            }
-            pointsConslidatedFormat.Add($"Total,{roundedPoints.Count},{roundedPoints.Count}");
-
+            //Calculate average
             for (int i = 0; i < 21; i++)
             {
                 percentageCountX[i] = ((double)xAxisIntervalCounts[i] / numOfResponses) * 100;
@@ -843,31 +838,21 @@ namespace TestingWinForms
             for (int i = 0; i < 21; i++)
             {
                 float value = i / 2f;
-                conslidatedPercentagePoint.Add($"{value},{percentageCountX[i]},{percentageCountY[i]}%");
+                //pointsConslidatedFormat.Add($"{value},{xAxisIntervalCounts[i]},{yAxisIntervalCounts[i]}");
+                //conslidatedPercentagePoint.Add($"{value},{percentageCountX[i]},{percentageCountY[i]}%");
+                combinedData.Add($"{value},{xAxisIntervalCounts[i]},{yAxisIntervalCounts[i]},,,{value},{percentageCountX[i]},{percentageCountY[i]}%");
+
             }
-            conslidatedPercentagePoint.Add($"Total,{roundedPoints.Count},{roundedPoints.Count}");
+            //pointsConslidatedFormat.Add($"Total,{roundedPoints.Count},{roundedPoints.Count}");
+            //conslidatedPercentagePoint.Add($"Total,{roundedPoints.Count},{roundedPoints.Count}");
+            combinedData.Add($"Total,{roundedPoints.Count},{roundedPoints.Count},,,Total,{roundedPoints.Count},{roundedPoints.Count}");
 
-            pointsConslidatedFormat.Add("");
-            pointsConslidatedFormat.AddRange(conslidatedPercentagePoint);
+            //pointsConslidatedFormat.Add("");
+            //pointsConslidatedFormat.AddRange(conslidatedPercentagePoint);
 
-            return pointsConslidatedFormat;
+            return combinedData;
 
         }
-
-        /*
-        private List<string> consolidatedPointsFormat(int totalReponses) {
-            List<string> pointsConslidatedFormat = new List<string>();
-            string csvColumnHeader = "Answer,0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,Total";
-
-            pointsConslidatedFormat.Add(csvColumnHeader);
-
-            string xAxisData = "x-axis," + string.Join(",", xAxisIntervalCounts) + "," + totalReponses.ToString();
-            pointsConslidatedFormat.Add(xAxisData);
-            string yAxisData = "x-axis," + string.Join(",", yAxisIntervalCounts) + "," + totalReponses.ToString();
-            pointsConslidatedFormat.Add(yAxisData);
-
-            return pointsConslidatedFormat;
-        }*/
 
 
         // Helper method to round to the nearest 0.5 decimal place
