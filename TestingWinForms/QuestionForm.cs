@@ -32,14 +32,16 @@ namespace TestingWinForms
         Dictionary<string, string> checkboxValues = new Dictionary<string, string>(); // Stores answers on checkbox change
         int totalOptions = 8;
 
+        bool[] isQuestionMRQ = new bool[] { false, true, true, true, false, true, true, true };
+
         public QuestionForm(int rowNumber)
         {
             // Initialize the list of questions
             defaultQuestions = new List<Question>()
             {
-                new Question(0,"Question 1", new List<string> { "Option A", "Option B", "Option C", "Option D", "Option E" }),
-                new Question(1, "Question 2", new List<string> { "Option D", "Option E", "Option F", "Option D", "Option E"}),
-                new Question(2, "Question 3", new List<string> { "Option G", "Option H", "Option I", "Option D", "Option E" })
+                new Question(0,"Question 1", "MCQ", new List<string> { "Option A", "Option B", "Option C", "Option D", "Option E" }),
+                new Question(1, "Question 2", "MCQ", new List<string> { "Option D", "Option E", "Option F", "Option D", "Option E"}),
+                new Question(2, "Question 3", "MRQ", new List<string> { "Option G", "Option H", "Option I", "Option D", "Option E" })
             };
 
             InitializeComponent();
@@ -175,7 +177,7 @@ namespace TestingWinForms
                             string questionText = values[0];
                             List<string> options = new List<string> { values[1], values[2], values[3], values[4], values[5] };
 
-                            questions.Add(new Question(currQuestionIndex, questionText, options));
+                            questions.Add(new Question(currQuestionIndex, questionText, "MCQ", options));
                             currQuestionIndex++;
                         }
                         else
@@ -247,6 +249,20 @@ namespace TestingWinForms
             }
         }
 
+
+        private void CheckBox_MCQ(object sender, EventArgs e)
+        {
+            CheckBox clickedCheckBox = (CheckBox)sender;
+
+            // Uncheck all other checkboxes except the clicked checkbox
+            foreach (Control control in Controls)
+            {
+                if (control is CheckBox checkBox && checkBox != clickedCheckBox)
+                {
+                    checkBox.Checked = false;
+                }
+            }
+        }
         private void DisplayQuestion()
         {
             if (currentQuestionIndex < questions.Count)
@@ -255,6 +271,22 @@ namespace TestingWinForms
                 ResetTimer();
 
                 Question currentQuestion = questions[currentQuestionIndex];
+
+                if (currentQuestion.Type == "MCQ")
+                {
+                    optionACheckBox.CheckedChanged += CheckBox_MCQ;
+                    optionBCheckBox.CheckedChanged += CheckBox_MCQ;
+                    optionCCheckBox.CheckedChanged += CheckBox_MCQ;
+                    optionDCheckBox.CheckedChanged += CheckBox_MCQ;
+                    optionECheckBox.CheckedChanged += CheckBox_MCQ;
+                }
+                else {
+                    optionACheckBox.CheckedChanged -= CheckBox_MCQ;
+                    optionBCheckBox.CheckedChanged -= CheckBox_MCQ;
+                    optionCCheckBox.CheckedChanged -= CheckBox_MCQ;
+                    optionDCheckBox.CheckedChanged -= CheckBox_MCQ;
+                    optionECheckBox.CheckedChanged -= CheckBox_MCQ;
+                }
 
                 // Update the question label
                 questionLabel.Text = currentQuestion.Text;
@@ -419,11 +451,15 @@ namespace TestingWinForms
     {
         public int Index { get; set; }
         public string Text { get; set; }
+
+        public string Type { get; set; }
+
         public List<string> Options { get; set; }
-        public Question(int index, string text, List<string> options)
+        public Question(int index, string text, string type, List<string> options)
         {
             Index = index;
             Text = text;
+            Type = type;
             Options = options;
         }
     }
