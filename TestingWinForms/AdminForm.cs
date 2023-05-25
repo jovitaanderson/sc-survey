@@ -154,6 +154,12 @@ namespace TestingWinForms
             return Controls.Find(textBoxName, true).FirstOrDefault() as TextBox;
         }
 
+        private ComboBox GetQuestionComboBox(int questionIndex)
+        {
+            string comboBoxName = "comboBox" + (questionIndex + 1);
+            return Controls.Find(comboBoxName, true).FirstOrDefault() as ComboBox;
+        }
+
         // Helper method to retrieve the answer TextBox based on the question and answer indices
         private TextBox GetAnswerTextBox(int questionIndex, int answerIndex)
         {
@@ -199,12 +205,15 @@ namespace TestingWinForms
             // Store the question and answer data in lists
             List<string> questions = new List<string>();
             List<List<string>> answers = new List<List<string>>();
+            List<string> types = new List<string>();
 
             // Loop through the questions
             for (int i = 0; i < questionsNumber; i++)
             {
                 // Get the question text
                 TextBox textBoxQuestion = GetQuestionTextBox(i);
+                ComboBox comboBox = GetQuestionComboBox(i);
+                
                 if (!string.IsNullOrWhiteSpace(textBoxQuestion.Text))
                 {
                     questions.Add(textBoxQuestion.Text);
@@ -218,6 +227,17 @@ namespace TestingWinForms
                         answerOptions.Add(answer);
                     }
                     answers.Add(answerOptions);
+
+                    //Add type of questions
+                    if (comboBox.SelectedIndex == -1)
+                    {
+                        // No item selected, set default value
+                        types.Add("MRQ");
+                    }
+                    else
+                    {
+                        types.Add(comboBox.Text);
+                    }
                 }
                     
             }
@@ -226,10 +246,11 @@ namespace TestingWinForms
             for (int i = 0; i < questions.Count; i++)
             {
                 string question = questions[i];
+                string type = types[i];
                 List<string> answerOptions = answers[i];
 
                 // Concatenate the data into comma-separated rows
-                string rowData = string.Format("{0},{1}", question, string.Join(",", answerOptions));
+                string rowData = string.Format("{0},{1},{2}", question, type, string.Join(",", answerOptions));
 
                 // Append the rows to the CSV file
                 while (true)
@@ -449,14 +470,16 @@ namespace TestingWinForms
 
                         TextBox questionTextBox = tabPage.Controls.OfType<TextBox>().FirstOrDefault(c => c.Name.StartsWith("textBoxQ"));
                         TextBox[] answerTextBoxes = tabPage.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + "A" + (questionIndex + 1))).ToArray();
+                        ComboBox questionTypeComboBox = tabPage.Controls.OfType<ComboBox>().FirstOrDefault(c => c.Name.StartsWith("comboBox"));
 
-                        if (questionTextBox != null && answerTextBoxes.Length == optionsNumber)
+                    if (questionTextBox != null && answerTextBoxes.Length == optionsNumber && questionTypeComboBox != null)
                         {
                             questionTextBox.Text = values[0];
-                            for (int i = values.Length - 2; i >= 0; i--)
+                            for (int i = values.Length - 3; i >= 0; i--)
                             {
-                                answerTextBoxes[values.Length - 2 - i].Text = values[i + 1];
+                                answerTextBoxes[values.Length - 3 - i].Text = values[i + 2];
                             }
+                            questionTypeComboBox.Text = values[1];
                         }
                     }
                 }
@@ -526,9 +549,6 @@ namespace TestingWinForms
                             comboBoxRandomQns.Text = values[1];
                             textBoxEndMessage.Text = values[2];
 
-                            // Load the image if it exists
-                            //string rootPath = Directory.GetCurrentDirectory();
-                            //string directoryPath = Path.Combine(rootPath, "Images");
                             string imagePath = Path.Combine(values[3]);
 
                             if (File.Exists(imagePath))
@@ -542,15 +562,6 @@ namespace TestingWinForms
 
         }
 
-        private void label16_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabTable_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnDownload_Click(object sender, EventArgs e)
         {
@@ -810,7 +821,7 @@ namespace TestingWinForms
                         label.Text = newTabText;
                     }
                     //this is controls for answers
-                    else if (newControl is Label labelA)
+                    else if (newControl is Label labelA && control.Name.StartsWith("labelA"))
                     {
                         string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
                         int secondLastDigitValue = int.Parse(secondLastDigit);
@@ -818,6 +829,15 @@ namespace TestingWinForms
                         labelA.Name = newTabName; // Update the Label with the new tab name
 
                         labelA.Text = control.Text;
+                    }
+                    else if (newControl is Label labelT && control.Name.StartsWith("labelType"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newLabelTypeName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        labelT.Name = newLabelTypeName; // Update the Label with the new tab name
+
+                        labelT.Text = control.Text;
                     }
                     else if (newControl is Button button && control.Name.StartsWith("btnClear"))
                     {
@@ -827,6 +847,23 @@ namespace TestingWinForms
                         button.Name = newButtonName;
                         button.Text = control.Text;
                         button.Click += ClearButton_Click;
+                    }
+                    else if (newControl is ComboBox comboBox && control.Name.StartsWith("comboBox"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        comboBox.Name = newButtonName;
+                        comboBox.Text = "MRQ"; //Default is pick MRQ
+
+                        // Copy items from the previous ComboBox
+                        if (control is ComboBox previousComboBox)
+                        {
+                            foreach (var item in previousComboBox.Items)
+                            {
+                                comboBox.Items.Add(item);
+                            }
+                        }
                     }
 
                     // Copy any other desired properties or event handlers
@@ -944,5 +981,6 @@ namespace TestingWinForms
                 btnSelPointColour.BackColor = selectedColor;
             }
         }
+
     }
 }
