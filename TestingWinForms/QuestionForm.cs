@@ -27,13 +27,10 @@ namespace TestingWinForms
         private List<string> autoSelectedOptions = new List<string>(); // Stores the selected checkboxes
         private string randomQuestionsText = null;
 
-        String[] savedAnswers;
-        String[] autoSavedAnswers;
+        String[] savedAnswers; //Stores answers to each question
 
-        Dictionary<string, string> checkboxValues = new Dictionary<string, string>();
-        // Create a list to store the checkbox values in order
-        //List<KeyValuePair<string, string>> checkboxValues = new List<KeyValuePair<string, string>>();
-
+        Dictionary<string, string> checkboxValues = new Dictionary<string, string>(); // Stores answers on checkbox change
+        int totalOptions = 8;
 
         public QuestionForm(int rowNumber)
         {
@@ -52,7 +49,6 @@ namespace TestingWinForms
             FormBorderStyle = FormBorderStyle.None; // Remove the border
             WindowState = FormWindowState.Maximized; // Maximize the window
 
-
             this.rowNumber = rowNumber;
 
             // Subscribe the same event handler method to the CheckedChanged event of each checkbox
@@ -62,7 +58,6 @@ namespace TestingWinForms
             optionDCheckBox.CheckedChanged += CheckBox_CheckedChanged;
             optionECheckBox.CheckedChanged += CheckBox_CheckedChanged;
 
-            
             currentQuestionIndex = 0;
 
             // Set up the timer
@@ -73,10 +68,12 @@ namespace TestingWinForms
 
             questions = LoadQuestionsFromCSV();
             savedAnswers = new String[questions.Count];
-            autoSavedAnswers = new String[countEnabledCheckBox()];
 
-            // Display the first question
-            DisplayQuestion();
+            DisplayBackground();
+            DisplayQuestion(); //Display first question
+        }
+
+        private void DisplayBackground() {
 
             //Display background image
             string imagePath = LoadBackgroundImageFromCSV();
@@ -89,21 +86,7 @@ namespace TestingWinForms
                 // Adjust the background image display settings
                 this.BackgroundImageLayout = ImageLayout.Stretch;
             }
-
         }
-
-        private void Form2_Load(object sender, EventArgs e)
-        {
-            // Center the label and checkboxes on the form
-            questionLabel.TextAlign = ContentAlignment.MiddleCenter;
-            optionACheckBox.TextAlign = ContentAlignment.MiddleCenter;
-            optionBCheckBox.TextAlign = ContentAlignment.MiddleCenter;
-            optionCCheckBox.TextAlign = ContentAlignment.MiddleCenter;
-            optionDCheckBox.TextAlign = ContentAlignment.MiddleCenter;
-            optionECheckBox.TextAlign = ContentAlignment.MiddleCenter;
-
-        }
-
 
         private string LoadBackgroundImageFromCSV()
         {
@@ -148,6 +131,20 @@ namespace TestingWinForms
             }
         }
 
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            // Center the label and checkboxes on the form
+            questionLabel.TextAlign = ContentAlignment.MiddleCenter;
+            optionACheckBox.TextAlign = ContentAlignment.MiddleCenter;
+            optionBCheckBox.TextAlign = ContentAlignment.MiddleCenter;
+            optionCCheckBox.TextAlign = ContentAlignment.MiddleCenter;
+            optionDCheckBox.TextAlign = ContentAlignment.MiddleCenter;
+            optionECheckBox.TextAlign = ContentAlignment.MiddleCenter;
+
+        }
+
+        // Returns a List<Question> consisting of questions saved in admin_question.csv file
         private List<Question> LoadQuestionsFromCSV()
         {
             List<Question> questions = new List<Question>();
@@ -194,7 +191,6 @@ namespace TestingWinForms
             }
 
             return questions;
-
         }
 
         private void LoadRandomQuestionsAndTimerIntervalData()
@@ -253,6 +249,7 @@ namespace TestingWinForms
                 // Update the question label
                 questionLabel.Text = currentQuestion.Text;
 
+                //TODO: change to dynamic (loop)
                 // Update the options
                 optionACheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[0]);
                 optionBCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[1]);
@@ -279,22 +276,9 @@ namespace TestingWinForms
             }
             else
             {
-                // No more questions, display a completion message
-                questionLabel.Text = "Quiz completed!";
-
-                // Disable the check boxes and submit button
-                optionACheckBox.Enabled = false;
-                optionBCheckBox.Enabled = false;
-                optionCCheckBox.Enabled = false;
-                optionDCheckBox.Enabled = false;
-                optionECheckBox.Enabled = false;
-                submitButton.Enabled = false;
-
+                // No more questions, survey ended, save data to csv
                 AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
-
-
                 timer.Stop();
-                //timer = new System.Threading.Timer(OnTimerElapsed, null, 2000, Timeout.Infinite); // Start the timer for 3 seconds
                 ThankYouScreen thankYouForm = new ThankYouScreen();
                 thankYouForm.Show();
                 this.Close();
@@ -318,10 +302,6 @@ namespace TestingWinForms
 
         private void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-
-            // Assuming you have the checkboxes named optionACheckBox, optionBCheckBox, optionCCheckBox, etc.
-
-
             // Loop through the checkboxes on the form
             foreach (Control control in this.Controls)
             {
@@ -330,19 +310,6 @@ namespace TestingWinForms
                     // Extract the checkbox name (e.g., optionA, optionB, etc.)
                     string checkboxName = checkbox.Name.Replace("CheckBox", "");
 
-                    // Add the checkbox value to the list
-                    /*checkboxValues.Add(new KeyValuePair<string, string>(checkboxName, checkbox.Text));
-                    
-                    if (checkbox.Checked)
-                    {
-                        checkboxValues.Add(new KeyValuePair<string, string>(checkboxName, checkbox.Text));
-                        
-                    }
-                    else
-                    {
-                        checkboxValues.Add(new KeyValuePair<string, string>(checkboxName, ""));
-                        
-                    }*/
                     if (checkbox.Checked)
                     {
                         checkboxValues[checkboxName] = checkbox.Text;
@@ -353,51 +320,8 @@ namespace TestingWinForms
                     }
                 }
             }
-
-            //once time up or submit button then sort and store
-
-            // Sort the checkbox values by the checkbox name
-            //checkboxValues.Sort((x, y) => string.Compare(x.Key, y.Key));
-
-            // Retrieve the checkbox values in the specific order
-            //string[] checkboxArray = checkboxValues.Select(kv => kv.Value).ToArray();
-
 
             /*
-            // Loop through the checkboxes on the form
-            foreach (Control control in this.Controls)
-            {
-                if (control is CheckBox checkbox && checkbox.Name.StartsWith("option"))
-                {
-                    // Extract the checkbox name (e.g., optionA, optionB, etc.)
-                    string checkboxName = checkbox.Name.Replace("CheckBox", "");
-
-                    // Add the checkbox value to the dictionary
-                    if (checkbox.Checked)
-                    {
-                        checkboxValues[checkboxName] = checkbox.Text;
-                    }
-                    else {
-                        checkboxValues[checkboxName] = "";
-                    }
-                    
-                }
-            }
-
-            // Retrieve the checkbox values in the specific order
-            string[] checkboxArray = new string[checkboxValues.Count];
-
-            int index = 0;
-            foreach (string checkboxName in checkboxValues.Keys)
-            {
-                checkboxArray[index] = checkboxValues[checkboxName];
-                index++;
-            }
-
-            Console.WriteLine(checkboxArray);
-            */
-
-
             CheckBox checkBox = (CheckBox)sender;
 
 
@@ -414,31 +338,41 @@ namespace TestingWinForms
             //questionLabel.Text = string.Join(",", autoSelectedOptions);
             String selectedOptions = string.Join(";", autoSelectedOptions);
             //savedAnswers[questions[currentQuestionIndex].Index] = selectedOptions;
-
+            */
         }
 
-        private void submitButton_Click(object sender, EventArgs e)
-        {
-            //String selectedOptions = string.Join(";", autoSelectedOptions);
-            //savedAnswers[questions[currentQuestionIndex].Index] = selectedOptions;
-            // Sort the checkbox values by the checkbox name
+        private void saveAnswersToArray() {
+
+            if (checkboxValues == null || checkboxValues.Count == 0)
+            {
+                for (int i = 0; i < totalOptions; i++)
+                {
+                    string key = "option" + (char)('A' + i);
+                    string value = " ";
+                    checkboxValues.Add(key, value);
+                }
+            }
+            //else if (checkboxValues.Values.Count(value => string.IsNullOrEmpty(value)) > 0)    
+            //}
+
             // Convert the dictionary to a list of key-value pairs
             List<KeyValuePair<string, string>> sortedList = checkboxValues.ToList();
 
             // Sort the list by the first string value
             sortedList.Sort((x, y) => string.Compare(x.Key, y.Key));
 
-            //checkboxValues.Sort((x, y) => string.Compare(x.Key, y.Key));
-
-            // Retrieve the checkbox values in the specific order
-            //savedAnswers = checkboxValues.Select(kv => kv.Value).ToArray();
-            string joinedString = string.Join(";", sortedList.Select(kv => kv.Value));
+            //string joinedString = string.Join(";", sortedList.Select(kv => kv.Value));
             savedAnswers[questions[currentQuestionIndex].Index] = string.Join(";", sortedList.Select(kv => kv.Value));
 
-            autoSelectedOptions.Clear();
+            checkboxValues.Clear();
+        }
+
+        private void submitButton_Click(object sender, EventArgs e)
+        {
+            saveAnswersToArray();
+
             // Reset the timer
             ResetTimer();
-            //AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
 
             // Move to the next question
             currentQuestionIndex++;
