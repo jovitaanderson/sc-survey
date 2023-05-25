@@ -32,14 +32,16 @@ namespace TestingWinForms
         Dictionary<string, string> checkboxValues = new Dictionary<string, string>(); // Stores answers on checkbox change
         int totalOptions = 8;
 
+        bool[] isQuestionMRQ = new bool[] { false, true, true, true, false, true, true, true };
+
         public QuestionForm(int rowNumber)
         {
             // Initialize the list of questions
             defaultQuestions = new List<Question>()
             {
-                new Question(0,"Question 1", new List<string> { "Option A", "Option B", "Option C", "Option D", "Option E" }),
-                new Question(1, "Question 2", new List<string> { "Option D", "Option E", "Option F", "Option D", "Option E"}),
-                new Question(2, "Question 3", new List<string> { "Option G", "Option H", "Option I", "Option D", "Option E" })
+                new Question(0,"Question 1", "MCQ", new List<string> { "Option A", "Option B", "Option C", "Option D", "Option E" }),
+                new Question(1, "Question 2", "MCQ", new List<string> { "Option D", "Option E", "Option F", "Option D", "Option E"}),
+                new Question(2, "Question 3", "MRQ", new List<string> { "Option G", "Option H", "Option I", "Option D", "Option E" })
             };
 
             InitializeComponent();
@@ -62,12 +64,23 @@ namespace TestingWinForms
 
             // Set up the timer
             timer = new Timer();
-            timer.Interval = timerInterval;
+            if (timerInterval > 0) // Handle timerInterval set to smaller than 0 error
+            {
+                timer.Interval = timerInterval;
+            }
             timer.Tick += Timer_Tick;
             timer.Start();
 
             questions = LoadQuestionsFromCSV();
             savedAnswers = new String[questions.Count];
+
+            string semicolonString = " " + string.Join("; ", new string[totalOptions]);
+
+            for (int i = 0; i < savedAnswers.Length; i++)
+            {
+                savedAnswers[i] = semicolonString;
+            }
+
 
             DisplayBackground();
             DisplayQuestion(); //Display first question
@@ -131,7 +144,6 @@ namespace TestingWinForms
             }
         }
 
-
         private void Form2_Load(object sender, EventArgs e)
         {
             // Center the label and checkboxes on the form
@@ -165,7 +177,7 @@ namespace TestingWinForms
                             string questionText = values[0];
                             List<string> options = new List<string> { values[1], values[2], values[3], values[4], values[5] };
 
-                            questions.Add(new Question(currQuestionIndex, questionText, options));
+                            questions.Add(new Question(currQuestionIndex, questionText, "MCQ", options));
                             currQuestionIndex++;
                         }
                         else
@@ -237,6 +249,20 @@ namespace TestingWinForms
             }
         }
 
+
+        private void CheckBox_MCQ(object sender, EventArgs e)
+        {
+            CheckBox clickedCheckBox = (CheckBox)sender;
+
+            // Uncheck all other checkboxes except the clicked checkbox
+            foreach (Control control in Controls)
+            {
+                if (control is CheckBox checkBox && checkBox != clickedCheckBox)
+                {
+                    checkBox.Checked = false;
+                }
+            }
+        }
         private void DisplayQuestion()
         {
             if (currentQuestionIndex < questions.Count)
@@ -245,6 +271,22 @@ namespace TestingWinForms
                 ResetTimer();
 
                 Question currentQuestion = questions[currentQuestionIndex];
+
+                if (currentQuestion.Type == "MCQ")
+                {
+                    optionACheckBox.CheckedChanged += CheckBox_MCQ;
+                    optionBCheckBox.CheckedChanged += CheckBox_MCQ;
+                    optionCCheckBox.CheckedChanged += CheckBox_MCQ;
+                    optionDCheckBox.CheckedChanged += CheckBox_MCQ;
+                    optionECheckBox.CheckedChanged += CheckBox_MCQ;
+                }
+                else {
+                    optionACheckBox.CheckedChanged -= CheckBox_MCQ;
+                    optionBCheckBox.CheckedChanged -= CheckBox_MCQ;
+                    optionCCheckBox.CheckedChanged -= CheckBox_MCQ;
+                    optionDCheckBox.CheckedChanged -= CheckBox_MCQ;
+                    optionECheckBox.CheckedChanged -= CheckBox_MCQ;
+                }
 
                 // Update the question label
                 questionLabel.Text = currentQuestion.Text;
@@ -278,26 +320,12 @@ namespace TestingWinForms
             {
                 // No more questions, survey ended, save data to csv
                 AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
+                
                 timer.Stop();
                 ThankYouScreen thankYouForm = new ThankYouScreen();
                 thankYouForm.Show();
                 this.Close();
             }
-        }
-
-        private int countEnabledCheckBox()
-        {
-            int count = 0;
-
-            foreach (Control control in this.Controls)
-            {
-                if (control is CheckBox checkbox && checkbox.Checked)
-                {
-                    count++;
-                }
-            }
-
-            return count;
         }
 
         private void CheckBox_CheckedChanged(object sender, EventArgs e)
@@ -316,29 +344,11 @@ namespace TestingWinForms
                     }
                     else
                     {
-                        checkboxValues[checkboxName] = "";
+                        checkboxValues[checkboxName] = " ";
                     }
                 }
             }
 
-            /*
-            CheckBox checkBox = (CheckBox)sender;
-
-
-            if (checkBox.Checked)
-            {
-                // Add the selected checkbox to the selectedOptions list
-                autoSelectedOptions.Add(checkBox.Text);
-            }
-            else
-            {
-                // Remove the deselected checkbox from the selectedOptions list
-                autoSelectedOptions.Remove(checkBox.Text);
-            }
-            //questionLabel.Text = string.Join(",", autoSelectedOptions);
-            String selectedOptions = string.Join(";", autoSelectedOptions);
-            //savedAnswers[questions[currentQuestionIndex].Index] = selectedOptions;
-            */
         }
 
         private void saveAnswersToArray() {
@@ -352,8 +362,6 @@ namespace TestingWinForms
                     checkboxValues.Add(key, value);
                 }
             }
-            //else if (checkboxValues.Values.Count(value => string.IsNullOrEmpty(value)) > 0)    
-            //}
 
             // Convert the dictionary to a list of key-value pairs
             List<KeyValuePair<string, string>> sortedList = checkboxValues.ToList();
@@ -361,7 +369,6 @@ namespace TestingWinForms
             // Sort the list by the first string value
             sortedList.Sort((x, y) => string.Compare(x.Key, y.Key));
 
-            //string joinedString = string.Join(";", sortedList.Select(kv => kv.Value));
             savedAnswers[questions[currentQuestionIndex].Index] = string.Join(";", sortedList.Select(kv => kv.Value));
 
             checkboxValues.Clear();
@@ -381,6 +388,7 @@ namespace TestingWinForms
             DisplayQuestion();
         }
 
+        // Appends player's answer to same csv row as points saved in TableForm
         private void AppendDataToSpecificRow(string csvFilePath, int rowNumber, string rowData)
         {
             if (File.Exists(csvFilePath))
@@ -421,10 +429,11 @@ namespace TestingWinForms
         // Timer for question
         private void Timer_Tick(object sender, EventArgs e)
         {
+
+            saveAnswersToArray();
             // Timer elapsed, redirect to Form1
             AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
-
-            //AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(";", autoSelectedOptions));
+            
             timer.Stop();
             TableForm form1 = new TableForm();
             form1.Show();
@@ -433,7 +442,6 @@ namespace TestingWinForms
 
         private void ResetTimer()
         {
-            // Reset the timer
             timer.Stop();
             timer.Start();
         }
@@ -443,14 +451,16 @@ namespace TestingWinForms
     {
         public int Index { get; set; }
         public string Text { get; set; }
+
+        public string Type { get; set; }
+
         public List<string> Options { get; set; }
-        public Question(int index, string text, List<string> options)
+        public Question(int index, string text, string type, List<string> options)
         {
             Index = index;
             Text = text;
+            Type = type;
             Options = options;
         }
     }
-
-    
 }
