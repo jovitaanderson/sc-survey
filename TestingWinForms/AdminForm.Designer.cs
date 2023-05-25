@@ -176,10 +176,10 @@ namespace TestingWinForms
             this.tabTable.Controls.Add(this.labelYAxis);
             this.tabTable.Controls.Add(this.labelXAxis);
             this.tabTable.Controls.Add(this.labelTitle);
-            this.tabTable.Location = new System.Drawing.Point(46, 4);
+            this.tabTable.Location = new System.Drawing.Point(25, 4);
             this.tabTable.Name = "tabTable";
             this.tabTable.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTable.Size = new System.Drawing.Size(486, 358);
+            this.tabTable.Size = new System.Drawing.Size(507, 487);
             this.tabTable.TabIndex = 0;
             this.tabTable.Text = "Table";
             // 
@@ -252,7 +252,7 @@ namespace TestingWinForms
             this.textBoxYAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxYAxis.Location = new System.Drawing.Point(194, 130);
             this.textBoxYAxis.Name = "textBoxYAxis";
-            this.textBoxYAxis.Size = new System.Drawing.Size(307, 38);
+            this.textBoxYAxis.Size = new System.Drawing.Size(279, 38);
             this.textBoxYAxis.TabIndex = 5;
             // 
             // textBoxXAxis
@@ -262,7 +262,7 @@ namespace TestingWinForms
             this.textBoxXAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxXAxis.Location = new System.Drawing.Point(194, 66);
             this.textBoxXAxis.Name = "textBoxXAxis";
-            this.textBoxXAxis.Size = new System.Drawing.Size(307, 38);
+            this.textBoxXAxis.Size = new System.Drawing.Size(279, 38);
             this.textBoxXAxis.TabIndex = 4;
             // 
             // textBoxTitle
@@ -272,7 +272,7 @@ namespace TestingWinForms
             this.textBoxTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTitle.Location = new System.Drawing.Point(194, 3);
             this.textBoxTitle.Name = "textBoxTitle";
-            this.textBoxTitle.Size = new System.Drawing.Size(307, 38);
+            this.textBoxTitle.Size = new System.Drawing.Size(279, 38);
             this.textBoxTitle.TabIndex = 3;
             // 
             // labelYAxis
@@ -542,7 +542,7 @@ namespace TestingWinForms
             "MRQ"});
             this.comboBox1.Location = new System.Drawing.Point(164, 53);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(335, 39);
+            this.comboBox1.Size = new System.Drawing.Size(322, 39);
             this.comboBox1.TabIndex = 20;
             // 
             // labelType1
@@ -573,7 +573,7 @@ namespace TestingWinForms
             this.textBoxA18.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA18.Location = new System.Drawing.Point(164, 417);
             this.textBoxA18.Name = "textBoxA18";
-            this.textBoxA18.Size = new System.Drawing.Size(335, 38);
+            this.textBoxA18.Size = new System.Drawing.Size(322, 38);
             this.textBoxA18.TabIndex = 17;
             // 
             // labelA18
@@ -593,7 +593,7 @@ namespace TestingWinForms
             this.textBoxA17.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA17.Location = new System.Drawing.Point(164, 373);
             this.textBoxA17.Name = "textBoxA17";
-            this.textBoxA17.Size = new System.Drawing.Size(335, 38);
+            this.textBoxA17.Size = new System.Drawing.Size(322, 38);
             this.textBoxA17.TabIndex = 15;
             // 
             // labelA17
@@ -613,7 +613,7 @@ namespace TestingWinForms
             this.textBoxA16.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA16.Location = new System.Drawing.Point(164, 329);
             this.textBoxA16.Name = "textBoxA16";
-            this.textBoxA16.Size = new System.Drawing.Size(335, 38);
+            this.textBoxA16.Size = new System.Drawing.Size(322, 38);
             this.textBoxA16.TabIndex = 13;
             // 
             // labelA16
@@ -634,7 +634,7 @@ namespace TestingWinForms
             this.textBoxA15.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA15.Location = new System.Drawing.Point(164, 285);
             this.textBoxA15.Name = "textBoxA15";
-            this.textBoxA15.Size = new System.Drawing.Size(335, 38);
+            this.textBoxA15.Size = new System.Drawing.Size(322, 38);
             this.textBoxA15.TabIndex = 11;
             // 
             // textBoxA14
@@ -644,7 +644,7 @@ namespace TestingWinForms
             this.textBoxA14.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA14.Location = new System.Drawing.Point(164, 241);
             this.textBoxA14.Name = "textBoxA14";
-            this.textBoxA14.Size = new System.Drawing.Size(335, 38);
+            this.textBoxA14.Size = new System.Drawing.Size(322, 38);
             this.textBoxA14.TabIndex = 10;
             // 
             // textBoxA13
@@ -654,7 +654,7 @@ namespace TestingWinForms
             this.textBoxA13.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA13.Location = new System.Drawing.Point(164, 193);
             this.textBoxA13.Name = "textBoxA13";
-            this.textBoxA13.Size = new System.Drawing.Size(335, 38);
+            this.textBoxA13.Size = new System.Drawing.Size(322, 38);
             this.textBoxA13.TabIndex = 9;
             // 
             // textBoxA12
@@ -664,7 +664,7 @@ namespace TestingWinForms
             this.textBoxA12.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA12.Location = new System.Drawing.Point(164, 149);
             this.textBoxA12.Name = "textBoxA12";
-            this.textBoxA12.Size = new System.Drawing.Size(335, 38);
+            this.textBoxA12.Size = new System.Drawing.Size(322, 38);
             this.textBoxA12.TabIndex = 8;
             // 
             // textBoxA11
@@ -674,7 +674,7 @@ namespace TestingWinForms
             this.textBoxA11.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA11.Location = new System.Drawing.Point(164, 100);
             this.textBoxA11.Name = "textBoxA11";
-            this.textBoxA11.Size = new System.Drawing.Size(335, 38);
+            this.textBoxA11.Size = new System.Drawing.Size(322, 38);
             this.textBoxA11.TabIndex = 7;
             // 
             // textBoxQ1
@@ -684,7 +684,7 @@ namespace TestingWinForms
             this.textBoxQ1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxQ1.Location = new System.Drawing.Point(164, 9);
             this.textBoxQ1.Name = "textBoxQ1";
-            this.textBoxQ1.Size = new System.Drawing.Size(335, 38);
+            this.textBoxQ1.Size = new System.Drawing.Size(322, 38);
             this.textBoxQ1.TabIndex = 6;
             // 
             // labelA15
@@ -788,7 +788,7 @@ namespace TestingWinForms
             "MRQ"});
             this.comboBox2.Location = new System.Drawing.Point(169, 47);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(346, 39);
+            this.comboBox2.Size = new System.Drawing.Size(312, 39);
             this.comboBox2.TabIndex = 31;
             // 
             // btnClear2
@@ -819,7 +819,7 @@ namespace TestingWinForms
             this.textBoxA28.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA28.Location = new System.Drawing.Point(169, 413);
             this.textBoxA28.Name = "textBoxA28";
-            this.textBoxA28.Size = new System.Drawing.Size(346, 38);
+            this.textBoxA28.Size = new System.Drawing.Size(312, 38);
             this.textBoxA28.TabIndex = 28;
             // 
             // labelA28
@@ -839,7 +839,7 @@ namespace TestingWinForms
             this.textBoxA27.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA27.Location = new System.Drawing.Point(169, 369);
             this.textBoxA27.Name = "textBoxA27";
-            this.textBoxA27.Size = new System.Drawing.Size(346, 38);
+            this.textBoxA27.Size = new System.Drawing.Size(312, 38);
             this.textBoxA27.TabIndex = 26;
             // 
             // labelA27
@@ -859,7 +859,7 @@ namespace TestingWinForms
             this.textBoxA26.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA26.Location = new System.Drawing.Point(169, 325);
             this.textBoxA26.Name = "textBoxA26";
-            this.textBoxA26.Size = new System.Drawing.Size(346, 38);
+            this.textBoxA26.Size = new System.Drawing.Size(312, 38);
             this.textBoxA26.TabIndex = 24;
             // 
             // labelA26
@@ -879,7 +879,7 @@ namespace TestingWinForms
             this.textBoxA25.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA25.Location = new System.Drawing.Point(169, 281);
             this.textBoxA25.Name = "textBoxA25";
-            this.textBoxA25.Size = new System.Drawing.Size(346, 38);
+            this.textBoxA25.Size = new System.Drawing.Size(312, 38);
             this.textBoxA25.TabIndex = 22;
             // 
             // textBoxA24
@@ -889,7 +889,7 @@ namespace TestingWinForms
             this.textBoxA24.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA24.Location = new System.Drawing.Point(169, 237);
             this.textBoxA24.Name = "textBoxA24";
-            this.textBoxA24.Size = new System.Drawing.Size(346, 38);
+            this.textBoxA24.Size = new System.Drawing.Size(312, 38);
             this.textBoxA24.TabIndex = 21;
             // 
             // textBoxA23
@@ -899,7 +899,7 @@ namespace TestingWinForms
             this.textBoxA23.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA23.Location = new System.Drawing.Point(169, 189);
             this.textBoxA23.Name = "textBoxA23";
-            this.textBoxA23.Size = new System.Drawing.Size(346, 38);
+            this.textBoxA23.Size = new System.Drawing.Size(312, 38);
             this.textBoxA23.TabIndex = 20;
             // 
             // textBoxA22
@@ -909,7 +909,7 @@ namespace TestingWinForms
             this.textBoxA22.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA22.Location = new System.Drawing.Point(169, 145);
             this.textBoxA22.Name = "textBoxA22";
-            this.textBoxA22.Size = new System.Drawing.Size(346, 38);
+            this.textBoxA22.Size = new System.Drawing.Size(312, 38);
             this.textBoxA22.TabIndex = 19;
             // 
             // textBoxA21
@@ -919,7 +919,7 @@ namespace TestingWinForms
             this.textBoxA21.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA21.Location = new System.Drawing.Point(169, 96);
             this.textBoxA21.Name = "textBoxA21";
-            this.textBoxA21.Size = new System.Drawing.Size(346, 38);
+            this.textBoxA21.Size = new System.Drawing.Size(312, 38);
             this.textBoxA21.TabIndex = 18;
             // 
             // textBoxQ2
@@ -929,7 +929,7 @@ namespace TestingWinForms
             this.textBoxQ2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxQ2.Location = new System.Drawing.Point(169, 3);
             this.textBoxQ2.Name = "textBoxQ2";
-            this.textBoxQ2.Size = new System.Drawing.Size(346, 38);
+            this.textBoxQ2.Size = new System.Drawing.Size(312, 38);
             this.textBoxQ2.TabIndex = 17;
             // 
             // labelA25

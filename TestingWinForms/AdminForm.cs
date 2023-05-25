@@ -882,6 +882,10 @@ namespace TestingWinForms
                     {
                         textBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
                     }
+                    if (control is ComboBox comboBox)
+                    {
+                        comboBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                    }
                 }
             }
         }
@@ -897,6 +901,10 @@ namespace TestingWinForms
                 if (control is TextBox textBox)
                 {
                     textBox.Text = "";
+                }
+                if (control is ComboBox comboBox)
+                {
+                    comboBox.Text = "";
                 }
             }
         }
