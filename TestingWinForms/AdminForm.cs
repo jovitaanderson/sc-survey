@@ -871,7 +871,7 @@ namespace TestingWinForms
 
                         labelA.Text = control.Text;
                     }
-                    else if (newControl is Label labelT && control.Name.StartsWith("labelType"))
+                    else if (newControl is Label labelT && control.Name.StartsWith("label"))
                     {
                         string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
                         int lastDigitValue = int.Parse(lastDigit);
@@ -880,6 +880,7 @@ namespace TestingWinForms
 
                         labelT.Text = control.Text;
                     }
+
                     else if (newControl is Button button && control.Name.StartsWith("btnClear"))
                     {
                         string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
