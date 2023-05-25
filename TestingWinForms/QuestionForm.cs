@@ -27,8 +27,10 @@ namespace TestingWinForms
         private List<string> autoSelectedOptions = new List<string>(); // Stores the selected checkboxes
         private string randomQuestionsText = null;
 
-        String[] savedAnswers = new String[3];
+        String[] savedAnswers; //Stores answers to each question
 
+        Dictionary<string, string> checkboxValues = new Dictionary<string, string>(); // Stores answers on checkbox change
+        int totalOptions = 8;
 
         public QuestionForm(int rowNumber)
         {
@@ -46,7 +48,6 @@ namespace TestingWinForms
 
             FormBorderStyle = FormBorderStyle.None; // Remove the border
             WindowState = FormWindowState.Maximized; // Maximize the window
-
 
             this.rowNumber = rowNumber;
 
@@ -70,9 +71,13 @@ namespace TestingWinForms
             timer.Start();
 
             questions = LoadQuestionsFromCSV();
+            savedAnswers = new String[questions.Count];
 
-            // Display the first question
-            DisplayQuestion();
+            DisplayBackground();
+            DisplayQuestion(); //Display first question
+        }
+
+        private void DisplayBackground() {
 
             //Display background image
             string imagePath = LoadBackgroundImageFromCSV();
@@ -85,7 +90,6 @@ namespace TestingWinForms
                 // Adjust the background image display settings
                 this.BackgroundImageLayout = ImageLayout.Stretch;
             }
-
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -147,6 +151,8 @@ namespace TestingWinForms
             }
         }
 
+
+        // Returns a List<Question> consisting of questions saved in admin_question.csv file
         private List<Question> LoadQuestionsFromCSV()
         {
             List<Question> questions = new List<Question>();
@@ -194,7 +200,6 @@ namespace TestingWinForms
             }
 
             return questions;
-
         }
 
         private void LoadRandomQuestionsAndTimerIntervalData()
@@ -253,6 +258,7 @@ namespace TestingWinForms
                 // Update the question label
                 questionLabel.Text = currentQuestion.Text;
 
+                //TODO: change to dynamic (loop)
                 // Update the options
                 optionACheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[0]);
                 optionBCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[1]);
@@ -303,19 +309,52 @@ namespace TestingWinForms
                 submitButton.Enabled = false;
 
                 AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
-
-
                 timer.Stop();
-                //timer = new System.Threading.Timer(OnTimerElapsed, null, 2000, Timeout.Infinite); // Start the timer for 3 seconds
                 ThankYouScreen thankYouForm = new ThankYouScreen();
                 thankYouForm.Show();
                 this.Close();
             }
         }
 
+        private int countEnabledCheckBox()
+        {
+            int count = 0;
+
+            foreach (Control control in this.Controls)
+            {
+                if (control is CheckBox checkbox && checkbox.Checked)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
         private void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
+            // Loop through the checkboxes on the form
+            foreach (Control control in this.Controls)
+            {
+                if (control is CheckBox checkbox && checkbox.Name.StartsWith("option"))
+                {
+                    // Extract the checkbox name (e.g., optionA, optionB, etc.)
+                    string checkboxName = checkbox.Name.Replace("CheckBox", "");
+
+                    if (checkbox.Checked)
+                    {
+                        checkboxValues[checkboxName] = checkbox.Text;
+                    }
+                    else
+                    {
+                        checkboxValues[checkboxName] = "";
+                    }
+                }
+            }
+
+            /*
             CheckBox checkBox = (CheckBox)sender;
+
 
             if (checkBox.Checked)
             {
@@ -329,18 +368,42 @@ namespace TestingWinForms
             }
             //questionLabel.Text = string.Join(",", autoSelectedOptions);
             String selectedOptions = string.Join(";", autoSelectedOptions);
-            savedAnswers[questions[currentQuestionIndex].Index] = selectedOptions;
+            //savedAnswers[questions[currentQuestionIndex].Index] = selectedOptions;
+            */
+        }
 
+        private void saveAnswersToArray() {
+
+            if (checkboxValues == null || checkboxValues.Count == 0)
+            {
+                for (int i = 0; i < totalOptions; i++)
+                {
+                    string key = "option" + (char)('A' + i);
+                    string value = " ";
+                    checkboxValues.Add(key, value);
+                }
+            }
+            //else if (checkboxValues.Values.Count(value => string.IsNullOrEmpty(value)) > 0)    
+            //}
+
+            // Convert the dictionary to a list of key-value pairs
+            List<KeyValuePair<string, string>> sortedList = checkboxValues.ToList();
+
+            // Sort the list by the first string value
+            sortedList.Sort((x, y) => string.Compare(x.Key, y.Key));
+
+            //string joinedString = string.Join(";", sortedList.Select(kv => kv.Value));
+            savedAnswers[questions[currentQuestionIndex].Index] = string.Join(";", sortedList.Select(kv => kv.Value));
+
+            checkboxValues.Clear();
         }
 
         private void submitButton_Click(object sender, EventArgs e)
         {
-            //String selectedOptions = string.Join(";", autoSelectedOptions);
-            //savedAnswers[questions[currentQuestionIndex].Index] = selectedOptions;
-            autoSelectedOptions.Clear();
+            saveAnswersToArray();
+
             // Reset the timer
             ResetTimer();
-            //AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
 
             // Move to the next question
             currentQuestionIndex++;
