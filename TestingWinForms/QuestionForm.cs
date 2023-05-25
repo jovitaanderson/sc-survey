@@ -35,9 +35,9 @@ namespace TestingWinForms
             // Initialize the list of questions
             defaultQuestions = new List<Question>()
             {
-                new Question(0,"Question 1", new List<string> { "Option A", "Option B", "Option C", "Option D", "Option E" }),
-                new Question(1, "Question 2", new List<string> { "Option D", "Option E", "Option F", "Option D", "Option E"}),
-                new Question(2, "Question 3", new List<string> { "Option G", "Option H", "Option I", "Option D", "Option E" })
+                new Question(0,"Question 1", new List<string> { "Option A", "Option B", "Option C", "Option D", "Option E", "Option C", "Option D", "Option E" }),
+                new Question(1, "Question 2", new List<string> { "Option D", "Option E", "Option F", "Option D", "Option E", "Option C", "Option D", "Option E"}),
+                new Question(2, "Question 3", new List<string> { "Option G", "Option H", "Option I", "Option D", "Option E", "Option C", "Option D", "Option E" })
             };
 
             InitializeComponent();
@@ -56,8 +56,11 @@ namespace TestingWinForms
             optionCCheckBox.CheckedChanged += CheckBox_CheckedChanged;
             optionDCheckBox.CheckedChanged += CheckBox_CheckedChanged;
             optionECheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionFCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionGCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionHCheckBox.CheckedChanged += CheckBox_CheckedChanged;
 
-            
+
             currentQuestionIndex = 0;
 
             // Set up the timer
@@ -94,6 +97,9 @@ namespace TestingWinForms
             optionCCheckBox.TextAlign = ContentAlignment.MiddleCenter;
             optionDCheckBox.TextAlign = ContentAlignment.MiddleCenter;
             optionECheckBox.TextAlign = ContentAlignment.MiddleCenter;
+            optionFCheckBox.TextAlign = ContentAlignment.MiddleCenter;
+            optionGCheckBox.TextAlign = ContentAlignment.MiddleCenter;
+            optionHCheckBox.TextAlign = ContentAlignment.MiddleCenter;
 
         }
 
@@ -159,7 +165,8 @@ namespace TestingWinForms
                         if (values.Length >= 2) // Assuming each line in the CSV has at least 4 values: question, option1, option2, option3
                         {
                             string questionText = values[0];
-                            List<string> options = new List<string> { values[1], values[2], values[3], values[4], values[5] };
+                            List<string> options = new List<string> { values[1], values[2], values[3], values[4], 
+                                values[5], values[6], values[7], values[8] };
 
                             questions.Add(new Question(currQuestionIndex, questionText, options));
                             currQuestionIndex++;
@@ -252,6 +259,9 @@ namespace TestingWinForms
                 optionCCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[2]);
                 optionDCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[3]);
                 optionECheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[4]);
+                optionFCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[5]);
+                optionGCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[6]);
+                optionHCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[7]);
 
                 // Set the checkbox text
                 optionACheckBox.Text = currentQuestion.Options[0];
@@ -259,6 +269,9 @@ namespace TestingWinForms
                 optionCCheckBox.Text = currentQuestion.Options[2];
                 optionDCheckBox.Text = currentQuestion.Options[3];
                 optionECheckBox.Text = currentQuestion.Options[4];
+                optionFCheckBox.Text = currentQuestion.Options[5];
+                optionGCheckBox.Text = currentQuestion.Options[6];
+                optionHCheckBox.Text = currentQuestion.Options[7];
 
                 // Clear the check box selection
                 optionACheckBox.Checked = false;
@@ -266,6 +279,9 @@ namespace TestingWinForms
                 optionCCheckBox.Checked = false;
                 optionDCheckBox.Checked = false;
                 optionECheckBox.Checked = false;
+                optionFCheckBox.Checked = false;
+                optionGCheckBox.Checked = false;
+                optionHCheckBox.Checked = false;
 
                 // Enable the submit button
                 submitButton.Enabled = true;
@@ -281,6 +297,9 @@ namespace TestingWinForms
                 optionCCheckBox.Enabled = false;
                 optionDCheckBox.Enabled = false;
                 optionECheckBox.Enabled = false;
+                optionFCheckBox.Enabled = false;
+                optionGCheckBox.Enabled = false;
+                optionHCheckBox.Enabled = false;
                 submitButton.Enabled = false;
 
                 AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
