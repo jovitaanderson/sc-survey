@@ -28,6 +28,11 @@ namespace TestingWinForms
         private string randomQuestionsText = null;
 
         String[] savedAnswers;
+        String[] autoSavedAnswers;
+
+        Dictionary<string, string> checkboxValues = new Dictionary<string, string>();
+        // Create a list to store the checkbox values in order
+        //List<KeyValuePair<string, string>> checkboxValues = new List<KeyValuePair<string, string>>();
 
 
         public QuestionForm(int rowNumber)
@@ -68,6 +73,7 @@ namespace TestingWinForms
 
             questions = LoadQuestionsFromCSV();
             savedAnswers = new String[questions.Count];
+            autoSavedAnswers = new String[countEnabledCheckBox()];
 
             // Display the first question
             DisplayQuestion();
@@ -295,9 +301,105 @@ namespace TestingWinForms
             }
         }
 
+        private int countEnabledCheckBox()
+        {
+            int count = 0;
+
+            foreach (Control control in this.Controls)
+            {
+                if (control is CheckBox checkbox && checkbox.Checked)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
         private void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
+
+            // Assuming you have the checkboxes named optionACheckBox, optionBCheckBox, optionCCheckBox, etc.
+
+
+            // Loop through the checkboxes on the form
+            foreach (Control control in this.Controls)
+            {
+                if (control is CheckBox checkbox && checkbox.Name.StartsWith("option"))
+                {
+                    // Extract the checkbox name (e.g., optionA, optionB, etc.)
+                    string checkboxName = checkbox.Name.Replace("CheckBox", "");
+
+                    // Add the checkbox value to the list
+                    /*checkboxValues.Add(new KeyValuePair<string, string>(checkboxName, checkbox.Text));
+                    
+                    if (checkbox.Checked)
+                    {
+                        checkboxValues.Add(new KeyValuePair<string, string>(checkboxName, checkbox.Text));
+                        
+                    }
+                    else
+                    {
+                        checkboxValues.Add(new KeyValuePair<string, string>(checkboxName, ""));
+                        
+                    }*/
+                    if (checkbox.Checked)
+                    {
+                        checkboxValues[checkboxName] = checkbox.Text;
+                    }
+                    else
+                    {
+                        checkboxValues[checkboxName] = "";
+                    }
+                }
+            }
+
+            //once time up or submit button then sort and store
+
+            // Sort the checkbox values by the checkbox name
+            //checkboxValues.Sort((x, y) => string.Compare(x.Key, y.Key));
+
+            // Retrieve the checkbox values in the specific order
+            //string[] checkboxArray = checkboxValues.Select(kv => kv.Value).ToArray();
+
+
+            /*
+            // Loop through the checkboxes on the form
+            foreach (Control control in this.Controls)
+            {
+                if (control is CheckBox checkbox && checkbox.Name.StartsWith("option"))
+                {
+                    // Extract the checkbox name (e.g., optionA, optionB, etc.)
+                    string checkboxName = checkbox.Name.Replace("CheckBox", "");
+
+                    // Add the checkbox value to the dictionary
+                    if (checkbox.Checked)
+                    {
+                        checkboxValues[checkboxName] = checkbox.Text;
+                    }
+                    else {
+                        checkboxValues[checkboxName] = "";
+                    }
+                    
+                }
+            }
+
+            // Retrieve the checkbox values in the specific order
+            string[] checkboxArray = new string[checkboxValues.Count];
+
+            int index = 0;
+            foreach (string checkboxName in checkboxValues.Keys)
+            {
+                checkboxArray[index] = checkboxValues[checkboxName];
+                index++;
+            }
+
+            Console.WriteLine(checkboxArray);
+            */
+
+
             CheckBox checkBox = (CheckBox)sender;
+
 
             if (checkBox.Checked)
             {
@@ -311,7 +413,7 @@ namespace TestingWinForms
             }
             //questionLabel.Text = string.Join(",", autoSelectedOptions);
             String selectedOptions = string.Join(";", autoSelectedOptions);
-            savedAnswers[questions[currentQuestionIndex].Index] = selectedOptions;
+            //savedAnswers[questions[currentQuestionIndex].Index] = selectedOptions;
 
         }
 
@@ -319,6 +421,20 @@ namespace TestingWinForms
         {
             //String selectedOptions = string.Join(";", autoSelectedOptions);
             //savedAnswers[questions[currentQuestionIndex].Index] = selectedOptions;
+            // Sort the checkbox values by the checkbox name
+            // Convert the dictionary to a list of key-value pairs
+            List<KeyValuePair<string, string>> sortedList = checkboxValues.ToList();
+
+            // Sort the list by the first string value
+            sortedList.Sort((x, y) => string.Compare(x.Key, y.Key));
+
+            //checkboxValues.Sort((x, y) => string.Compare(x.Key, y.Key));
+
+            // Retrieve the checkbox values in the specific order
+            //savedAnswers = checkboxValues.Select(kv => kv.Value).ToArray();
+            string joinedString = string.Join(";", sortedList.Select(kv => kv.Value));
+            savedAnswers[questions[currentQuestionIndex].Index] = string.Join(";", sortedList.Select(kv => kv.Value));
+
             autoSelectedOptions.Clear();
             // Reset the timer
             ResetTimer();
