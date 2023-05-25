@@ -54,7 +54,7 @@
             this.questionLabel.AutoSize = true;
             this.questionLabel.BackColor = System.Drawing.Color.Transparent;
             this.questionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.questionLabel.Location = new System.Drawing.Point(435, 96);
+            this.questionLabel.Location = new System.Drawing.Point(435, 48);
             this.questionLabel.Name = "questionLabel";
             this.questionLabel.Size = new System.Drawing.Size(171, 46);
             this.questionLabel.TabIndex = 4;
@@ -302,6 +302,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1174, 721);
+            this.Controls.Add(this.questionLabel);
             this.Controls.Add(this.optionCRadioButton);
             this.Controls.Add(this.optionDRadioButton);
             this.Controls.Add(this.optionHRadioButton);
@@ -319,7 +320,6 @@
             this.Controls.Add(this.optionBCheckBox);
             this.Controls.Add(this.optionACheckBox);
             this.Controls.Add(this.submitButton);
-            this.Controls.Add(this.questionLabel);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "QuestionForm";
             this.Text = "Form2";

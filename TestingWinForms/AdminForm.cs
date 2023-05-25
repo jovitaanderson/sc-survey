@@ -112,17 +112,30 @@ namespace TestingWinForms
                     {
                         textBox.Multiline = true;
                         textBox.WordWrap = true;
-                        textBox.TextChanged += TextBox_TextChanged;
+                        textBox.ScrollBars = ScrollBars.Vertical; // Enable vertical scrolling
+
+                        textBox.TextChanged += (sender, e) => TextBox_TextChanged(sender, e, tabPage); // Attach event handler
+                        textBox.KeyPress += TextBox_KeyPress;
                     }
                 }
             }
         }
 
-        private void TextBox_TextChanged(object sender, EventArgs e)
+        private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true; // Cancel the Enter key press event
+            }
+        }
+
+        private void TextBox_TextChanged(object sender, EventArgs e, TabPage tabPage)
         {
             TextBox textBox = (TextBox)sender;
-            textBox.Height = textBox.GetPreferredSize(new Size(textBox.Width, 0)).Height;
+            // Adjust the height of the text box based on the preferred height and the fixed height
+            textBox.Height = TextRenderer.MeasureText("A", textBox.Font).Height * 2; 
         }
+
 
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -771,7 +784,6 @@ namespace TestingWinForms
                     }
                 }
             }
-
             return filteredAnswers;
         }
 
@@ -901,7 +913,11 @@ namespace TestingWinForms
                 }
                 
             }
+            // Add auto-scrolling to the TabControl
+            newTabPage.AutoScroll = true;
+
             tabControl.TabPages.Add(newTabPage);
+
 
             foreach (TabPage tabPage in tabControl.TabPages)
             {
@@ -1020,5 +1036,14 @@ namespace TestingWinForms
             }
         }
 
+        private void labelA28_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxA28_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

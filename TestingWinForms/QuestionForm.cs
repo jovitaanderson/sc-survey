@@ -122,6 +122,18 @@ namespace TestingWinForms
         // Helper method to centralise the question label
         private void CenterQuestionLabel()
         {
+            // Check if the label's width exceeds 3/4 of the screen width
+            int maxWidth = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.75);
+            if (questionLabel.Width > maxWidth)
+            {
+                // Enable text wrapping
+                questionLabel.AutoSize = true;
+                questionLabel.MaximumSize = new Size(maxWidth, 0);
+                questionLabel.MaximumSize = new Size(maxWidth, 0);
+            }
+
+            questionLabel.TextAlign = ContentAlignment.MiddleCenter;
+
             // Calculate the center position of the form
             int centerX = Width / 2;
 
@@ -130,13 +142,14 @@ namespace TestingWinForms
 
             // Set the position of the question label
             questionLabel.Location = new Point(labelX, questionLabel.Location.Y);
+
+            
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
             // Set label's text alignment
             questionLabel.TextAlign = ContentAlignment.MiddleCenter;
-            CenterQuestionLabel();
 
             // Loop through the controls on the form
             foreach (Control control in this.Controls)

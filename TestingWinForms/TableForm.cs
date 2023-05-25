@@ -191,8 +191,22 @@ namespace TestingWinForms
                         labelYAxis.MinimumSize = new Size(300, 0);
                         labelYAxis.TextAlign = ContentAlignment.TopCenter;
 
+                        int maxWidth = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.75);
+
+                        labelXAxis.AutoSize = true;
+                        labelXAxis.MaximumSize = new Size(maxWidth, 0);
+                        labelXAxis.MinimumSize = new Size(maxWidth, 0);
+                        labelXAxis.TextAlign = ContentAlignment.TopCenter;
+
+                        labelTitle.AutoSize = true;
+                        labelTitle.MaximumSize = new Size(maxWidth, 0);
+                        labelTitle.MinimumSize = new Size(maxWidth, 0);
+                        labelTitle.TextAlign = ContentAlignment.TopCenter;
+
                         labelTitle.Left = (this.ClientSize.Width - labelTitle.Width) / 2;
                         labelXAxis.Left = (this.ClientSize.Width - labelXAxis.Width) / 2;
+
+                        
 
                         existingColour = ColorTranslator.FromHtml(values[3]);
                         selectedColour = ColorTranslator.FromHtml(values[4]);
