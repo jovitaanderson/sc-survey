@@ -33,6 +33,8 @@ namespace TestingWinForms
         public AdminForm()
         {
             InitializeComponent();
+            DoubleBuffered = true;
+
 
             FormBorderStyle = FormBorderStyle.None; // Remove the border
             WindowState = FormWindowState.Maximized; // Maximize the window
@@ -80,7 +82,24 @@ namespace TestingWinForms
                 StringFormat stringFormat = new StringFormat();
                 stringFormat.Alignment = StringAlignment.Center;
                 stringFormat.LineAlignment = StringAlignment.Center;
-                g.DrawString(tabControl.TabPages[e.Index].Text, tabFont, tabTextBrush, bounds, stringFormat);
+                //g.DrawString(tabControl.TabPages[e.Index].Text, tabFont, tabTextBrush, bounds, stringFormat);
+
+                bool isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
+
+                if (isSelected)
+                {
+                    // Customize the selected tab's appearance
+                    using (Brush selectedTabBrush = new SolidBrush(Color.Gray))
+                    {
+                        g.FillRectangle(selectedTabBrush, bounds);
+                        g.DrawString(tabControl.TabPages[e.Index].Text, tabFont, tabTextBrush, bounds, stringFormat);
+                    }
+                }
+                else
+                {
+                    // Keep the rest of the tabs uncolored
+                    g.DrawString(tabControl.TabPages[e.Index].Text, tabFont, tabTextBrush, bounds, stringFormat);
+                }
             }
         }
 

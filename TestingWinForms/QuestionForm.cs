@@ -46,6 +46,8 @@ namespace TestingWinForms
             };
 
             InitializeComponent();
+            DoubleBuffered = true;
+
             // Check if admin wants questions to be in random
             LoadRandomQuestionsAndTimerIntervalData();
 
@@ -65,7 +67,7 @@ namespace TestingWinForms
             optionHCheckBox.CheckedChanged += CheckBox_CheckedChanged;
 
 
-            //subscrib for radio Buttons
+            //subscribe for radio Buttons
             optionARadioButton.CheckedChanged += RadioButton_CheckedChanged;
             optionBRadioButton.CheckedChanged += RadioButton_CheckedChanged;
             optionCRadioButton.CheckedChanged += RadioButton_CheckedChanged;
@@ -119,16 +121,23 @@ namespace TestingWinForms
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            // Center the label and checkboxes on the form
+            // Set label's text alignment
             questionLabel.TextAlign = ContentAlignment.MiddleCenter;
-            optionACheckBox.TextAlign = ContentAlignment.MiddleCenter;
-            optionBCheckBox.TextAlign = ContentAlignment.MiddleCenter;
-            optionCCheckBox.TextAlign = ContentAlignment.MiddleCenter;
-            optionDCheckBox.TextAlign = ContentAlignment.MiddleCenter;
-            optionECheckBox.TextAlign = ContentAlignment.MiddleCenter;
-            optionFCheckBox.TextAlign = ContentAlignment.MiddleCenter;
-            optionGCheckBox.TextAlign = ContentAlignment.MiddleCenter;
-            optionHCheckBox.TextAlign = ContentAlignment.MiddleCenter;
+
+            // Loop through the controls on the form
+            foreach (Control control in this.Controls)
+            {
+                if (control is CheckBox)
+                {
+                    // Set checkboxes' text alignment
+                    ((CheckBox)control).TextAlign = ContentAlignment.MiddleCenter;
+                } 
+                else if (control is RadioButton)
+                {
+                    // Set checkboxes' text alignment
+                    ((RadioButton)control).TextAlign = ContentAlignment.MiddleCenter;
+                }
+            }
 
         }
 
@@ -589,6 +598,7 @@ namespace TestingWinForms
             timer.Stop();
             timer.Start();
         }
+
     }
 
     public class Question

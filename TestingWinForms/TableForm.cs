@@ -94,6 +94,8 @@ namespace TestingWinForms
             //CalculateDrawingArea();
 
             InitializeComponent();
+            DoubleBuffered = true;
+
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(TableForm_KeyDown);
 
