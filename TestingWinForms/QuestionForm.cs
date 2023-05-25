@@ -62,7 +62,10 @@ namespace TestingWinForms
 
             // Set up the timer
             timer = new Timer();
-            timer.Interval = timerInterval;
+            if (timerInterval > 0) // Handle timerInterval set to smaller than 0 error
+            {
+                timer.Interval = timerInterval;
+            }
             timer.Tick += Timer_Tick;
             timer.Start();
 
@@ -130,7 +133,6 @@ namespace TestingWinForms
                 return null;
             }
         }
-
 
         private void Form2_Load(object sender, EventArgs e)
         {
@@ -278,26 +280,12 @@ namespace TestingWinForms
             {
                 // No more questions, survey ended, save data to csv
                 AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
+                
                 timer.Stop();
                 ThankYouScreen thankYouForm = new ThankYouScreen();
                 thankYouForm.Show();
                 this.Close();
             }
-        }
-
-        private int countEnabledCheckBox()
-        {
-            int count = 0;
-
-            foreach (Control control in this.Controls)
-            {
-                if (control is CheckBox checkbox && checkbox.Checked)
-                {
-                    count++;
-                }
-            }
-
-            return count;
         }
 
         private void CheckBox_CheckedChanged(object sender, EventArgs e)
@@ -316,29 +304,11 @@ namespace TestingWinForms
                     }
                     else
                     {
-                        checkboxValues[checkboxName] = "";
+                        checkboxValues[checkboxName] = " ";
                     }
                 }
             }
 
-            /*
-            CheckBox checkBox = (CheckBox)sender;
-
-
-            if (checkBox.Checked)
-            {
-                // Add the selected checkbox to the selectedOptions list
-                autoSelectedOptions.Add(checkBox.Text);
-            }
-            else
-            {
-                // Remove the deselected checkbox from the selectedOptions list
-                autoSelectedOptions.Remove(checkBox.Text);
-            }
-            //questionLabel.Text = string.Join(",", autoSelectedOptions);
-            String selectedOptions = string.Join(";", autoSelectedOptions);
-            //savedAnswers[questions[currentQuestionIndex].Index] = selectedOptions;
-            */
         }
 
         private void saveAnswersToArray() {
@@ -352,8 +322,6 @@ namespace TestingWinForms
                     checkboxValues.Add(key, value);
                 }
             }
-            //else if (checkboxValues.Values.Count(value => string.IsNullOrEmpty(value)) > 0)    
-            //}
 
             // Convert the dictionary to a list of key-value pairs
             List<KeyValuePair<string, string>> sortedList = checkboxValues.ToList();
@@ -361,7 +329,6 @@ namespace TestingWinForms
             // Sort the list by the first string value
             sortedList.Sort((x, y) => string.Compare(x.Key, y.Key));
 
-            //string joinedString = string.Join(";", sortedList.Select(kv => kv.Value));
             savedAnswers[questions[currentQuestionIndex].Index] = string.Join(";", sortedList.Select(kv => kv.Value));
 
             checkboxValues.Clear();
@@ -381,6 +348,7 @@ namespace TestingWinForms
             DisplayQuestion();
         }
 
+        // Appends player's answer to same csv row as points saved in TableForm
         private void AppendDataToSpecificRow(string csvFilePath, int rowNumber, string rowData)
         {
             if (File.Exists(csvFilePath))
@@ -423,8 +391,7 @@ namespace TestingWinForms
         {
             // Timer elapsed, redirect to Form1
             AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
-
-            //AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(";", autoSelectedOptions));
+            
             timer.Stop();
             TableForm form1 = new TableForm();
             form1.Show();
@@ -433,7 +400,6 @@ namespace TestingWinForms
 
         private void ResetTimer()
         {
-            // Reset the timer
             timer.Stop();
             timer.Start();
         }
@@ -451,6 +417,4 @@ namespace TestingWinForms
             Options = options;
         }
     }
-
-    
 }
