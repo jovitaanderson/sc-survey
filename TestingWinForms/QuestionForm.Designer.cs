@@ -38,6 +38,14 @@
             this.optionFCheckBox = new System.Windows.Forms.CheckBox();
             this.optionGCheckBox = new System.Windows.Forms.CheckBox();
             this.optionHCheckBox = new System.Windows.Forms.CheckBox();
+            this.optionARadioButton = new System.Windows.Forms.RadioButton();
+            this.optionBRadioButton = new System.Windows.Forms.RadioButton();
+            this.optionERadioButton = new System.Windows.Forms.RadioButton();
+            this.optionFRadioButton = new System.Windows.Forms.RadioButton();
+            this.optionGRadioButton = new System.Windows.Forms.RadioButton();
+            this.optionHRadioButton = new System.Windows.Forms.RadioButton();
+            this.optionDRadioButton = new System.Windows.Forms.RadioButton();
+            this.optionCRadioButton = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // questionLabel
@@ -177,11 +185,131 @@
             this.optionHCheckBox.Text = "checkBox8";
             this.optionHCheckBox.UseVisualStyleBackColor = false;
             // 
+            // optionARadioButton
+            // 
+            this.optionARadioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.optionARadioButton.AutoSize = true;
+            this.optionARadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.optionARadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionARadioButton.Location = new System.Drawing.Point(442, 189);
+            this.optionARadioButton.Name = "optionARadioButton";
+            this.optionARadioButton.Size = new System.Drawing.Size(268, 50);
+            this.optionARadioButton.TabIndex = 14;
+            this.optionARadioButton.TabStop = true;
+            this.optionARadioButton.Text = "radioButton1";
+            this.optionARadioButton.UseVisualStyleBackColor = false;
+            // 
+            // optionBRadioButton
+            // 
+            this.optionBRadioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.optionBRadioButton.AutoSize = true;
+            this.optionBRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.optionBRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionBRadioButton.Location = new System.Drawing.Point(442, 245);
+            this.optionBRadioButton.Name = "optionBRadioButton";
+            this.optionBRadioButton.Size = new System.Drawing.Size(268, 50);
+            this.optionBRadioButton.TabIndex = 15;
+            this.optionBRadioButton.TabStop = true;
+            this.optionBRadioButton.Text = "radioButton2";
+            this.optionBRadioButton.UseVisualStyleBackColor = false;
+            // 
+            // optionERadioButton
+            // 
+            this.optionERadioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.optionERadioButton.AutoSize = true;
+            this.optionERadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.optionERadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionERadioButton.Location = new System.Drawing.Point(442, 400);
+            this.optionERadioButton.Name = "optionERadioButton";
+            this.optionERadioButton.Size = new System.Drawing.Size(268, 50);
+            this.optionERadioButton.TabIndex = 16;
+            this.optionERadioButton.TabStop = true;
+            this.optionERadioButton.Text = "radioButton5";
+            this.optionERadioButton.UseVisualStyleBackColor = false;
+            // 
+            // optionFRadioButton
+            // 
+            this.optionFRadioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.optionFRadioButton.AutoSize = true;
+            this.optionFRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.optionFRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionFRadioButton.Location = new System.Drawing.Point(442, 456);
+            this.optionFRadioButton.Name = "optionFRadioButton";
+            this.optionFRadioButton.Size = new System.Drawing.Size(268, 50);
+            this.optionFRadioButton.TabIndex = 17;
+            this.optionFRadioButton.TabStop = true;
+            this.optionFRadioButton.Text = "radioButton6";
+            this.optionFRadioButton.UseVisualStyleBackColor = false;
+            // 
+            // optionGRadioButton
+            // 
+            this.optionGRadioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.optionGRadioButton.AutoSize = true;
+            this.optionGRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.optionGRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionGRadioButton.Location = new System.Drawing.Point(442, 512);
+            this.optionGRadioButton.Name = "optionGRadioButton";
+            this.optionGRadioButton.Size = new System.Drawing.Size(268, 50);
+            this.optionGRadioButton.TabIndex = 18;
+            this.optionGRadioButton.TabStop = true;
+            this.optionGRadioButton.Text = "radioButton7";
+            this.optionGRadioButton.UseVisualStyleBackColor = false;
+            // 
+            // optionHRadioButton
+            // 
+            this.optionHRadioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.optionHRadioButton.AutoSize = true;
+            this.optionHRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.optionHRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionHRadioButton.Location = new System.Drawing.Point(442, 571);
+            this.optionHRadioButton.Name = "optionHRadioButton";
+            this.optionHRadioButton.Size = new System.Drawing.Size(268, 50);
+            this.optionHRadioButton.TabIndex = 19;
+            this.optionHRadioButton.TabStop = true;
+            this.optionHRadioButton.Text = "radioButton8";
+            this.optionHRadioButton.UseVisualStyleBackColor = false;
+            // 
+            // optionDRadioButton
+            // 
+            this.optionDRadioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.optionDRadioButton.AutoSize = true;
+            this.optionDRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.optionDRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionDRadioButton.Location = new System.Drawing.Point(442, 351);
+            this.optionDRadioButton.Name = "optionDRadioButton";
+            this.optionDRadioButton.Size = new System.Drawing.Size(268, 50);
+            this.optionDRadioButton.TabIndex = 20;
+            this.optionDRadioButton.TabStop = true;
+            this.optionDRadioButton.Text = "radioButton4";
+            this.optionDRadioButton.UseVisualStyleBackColor = false;
+            // 
+            // optionCRadioButton
+            // 
+            this.optionCRadioButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.optionCRadioButton.AutoSize = true;
+            this.optionCRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.optionCRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionCRadioButton.Location = new System.Drawing.Point(442, 298);
+            this.optionCRadioButton.Name = "optionCRadioButton";
+            this.optionCRadioButton.Size = new System.Drawing.Size(268, 50);
+            this.optionCRadioButton.TabIndex = 21;
+            this.optionCRadioButton.TabStop = true;
+            this.optionCRadioButton.Text = "radioButton3";
+            this.optionCRadioButton.UseVisualStyleBackColor = false;
+            // 
             // QuestionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1174, 721);
+            this.Controls.Add(this.optionCRadioButton);
+            this.Controls.Add(this.optionDRadioButton);
+            this.Controls.Add(this.optionHRadioButton);
+            this.Controls.Add(this.optionGRadioButton);
+            this.Controls.Add(this.optionFRadioButton);
+            this.Controls.Add(this.optionERadioButton);
+            this.Controls.Add(this.optionBRadioButton);
+            this.Controls.Add(this.optionARadioButton);
             this.Controls.Add(this.optionHCheckBox);
             this.Controls.Add(this.optionGCheckBox);
             this.Controls.Add(this.optionFCheckBox);
@@ -211,5 +339,13 @@
         private System.Windows.Forms.CheckBox optionFCheckBox;
         private System.Windows.Forms.CheckBox optionGCheckBox;
         private System.Windows.Forms.CheckBox optionHCheckBox;
+        private System.Windows.Forms.RadioButton optionARadioButton;
+        private System.Windows.Forms.RadioButton optionBRadioButton;
+        private System.Windows.Forms.RadioButton optionERadioButton;
+        private System.Windows.Forms.RadioButton optionFRadioButton;
+        private System.Windows.Forms.RadioButton optionGRadioButton;
+        private System.Windows.Forms.RadioButton optionHRadioButton;
+        private System.Windows.Forms.RadioButton optionDRadioButton;
+        private System.Windows.Forms.RadioButton optionCRadioButton;
     }
 }
