@@ -36,6 +36,9 @@ namespace TestingWinForms
 
         private bool isOpenedBefore = false;
 
+        private Color existingColour;
+        private Color selectedColour;
+
         private void TableForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.A)
@@ -175,7 +178,7 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 3)
+                    if (values.Length == 5)
                     {
                         labelTitle.Text = values[0];
                         labelXAxis.Text = values[1];
@@ -188,6 +191,9 @@ namespace TestingWinForms
 
                         labelTitle.Left = (this.ClientSize.Width - labelTitle.Width) / 2;
                         labelXAxis.Left = (this.ClientSize.Width - labelXAxis.Width) / 2;
+
+                        existingColour = ColorTranslator.FromHtml(values[3]);
+                        selectedColour = ColorTranslator.FromHtml(values[4]);
 
                     }
                 }
@@ -380,7 +386,18 @@ namespace TestingWinForms
                     float dotX = position.X - dotSize / 2;
                     float dotY = position.Y - dotSize / 2;
 
-                    e.Graphics.FillEllipse(Brushes.Blue, dotX, dotY, dotSize, dotSize);
+                    // Update the FillEllipse brush with existingColour
+                    if (selectedColour != null)
+                    {
+                        using (Brush brush = new SolidBrush(existingColour))
+                        {
+                            e.Graphics.FillEllipse(brush, dotX, dotY, dotSize, dotSize);
+                        }
+                    }
+                    else
+                    {
+                        e.Graphics.FillEllipse(Brushes.Blue, dotX, dotY, dotSize, dotSize);
+                    }
                 }
             }
 
@@ -390,7 +407,18 @@ namespace TestingWinForms
                 int dotX = clickedPosition.X - dotSize / 2;
                 int dotY = clickedPosition.Y - dotSize / 2;
 
-                e.Graphics.FillEllipse(Brushes.Red, dotX, dotY, dotSize, dotSize);
+                // Update the FillEllipse brush with existingColour
+                if (selectedColour != null)
+                {
+                    using (Brush brush = new SolidBrush(selectedColour))
+                    {
+                        e.Graphics.FillEllipse(brush, dotX, dotY, dotSize, dotSize);
+                    }
+                } else
+                {
+                    e.Graphics.FillEllipse(Brushes.Red, dotX, dotY, dotSize, dotSize);
+                }
+                
             }
 
             // Draw X and Y axis labels

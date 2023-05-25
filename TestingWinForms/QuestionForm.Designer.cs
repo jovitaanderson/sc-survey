@@ -46,7 +46,7 @@
             this.questionLabel.AutoSize = true;
             this.questionLabel.BackColor = System.Drawing.Color.Transparent;
             this.questionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.questionLabel.Location = new System.Drawing.Point(435, 134);
+            this.questionLabel.Location = new System.Drawing.Point(435, 96);
             this.questionLabel.Name = "questionLabel";
             this.questionLabel.Size = new System.Drawing.Size(171, 46);
             this.questionLabel.TabIndex = 4;

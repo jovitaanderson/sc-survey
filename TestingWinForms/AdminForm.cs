@@ -49,13 +49,14 @@ namespace TestingWinForms
 
             // Customize the appearance of the TabControl for vertical tabs
             tabControl.Alignment = TabAlignment.Left;
+            tabControl.SizeMode = TabSizeMode.Normal;
             tabControl.SizeMode = TabSizeMode.Fixed;
             tabControl.ItemSize = new Size(40, 120);
-            tabControl.Appearance = TabAppearance.FlatButtons;
+            tabControl.Appearance = TabAppearance.Normal;
 
             // Form_Load event or constructor
             tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
-            tabControl.DrawItem += TabControl1_DrawItem;
+            tabControl.DrawItem += TabControl1_DrawItem; 
 
             // Load data from the CSV file
             LoadDataFromCSV();
@@ -170,9 +171,12 @@ namespace TestingWinForms
             string title = textBoxTitle.Text;
             string x_axis = textBoxXAxis.Text;
             string y_axis = textBoxYAxis.Text;
+            // Convert the Color to a string representation
+            string existingColour = ColorTranslator.ToHtml(btnExisColour.BackColor);
+            string newColour = ColorTranslator.ToHtml(btnSelPointColour.BackColor);
 
             // Concatenate the data into a comma-separated string
-            string titleDate = string.Format("{0},{1},{2}", title, x_axis, y_axis);
+            string titleDate = string.Format("{0},{1},{2},{3},{4}", title, x_axis, y_axis, existingColour, newColour);
 
             // Append the data to the CSV file
             while (true)
@@ -399,11 +403,13 @@ namespace TestingWinForms
                     {
                         string[] values = lines[lines.Length - 1].Split(',');
 
-                        if (values.Length == 3)
+                        if (values.Length == 5)
                         {
                             textBoxTitle.Text = values[0];
                             textBoxXAxis.Text = values[1];
                             textBoxYAxis.Text = values[2];
+                            btnExisColour.BackColor = ColorTranslator.FromHtml(values[3]);
+                            btnSelPointColour.BackColor = ColorTranslator.FromHtml(values[4]);
                         }
                     }
                 }
@@ -897,6 +903,46 @@ namespace TestingWinForms
         private void btnClear1_Click(object sender, EventArgs e)
         {
             ClearButton_Click(sender, e);
+        }
+
+        private void btnColourPicker_Click(object sender, EventArgs e)
+        {
+            // Create a new instance of the ColorDialog
+            ColorDialog colorDialog = new ColorDialog();
+
+            // Show the ColorDialog and capture the result
+            DialogResult result = colorDialog.ShowDialog();
+
+            // Check if the user clicked the OK button in the ColorDialog
+            if (result == DialogResult.OK)
+            {
+                // Retrieve the selected color
+                Color selectedColor = colorDialog.Color;
+
+                // Do something with the selected color
+                // For example, set the background color of a control
+                btnExisColour.BackColor = selectedColor;
+            }
+        }
+
+        private void btnSelPointColour_Click(object sender, EventArgs e)
+        {
+            // Create a new instance of the ColorDialog
+            ColorDialog colorDialog = new ColorDialog();
+
+            // Show the ColorDialog and capture the result
+            DialogResult result = colorDialog.ShowDialog();
+
+            // Check if the user clicked the OK button in the ColorDialog
+            if (result == DialogResult.OK)
+            {
+                // Retrieve the selected color
+                Color selectedColor = colorDialog.Color;
+
+                // Do something with the selected color
+                // For example, set the background color of a control
+                btnSelPointColour.BackColor = selectedColor;
+            }
         }
     }
 }
