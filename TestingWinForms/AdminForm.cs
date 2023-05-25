@@ -82,14 +82,13 @@ namespace TestingWinForms
                 StringFormat stringFormat = new StringFormat();
                 stringFormat.Alignment = StringAlignment.Center;
                 stringFormat.LineAlignment = StringAlignment.Center;
-                //g.DrawString(tabControl.TabPages[e.Index].Text, tabFont, tabTextBrush, bounds, stringFormat);
 
                 bool isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
 
                 if (isSelected)
                 {
                     // Customize the selected tab's appearance
-                    using (Brush selectedTabBrush = new SolidBrush(Color.Gray))
+                    using (Brush selectedTabBrush = new SolidBrush(Color.LightGray))
                     {
                         g.FillRectangle(selectedTabBrush, bounds);
                         g.DrawString(tabControl.TabPages[e.Index].Text, tabFont, tabTextBrush, bounds, stringFormat);
@@ -248,7 +247,7 @@ namespace TestingWinForms
                     answers.Add(answerOptions);
 
                     //Add type of questions
-                    if (comboBox.SelectedIndex == -1)
+                    if (comboBox.Text == "")
                     {
                         // No item selected, set default value
                         types.Add("MRQ");
@@ -816,6 +815,9 @@ namespace TestingWinForms
 
                     string previousControlName = control.Name;
 
+                    // Get the last tab index from the previous tab
+                    int tabIndexOffset = previousTabPage.TabIndex + 1;
+
                     //textBox
                     if (newControl is TextBox textBox && (control.Name.StartsWith("textBoxQ")))
                     {
@@ -893,6 +895,7 @@ namespace TestingWinForms
                         }
                     }
 
+                    newControl.TabIndex = control.TabIndex + tabIndexOffset;
                     // Copy any other desired properties or event handlers
                     newTabPage.Controls.Add(newControl);
                 }

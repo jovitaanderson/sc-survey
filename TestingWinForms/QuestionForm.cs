@@ -119,10 +119,24 @@ namespace TestingWinForms
             }
         }
 
+        // Helper method to centralise the question label
+        private void CenterQuestionLabel()
+        {
+            // Calculate the center position of the form
+            int centerX = Width / 2;
+
+            // Calculate the center position of the question label
+            int labelX = centerX - (questionLabel.Width / 2);
+
+            // Set the position of the question label
+            questionLabel.Location = new Point(labelX, questionLabel.Location.Y);
+        }
+
         private void Form2_Load(object sender, EventArgs e)
         {
             // Set label's text alignment
             questionLabel.TextAlign = ContentAlignment.MiddleCenter;
+            CenterQuestionLabel();
 
             // Loop through the controls on the form
             foreach (Control control in this.Controls)
@@ -455,6 +469,7 @@ namespace TestingWinForms
                 thankYouForm.Show();
                 this.Close();
             }
+            CenterQuestionLabel();
         }
 
         //for checkboxes
