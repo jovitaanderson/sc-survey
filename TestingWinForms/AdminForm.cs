@@ -6,15 +6,12 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TestingWinForms
 {
-    public partial class AdminForm : Form
+    public partial class AdminForm : Form 
     {
-
         private string dateFormat = "dd/MM/yyyy HH:mm:ss";
 
         private int[] xAxisIntervalCounts = new int[21];  // Array to store the count of values from 0 to 10 (inclusive) with intervals of 0.5 for roundedFirstValue
@@ -29,13 +26,11 @@ namespace TestingWinForms
         {
             InitializeComponent();
             DoubleBuffered = true;
-
-
             FormBorderStyle = FormBorderStyle.None; // Remove the border
             WindowState = FormWindowState.Maximized; // Maximize the window
-
         }
 
+        // Helper method to prevent flickering
         protected override CreateParams CreateParams
         {
             get
@@ -117,6 +112,7 @@ namespace TestingWinForms
             }
         }
 
+        // Helper method to wrap text
         private void EnableTextBoxTextWrapping(TabControl tabControl)
         {
             foreach (TabPage tabPage in tabControl.TabPages)
@@ -136,6 +132,8 @@ namespace TestingWinForms
             }
         }
 
+
+        // Dont allow user to press enter as CSV will automatically save as new line
         private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
@@ -152,30 +150,7 @@ namespace TestingWinForms
         }
 
 
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            TableForm firstForm = new TableForm();
-            firstForm.Show();
-            this.Close();
-        }
-
-
-        private void btnUploadImage_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.Title = "Select Image";
-                openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    string selectedImagePath = openFileDialog.FileName;
-
-                    // Load the selected image into the PictureBox
-                    pictureBox.Image = Image.FromFile(selectedImagePath);
-                }
-            }
-        }
+        
 
         private void ClearCSVFiles()
         {
@@ -212,11 +187,8 @@ namespace TestingWinForms
             return Controls.Find(textBoxName, true).FirstOrDefault() as TextBox;
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void saveTable()
         {
-            // Clear the contents of the CSV files
-            ClearCSVFiles();
-
             // Get the data from the TextBox
             //Table
             string title = textBoxTitle.Text;
@@ -246,7 +218,10 @@ namespace TestingWinForms
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
 
+        private void saveQuestions()
+        {
             // Store the question and answer data in lists
             List<string> questions = new List<string>();
             List<List<string>> answers = new List<List<string>>();
@@ -258,7 +233,7 @@ namespace TestingWinForms
                 // Get the question text
                 TextBox textBoxQuestion = GetQuestionTextBox(i);
                 ComboBox comboBox = GetQuestionComboBox(i);
-                
+
                 if (!string.IsNullOrWhiteSpace(textBoxQuestion.Text))
                 {
                     questions.Add(textBoxQuestion.Text);
@@ -284,7 +259,7 @@ namespace TestingWinForms
                         types.Add(comboBox.Text);
                     }
                 }
-                    
+
             }
 
             // Save the questions and answers to the CSV file
@@ -315,10 +290,10 @@ namespace TestingWinForms
                     }
                 }
             }
+        }
 
-            UpdatePlayerCSVHeader();
-
-
+        private void saveAdvance()
+        {
             //Advance
             string timeOut = textBoxTimeOut.Text;
             if (string.IsNullOrEmpty(timeOut))
@@ -341,7 +316,7 @@ namespace TestingWinForms
                 string directoryPath = Path.Combine(rootPath, "Images");
 
                 // Create the directory if it doesn't exist
-                if (!Directory.Exists(directoryPath)) 
+                if (!Directory.Exists(directoryPath))
                 {
                     Directory.CreateDirectory(directoryPath);
                 }
@@ -374,6 +349,20 @@ namespace TestingWinForms
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            // Clear the contents of the CSV files
+            ClearCSVFiles();
+
+            saveTable();
+
+            saveQuestions();
+
+            UpdatePlayerCSVHeader();
+
+            saveAdvance();
 
             MessageBox.Show("Data saved to CSV file.");
         }
@@ -483,7 +472,7 @@ namespace TestingWinForms
                     }
                 }
 
-                questionsNumber = Math.Max(questionsNumber, lines.Length);
+               
             }
         }
 
@@ -1237,6 +1226,31 @@ namespace TestingWinForms
         private void btnClear1_Click(object sender, EventArgs e)
         {
             ClearButton_Click(sender, e);
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            TableForm firstForm = new TableForm();
+            firstForm.Show();
+            this.Close();
+        }
+
+
+        private void btnUploadImage_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select Image";
+                openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedImagePath = openFileDialog.FileName;
+
+                    // Load the selected image into the PictureBox
+                    pictureBox.Image = Image.FromFile(selectedImagePath);
+                }
+            }
         }
 
         private void btnColourPicker_Click(object sender, EventArgs e)

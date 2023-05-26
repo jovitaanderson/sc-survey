@@ -28,8 +28,6 @@ namespace TestingWinForms
         private int lastRowNumber;
         private bool hasClicked = false;
 
-        private bool isOpenedBefore = false;
-
         private Color existingColour;
         private Color selectedColour;
 
@@ -360,7 +358,7 @@ namespace TestingWinForms
             if (!File.Exists(GlobalVariables.csvAdminAdvanceFilePath) || !File.Exists(GlobalVariables.csvAdminQuestionsFilePath))
             {
                 MessageBox.Show("Please set details in admin page and save!");
-            } else if (string.IsNullOrWhiteSpace(File.ReadAllText(csvAdminQuestionsFilePath)))
+            } else if (string.IsNullOrWhiteSpace(File.ReadAllText(GlobalVariables.csvAdminQuestionsFilePath)))
             {
                 
                 MessageBox.Show("Please set questions in admin page and save!");
