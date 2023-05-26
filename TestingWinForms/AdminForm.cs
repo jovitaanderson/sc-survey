@@ -577,9 +577,10 @@ namespace TestingWinForms
         private void btnDownload_Click(object sender, EventArgs e)
         {
 
-            DateTime selectedDate = dateTimePickerStartDate.Value.Date; // Get the selected date without the time portion
-            DateTime startDateTime = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, 0, 0, 0); // Set the time as 00:00:00 (midnight)
-            DateTime endDateTime = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, 23, 59, 59); // Set the time as 23:59:59 (end of the day)
+            DateTime selectedStartDate = dateTimePickerStartDate.Value.Date; // Get the selected date without the time portion
+            DateTime selectedEndDate = dateTimePickerEndDate.Value.Date;
+            DateTime startDateTime = new DateTime(selectedStartDate.Year, selectedStartDate.Month, selectedStartDate.Day, 0, 0, 0); // Set the time as 00:00:00 (midnight)
+            DateTime endDateTime = new DateTime(selectedEndDate.Year, selectedEndDate.Month, selectedEndDate.Day, 23, 59, 59); // Set the time as 23:59:59 (end of the day)
 
 
             // Filter the player answers based on the selected date range
@@ -603,7 +604,11 @@ namespace TestingWinForms
             List<string> consolidatedResponse = countAndAnalyzeResponse(responseSplitByQuestion);
 
             //Combine the csv file into one
-            List<string> combinedConslidatedData = combinedData(startDateTime, endDateTime, consolidatedPointAnswers, consolidatedResponse, hourCount);
+            List<string> combinedConslidatedData = new List<string>();
+            combinedConslidatedData.Add($"Date selected: {startDateTime} to {endDateTime}");
+            combinedConslidatedData.Add("");
+            List<string> conData = combinedData(consolidatedPointAnswers, consolidatedResponse, hourCount);
+            combinedConslidatedData.AddRange(conData);
 
             // Check if there are any matching answerss
             if (filteredPlayerAnswers.Count > 0)
@@ -698,11 +703,9 @@ namespace TestingWinForms
             return dateColumn;
         }
 
-        private List<string> combinedData(DateTime startDateTime, DateTime endDateTime, List<string> consolidatedPointAnswers, List<string> consolidatedResponse, List<string> hourCount)
+        private List<string> combinedData(List<string> consolidatedPointAnswers, List<string> consolidatedResponse, List<string> hourCount)
         {
             List<string> combinedConslidatedData = new List<string>();
-            combinedConslidatedData.Add($"Date selected: {startDateTime} to {endDateTime}");
-            combinedConslidatedData.Add("");
             combinedConslidatedData.AddRange(consolidatedPointAnswers);
             combinedConslidatedData.Add("");
             combinedConslidatedData.AddRange(consolidatedResponse);
@@ -1280,13 +1283,14 @@ namespace TestingWinForms
 
 
             // Filter the player answers based on the selected date range
-            List<string> filteredPlayerAnswers = AllPlayerAnswers(startDateTime, endDateTime);
-            var combinedFilteredPlayerAnswers = separateData(filteredPlayerAnswers);
+            List<string> allPlayerAnswers = AllPlayerAnswers(startDateTime, endDateTime);
+
+            var combinedFilteredPlayerAnswers = separateData(allPlayerAnswers);
             List<string> pointsFilterePlayerAnswers = combinedFilteredPlayerAnswers.Item1;
             List<string> reponsesFilterePlayerAnswers = combinedFilteredPlayerAnswers.Item2;
 
             // Calculate total reponse by time
-            List<int> dateColumn = getDateColumn(filteredPlayerAnswers);
+            List<int> dateColumn = getDateColumn(allPlayerAnswers);
             List<string> hourCount = getHourCount(dateColumn);
 
             //Calculation for conslidated points data
@@ -1300,10 +1304,12 @@ namespace TestingWinForms
             List<string> consolidatedResponse = countAndAnalyzeResponse(responseSplitByQuestion);
 
             //Combine the csv file into one
-            List<string> combinedConslidatedData = combinedData(startDateTime, endDateTime, consolidatedPointAnswers, consolidatedResponse, hourCount);
+            List<string> combinedConslidatedData = GetFirstLastDate(allPlayerAnswers);
+            List<string> consData = combinedData(consolidatedPointAnswers, consolidatedResponse, hourCount);
+            combinedConslidatedData.AddRange(consData);
 
             // Check if there are any matching answerss
-            if (filteredPlayerAnswers.Count > 0)
+            if (allPlayerAnswers.Count > 0)
             {
                 // Open a SaveFileDialog to specify the download location
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -1332,6 +1338,24 @@ namespace TestingWinForms
             {
                 MessageBox.Show("No player answers found for the selected date range.");
             }
+        }
+
+        private List<string> GetFirstLastDate(List<string> filteredPlayerAnswers)
+        {
+            List<string> conData = new List<string>();
+            string firstResponse = filteredPlayerAnswers[0];
+            string lastResponse = filteredPlayerAnswers[filteredPlayerAnswers.Count - 1];
+
+            string[] valuesFirst = firstResponse.Split(',');
+            string[] valuesLast = lastResponse.Split(',');
+            valuesFirst[0] = valuesFirst[0].TrimStart('\'');
+            valuesLast[0] = valuesLast[0].TrimStart('\'');
+
+            if ((DateTime.TryParseExact(valuesFirst[0], dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime startDate)) && (DateTime.TryParseExact(valuesLast[0], dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime endDate)))
+            {
+                conData.Add($"Date range: {startDate} to {endDate}");
+            }
+            return conData;
         }
     }
 }
