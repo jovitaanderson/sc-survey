@@ -41,8 +41,20 @@ namespace TestingWinForms
 
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams handleParams = base.CreateParams;
+                handleParams.ExStyle = 0x02000000;
+                return handleParams;
+            }
+        }
+
         private void AdminForm_Load(object sender, EventArgs e)
         {
+            this.SuspendLayout();
+
             LoadNumQuestions();
             for (int i = 0; i < questionsNumber - 3; i++)
             {
@@ -65,6 +77,10 @@ namespace TestingWinForms
 
             // Make text box wrapped
             EnableTextBoxTextWrapping(tabControl);
+
+            // Make modifications to the form or controls
+            this.ResumeLayout();
+
         }
 
         // DrawItem event handler

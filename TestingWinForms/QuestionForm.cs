@@ -24,7 +24,6 @@ namespace TestingWinForms
 
         private string csvAdminQuestionsFilePath = "admin_questions.csv"; // Path to the CSV file
         private string csvAdminAdvanceFilePath = "admin_advance.csv";
-        private List<string> autoSelectedOptions = new List<string>(); // Stores the selected checkboxes
         private string randomQuestionsText = null;
 
         String[] savedAnswers; //Stores answers to each question
@@ -32,11 +31,10 @@ namespace TestingWinForms
         Dictionary<string, string> checkboxValues = new Dictionary<string, string>(); // Stores answers on checkbox change
         int totalOptions = 8;
 
-        bool[] isQuestionMRQ = new bool[] { false, true, true, true, false, true, true, true };
-
 
         public QuestionForm(int rowNumber)
         {
+
             // Initialize the list of questions
             defaultQuestions = new List<Question>()
             {
@@ -47,6 +45,10 @@ namespace TestingWinForms
 
             InitializeComponent();
             DoubleBuffered = true;
+            BackgroundImageLayout = ImageLayout.None;
+
+
+            tableLayoutPanel1.SuspendLayout();
 
             // Check if admin wants questions to be in random
             LoadRandomQuestionsAndTimerIntervalData();
@@ -77,7 +79,6 @@ namespace TestingWinForms
             optionGRadioButton.CheckedChanged += RadioButton_CheckedChanged;
             optionHRadioButton.CheckedChanged += RadioButton_CheckedChanged;
 
-
             currentQuestionIndex = 0;
 
             // Set up the timer
@@ -98,25 +99,54 @@ namespace TestingWinForms
             {
                 savedAnswers[i] = semicolonString;
             }
-
-
-            DisplayBackground();
             DisplayQuestion(); //Display first question
+            DisplayBackground();
+            tableLayoutPanel1.ResumeLayout();
+            
+            
         }
 
-        private void DisplayBackground() {
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams handleParams = base.CreateParams;
+                handleParams.ExStyle = 0x02000000;
+                return handleParams;
+            }
+        }
 
-            //Display background image
+        private void DisplayBackground() 
+        {
+            // Suspend layout updates
+            this.SuspendLayout();
+
+            // Enable double buffering to reduce flickering
+            this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+            
+            // Display background image
             string imagePath = LoadBackgroundImageFromCSV();
 
             if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
             {
-                // Set the background image of the Windows Forms application
-                this.BackgroundImage = Image.FromFile(imagePath);
+                // Create a temporary Bitmap object from the image path
+                Bitmap backgroundImage = new Bitmap(imagePath);
+
+                // Dispose of the previous background image, if one exists
+                if (this.BackgroundImage != null)
+                {
+                    this.BackgroundImage.Dispose();
+                }
+
+                // Set the temporary Bitmap as the new background image
+                this.BackgroundImage = backgroundImage;
 
                 // Adjust the background image display settings
                 this.BackgroundImageLayout = ImageLayout.Stretch;
             }
+
+            // Resume layout updates
+            this.ResumeLayout(true);
         }
 
         // Helper method to centralise the question label
@@ -133,41 +163,23 @@ namespace TestingWinForms
             }
 
             questionLabel.TextAlign = ContentAlignment.MiddleCenter;
-
             // Calculate the center position of the form
             int centerX = Width / 2;
-
             // Calculate the center position of the question label
             int labelX = centerX - (questionLabel.Width / 2);
-
             // Set the position of the question label
             questionLabel.Location = new Point(labelX, questionLabel.Location.Y);
 
-            
-        }
 
-        private void Form2_Load(object sender, EventArgs e)
-        {
-            // Set label's text alignment
-            questionLabel.TextAlign = ContentAlignment.MiddleCenter;
-
-            // Loop through the controls on the form
-            foreach (Control control in this.Controls)
-            {
-                if (control is CheckBox)
-                {
-                    // Set checkboxes' text alignment
-                    ((CheckBox)control).TextAlign = ContentAlignment.MiddleCenter;
-                } 
-                else if (control is RadioButton)
-                {
-                    // Set checkboxes' text alignment
-                    ((RadioButton)control).TextAlign = ContentAlignment.MiddleCenter;
-                }
-            }
+            labelMCQorMRQ.TextAlign = ContentAlignment.MiddleCenter;
+            // Calculate the center position of the form
+            int centerMCQX = Width / 2;
+            // Calculate the center position of the question label
+            int labelMCQX = centerMCQX - (labelMCQorMRQ.Width / 2);
+            // Set the position of the question label
+            labelMCQorMRQ.Location = new Point(labelMCQX, labelMCQorMRQ.Location.Y);
 
         }
-
 
         private string LoadBackgroundImageFromCSV()
         {
@@ -351,6 +363,8 @@ namespace TestingWinForms
                 //TODO: change to dynamic (loop)
                 if (currentQuestion.Type == "MCQ")
                 {
+                    labelMCQorMRQ.Text = "Select one option only.";
+
                     // Update the options visibility and text
                     for (int i = 0; i < numOptions; i++)
                     {
@@ -381,6 +395,8 @@ namespace TestingWinForms
 
                 } else
                 {
+                    labelMCQorMRQ.Text = "Select multiple options.";
+
                     // Update the options visibility and text
                     for (int i = 0; i < numOptions; i++)
                     {
@@ -408,61 +424,13 @@ namespace TestingWinForms
                         radioButton.Text = string.Empty;
                         radioButton.Checked = false;
                     }
-
                 }
-
-                
-
-                /*// Update the options
-                optionACheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[0]);
-                optionBCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[1]);
-                optionCCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[2]);
-                optionDCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[3]);
-                optionECheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[4]);
-                optionFCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[5]);
-                optionGCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[6]);
-                optionHCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[7]);
-
-                // Set the checkbox text
-                optionACheckBox.Text = currentQuestion.Options[0];
-                optionBCheckBox.Text = currentQuestion.Options[1];
-                optionCCheckBox.Text = currentQuestion.Options[2];
-                optionDCheckBox.Text = currentQuestion.Options[3];
-                optionECheckBox.Text = currentQuestion.Options[4];
-                optionFCheckBox.Text = currentQuestion.Options[5];
-                optionGCheckBox.Text = currentQuestion.Options[6];
-                optionHCheckBox.Text = currentQuestion.Options[7];
-
-                // Clear the check box selection
-                optionACheckBox.Checked = false;
-                optionBCheckBox.Checked = false;
-                optionCCheckBox.Checked = false;
-                optionDCheckBox.Checked = false;
-                optionECheckBox.Checked = false;
-                optionFCheckBox.Checked = false;
-                optionGCheckBox.Checked = false;
-                optionHCheckBox.Checked = false;
-                */
-
                 // Enable the submit button
                 submitButton.Enabled = true;
+                CenterQuestionLabel();
             }
             else
             {
-                // No more questions, display a completion message
-                questionLabel.Text = "Quiz completed!";
-
-                /*// Disable the check boxes and submit button
-                optionACheckBox.Enabled = false;
-                optionBCheckBox.Enabled = false;
-                optionCCheckBox.Enabled = false;
-                optionDCheckBox.Enabled = false;
-                optionECheckBox.Enabled = false;
-                optionFCheckBox.Enabled = false;
-                optionGCheckBox.Enabled = false;
-                optionHCheckBox.Enabled = false;
-                */
-
                 foreach (CheckBox checkbox in checkboxes)
                 {
                     checkbox.Enabled = false;
@@ -482,7 +450,6 @@ namespace TestingWinForms
                 thankYouForm.Show();
                 this.Close();
             }
-            CenterQuestionLabel();
         }
 
         //for checkboxes
@@ -610,7 +577,6 @@ namespace TestingWinForms
         // Timer for question
         private void Timer_Tick(object sender, EventArgs e)
         {
-
             saveAnswersToArray();
             // Timer elapsed, redirect to Form1
             AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
@@ -627,6 +593,10 @@ namespace TestingWinForms
             timer.Start();
         }
 
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 
     public class Question
