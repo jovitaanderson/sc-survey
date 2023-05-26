@@ -307,10 +307,10 @@
             this.labelMCQorMRQ.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelMCQorMRQ.AutoSize = true;
             this.labelMCQorMRQ.BackColor = System.Drawing.Color.Transparent;
-            this.labelMCQorMRQ.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMCQorMRQ.Location = new System.Drawing.Point(505, 113);
+            this.labelMCQorMRQ.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMCQorMRQ.Location = new System.Drawing.Point(471, 110);
             this.labelMCQorMRQ.Name = "labelMCQorMRQ";
-            this.labelMCQorMRQ.Size = new System.Drawing.Size(164, 25);
+            this.labelMCQorMRQ.Size = new System.Drawing.Size(232, 32);
             this.labelMCQorMRQ.TabIndex = 22;
             this.labelMCQorMRQ.Text = "labelMCQorMRQ";
             this.labelMCQorMRQ.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
