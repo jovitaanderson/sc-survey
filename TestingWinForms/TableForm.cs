@@ -23,12 +23,6 @@ namespace TestingWinForms
         private int dotSize = 10;
         private System.Threading.Timer timer; // Timer to wait for 3 seconds
 
-        private string csvAdminTableFilePath = "admin_table.csv";
-        private string csvAdminAdvanceFilePath = "admin_advance.csv";
-        private string csvAdminQuestionsFilePath = "admin_questions.csv"; // Path to the CSV file
-        private string csvAdminDownloadFilePath = "admin_download.csv";
-
-        private string csvFilePath = "player_answers.csv"; // Path to the CSV file
         private string columnNames;
         private int timerToQuestionPage = 1000;
         private int lastRowNumber;
@@ -38,6 +32,7 @@ namespace TestingWinForms
 
         private Color existingColour;
         private Color selectedColour;
+
 
         private void TableForm_KeyDown(object sender, KeyEventArgs e)
         {
@@ -50,15 +45,38 @@ namespace TestingWinForms
 
         }
 
+        private void initializeDirectory() {
+            // Get the current root path of the application
+            string rootPath = Directory.GetCurrentDirectory();
+
+            // Specify the directory within the root path to save the image
+            string adminPath = Path.Combine(rootPath, "admin");
+            string downloadPath = Path.Combine(rootPath, "downloads");
+            string developerPath = Path.Combine(rootPath, "ForDevelopersOnly");
+
+            // Create the directory if it doesn't exist
+            if (!Directory.Exists(adminPath))
+            {
+                Directory.CreateDirectory(adminPath);
+            }
+            if (!Directory.Exists(downloadPath))
+            {
+                Directory.CreateDirectory(downloadPath);
+            }
+            if (!Directory.Exists(developerPath))
+            {
+                Directory.CreateDirectory(developerPath);
+            }
+        }
+
         String loadColumnNames()
         {
-            string csvFilePath = "admin_questions.csv";
 
             List<string> firstColumnValues = new List<string>();
 
-            if (File.Exists(csvFilePath))
+            if (File.Exists(GlobalVariables.csvAdminQuestionsFilePath))
             {
-                using (TextFieldParser parser = new TextFieldParser(csvFilePath))
+                using (TextFieldParser parser = new TextFieldParser(GlobalVariables.csvAdminQuestionsFilePath))
                 {
                     parser.TextFieldType = FieldType.Delimited;
                     parser.SetDelimiters(",");
@@ -94,6 +112,7 @@ namespace TestingWinForms
             //CalculateDrawingArea();
 
             InitializeComponent();
+            initializeDirectory();
             DoubleBuffered = true;
 
             this.KeyPreview = true;
@@ -103,10 +122,10 @@ namespace TestingWinForms
             columnNames = loadColumnNames();
 
             //Create file with column header if file does not exits
-            if (!File.Exists(csvFilePath))
+            if (!File.Exists(GlobalVariables.csvRawDataFilePath))
             {
                 string csvHeader = $"{columnNames}" + Environment.NewLine;
-                File.WriteAllText(csvFilePath, csvHeader, Encoding.UTF8);
+                File.WriteAllText(GlobalVariables.csvRawDataFilePath, csvHeader, Encoding.UTF8);
             }
 
             FormBorderStyle = FormBorderStyle.None; // Remove the border
@@ -158,7 +177,7 @@ namespace TestingWinForms
 
         private void LoadTableFromCSV()
         {
-            if (File.Exists(csvAdminTableFilePath))
+            if (File.Exists(GlobalVariables.csvAdminTableFilePath))
             {
 
                 string[] lines;
@@ -167,7 +186,7 @@ namespace TestingWinForms
                 {
                     try
                     {
-                        lines = File.ReadAllLines(csvAdminTableFilePath);
+                        lines = File.ReadAllLines(GlobalVariables.csvAdminTableFilePath);
                         break;
                     }
                     catch (IOException ex)
@@ -218,14 +237,14 @@ namespace TestingWinForms
 
         private string LoadBackgroundImageFromCSV()
         {
-            if (File.Exists(csvAdminAdvanceFilePath))
+            if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
             {
                 string[] lines;
                 while (true)
                 {
                     try
                     {
-                        lines = File.ReadAllLines(csvAdminAdvanceFilePath);
+                        lines = File.ReadAllLines(GlobalVariables.csvAdminAdvanceFilePath);
                         break;
                     }
                     catch (IOException ex)
@@ -265,7 +284,7 @@ namespace TestingWinForms
             existingClickedPositions.Clear();
 
             // Load all existing points to screen
-            if (File.Exists(csvFilePath))
+            if (File.Exists(GlobalVariables.csvRawDataFilePath))
             {
                 // Calculate the inverse scaling factors
                 float inverseScaleX = drawingArea.Width / 10f;
@@ -277,7 +296,7 @@ namespace TestingWinForms
                 {
                     try
                     {
-                        lines = File.ReadAllLines(csvFilePath);
+                        lines = File.ReadAllLines(GlobalVariables.csvRawDataFilePath);
                         break;
                     }
                     catch (IOException ex)
@@ -320,7 +339,7 @@ namespace TestingWinForms
             {
                 try
                 {
-                    using (StreamWriter writer = new StreamWriter(csvFilePath, true))
+                    using (StreamWriter writer = new StreamWriter(GlobalVariables.csvRawDataFilePath, true))
                     {
                         string currentDate = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
 
@@ -338,7 +357,7 @@ namespace TestingWinForms
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
             // check if all admin csv exixts, if dosent prompt message box
-            if (!File.Exists(csvAdminAdvanceFilePath) || !File.Exists(csvAdminQuestionsFilePath))
+            if (!File.Exists(GlobalVariables.csvAdminAdvanceFilePath) || !File.Exists(GlobalVariables.csvAdminQuestionsFilePath))
             {
                 MessageBox.Show("Please set details in admin page and save!");
             } else if (string.IsNullOrWhiteSpace(File.ReadAllText(csvAdminQuestionsFilePath)))
