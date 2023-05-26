@@ -495,7 +495,7 @@ namespace TestingWinForms
 
         private void LoadQuestionData(TabPage tabPage, string csvFilePath, int questionIndex)
         {
-                if (File.Exists(csvFilePath))
+                if (File.Exists(csvFilePath)) 
                 {
                     string[] lines = File.ReadAllLines(csvFilePath);
                     while (true)
@@ -756,9 +756,12 @@ namespace TestingWinForms
 
                         for (int j = 0; j < optionsNumber; j++)
                         {
-                            if (!string.IsNullOrEmpty(values[j]) && values[j] != "" && values[j] != " ")
+                            if (j < values.Length)
                             {
-                                responsesCount[j]++;
+                                if (!string.IsNullOrEmpty(values[j]) && values[j] != "" && values[j] != " ")
+                                {
+                                    responsesCount[j]++;
+                                }
                             }
                         }
                     }
