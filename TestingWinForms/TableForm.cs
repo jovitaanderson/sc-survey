@@ -322,7 +322,7 @@ namespace TestingWinForms
                 {
                     using (StreamWriter writer = new StreamWriter(csvFilePath, true))
                     {
-                        string currentDate = DateTime.Now.ToString("dd/MM/yyyy");
+                        string currentDate = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
 
                         writer.WriteLine($"{currentDate},{currPoint.X},{currPoint.Y}");
                     }

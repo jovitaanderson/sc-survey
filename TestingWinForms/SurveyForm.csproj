@@ -59,6 +59,7 @@
     <Compile Include="AdminForm.Designer.cs">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GlobalVariables.cs" />
     <Compile Include="TableForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -30,7 +30,6 @@ namespace TestingWinForms
         String[] savedAnswers; //Stores answers to each question
 
         Dictionary<string, string> checkboxValues = new Dictionary<string, string>(); // Stores answers on checkbox change
-        int totalOptions = 8;
 
         bool[] isQuestionMRQ = new bool[] { false, true, true, true, false, true, true, true };
 
@@ -92,7 +91,7 @@ namespace TestingWinForms
             questions = LoadQuestionsFromCSV();
             savedAnswers = new String[questions.Count];
 
-            string semicolonString = " " + string.Join("; ", new string[totalOptions]);
+            string semicolonString = " " + string.Join("; ", new string[GlobalVariables.totalOptions]);
 
             for (int i = 0; i < savedAnswers.Length; i++)
             {
@@ -536,7 +535,7 @@ namespace TestingWinForms
 
             if (checkboxValues == null || checkboxValues.Count == 0)
             {
-                for (int i = 0; i < totalOptions; i++)
+                for (int i = 0; i < GlobalVariables.totalOptions; i++)
                 {
                     string key = "option" + (char)('A' + i);
                     string value = " ";
