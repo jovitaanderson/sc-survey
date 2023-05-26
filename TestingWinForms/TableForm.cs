@@ -324,15 +324,13 @@ namespace TestingWinForms
                     {
                         string currentDate = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
 
-                        writer.WriteLine($"{currentDate},{currPoint.X},{currPoint.Y}");
+                        writer.WriteLine($"'{currentDate},{currPoint.X},{currPoint.Y}");
                     }
                     break;
                 }
                 catch (IOException ex)
                 {
-
                     MessageBox.Show(ex.Message);
-                    SavePointToCSV(currPoint);
                 }
             }
         }
