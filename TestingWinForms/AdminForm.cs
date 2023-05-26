@@ -22,12 +22,14 @@ namespace TestingWinForms
 
         private string csvPlayerFilePath = "player_answers.csv";
 
-        private string format = "dd/MM/yyyy";
+        private string dateFormat = "dd/MM/yyyy HH:mm:ss";
 
         private int[] xAxisIntervalCounts = new int[21];  // Array to store the count of values from 0 to 10 (inclusive) with intervals of 0.5 for roundedFirstValue
         private int[] yAxisIntervalCounts = new int[21]; // Array to store the count of values from 0 to 10 (inclusive) with intervals of 0.5 for roundedSecondValue
 
         private int questionsNumber = 3;
+        int[] responsesCount;
+        double[] percentageCount;
         private static int optionsNumber = 8;
 
         public AdminForm()
@@ -496,7 +498,21 @@ namespace TestingWinForms
         {
             if (File.Exists(csvAdminQuestionsFilePath))
             {
-                string[] lines = File.ReadAllLines(csvAdminQuestionsFilePath);
+
+                string[] lines;
+                while (true)
+                {
+                    try
+                    {
+                        lines = File.ReadAllLines(csvAdminQuestionsFilePath);
+                        break;
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
                 questionsNumber = lines.Length;
             }
         }
@@ -620,15 +636,36 @@ namespace TestingWinForms
 
         private void btnDownload_Click(object sender, EventArgs e)
         {
-            
+
+            DateTime selectedDate = dateTimePickerStartDate.Value.Date; // Get the selected date without the time portion
+            DateTime startDateTime = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, 0, 0, 0); // Set the time as 00:00:00 (midnight)
+            DateTime endDateTime = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, 23, 59, 59); // Set the time as 23:59:59 (end of the day)
+
+
             // Filter the player answers based on the selected date range
-            List<string> filteredPlayerAnswers = FilterPlayerAnswersByDateRange(dateTimePickerStartDate.Value, dateTimePickerEndDate.Value);
-            List<string> pointsFilterePlayerAnswers = separateData(filteredPlayerAnswers);
+            List<string> filteredPlayerAnswers = FilterPlayerAnswersByDateRange(startDateTime, endDateTime);
+            var combinedFilteredPlayerAnswers = separateData(filteredPlayerAnswers);
+            List<string> pointsFilterePlayerAnswers = combinedFilteredPlayerAnswers.Item1;
+            List<string> reponsesFilterePlayerAnswers = combinedFilteredPlayerAnswers.Item2;
+
+            // Calculate total reponse by time
+            List<int> dateColumn = getDateColumn(filteredPlayerAnswers);
+            List<string> hourCount = getHourCount(dateColumn);
+
+            //Calculation for conslidated points data
             List<string> roundedFilterePlayerAnswers = roundDataPoints(pointsFilterePlayerAnswers);
-            List<string> consolidatedPointAnswers = countPoints(roundedFilterePlayerAnswers); //Vertical
-            //List<string> consolidatedPointAnswersF2 = consolidatedPointsFormat(filteredPlayerAnswers.Count); //Horizontal
-            
-            // Check if there are any matching answers
+            List<string> consolidatedPointAnswers = countAndAnalyzePointsInterval(roundedFilterePlayerAnswers); //Vertical
+                                                                                                      //List<string> consolidatedPointAnswersF2 = consolidatedPointsFormat(filteredPlayerAnswers.Count); //Horizontal
+
+            // Calculation for conslidated reponses data
+            responsesCount = new int[GlobalVariables.totalOptions];
+            List<string[]> responseSplitByQuestion = splitResponseByQuestion(reponsesFilterePlayerAnswers);
+            List<string> consolidatedResponse = countAndAnalyzeResponse(responseSplitByQuestion);
+
+            //Combine the csv file into one
+            List<string> combinedConslidatedData = combinedData(startDateTime, endDateTime, consolidatedPointAnswers, consolidatedResponse, hourCount);
+
+            // Check if there are any matching answerss
             if (filteredPlayerAnswers.Count > 0)
             {
                 // Open a SaveFileDialog to specify the download location
@@ -649,7 +686,7 @@ namespace TestingWinForms
                     string savePath = saveFileDialog.FileName;
 
                     // Write the filtered player answers to the selected file
-                    File.WriteAllLines(savePath, consolidatedPointAnswers);
+                    File.WriteAllLines(savePath, combinedConslidatedData);
 
                     MessageBox.Show("Player answers downloaded successfully.");
                 }
@@ -660,11 +697,158 @@ namespace TestingWinForms
             }
         }
 
-        private List<string> separateData(List<string> filteredPlayerAnswers) {
+        private List<string> getHourCount(List<int> hours)
+        {
+            List<string> hourCountCSV = new List<string>();
+            hourCountCSV.Add($"Hour Interval,Frequency");
+
+            Dictionary<int, int> hourFrequency = new Dictionary<int, int>();
+
+            // Initialize the hourFrequency dictionary with all hours from 0 to 24 and set their count as 0
+            for (int i = 0; i <= 23; i++)
+            {
+                hourFrequency[i] = 0;
+            }
+
+            // Count the frequency of each hour in the hours list
+            foreach (int hour in hours)
+            {
+                hourFrequency[hour]++;
+            }
+
+            int totalCount = 0;
+            // Print the hour and its corresponding frequency
+            foreach (KeyValuePair<int, int> pair in hourFrequency)
+            {
+                if (pair.Key < 9)
+                {
+                    hourCountCSV.Add($"0{pair.Key}:00-0{pair.Key + 1}:59,{pair.Value}");
+                }
+                else if (pair.Key == 9) {
+                    hourCountCSV.Add($"0{pair.Key}:00-{pair.Key + 1}:59,{pair.Value}");
+                }
+                else
+                {
+                    hourCountCSV.Add($"{pair.Key}:00-{pair.Key + 1}:59,{pair.Value}");
+                }
+                totalCount += pair.Value;
+                
+            }
+            hourCountCSV.Add($"Total,{totalCount}");
+            return hourCountCSV;
+
+        }
+
+        private List<int> getDateColumn(List<string> filteredPlayerAnswers)
+        {
+            List<int> dateColumn = new List<int>();
+
+            foreach (string item in filteredPlayerAnswers)
+            {
+                string[] values = item.Split(',');
+
+                if (values.Length >= 1)
+                {
+                    DateTime date = DateTime.ParseExact(values[0], dateFormat, CultureInfo.InvariantCulture);
+                    dateColumn.Add(date.Hour);
+                }
+            }
+
+            return dateColumn;
+        }
+
+        private List<string> combinedData(DateTime startDateTime, DateTime endDateTime, List<string> consolidatedPointAnswers, List<string> consolidatedResponse, List<string> hourCount)
+        {
+            List<string> combinedConslidatedData = new List<string>();
+            combinedConslidatedData.Add($"Date selected: {startDateTime} to {endDateTime}");
+            combinedConslidatedData.Add("");
+            combinedConslidatedData.AddRange(consolidatedPointAnswers);
+            combinedConslidatedData.Add("");
+            combinedConslidatedData.AddRange(consolidatedResponse);
+            combinedConslidatedData.Add("");
+            combinedConslidatedData.AddRange(hourCount);
+            return combinedConslidatedData;
+
+        }
+
+        private List<string> countAndAnalyzeResponse(List<string[]> responseList) {
+
+            int numOfResponses;
+
+            if (responseList.Count >= 1)
+            {
+                numOfResponses = responseList[0].Length;
+            }
+            else {
+                numOfResponses = 0;
+            }
+           
+
+            List<string> conslidatedResponse = new List<string>();
+            conslidatedResponse.Add("Response count for each question option");
+
+            List<string> conslidatedPercentageResponse = new List<string>();
+            conslidatedPercentageResponse.Add("Percentage of each response per question over total responses");
+
+            string csvColumnHeader = "Question,optionA,optionB,optionC,optionD,optionE,optionF,optionG,optionH";
+            conslidatedResponse.Add($"{ csvColumnHeader},TotalAnswers");
+            conslidatedPercentageResponse.Add(csvColumnHeader);
+            int qnNumberCSV = 1;
+            foreach (string[] response in responseList)
+            {
+
+                string[] values;
+                int a = response.Length;
+
+                responsesCount = new int[GlobalVariables.totalOptions];
+                percentageCount = new double[GlobalVariables.totalOptions];
+
+                for (int i = 0; i < response.Length; i++)
+                {
+
+                    string wee = response[i];
+                    values = response[i].Split(';');
+
+                    for (int j = 0; j < GlobalVariables.totalOptions; j++)
+                    {
+                        if (!string.IsNullOrEmpty(values[j]) && values[j] != "" && values[j] != " ")
+                        {
+                            responsesCount[j]++;
+                        }
+                    }
+                }
+
+                int totalAnswers = 0;
+                for (int i = 0; i < responsesCount.Length; i++) { 
+                    totalAnswers += responsesCount[i];
+                }
+
+                string finalCountPerQuestion = string.Join(",", responsesCount);
+                conslidatedResponse.Add($"Question{qnNumberCSV},{finalCountPerQuestion},{totalAnswers}");
+
+                for (int i = 0; i < responsesCount.Length; i++)
+                {
+                    percentageCount[i] = ((double)responsesCount[i] / numOfResponses) * 100;
+                }
+
+                string percentagePerQuestion = string.Join("%,", percentageCount) + "%";
+                conslidatedPercentageResponse.Add($"Question{qnNumberCSV},{percentagePerQuestion}");
+                
+                qnNumberCSV++;
+            }
+            qnNumberCSV = 1;
+
+            conslidatedResponse.Add("");
+            conslidatedResponse.AddRange(conslidatedPercentageResponse);
+
+            return conslidatedResponse;
+        }
+
+        private (List<string>, List<string>) separateData(List<string> filteredPlayerAnswers) {
             // Assuming you have a List<string> called dataList containing the comma-separated values
 
             List<string> points = new List<string>();
-            List<string> questions = new List<string>();
+            List<string> responses = new List<string>();
 
             foreach (string item in filteredPlayerAnswers)
             {
@@ -676,13 +860,26 @@ namespace TestingWinForms
                     points.Add(point);
                 }
 
-                if (values.Length >= 6)
+                if (values.Length >= 4)
                 {
-                    string question = values[3].Trim() + ", " + values[4].Trim() + ", " + values[5].Trim();
-                    questions.Add(question);
+                    string response = "";
+
+                    for (int i = 3; i < values.Length; i++)
+                    {
+                        response += values[i].Trim() + ", ";
+
+                    }
+
+                    //remove traiing ", "
+                    response = response.TrimEnd(' ');
+                    response = response.TrimEnd(',');
+
+                    responses.Add(response);
                 }
+
             }
-            return points;
+
+            return (points, responses);
         }
 
         private List<string> roundDataPoints(List<string> pointsFilterePlayerAnswers)
@@ -707,11 +904,28 @@ namespace TestingWinForms
             return roundedPoints;
         }
 
-        private List<string> countPoints(List<string> roundedPoints) {
+        private List<string> countAndAnalyzePointsInterval(List<string> roundedPoints) {
 
-            List<string> pointsConslidatedFormat = new List<string>();
+            int numOfResponses = roundedPoints.Count;
+            double[] percentageCountX = new double[21]; 
+            double[] percentageCountY = new double[21];
+            float totalX = 0;
+            float totalY = 0;
+
+            //List<string> pointsConslidatedFormat = new List<string>();
+
+            //pointsConslidatedFormat.Add("Response count for each interval");
             string csvColumnHeader = "Answer,x-axis,y-axis";
-            pointsConslidatedFormat.Add(csvColumnHeader);
+            //pointsConslidatedFormat.Add(csvColumnHeader);
+
+            //List<string> conslidatedPercentagePoint = new List<string>();
+            //conslidatedPercentagePoint.Add(csvColumnHeader);
+            //conslidatedPercentagePoint.Add("Percentage of each response per interval");
+
+
+            List<string> combinedData = new List<string>(); //seprataed by two columns
+            combinedData.Add("Response count for each interval,,,,,Percentage of each response per interval");
+            combinedData.Add($"{csvColumnHeader},,,{csvColumnHeader}");
 
             foreach (string item in roundedPoints)
             {
@@ -722,48 +936,77 @@ namespace TestingWinForms
                     {
                         int x_axis = (int)(roundedFirstValue * 2);
                         int y_axis = (int)(roundedSecondValue * 2);
-
+                        totalX += roundedFirstValue;
+                        totalY += roundedSecondValue;
                         xAxisIntervalCounts[x_axis]++;
                         yAxisIntervalCounts[y_axis]++;
                     }
                 }
             }
 
+            //Calculate % of responses
+            for (int i = 0; i < 21; i++)
+            {
+                percentageCountX[i] = ((double)xAxisIntervalCounts[i] / numOfResponses) * 100;
+                percentageCountY[i] = ((double)yAxisIntervalCounts[i] / numOfResponses) * 100;
+            }
+
             // Output the counts
             for (int i = 0; i < 21; i++)
             {
-
                 float value = i / 2f;
-                pointsConslidatedFormat.Add($"{value},{xAxisIntervalCounts[i]},{yAxisIntervalCounts[i]}");
-                //Console.WriteLine("First Value {0}: {1}", value, xAxisIntervalCounts[i]);
-                //Console.WriteLine("Second Value {0}: {1}", value, yAxisIntervalCounts[i]);
+                //pointsConslidatedFormat.Add($"{value},{xAxisIntervalCounts[i]},{yAxisIntervalCounts[i]}");
+                //conslidatedPercentagePoint.Add($"{value},{percentageCountX[i]},{percentageCountY[i]}%");
+                combinedData.Add($"{value},{xAxisIntervalCounts[i]},{yAxisIntervalCounts[i]},,,{value},{percentageCountX[i]}%,{percentageCountY[i]}%");
+
             }
-            pointsConslidatedFormat.Add($"Total,{roundedPoints.Count},{roundedPoints.Count}");
-            return pointsConslidatedFormat;
+            float avgX = totalX / numOfResponses;
+            float avgY = totalY / numOfResponses;
+            //pointsConslidatedFormat.Add($"Total,{roundedPoints.Count},{roundedPoints.Count}");
+            //conslidatedPercentagePoint.Add($"Total,{roundedPoints.Count},{roundedPoints.Count}");
+            combinedData.Add($"Average,{avgX},{avgY}");
+            combinedData.Add($"Total,{roundedPoints.Count},{roundedPoints.Count},,,Total,{roundedPoints.Count},{roundedPoints.Count}");
+
+            //pointsConslidatedFormat.Add("");
+            //pointsConslidatedFormat.AddRange(conslidatedPercentagePoint);
+
+            return combinedData;
 
         }
-
-        /*
-        private List<string> consolidatedPointsFormat(int totalReponses) {
-            List<string> pointsConslidatedFormat = new List<string>();
-            string csvColumnHeader = "Answer,0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,Total";
-
-            pointsConslidatedFormat.Add(csvColumnHeader);
-
-            string xAxisData = "x-axis," + string.Join(",", xAxisIntervalCounts) + "," + totalReponses.ToString();
-            pointsConslidatedFormat.Add(xAxisData);
-            string yAxisData = "x-axis," + string.Join(",", yAxisIntervalCounts) + "," + totalReponses.ToString();
-            pointsConslidatedFormat.Add(yAxisData);
-
-            return pointsConslidatedFormat;
-        }*/
-
 
 
         // Helper method to round to the nearest 0.5 decimal place
         private float RoundToNearestHalf(float value)
         {
             return (float)Math.Round(value * 2, MidpointRounding.AwayFromZero) / 2;
+        }
+
+        private List<string[]> splitResponseByQuestion(List<string> responseFilterePlayerAnswers)
+        {
+            List<string[]> separatedArrays = new List<string[]>();
+
+            // Split the responses and group the values by position
+            for (int i = 0; i < responseFilterePlayerAnswers.Count; i++)
+            {
+                string[] values = responseFilterePlayerAnswers[i].Split(',');
+
+                // Check if it's the first response, initialize the arrays accordingly
+                if (i == 0)
+                {
+                    // Create arrays with the same length as the number of values
+                    for (int j = 0; j < values.Length; j++)
+                    {
+                        separatedArrays.Add(new string[responseFilterePlayerAnswers.Count]);
+                    }
+                }
+
+                // Store the values in their respective arrays
+                for (int j = 0; j < values.Length; j++)
+                {
+                    separatedArrays[j][i] = values[j];
+                }
+            }
+            return separatedArrays;
         }
 
         private List<string> FilterPlayerAnswersByDateRange(DateTime startDate, DateTime endDate)
@@ -791,7 +1034,7 @@ namespace TestingWinForms
                     // Assuming the date is the first column in the player answers CSV file
                     string[] values = answer.Split(',');
 
-                    if (values.Length > 0 && DateTime.TryParseExact(values[0], format, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime answerDate))
+                    if (values.Length > 0 && DateTime.TryParseExact(values[0], dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime answerDate))
                     {
                         if (answerDate >= startDate && answerDate <= endDate)
                         {
