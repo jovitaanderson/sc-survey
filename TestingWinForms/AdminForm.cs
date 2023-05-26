@@ -330,7 +330,7 @@ namespace TestingWinForms
             }
 
             // Concatenate the data into a comma-separated string
-            string data = string.Format("{0},{1},{2},{3}", timeOut, randomQuestions, endSurveyText, imagePath); //, base64Image);
+            string data = string.Format("{0},{1},{2},{3}", timeOut, randomQuestions, endSurveyText, imagePath); 
 
             // Append the data to the CSV file
             while (true)
@@ -351,23 +351,8 @@ namespace TestingWinForms
             }
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        void UpdatePlayerCSVHeader()
         {
-            // Clear the contents of the CSV files
-            ClearCSVFiles();
-
-            saveTable();
-
-            saveQuestions();
-
-            UpdatePlayerCSVHeader();
-
-            saveAdvance();
-
-            MessageBox.Show("Data saved to CSV file.");
-        }
-
-        void UpdatePlayerCSVHeader() {
 
             string columnHeader = "date,point_x,point_y,";
 
@@ -402,6 +387,23 @@ namespace TestingWinForms
 
         }
 
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            // Clear the contents of the CSV files
+            ClearCSVFiles();
+
+            saveTable();
+
+            saveQuestions();
+
+            UpdatePlayerCSVHeader();
+
+            saveAdvance();
+
+            MessageBox.Show("Data saved to CSV file.");
+        }
+        
+
         private void LoadDataFromCSV()
         {
             // Load data for the Table tab
@@ -419,37 +421,37 @@ namespace TestingWinForms
 
         private void LoadTableData()
         {
-                if (File.Exists(GlobalVariables.csvAdminTableFilePath))
+            if (File.Exists(GlobalVariables.csvAdminTableFilePath))
+            {
+                string[] lines;
+                while (true)
                 {
-                    string[] lines;
-                    while (true)
+                    try
                     {
-                        try
-                        {
-                            lines = File.ReadAllLines(GlobalVariables.csvAdminTableFilePath);
-                            break;
-                        }
-                        catch (IOException ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                    } 
-
-
-                    if (lines.Length > 0)
+                        lines = File.ReadAllLines(GlobalVariables.csvAdminTableFilePath);
+                        break;
+                    }
+                    catch (IOException ex)
                     {
-                        string[] values = lines[lines.Length - 1].Split(',');
+                        MessageBox.Show(ex.Message);
+                    }
+                } 
 
-                        if (values.Length == 5)
-                        {
-                            textBoxTitle.Text = values[0];
-                            textBoxXAxis.Text = values[1];
-                            textBoxYAxis.Text = values[2];
-                            btnExisColour.BackColor = ColorTranslator.FromHtml(values[3]);
-                            btnSelPointColour.BackColor = ColorTranslator.FromHtml(values[4]);
-                        }
+
+                if (lines.Length > 0)
+                {
+                    string[] values = lines[lines.Length - 1].Split(',');
+
+                    if (values.Length == 5)
+                    {
+                        textBoxTitle.Text = values[0];
+                        textBoxXAxis.Text = values[1];
+                        textBoxYAxis.Text = values[2];
+                        btnExisColour.BackColor = ColorTranslator.FromHtml(values[3]);
+                        btnSelPointColour.BackColor = ColorTranslator.FromHtml(values[4]);
                     }
                 }
+            }
 
         }
 
@@ -478,81 +480,81 @@ namespace TestingWinForms
 
         private void LoadQuestionData(TabPage tabPage, string csvFilePath, int questionIndex)
         {
-                if (File.Exists(csvFilePath)) 
+            if (File.Exists(csvFilePath)) 
+            {
+                string[] lines = File.ReadAllLines(csvFilePath);
+                while (true)
                 {
-                    string[] lines = File.ReadAllLines(csvFilePath);
-                    while (true)
+                    try
                     {
-                        try
-                        {
-                            lines = File.ReadAllLines(csvFilePath);
-                            break;
-                        }
-                        catch (IOException ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                        lines = File.ReadAllLines(csvFilePath);
+                        break;
                     }
-
-                    if (lines.Length > questionIndex)
+                    catch (IOException ex)
                     {
-                        string[] values = lines[questionIndex].Split(',');
-
-                        TextBox questionTextBox = tabPage.Controls.OfType<TextBox>().FirstOrDefault(c => c.Name.StartsWith("textBoxQ"));
-                        TextBox[] answerTextBoxes = tabPage.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + "A" + (questionIndex + 1))).ToArray();
-                        ComboBox questionTypeComboBox = tabPage.Controls.OfType<ComboBox>().FirstOrDefault(c => c.Name.StartsWith("comboBox"));
-
-                    if (questionTextBox != null && answerTextBoxes.Length == optionsNumber && questionTypeComboBox != null)
-                        {
-                            questionTextBox.Text = values[0];
-                            for (int i = values.Length - 3; i >= 0; i--)
-                            {
-                                answerTextBoxes[values.Length - 3 - i].Text = values[i + 2];
-                            }
-                            questionTypeComboBox.Text = values[1];
-                        }
+                        MessageBox.Show(ex.Message);
                     }
                 }
+
+                if (lines.Length > questionIndex)
+                {
+                    string[] values = lines[questionIndex].Split(',');
+
+                    TextBox questionTextBox = tabPage.Controls.OfType<TextBox>().FirstOrDefault(c => c.Name.StartsWith("textBoxQ"));
+                    TextBox[] answerTextBoxes = tabPage.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + "A" + (questionIndex + 1))).ToArray();
+                    ComboBox questionTypeComboBox = tabPage.Controls.OfType<ComboBox>().FirstOrDefault(c => c.Name.StartsWith("comboBox"));
+
+                if (questionTextBox != null && answerTextBoxes.Length == optionsNumber && questionTypeComboBox != null)
+                    {
+                        questionTextBox.Text = values[0];
+                        for (int i = values.Length - 3; i >= 0; i--)
+                        {
+                            answerTextBoxes[values.Length - 3 - i].Text = values[i + 2];
+                        }
+                        questionTypeComboBox.Text = values[1];
+                    }
+                }
+            }
         }
 
 
         private void LoadAdvanceData()
         {
-                if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
+            if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
+            {
+                string[] lines;
+                while (true)
                 {
-                    string[] lines;
-                    while (true)
+                    try
                     {
-                        try
-                        {
-                            lines = File.ReadAllLines(GlobalVariables.csvAdminAdvanceFilePath);
-                            break;
-                        }
-                        catch (IOException ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                        lines = File.ReadAllLines(GlobalVariables.csvAdminAdvanceFilePath);
+                        break;
                     }
-                    if (lines.Length > 0)
+                    catch (IOException ex)
                     {
-                        string[] values = lines[lines.Length - 1].Split(',');
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                if (lines.Length > 0)
+                {
+                    string[] values = lines[lines.Length - 1].Split(',');
 
-                        if (values.Length == 4)
+                    if (values.Length == 4)
+                    {
+                        textBoxTimeOut.Text = values[0];
+                        comboBoxRandomQns.Text = values[1];
+                        textBoxEndMessage.Text = values[2];
+
+                        string imagePath = Path.Combine(values[3]);
+
+                        if (File.Exists(imagePath))
                         {
-                            textBoxTimeOut.Text = values[0];
-                            comboBoxRandomQns.Text = values[1];
-                            textBoxEndMessage.Text = values[2];
-
-                            string imagePath = Path.Combine(values[3]);
-
-                            if (File.Exists(imagePath))
-                            {
-                                Image image = Image.FromFile(imagePath);
-                                pictureBox.Image = image;
-                            }
+                            Image image = Image.FromFile(imagePath);
+                            pictureBox.Image = image;
                         }
                     }
                 }
+            }
 
         }
 
