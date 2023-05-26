@@ -13,7 +13,7 @@ namespace TestingWinForms
 {
     public partial class ThankYouScreen : Form
     {
-        private string csvAdminAdvanceFilePath = "admin_advance.csv";
+        //private string csvAdminAdvanceFilePath = "admin_advance.csv";
 
         public ThankYouScreen()
         {
@@ -43,14 +43,14 @@ namespace TestingWinForms
 
         private string LoadBackgroundImageFromCSV()
         {
-            if (File.Exists(csvAdminAdvanceFilePath))
+            if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
             {
                 string[] lines;
                 while (true)
                 {
                     try
                     {
-                        lines = File.ReadAllLines(csvAdminAdvanceFilePath);
+                        lines = File.ReadAllLines(GlobalVariables.csvAdminAdvanceFilePath);
                         break;
                     }
                     catch (IOException ex)
@@ -97,14 +97,14 @@ namespace TestingWinForms
 
         private void ThankYouScreen_Load(object sender, EventArgs e)
         {
-            if (File.Exists(csvAdminAdvanceFilePath))
+            if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
             {
                 string[] lines;
                 while (true)
                 {
                     try
                     {
-                        lines = File.ReadAllLines(csvAdminAdvanceFilePath);
+                        lines = File.ReadAllLines(GlobalVariables.csvAdminAdvanceFilePath);
                         break;
                     }
                     catch (IOException ex)

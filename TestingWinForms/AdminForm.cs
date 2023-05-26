@@ -14,12 +14,6 @@ namespace TestingWinForms
 {
     public partial class AdminForm : Form
     {
-        private string csvAdminQuestionsFilePath = "admin_questions.csv"; // Path to the CSV file
-        private string csvAdminTableFilePath = "admin_table.csv";
-        private string csvAdminAdvanceFilePath = "admin_advance.csv";
-        private string csvFilePath = "player_answers.csv";
-
-        private string csvPlayerFilePath = "player_answers.csv";
 
         private string dateFormat = "dd/MM/yyyy HH:mm:ss";
 
@@ -183,9 +177,9 @@ namespace TestingWinForms
         {
             try
             {
-                File.WriteAllText(csvAdminQuestionsFilePath, string.Empty);
-                File.WriteAllText(csvAdminTableFilePath, string.Empty);
-                File.WriteAllText(csvAdminAdvanceFilePath, string.Empty);
+                File.WriteAllText(GlobalVariables.csvAdminQuestionsFilePath, string.Empty);
+                File.WriteAllText(GlobalVariables.csvAdminTableFilePath, string.Empty);
+                File.WriteAllText(GlobalVariables.csvAdminAdvanceFilePath, string.Empty);
             }
             catch (IOException ex)
             {
@@ -236,7 +230,7 @@ namespace TestingWinForms
             {
                 try
                 {
-                    using (StreamWriter sw = new StreamWriter(csvAdminTableFilePath, true))
+                    using (StreamWriter sw = new StreamWriter(GlobalVariables.csvAdminTableFilePath, true))
                     {
                         sw.WriteLine(titleDate);
                     }
@@ -304,7 +298,7 @@ namespace TestingWinForms
                 {
                     try
                     {
-                        using (StreamWriter sw = new StreamWriter(csvAdminQuestionsFilePath, true))
+                        using (StreamWriter sw = new StreamWriter(GlobalVariables.csvAdminQuestionsFilePath, true))
                         {
                             sw.WriteLine(rowData);
                         }
@@ -364,7 +358,7 @@ namespace TestingWinForms
             {
                 try
                 {
-                    using (StreamWriter sw = new StreamWriter(csvAdminAdvanceFilePath, true))
+                    using (StreamWriter sw = new StreamWriter(GlobalVariables.csvAdminAdvanceFilePath, true))
                     {
                         sw.WriteLine(data);
                     }
@@ -398,7 +392,7 @@ namespace TestingWinForms
             {
                 try
                 {
-                    lines = File.ReadAllLines(csvPlayerFilePath);
+                    lines = File.ReadAllLines(GlobalVariables.csvRawDataFilePath);
                     break;
                 }
                 catch (IOException ex)
@@ -411,7 +405,7 @@ namespace TestingWinForms
             lines[0] = columnHeader;
 
             // Write the updated lines back to the CSV file
-            File.WriteAllLines(csvPlayerFilePath, lines);
+            File.WriteAllLines(GlobalVariables.csvRawDataFilePath, lines);
 
         }
 
@@ -426,20 +420,20 @@ namespace TestingWinForms
             for (int i = 0; i < questionsNumber; i++)
             {
                 TabPage tabPage = tabControl.TabPages[i + 3];
-                LoadQuestionData(tabPage, csvAdminQuestionsFilePath, i);
+                LoadQuestionData(tabPage, GlobalVariables.csvAdminQuestionsFilePath, i);
             }
         }
 
         private void LoadTableData()
         {
-                if (File.Exists(csvAdminTableFilePath))
+                if (File.Exists(GlobalVariables.csvAdminTableFilePath))
                 {
                     string[] lines;
                     while (true)
                     {
                         try
                         {
-                            lines = File.ReadAllLines(csvAdminTableFilePath);
+                            lines = File.ReadAllLines(GlobalVariables.csvAdminTableFilePath);
                             break;
                         }
                         catch (IOException ex)
@@ -468,7 +462,7 @@ namespace TestingWinForms
 
         private void LoadNumQuestions()
         {
-            if (File.Exists(csvAdminQuestionsFilePath))
+            if (File.Exists(GlobalVariables.csvAdminQuestionsFilePath))
             {
 
                 string[] lines;
@@ -476,7 +470,7 @@ namespace TestingWinForms
                 {
                     try
                     {
-                        lines = File.ReadAllLines(csvAdminQuestionsFilePath);
+                        lines = File.ReadAllLines(GlobalVariables.csvAdminQuestionsFilePath);
                         break;
                     }
                     catch (IOException ex)
@@ -531,14 +525,14 @@ namespace TestingWinForms
 
         private void LoadAdvanceData()
         {
-                if (File.Exists(csvAdminAdvanceFilePath))
+                if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
                 {
                     string[] lines;
                     while (true)
                     {
                         try
                         {
-                            lines = File.ReadAllLines(csvAdminAdvanceFilePath);
+                            lines = File.ReadAllLines(GlobalVariables.csvAdminAdvanceFilePath);
                             break;
                         }
                         catch (IOException ex)
@@ -963,14 +957,14 @@ namespace TestingWinForms
         {
             List<string> filteredAnswers = new List<string>();
 
-            if (File.Exists(csvFilePath))
+            if (File.Exists(GlobalVariables.csvRawDataFilePath))
             {
                 string[] allAnswers;
 
                 while (true) {
                     try
                     {
-                        allAnswers = File.ReadAllLines(csvFilePath);
+                        allAnswers = File.ReadAllLines(GlobalVariables.csvRawDataFilePath);
                         break;
                     }
                     catch (IOException ex)
@@ -1002,7 +996,7 @@ namespace TestingWinForms
         {
             List<string> AllAnswers = new List<string>();
 
-            if (File.Exists(csvFilePath))
+            if (File.Exists(GlobalVariables.csvRawDataFilePath))
             {
                 string[] allAnswers;
 
@@ -1010,7 +1004,7 @@ namespace TestingWinForms
                 {
                     try
                     {
-                        allAnswers = File.ReadAllLines(csvFilePath);
+                        allAnswers = File.ReadAllLines(GlobalVariables.csvRawDataFilePath);
                         break;
                     }
                     catch (IOException ex)
