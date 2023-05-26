@@ -13,7 +13,6 @@ namespace TestingWinForms
 {
     public partial class ThankYouScreen : Form
     {
-        //private string csvAdminAdvanceFilePath = "admin_advance.csv";
 
         public ThankYouScreen()
         {

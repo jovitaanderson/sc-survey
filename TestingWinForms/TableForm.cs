@@ -23,8 +23,6 @@ namespace TestingWinForms
         private int dotSize = 10;
         private System.Threading.Timer timer; // Timer to wait for 3 seconds
 
-        private string csvAdminDownloadFilePath = "admin_download.csv";
-
         private string columnNames;
         private int timerToQuestionPage = 1000;
         private int lastRowNumber;
