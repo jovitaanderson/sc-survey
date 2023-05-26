@@ -16,7 +16,6 @@ namespace TestingWinForms
     {
         private string csvAdminQuestionsFilePath = "admin_questions.csv"; // Path to the CSV file
         private string csvAdminTableFilePath = "admin_table.csv";
-        private string csvAdminDownloadFilePath = "admin_download.csv";
         private string csvAdminAdvanceFilePath = "admin_advance.csv";
         private string csvFilePath = "player_answers.csv";
 
@@ -186,7 +185,6 @@ namespace TestingWinForms
             {
                 File.WriteAllText(csvAdminQuestionsFilePath, string.Empty);
                 File.WriteAllText(csvAdminTableFilePath, string.Empty);
-                File.WriteAllText(csvAdminDownloadFilePath, string.Empty);
                 File.WriteAllText(csvAdminAdvanceFilePath, string.Empty);
             }
             catch (IOException ex)
@@ -322,29 +320,6 @@ namespace TestingWinForms
 
             UpdatePlayerCSVHeader();
 
-            //Download
-            DateTime selectedStartDate = dateTimePickerStartDate.Value;
-            string startDate = selectedStartDate.ToShortDateString();
-            DateTime selectedEndDate = dateTimePickerEndDate.Value;
-            string endDate = selectedEndDate.ToShortDateString();
-
-            string downloadData = string.Format("{0},{1}", startDate, endDate);
-
-            // Append the data to the CSV file
-            while (true) {
-                try {
-                    using (StreamWriter sw = new StreamWriter(csvAdminDownloadFilePath, true))
-                    {
-                        sw.WriteLine(downloadData);
-                    }
-                    break;
-                }
-                catch (IOException ex)
-                {
-
-                    MessageBox.Show(ex.Message);
-                }
-            }
 
             //Advance
             string timeOut = textBoxTimeOut.Text;
@@ -444,9 +419,6 @@ namespace TestingWinForms
         {
             // Load data for the Table tab
             LoadTableData();
-
-            // Load data for the Download tab
-            LoadDownloadData();
 
             // Load data for the Advance tab
             LoadAdvanceData();
@@ -556,42 +528,6 @@ namespace TestingWinForms
                 }
         }
 
-
-        private void LoadDownloadData()
-        {
-                if (File.Exists(csvAdminDownloadFilePath))
-                {
-                    string[] lines;
-                    while (true)
-                    {
-                        try
-                        {
-                            lines = File.ReadAllLines(csvAdminDownloadFilePath);
-                            break;
-                        }
-                        catch (IOException ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                    }
-
-                    if (lines.Length > 0)
-                    {
-                        string[] values = lines[lines.Length - 1].Split(',');
-
-                        if (values.Length == 2)
-                        {
-                            DateTime startDate;
-                            DateTime endDate;
-                            if (DateTime.TryParse(values[0], out startDate) && DateTime.TryParse(values[1], out endDate))
-                            {
-                                dateTimePickerStartDate.Value = startDate;
-                                dateTimePickerEndDate.Value = endDate;
-                            }
-                        }
-                    }
-                }
-        }
 
         private void LoadAdvanceData()
         {
