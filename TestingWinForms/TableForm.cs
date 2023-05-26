@@ -36,6 +36,9 @@ namespace TestingWinForms
 
         private bool isOpenedBefore = false;
 
+        private Color existingColour;
+        private Color selectedColour;
+
         private void TableForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.A)
@@ -91,6 +94,8 @@ namespace TestingWinForms
             //CalculateDrawingArea();
 
             InitializeComponent();
+            DoubleBuffered = true;
+
             this.KeyPreview = true;
             this.KeyDown += new KeyEventHandler(TableForm_KeyDown);
 
@@ -175,7 +180,7 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 3)
+                    if (values.Length == 5)
                     {
                         labelTitle.Text = values[0];
                         labelXAxis.Text = values[1];
@@ -186,8 +191,25 @@ namespace TestingWinForms
                         labelYAxis.MinimumSize = new Size(300, 0);
                         labelYAxis.TextAlign = ContentAlignment.TopCenter;
 
+                        int maxWidth = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.75);
+
+                        labelXAxis.AutoSize = true;
+                        labelXAxis.MaximumSize = new Size(maxWidth, 0);
+                        labelXAxis.MinimumSize = new Size(maxWidth, 0);
+                        labelXAxis.TextAlign = ContentAlignment.TopCenter;
+
+                        labelTitle.AutoSize = true;
+                        labelTitle.MaximumSize = new Size(maxWidth, 0);
+                        labelTitle.MinimumSize = new Size(maxWidth, 0);
+                        labelTitle.TextAlign = ContentAlignment.TopCenter;
+
                         labelTitle.Left = (this.ClientSize.Width - labelTitle.Width) / 2;
                         labelXAxis.Left = (this.ClientSize.Width - labelXAxis.Width) / 2;
+
+                        
+
+                        existingColour = ColorTranslator.FromHtml(values[3]);
+                        selectedColour = ColorTranslator.FromHtml(values[4]);
 
                     }
                 }
@@ -318,7 +340,7 @@ namespace TestingWinForms
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
             // check if all admin csv exixts, if dosent prompt message box
-            if (!File.Exists(csvAdminAdvanceFilePath) && !File.Exists(csvAdminQuestionsFilePath))
+            if (!File.Exists(csvAdminAdvanceFilePath) || !File.Exists(csvAdminQuestionsFilePath))
             {
                 MessageBox.Show("Please set details in admin page and save!");
             } 
@@ -380,7 +402,18 @@ namespace TestingWinForms
                     float dotX = position.X - dotSize / 2;
                     float dotY = position.Y - dotSize / 2;
 
-                    e.Graphics.FillEllipse(Brushes.Blue, dotX, dotY, dotSize, dotSize);
+                    // Update the FillEllipse brush with existingColour
+                    if (selectedColour != null)
+                    {
+                        using (Brush brush = new SolidBrush(existingColour))
+                        {
+                            e.Graphics.FillEllipse(brush, dotX, dotY, dotSize, dotSize);
+                        }
+                    }
+                    else
+                    {
+                        e.Graphics.FillEllipse(Brushes.Blue, dotX, dotY, dotSize, dotSize);
+                    }
                 }
             }
 
@@ -390,7 +423,18 @@ namespace TestingWinForms
                 int dotX = clickedPosition.X - dotSize / 2;
                 int dotY = clickedPosition.Y - dotSize / 2;
 
-                e.Graphics.FillEllipse(Brushes.Red, dotX, dotY, dotSize, dotSize);
+                // Update the FillEllipse brush with existingColour
+                if (selectedColour != null)
+                {
+                    using (Brush brush = new SolidBrush(selectedColour))
+                    {
+                        e.Graphics.FillEllipse(brush, dotX, dotY, dotSize, dotSize);
+                    }
+                } else
+                {
+                    e.Graphics.FillEllipse(Brushes.Red, dotX, dotY, dotSize, dotSize);
+                }
+                
             }
 
             // Draw X and Y axis labels
@@ -429,33 +473,5 @@ namespace TestingWinForms
             }
         }
 
-
-        /*private void btnAdmin_Click(object sender, EventArgs e)
-        {
-            // Perform the password check here
-            bool isPasswordClickedProperly = CheckPasswordClickedProperly();
-
-            if (isPasswordClickedProperly)
-            {
-                AdminForm newForm = new AdminForm();
-                newForm.Show();
-                this.Hide();
-            }
-            else
-            {
-                MessageBox.Show("Incorrect password click!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            
-        }
-
-        private bool CheckPasswordClickedProperly()
-        {
-            // Implement your password click check logic here
-            // Return true if the password is clicked properly, otherwise return false
-            // Example:
-            string enteredPassword = textBox1.Text;
-            string correctPassword = "123456";
-            return enteredPassword == correctPassword;
-        }*/
     }
 }

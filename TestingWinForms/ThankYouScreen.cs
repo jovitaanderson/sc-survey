@@ -18,6 +18,7 @@ namespace TestingWinForms
         public ThankYouScreen()
         {
             InitializeComponent();
+            DoubleBuffered = true;
 
             FormBorderStyle = FormBorderStyle.None; // Remove the border
             WindowState = FormWindowState.Maximized; // Maximize the window
