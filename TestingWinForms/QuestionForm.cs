@@ -34,17 +34,20 @@ namespace TestingWinForms
 
         bool[] isQuestionMRQ = new bool[] { false, true, true, true, false, true, true, true };
 
+
         public QuestionForm(int rowNumber)
         {
             // Initialize the list of questions
             defaultQuestions = new List<Question>()
             {
-                new Question(0,"Question 1", "MCQ", new List<string> { "Option A", "Option B", "Option C", "Option D", "Option E" }),
-                new Question(1, "Question 2", "MCQ", new List<string> { "Option D", "Option E", "Option F", "Option D", "Option E"}),
-                new Question(2, "Question 3", "MRQ", new List<string> { "Option G", "Option H", "Option I", "Option D", "Option E" })
+                new Question(0, "MCQ", "Question 1", new List<string> { "Option A", "Option B", "Option C", "Option D", "Option E", "Option C", "Option D", "Option E" }),
+                new Question(1, "MCQ", "Question 2", new List<string> { "Option D", "Option E", "Option F", "Option D", "Option E", "Option C", "Option D", "Option E"}),
+                new Question(2, "MRQ", "Question 3", new List<string> { "Option G", "Option H", "Option I", "Option D", "Option E", "Option C", "Option D", "Option E" })
             };
 
             InitializeComponent();
+            DoubleBuffered = true;
+
             // Check if admin wants questions to be in random
             LoadRandomQuestionsAndTimerIntervalData();
 
@@ -59,6 +62,21 @@ namespace TestingWinForms
             optionCCheckBox.CheckedChanged += CheckBox_CheckedChanged;
             optionDCheckBox.CheckedChanged += CheckBox_CheckedChanged;
             optionECheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionFCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionGCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionHCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+
+
+            //subscribe for radio Buttons
+            optionARadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionBRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionCRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionDRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionERadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionFRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionGRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionHRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+
 
             currentQuestionIndex = 0;
 
@@ -100,6 +118,56 @@ namespace TestingWinForms
                 this.BackgroundImageLayout = ImageLayout.Stretch;
             }
         }
+
+        // Helper method to centralise the question label
+        private void CenterQuestionLabel()
+        {
+            // Check if the label's width exceeds 3/4 of the screen width
+            int maxWidth = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.75);
+            if (questionLabel.Width > maxWidth)
+            {
+                // Enable text wrapping
+                questionLabel.AutoSize = true;
+                questionLabel.MaximumSize = new Size(maxWidth, 0);
+                questionLabel.MaximumSize = new Size(maxWidth, 0);
+            }
+
+            questionLabel.TextAlign = ContentAlignment.MiddleCenter;
+
+            // Calculate the center position of the form
+            int centerX = Width / 2;
+
+            // Calculate the center position of the question label
+            int labelX = centerX - (questionLabel.Width / 2);
+
+            // Set the position of the question label
+            questionLabel.Location = new Point(labelX, questionLabel.Location.Y);
+
+            
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            // Set label's text alignment
+            questionLabel.TextAlign = ContentAlignment.MiddleCenter;
+
+            // Loop through the controls on the form
+            foreach (Control control in this.Controls)
+            {
+                if (control is CheckBox)
+                {
+                    // Set checkboxes' text alignment
+                    ((CheckBox)control).TextAlign = ContentAlignment.MiddleCenter;
+                } 
+                else if (control is RadioButton)
+                {
+                    // Set checkboxes' text alignment
+                    ((RadioButton)control).TextAlign = ContentAlignment.MiddleCenter;
+                }
+            }
+
+        }
+
 
         private string LoadBackgroundImageFromCSV()
         {
@@ -144,17 +212,6 @@ namespace TestingWinForms
             }
         }
 
-        private void Form2_Load(object sender, EventArgs e)
-        {
-            // Center the label and checkboxes on the form
-            questionLabel.TextAlign = ContentAlignment.MiddleCenter;
-            optionACheckBox.TextAlign = ContentAlignment.MiddleCenter;
-            optionBCheckBox.TextAlign = ContentAlignment.MiddleCenter;
-            optionCCheckBox.TextAlign = ContentAlignment.MiddleCenter;
-            optionDCheckBox.TextAlign = ContentAlignment.MiddleCenter;
-            optionECheckBox.TextAlign = ContentAlignment.MiddleCenter;
-
-        }
 
         // Returns a List<Question> consisting of questions saved in admin_question.csv file
         private List<Question> LoadQuestionsFromCSV()
@@ -175,9 +232,11 @@ namespace TestingWinForms
                         if (values.Length >= 2) // Assuming each line in the CSV has at least 4 values: question, option1, option2, option3
                         {
                             string questionText = values[0];
-                            List<string> options = new List<string> { values[1], values[2], values[3], values[4], values[5] };
+                            string type = values[1];
+                            List<string> options = new List<string> { values[2], values[3], values[4], 
+                                values[5], values[6], values[7], values[8], values[9] };
 
-                            questions.Add(new Question(currQuestionIndex, questionText, "MCQ", options));
+                            questions.Add(new Question(currQuestionIndex, questionText, type, options));
                             currQuestionIndex++;
                         }
                         else
@@ -250,21 +309,34 @@ namespace TestingWinForms
         }
 
 
-        private void CheckBox_MCQ(object sender, EventArgs e)
-        {
-            CheckBox clickedCheckBox = (CheckBox)sender;
-
-            // Uncheck all other checkboxes except the clicked checkbox
-            foreach (Control control in Controls)
-            {
-                if (control is CheckBox checkBox && checkBox != clickedCheckBox)
-                {
-                    checkBox.Checked = false;
-                }
-            }
-        }
         private void DisplayQuestion()
         {
+            // Declare an array or list to hold the radio buttons
+            RadioButton[] radioButtons = new RadioButton[]
+            {
+                    optionARadioButton,
+                    optionBRadioButton,
+                    optionCRadioButton,
+                    optionDRadioButton,
+                    optionERadioButton,
+                    optionFRadioButton,
+                    optionGRadioButton,
+                    optionHRadioButton
+            };
+
+            // Declare an array or list to hold the checkboxes
+            CheckBox[] checkboxes = new CheckBox[]
+            {
+                    optionACheckBox,
+                    optionBCheckBox,
+                    optionCCheckBox,
+                    optionDCheckBox,
+                    optionECheckBox,
+                    optionFCheckBox,
+                    optionGCheckBox,
+                    optionHCheckBox
+            };
+
             if (currentQuestionIndex < questions.Count)
             {
                 // Reset the timer
@@ -272,32 +344,84 @@ namespace TestingWinForms
 
                 Question currentQuestion = questions[currentQuestionIndex];
 
-                if (currentQuestion.Type == "MCQ")
-                {
-                    optionACheckBox.CheckedChanged += CheckBox_MCQ;
-                    optionBCheckBox.CheckedChanged += CheckBox_MCQ;
-                    optionCCheckBox.CheckedChanged += CheckBox_MCQ;
-                    optionDCheckBox.CheckedChanged += CheckBox_MCQ;
-                    optionECheckBox.CheckedChanged += CheckBox_MCQ;
-                }
-                else {
-                    optionACheckBox.CheckedChanged -= CheckBox_MCQ;
-                    optionBCheckBox.CheckedChanged -= CheckBox_MCQ;
-                    optionCCheckBox.CheckedChanged -= CheckBox_MCQ;
-                    optionDCheckBox.CheckedChanged -= CheckBox_MCQ;
-                    optionECheckBox.CheckedChanged -= CheckBox_MCQ;
-                }
-
                 // Update the question label
                 questionLabel.Text = currentQuestion.Text;
+                int numOptions = 8;
 
                 //TODO: change to dynamic (loop)
-                // Update the options
+                if (currentQuestion.Type == "MCQ")
+                {
+                    // Update the options visibility and text
+                    for (int i = 0; i < numOptions; i++)
+                    {
+                        RadioButton radioButton = radioButtons[i];
+                        string optionText = currentQuestion.Options[i];
+
+                        radioButton.Visible = !string.IsNullOrEmpty(optionText);
+                        radioButton.Text = optionText;
+                        radioButton.Checked = false;
+                    }
+
+                    // Clear the selection for any remaining radio buttons
+                    for (int i = numOptions; i < radioButtons.Length; i++)
+                    {
+                        RadioButton radioButton = radioButtons[i];
+                        radioButton.Visible = false;
+                        radioButton.Text = string.Empty;
+                        radioButton.Checked = false;
+                    }
+
+                    // Hide checkboxes
+                    foreach (CheckBox checkbox in checkboxes)
+                    {
+                        checkbox.Visible = false;
+                        checkbox.Text = string.Empty;
+                        checkbox.Checked = false;
+                    }
+
+                } else
+                {
+                    // Update the options visibility and text
+                    for (int i = 0; i < numOptions; i++)
+                    {
+                        CheckBox checkbox = checkboxes[i];
+                        string optionText = currentQuestion.Options[i];
+
+                        checkbox.Visible = !string.IsNullOrEmpty(optionText);
+                        checkbox.Text = optionText;
+                        checkbox.Checked = false;
+                    }
+
+                    // Clear the selection for any remaining checkboxes
+                    for (int i = numOptions; i < checkboxes.Length; i++)
+                    {
+                        CheckBox checkbox = checkboxes[i];
+                        checkbox.Visible = false;
+                        checkbox.Text = string.Empty;
+                        checkbox.Checked = false;
+                    }
+
+                    // Hide radio buttons
+                    foreach (RadioButton radioButton in radioButtons)
+                    {
+                        radioButton.Visible = false;
+                        radioButton.Text = string.Empty;
+                        radioButton.Checked = false;
+                    }
+
+                }
+
+                
+
+                /*// Update the options
                 optionACheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[0]);
                 optionBCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[1]);
                 optionCCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[2]);
                 optionDCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[3]);
                 optionECheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[4]);
+                optionFCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[5]);
+                optionGCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[6]);
+                optionHCheckBox.Visible = !string.IsNullOrEmpty(currentQuestion.Options[7]);
 
                 // Set the checkbox text
                 optionACheckBox.Text = currentQuestion.Options[0];
@@ -305,6 +429,9 @@ namespace TestingWinForms
                 optionCCheckBox.Text = currentQuestion.Options[2];
                 optionDCheckBox.Text = currentQuestion.Options[3];
                 optionECheckBox.Text = currentQuestion.Options[4];
+                optionFCheckBox.Text = currentQuestion.Options[5];
+                optionGCheckBox.Text = currentQuestion.Options[6];
+                optionHCheckBox.Text = currentQuestion.Options[7];
 
                 // Clear the check box selection
                 optionACheckBox.Checked = false;
@@ -312,13 +439,42 @@ namespace TestingWinForms
                 optionCCheckBox.Checked = false;
                 optionDCheckBox.Checked = false;
                 optionECheckBox.Checked = false;
+                optionFCheckBox.Checked = false;
+                optionGCheckBox.Checked = false;
+                optionHCheckBox.Checked = false;
+                */
 
                 // Enable the submit button
                 submitButton.Enabled = true;
             }
             else
             {
-                // No more questions, survey ended, save data to csv
+                // No more questions, display a completion message
+                questionLabel.Text = "Quiz completed!";
+
+                /*// Disable the check boxes and submit button
+                optionACheckBox.Enabled = false;
+                optionBCheckBox.Enabled = false;
+                optionCCheckBox.Enabled = false;
+                optionDCheckBox.Enabled = false;
+                optionECheckBox.Enabled = false;
+                optionFCheckBox.Enabled = false;
+                optionGCheckBox.Enabled = false;
+                optionHCheckBox.Enabled = false;
+                */
+
+                foreach (CheckBox checkbox in checkboxes)
+                {
+                    checkbox.Enabled = false;
+                }
+
+                foreach (RadioButton radioButton in radioButtons)
+                {
+                    radioButton.Enabled = false;
+                }
+
+                submitButton.Enabled = false;
+
                 AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
                 
                 timer.Stop();
@@ -326,8 +482,10 @@ namespace TestingWinForms
                 thankYouForm.Show();
                 this.Close();
             }
+            CenterQuestionLabel();
         }
 
+        //for checkboxes
         private void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
             // Loop through the checkboxes on the form
@@ -349,6 +507,29 @@ namespace TestingWinForms
                 }
             }
 
+        }
+
+        //for radio buttons
+        private void RadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            // Loop through the radio buttons on the form
+            foreach (Control control in this.Controls)
+            {
+                if (control is RadioButton radioButton && radioButton.Name.StartsWith("option"))
+                {
+                    // Extract the radio button name (e.g., optionA, optionB, etc.)
+                    string radioButtonName = radioButton.Name.Replace("RadioButton", "");
+
+                    if (radioButton.Checked)
+                    {
+                        checkboxValues[radioButtonName] = radioButton.Text;
+                    }
+                    else
+                    {
+                        checkboxValues[radioButtonName] = " ";
+                    }
+                }
+            }
         }
 
         private void saveAnswersToArray() {
@@ -445,6 +626,7 @@ namespace TestingWinForms
             timer.Stop();
             timer.Start();
         }
+
     }
 
     public class Question

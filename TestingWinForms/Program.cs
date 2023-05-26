@@ -16,7 +16,7 @@ namespace TestingWinForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TableForm());
+            Application.Run(new TableForm()); 
         }
     }
 }

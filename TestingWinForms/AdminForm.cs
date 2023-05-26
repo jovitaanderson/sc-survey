@@ -28,10 +28,13 @@ namespace TestingWinForms
         private int[] yAxisIntervalCounts = new int[21]; // Array to store the count of values from 0 to 10 (inclusive) with intervals of 0.5 for roundedSecondValue
 
         private int questionsNumber = 3;
+        private static int optionsNumber = 8;
 
         public AdminForm()
         {
             InitializeComponent();
+            DoubleBuffered = true;
+
 
             FormBorderStyle = FormBorderStyle.None; // Remove the border
             WindowState = FormWindowState.Maximized; // Maximize the window
@@ -48,16 +51,20 @@ namespace TestingWinForms
 
             // Customize the appearance of the TabControl for vertical tabs
             tabControl.Alignment = TabAlignment.Left;
+            tabControl.SizeMode = TabSizeMode.Normal;
             tabControl.SizeMode = TabSizeMode.Fixed;
             tabControl.ItemSize = new Size(40, 120);
-            tabControl.Appearance = TabAppearance.FlatButtons;
+            tabControl.Appearance = TabAppearance.Normal;
 
             // Form_Load event or constructor
             tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
-            tabControl.DrawItem += TabControl1_DrawItem;
+            tabControl.DrawItem += TabControl1_DrawItem; 
 
             // Load data from the CSV file
             LoadDataFromCSV();
+
+            // Make text box wrapped
+            EnableTextBoxTextWrapping(tabControl);
         }
 
         // DrawItem event handler
@@ -70,25 +77,65 @@ namespace TestingWinForms
             // Set the desired font size
             Font tabFont = new Font(tabControl.Font.FontFamily, 16, tabControl.Font.Style);
 
-
-            /*if (e.Index == tabControl.SelectedIndex)
-            {
-                using (Brush selectedTabBrush = new SolidBrush(Color.LightBlue))
-                {
-                    g.FillRectangle(selectedTabBrush, bounds);
-                }
-            }*/
-
             using (Brush tabTextBrush = new SolidBrush(Color.Black))
             {
                 StringFormat stringFormat = new StringFormat();
                 stringFormat.Alignment = StringAlignment.Center;
                 stringFormat.LineAlignment = StringAlignment.Center;
 
-                g.DrawString(tabControl.TabPages[e.Index].Text, tabFont, tabTextBrush, bounds, stringFormat);
-            }
+                bool isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
 
+                if (isSelected)
+                {
+                    // Customize the selected tab's appearance
+                    using (Brush selectedTabBrush = new SolidBrush(Color.LightGray))
+                    {
+                        g.FillRectangle(selectedTabBrush, bounds);
+                        g.DrawString(tabControl.TabPages[e.Index].Text, tabFont, tabTextBrush, bounds, stringFormat);
+                    }
+                }
+                else
+                {
+                    // Keep the rest of the tabs uncolored
+                    g.DrawString(tabControl.TabPages[e.Index].Text, tabFont, tabTextBrush, bounds, stringFormat);
+                }
+            }
         }
+
+        private void EnableTextBoxTextWrapping(TabControl tabControl)
+        {
+            foreach (TabPage tabPage in tabControl.TabPages)
+            {
+                foreach (Control control in tabPage.Controls)
+                {
+                    if (control is TextBox textBox)
+                    {
+                        textBox.Multiline = true;
+                        textBox.WordWrap = true;
+                        textBox.ScrollBars = ScrollBars.Vertical; // Enable vertical scrolling
+
+                        textBox.TextChanged += (sender, e) => TextBox_TextChanged(sender, e, tabPage); // Attach event handler
+                        textBox.KeyPress += TextBox_KeyPress;
+                    }
+                }
+            }
+        }
+
+        private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true; // Cancel the Enter key press event
+            }
+        }
+
+        private void TextBox_TextChanged(object sender, EventArgs e, TabPage tabPage)
+        {
+            TextBox textBox = (TextBox)sender;
+            // Adjust the height of the text box based on the preferred height and the fixed height
+            textBox.Height = TextRenderer.MeasureText("A", textBox.Font).Height * 2; 
+        }
+
 
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -134,19 +181,19 @@ namespace TestingWinForms
         // Helper method to retrieve the question TextBox based on the question index
         private TextBox GetQuestionTextBox(int questionIndex)
         {
-            // Modify this method based on your control naming convention
-            // For example, if your TextBoxes are named textBoxQ1, textBoxQ2, etc.
-            // you can use the following code:
             string textBoxName = "textBoxQ" + (questionIndex + 1);
             return Controls.Find(textBoxName, true).FirstOrDefault() as TextBox;
+        }
+
+        private ComboBox GetQuestionComboBox(int questionIndex)
+        {
+            string comboBoxName = "comboBox" + (questionIndex + 1);
+            return Controls.Find(comboBoxName, true).FirstOrDefault() as ComboBox;
         }
 
         // Helper method to retrieve the answer TextBox based on the question and answer indices
         private TextBox GetAnswerTextBox(int questionIndex, int answerIndex)
         {
-            // Modify this method based on your control naming convention
-            // For example, if your TextBoxes are named textBoxA11, textBoxA12, etc.
-            // you can use the following code:
             string textBoxName = "textBoxA" + (questionIndex + 1) + (answerIndex + 1);
             return Controls.Find(textBoxName, true).FirstOrDefault() as TextBox;
         }
@@ -161,9 +208,12 @@ namespace TestingWinForms
             string title = textBoxTitle.Text;
             string x_axis = textBoxXAxis.Text;
             string y_axis = textBoxYAxis.Text;
+            // Convert the Color to a string representation
+            string existingColour = ColorTranslator.ToHtml(btnExisColour.BackColor);
+            string newColour = ColorTranslator.ToHtml(btnSelPointColour.BackColor);
 
             // Concatenate the data into a comma-separated string
-            string titleDate = string.Format("{0},{1},{2}", title, x_axis, y_axis);
+            string titleDate = string.Format("{0},{1},{2},{3},{4}", title, x_axis, y_axis, existingColour, newColour);
 
             // Append the data to the CSV file
             while (true)
@@ -183,88 +233,55 @@ namespace TestingWinForms
                 }
             }
 
-            /*//Q1
-            string question1 = textBoxQ1.Text;
-            string q1a1 = textBoxA11.Text;
-            string q1a2 = textBoxA12.Text;
-            string q1a3 = textBoxA13.Text;
-            string q1a4 = textBoxA14.Text;
-            string q1a5 = textBoxA15.Text;
-
-            //Q2
-            string question2 = textBoxQ2.Text;
-            string q2a1 = textBoxA21.Text;
-            string q2a2 = textBoxA22.Text;
-            string q2a3 = textBoxA23.Text;
-            string q2a4 = textBoxA24.Text;
-            string q2a5 = textBoxA25.Text;
-
-            //Q3
-            string question3 = textBoxQ3.Text;
-            string q3a1 = textBoxA31.Text;
-            string q3a2 = textBoxA32.Text;
-            string q3a3 = textBoxA33.Text;
-            string q3a4 = textBoxA34.Text;
-            string q3a5 = textBoxA35.Text;
-
-            // Concatenate the data into comma-separated rows
-            string row1 = string.Format("{0},{1},{2},{3},{4},{5}", question1, q1a1, q1a2, q1a3, q1a4, q1a5);
-            string row2 = string.Format("{0},{1},{2},{3},{4},{5}", question2, q2a1, q2a2, q2a3, q2a4, q2a5);
-            string row3 = string.Format("{0},{1},{2},{3},{4},{5}", question3, q3a1, q3a2, q3a3, q3a4, q3a5);
-
-            // Append the rows to the CSV file
-            while (true)
-            {
-                try
-                {
-                    using (StreamWriter sw = new StreamWriter(csvAdminQuestionsFilePath, true))
-                    {
-                        sw.WriteLine(row1);
-                        sw.WriteLine(row2);
-                        sw.WriteLine(row3);
-                    }
-                    break;
-                }
-                catch (IOException ex)
-                {
-
-                    MessageBox.Show(ex.Message);
-                }
-            }*/
-
             // Store the question and answer data in lists
             List<string> questions = new List<string>();
             List<List<string>> answers = new List<List<string>>();
+            List<string> types = new List<string>();
 
             // Loop through the questions
             for (int i = 0; i < questionsNumber; i++)
             {
                 // Get the question text
                 TextBox textBoxQuestion = GetQuestionTextBox(i);
-                string question = "";
-                if (textBoxQuestion.Text != null)
-                    question = textBoxQuestion.Text;
-                questions.Add(question);
-
-                // Get the answer texts
-                List<string> answerOptions = new List<string>();
-                for (int j = 0; j < 5; j++)
+                ComboBox comboBox = GetQuestionComboBox(i);
+                
+                if (!string.IsNullOrWhiteSpace(textBoxQuestion.Text))
                 {
-                    TextBox textBoxAnswer = GetAnswerTextBox(i, j);
-                    string answer = textBoxAnswer.Text;
-                    answerOptions.Add(answer);
+                    questions.Add(textBoxQuestion.Text);
+
+                    // Get the answer texts
+                    List<string> answerOptions = new List<string>();
+                    for (int j = 0; j < optionsNumber; j++)
+                    {
+                        TextBox textBoxAnswer = GetAnswerTextBox(i, j);
+                        string answer = textBoxAnswer.Text;
+                        answerOptions.Add(answer);
+                    }
+                    answers.Add(answerOptions);
+
+                    //Add type of questions
+                    if (comboBox.Text == "")
+                    {
+                        // No item selected, set default value
+                        types.Add("MRQ");
+                    }
+                    else
+                    {
+                        types.Add(comboBox.Text);
+                    }
                 }
-                answers.Add(answerOptions);
+                    
             }
 
             // Save the questions and answers to the CSV file
             for (int i = 0; i < questions.Count; i++)
             {
                 string question = questions[i];
+                string type = types[i];
                 List<string> answerOptions = answers[i];
 
                 // Concatenate the data into comma-separated rows
-                string rowData = string.Format("{0},{1}", question, string.Join(",", answerOptions));
+                string rowData = string.Format("{0},{1},{2}", question, type, string.Join(",", answerOptions));
 
                 // Append the rows to the CSV file
                 while (true)
@@ -410,16 +427,6 @@ namespace TestingWinForms
             // Load data for the Table tab
             LoadTableData();
 
-            /*// Load data for the Question1 tab
-            LoadQuestionData(tabQuestion1, csvAdminQuestionsFilePath, 0);
-
-            // Load data for the Question2 tab
-            LoadQuestionData(tabQuestion2, csvAdminQuestionsFilePath, 1);
-
-            // Load data for the Question3 tab
-            LoadQuestionData(tabQuestion3, csvAdminQuestionsFilePath, 2);
-            */
-
             // Load data for the Download tab
             LoadDownloadData();
 
@@ -456,11 +463,13 @@ namespace TestingWinForms
                     {
                         string[] values = lines[lines.Length - 1].Split(',');
 
-                        if (values.Length == 3)
+                        if (values.Length == 5)
                         {
                             textBoxTitle.Text = values[0];
                             textBoxXAxis.Text = values[1];
                             textBoxYAxis.Text = values[2];
+                            btnExisColour.BackColor = ColorTranslator.FromHtml(values[3]);
+                            btnSelPointColour.BackColor = ColorTranslator.FromHtml(values[4]);
                         }
                     }
                 }
@@ -481,7 +490,6 @@ namespace TestingWinForms
                 if (File.Exists(csvFilePath))
                 {
                     string[] lines = File.ReadAllLines(csvFilePath);
-                    //questionsNumber = lines.Length;
                     while (true)
                     {
                         try
@@ -501,14 +509,16 @@ namespace TestingWinForms
 
                         TextBox questionTextBox = tabPage.Controls.OfType<TextBox>().FirstOrDefault(c => c.Name.StartsWith("textBoxQ"));
                         TextBox[] answerTextBoxes = tabPage.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + "A" + (questionIndex + 1))).ToArray();
+                        ComboBox questionTypeComboBox = tabPage.Controls.OfType<ComboBox>().FirstOrDefault(c => c.Name.StartsWith("comboBox"));
 
-                        if (questionTextBox != null && answerTextBoxes.Length == 5)
+                    if (questionTextBox != null && answerTextBoxes.Length == optionsNumber && questionTypeComboBox != null)
                         {
                             questionTextBox.Text = values[0];
-                            for (int i = values.Length - 2; i >= 0; i--)
+                            for (int i = values.Length - 3; i >= 0; i--)
                             {
-                                answerTextBoxes[values.Length - 2 - i].Text = values[i + 1];
+                                answerTextBoxes[values.Length - 3 - i].Text = values[i + 2];
                             }
+                            questionTypeComboBox.Text = values[1];
                         }
                     }
                 }
@@ -578,9 +588,6 @@ namespace TestingWinForms
                             comboBoxRandomQns.Text = values[1];
                             textBoxEndMessage.Text = values[2];
 
-                            // Load the image if it exists
-                            //string rootPath = Directory.GetCurrentDirectory();
-                            //string directoryPath = Path.Combine(rootPath, "Images");
                             string imagePath = Path.Combine(values[3]);
 
                             if (File.Exists(imagePath))
@@ -594,15 +601,6 @@ namespace TestingWinForms
 
         }
 
-        private void label16_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabTable_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnDownload_Click(object sender, EventArgs e)
         {
@@ -786,7 +784,6 @@ namespace TestingWinForms
                     }
                 }
             }
-
             return filteredAnswers;
         }
 
@@ -828,9 +825,14 @@ namespace TestingWinForms
                     newControl.Location = control.Location;
                     newControl.Size = control.Size;
 
+                    string previousControlName = control.Name;
+
+                    // Get the last tab index from the previous tab
+                    int tabIndexOffset = previousTabPage.TabIndex + 1;
+
+                    //textBox
                     if (newControl is TextBox textBox && (control.Name.StartsWith("textBoxQ")))
                     {
-                        string previousControlName = control.Name;
                         string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
                         int lastDigitValue = int.Parse(lastDigit);
                         string newTabName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
@@ -840,7 +842,6 @@ namespace TestingWinForms
                     }
                     else if (newControl is TextBox textBoxA)
                     {
-                        string previousControlName = control.Name;
                         string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
                         int secondLastDigitValue = int.Parse(secondLastDigit);
                         string newTabName = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
@@ -848,10 +849,9 @@ namespace TestingWinForms
 
                         textBoxA.Text = "";
                     }
-                    //This is correct
+                    //label
                     else if (newControl is Label label && (control.Name.StartsWith("labelQ")))
                     {
-                        string previousControlName = control.Name;
                         string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
                         int lastDigitValue = int.Parse(lastDigit);
                         string newTabName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
@@ -859,12 +859,11 @@ namespace TestingWinForms
 
                         string previousControlText = control.Text;
                         string newTabText = previousControlText.Substring(0, previousControlText.Length - 1) + (lastDigitValue + 1);
-                        label.Text = newTabName;// newTabText;
+                        label.Text = newTabText;
                     }
                     //this is controls for answers
-                    else if (newControl is Label labelA)
+                    else if (newControl is Label labelA && control.Name.StartsWith("labelA"))
                     {
-                        string previousControlName = control.Name;
                         string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
                         int secondLastDigitValue = int.Parse(secondLastDigit);
                         string newTabName = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
@@ -872,13 +871,89 @@ namespace TestingWinForms
 
                         labelA.Text = control.Text;
                     }
+                    else if (newControl is Label labelT && control.Name.StartsWith("label"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newLabelTypeName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        labelT.Name = newLabelTypeName; // Update the Label with the new tab name
 
+                        labelT.Text = control.Text;
+                    }
+
+                    else if (newControl is Button button && control.Name.StartsWith("btnClear"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        button.Name = newButtonName;
+                        button.Text = control.Text;
+                        button.Click += ClearButton_Click;
+                    }
+                    else if (newControl is ComboBox comboBox && control.Name.StartsWith("comboBox"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        comboBox.Name = newButtonName;
+                        comboBox.Text = "MRQ"; //Default is pick MRQ
+
+                        // Copy items from the previous ComboBox
+                        if (control is ComboBox previousComboBox)
+                        {
+                            foreach (var item in previousComboBox.Items)
+                            {
+                                comboBox.Items.Add(item);
+                            }
+                        }
+                    }
+
+                    newControl.TabIndex = control.TabIndex + tabIndexOffset;
                     // Copy any other desired properties or event handlers
                     newTabPage.Controls.Add(newControl);
                 }
                 
             }
+            // Add auto-scrolling to the TabControl
+            newTabPage.AutoScroll = true;
+
             tabControl.TabPages.Add(newTabPage);
+
+
+            foreach (TabPage tabPage in tabControl.TabPages)
+            {
+                tabPage.Font = new Font(tabPage.Font.FontFamily, 16, FontStyle.Regular);
+                foreach (Control control in tabPage.Controls)
+                {
+                    if (control is TextBox textBox)
+                    {
+                        textBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                    }
+                    if (control is ComboBox comboBox)
+                    {
+                        comboBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                    }
+                }
+            }
+        }
+
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            TabPage tabPage = (TabPage)button.Parent; // Get the parent tab page
+
+            // Clear the text of all textboxes within the tab page
+            foreach (Control control in tabPage.Controls)
+            {
+                if (control is TextBox textBox)
+                {
+                    textBox.Text = "";
+                }
+                if (control is ComboBox comboBox)
+                {
+                    comboBox.Text = "";
+                }
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -898,6 +973,76 @@ namespace TestingWinForms
         }
 
         private void labelQ2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnClear3_Click(object sender, EventArgs e)
+        {
+            ClearButton_Click(sender, e);
+        }
+
+        private void btnClear2_Click(object sender, EventArgs e)
+        {
+            ClearButton_Click(sender, e);
+        }
+
+        private void btnClear1_Click(object sender, EventArgs e)
+        {
+            ClearButton_Click(sender, e);
+        }
+
+        private void btnColourPicker_Click(object sender, EventArgs e)
+        {
+            // Create a new instance of the ColorDialog
+            ColorDialog colorDialog = new ColorDialog();
+
+            // Show the ColorDialog and capture the result
+            DialogResult result = colorDialog.ShowDialog();
+
+            // Check if the user clicked the OK button in the ColorDialog
+            if (result == DialogResult.OK)
+            {
+                // Retrieve the selected color
+                Color selectedColor = colorDialog.Color;
+
+                // Do something with the selected color
+                // For example, set the background color of a control
+                btnExisColour.BackColor = selectedColor;
+            }
+        }
+
+        private void btnSelPointColour_Click(object sender, EventArgs e)
+        {
+            // Create a new instance of the ColorDialog
+            ColorDialog colorDialog = new ColorDialog();
+
+            // Show the ColorDialog and capture the result
+            DialogResult result = colorDialog.ShowDialog();
+
+            // Check if the user clicked the OK button in the ColorDialog
+            if (result == DialogResult.OK)
+            {
+                // Retrieve the selected color
+                Color selectedColor = colorDialog.Color;
+
+                // Do something with the selected color
+                // For example, set the background color of a control
+                btnSelPointColour.BackColor = selectedColor;
+            }
+        }
+
+        private void labelA28_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxA28_TextChanged(object sender, EventArgs e)
         {
 
         }
