@@ -582,6 +582,9 @@ namespace TestingWinForms
             DateTime startDateTime = new DateTime(selectedStartDate.Year, selectedStartDate.Month, selectedStartDate.Day, 0, 0, 0); // Set the time as 00:00:00 (midnight)
             DateTime endDateTime = new DateTime(selectedEndDate.Year, selectedEndDate.Month, selectedEndDate.Day, 23, 59, 59); // Set the time as 23:59:59 (end of the day)
 
+            // Compare the date and time from start to end
+            int result = DateTime.Compare(selectedEndDate, selectedStartDate);
+
 
             // Filter the player answers based on the selected date range
             List<string> filteredPlayerAnswers = FilterPlayerAnswersByDateRange(startDateTime, endDateTime);
@@ -635,6 +638,12 @@ namespace TestingWinForms
 
                     MessageBox.Show("Player answers downloaded successfully.");
                 }
+            }
+            else if (result < 0)
+            {
+                // End date is before the start date
+                // Display an error message or take appropriate action
+                MessageBox.Show("End date cannot be before the start date.");
             }
             else
             {
