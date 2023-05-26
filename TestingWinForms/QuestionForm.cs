@@ -19,11 +19,8 @@ namespace TestingWinForms
         private Timer timer;
         //private const int TimerInterval = 5000; // 3 seconds in milliseconds
         private int timerInterval = 0;
-        private string csvFilePath = "player_answers.csv";
         private int rowNumber;
 
-        private string csvAdminQuestionsFilePath = "admin_questions.csv"; // Path to the CSV file
-        private string csvAdminAdvanceFilePath = "admin_advance.csv";
         private string randomQuestionsText = null;
 
         private int optionsNumber = 8;
@@ -184,14 +181,14 @@ namespace TestingWinForms
 
         private string LoadBackgroundImageFromCSV()
         {
-            if (File.Exists(csvAdminAdvanceFilePath))
+            if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
             {
                 string[] lines;
                 while (true)
                 {
                     try
                     {
-                        lines = File.ReadAllLines(csvAdminAdvanceFilePath);
+                        lines = File.ReadAllLines(GlobalVariables.csvAdminAdvanceFilePath);
                         break;
                     }
                     catch (IOException ex)
@@ -233,9 +230,9 @@ namespace TestingWinForms
 
             int currQuestionIndex = 0;
 
-            if (File.Exists(csvAdminQuestionsFilePath))
+            if (File.Exists(GlobalVariables.csvAdminQuestionsFilePath))
             {
-                using (var reader = new StreamReader(csvAdminQuestionsFilePath))
+                using (var reader = new StreamReader(GlobalVariables.csvAdminQuestionsFilePath))
                 {
                     while (!reader.EndOfStream)
                     {
@@ -263,7 +260,7 @@ namespace TestingWinForms
             }
             else
             {
-                Console.WriteLine("CSV file does not exist: " + csvFilePath);
+                Console.WriteLine("CSV file does not exist: " + GlobalVariables.csvRawDataFilePath);
                 questions = defaultQuestions;
             }
 
@@ -279,14 +276,14 @@ namespace TestingWinForms
 
         private void LoadRandomQuestionsAndTimerIntervalData()
         {
-            if (File.Exists(csvAdminAdvanceFilePath))
+            if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
             {
                 string[] lines;
                 while (true)
                 {
                     try
                     {
-                        lines = File.ReadAllLines(csvAdminAdvanceFilePath);
+                        lines = File.ReadAllLines(GlobalVariables.csvAdminAdvanceFilePath);
                         break;
                     }
                     catch (IOException ex)
@@ -444,7 +441,7 @@ namespace TestingWinForms
 
                 submitButton.Enabled = false;
 
-                AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
+                AppendDataToSpecificRow(GlobalVariables.csvRawDataFilePath, rowNumber, string.Join(",", savedAnswers));
                 
                 timer.Stop();
                 ThankYouScreen thankYouForm = new ThankYouScreen();
@@ -641,7 +638,7 @@ namespace TestingWinForms
         {
             saveAnswersToArray();
             // Timer elapsed, redirect to Form1
-            AppendDataToSpecificRow(csvFilePath, rowNumber, string.Join(",", savedAnswers));
+            AppendDataToSpecificRow(GlobalVariables.csvRawDataFilePath, rowNumber, string.Join(",", savedAnswers));
             
             timer.Stop();
             TableForm form1 = new TableForm();
