@@ -22,7 +22,7 @@ namespace TestingWinForms
 
         private string csvPlayerFilePath = "player_answers.csv";
 
-        private string format = "dd/MM/yyyy";
+        private string format = "dd/MM/yyyy HH:mm:ss";
 
         private int[] xAxisIntervalCounts = new int[21];  // Array to store the count of values from 0 to 10 (inclusive) with intervals of 0.5 for roundedFirstValue
         private int[] yAxisIntervalCounts = new int[21]; // Array to store the count of values from 0 to 10 (inclusive) with intervals of 0.5 for roundedSecondValue
@@ -620,9 +620,14 @@ namespace TestingWinForms
 
         private void btnDownload_Click(object sender, EventArgs e)
         {
-            
+
+            DateTime selectedDate = dateTimePickerStartDate.Value.Date; // Get the selected date without the time portion
+            DateTime startDateTime = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, 0, 0, 0); // Set the time as 00:00:00 (midnight)
+            DateTime endDateTime = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, 23, 59, 59); // Set the time as 23:59:59 (end of the day)
+
+
             // Filter the player answers based on the selected date range
-            List<string> filteredPlayerAnswers = FilterPlayerAnswersByDateRange(dateTimePickerStartDate.Value, dateTimePickerEndDate.Value);
+            List<string> filteredPlayerAnswers = FilterPlayerAnswersByDateRange(startDateTime, endDateTime);
             var combinedFilteredPlayerAnswers = separateData(filteredPlayerAnswers);
             List<string> pointsFilterePlayerAnswers = combinedFilteredPlayerAnswers.Item1;
             List<string> reponsesFilterePlayerAnswers = combinedFilteredPlayerAnswers.Item2;
@@ -724,7 +729,7 @@ namespace TestingWinForms
                     //count[0..7]
                     for (int j = 0; j < GlobalVariables.totalOptions; j++)
                     {
-                        if (!string.IsNullOrEmpty(values[i]) && values[j] != "" && values[j] != " ")
+                        if (!string.IsNullOrEmpty(values[j]) && values[j] != "" && values[j] != " ")
                         {
                             responsesCount[j]++;
                         }
