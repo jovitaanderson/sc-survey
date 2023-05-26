@@ -71,7 +71,11 @@ namespace TestingWinForms
 
             // Form_Load event or constructor
             tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
-            tabControl.DrawItem += TabControl1_DrawItem; 
+            tabControl.DrawItem += TabControl1_DrawItem;
+
+            comboBox1.SelectedIndex = 1;
+            comboBox2.SelectedIndex = 1;
+            comboBox3.SelectedIndex = 1;
 
             // Load data from the CSV file
             LoadDataFromCSV();
