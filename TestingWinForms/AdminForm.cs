@@ -22,7 +22,7 @@ namespace TestingWinForms
 
         private string csvPlayerFilePath = "player_answers.csv";
 
-        private string format = "dd/MM/yyyy HH:mm:ss";
+        private string dateFormat = "dd/MM/yyyy HH:mm:ss";
 
         private int[] xAxisIntervalCounts = new int[21];  // Array to store the count of values from 0 to 10 (inclusive) with intervals of 0.5 for roundedFirstValue
         private int[] yAxisIntervalCounts = new int[21]; // Array to store the count of values from 0 to 10 (inclusive) with intervals of 0.5 for roundedSecondValue
@@ -632,6 +632,10 @@ namespace TestingWinForms
             List<string> pointsFilterePlayerAnswers = combinedFilteredPlayerAnswers.Item1;
             List<string> reponsesFilterePlayerAnswers = combinedFilteredPlayerAnswers.Item2;
 
+            // Calculate total reponse by time
+            List<int> dateColumn = getDateColumn(filteredPlayerAnswers);
+            List<string> hourCount = getHourCount(dateColumn);
+
             //Calculation for conslidated points data
             List<string> roundedFilterePlayerAnswers = roundDataPoints(pointsFilterePlayerAnswers);
             List<string> consolidatedPointAnswers = countAndAnalyzePointsInterval(roundedFilterePlayerAnswers); //Vertical
@@ -643,7 +647,7 @@ namespace TestingWinForms
             List<string> consolidatedResponse = countAndAnalyzeResponse(responseSplitByQuestion);
 
             //Combine the csv file into one
-            List<string> combinedConslidatedData = combinedData(consolidatedPointAnswers, consolidatedResponse);
+            List<string> combinedConslidatedData = combinedData(startDateTime, endDateTime, consolidatedPointAnswers, consolidatedResponse, hourCount);
 
             // Check if there are any matching answerss
             if (filteredPlayerAnswers.Count > 0)
@@ -677,12 +681,76 @@ namespace TestingWinForms
             }
         }
 
-        private List<string> combinedData(List<string> consolidatedPointAnswers, List<string> consolidatedResponse)
+        private List<string> getHourCount(List<int> hours)
+        {
+            List<string> hourCountCSV = new List<string>();
+            hourCountCSV.Add($"Hour Interval,Frequency");
+
+            Dictionary<int, int> hourFrequency = new Dictionary<int, int>();
+
+            // Initialize the hourFrequency dictionary with all hours from 0 to 24 and set their count as 0
+            for (int i = 0; i <= 23; i++)
+            {
+                hourFrequency[i] = 0;
+            }
+
+            // Count the frequency of each hour in the hours list
+            foreach (int hour in hours)
+            {
+                hourFrequency[hour]++;
+            }
+
+            int totalCount = 0;
+            // Print the hour and its corresponding frequency
+            foreach (KeyValuePair<int, int> pair in hourFrequency)
+            {
+                if (pair.Key < 9)
+                {
+                    hourCountCSV.Add($"0{pair.Key}:00-0{pair.Key + 1}:59,{pair.Value}");
+                }
+                else if (pair.Key == 9) {
+                    hourCountCSV.Add($"0{pair.Key}:00-{pair.Key + 1}:59,{pair.Value}");
+                }
+                else
+                {
+                    hourCountCSV.Add($"{pair.Key}:00-{pair.Key + 1}:59,{pair.Value}");
+                }
+                totalCount += pair.Value;
+                
+            }
+            hourCountCSV.Add($"Total,{totalCount}");
+            return hourCountCSV;
+
+        }
+
+        private List<int> getDateColumn(List<string> filteredPlayerAnswers)
+        {
+            List<int> dateColumn = new List<int>();
+
+            foreach (string item in filteredPlayerAnswers)
+            {
+                string[] values = item.Split(',');
+
+                if (values.Length >= 1)
+                {
+                    DateTime date = DateTime.ParseExact(values[0], dateFormat, CultureInfo.InvariantCulture);
+                    dateColumn.Add(date.Hour);
+                }
+            }
+
+            return dateColumn;
+        }
+
+        private List<string> combinedData(DateTime startDateTime, DateTime endDateTime, List<string> consolidatedPointAnswers, List<string> consolidatedResponse, List<string> hourCount)
         {
             List<string> combinedConslidatedData = new List<string>();
+            combinedConslidatedData.Add($"Date selected: {startDateTime} to {endDateTime}");
+            combinedConslidatedData.Add("");
             combinedConslidatedData.AddRange(consolidatedPointAnswers);
             combinedConslidatedData.Add("");
             combinedConslidatedData.AddRange(consolidatedResponse);
+            combinedConslidatedData.Add("");
+            combinedConslidatedData.AddRange(hourCount);
             return combinedConslidatedData;
 
         }
@@ -725,8 +793,6 @@ namespace TestingWinForms
                     string wee = response[i];
                     values = response[i].Split(';');
 
-                    //values[0..7]
-                    //count[0..7]
                     for (int j = 0; j < GlobalVariables.totalOptions; j++)
                     {
                         if (!string.IsNullOrEmpty(values[j]) && values[j] != "" && values[j] != " ")
@@ -842,7 +908,7 @@ namespace TestingWinForms
 
 
             List<string> combinedData = new List<string>(); //seprataed by two columns
-            combinedData.Add("Response count for each interval, , , ,Percentage of each response per interval");
+            combinedData.Add("Response count for each interval,,,,,Percentage of each response per interval");
             combinedData.Add($"{csvColumnHeader},,,{csvColumnHeader}");
 
             foreach (string item in roundedPoints)
@@ -952,7 +1018,7 @@ namespace TestingWinForms
                     // Assuming the date is the first column in the player answers CSV file
                     string[] values = answer.Split(',');
 
-                    if (values.Length > 0 && DateTime.TryParseExact(values[0], format, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime answerDate))
+                    if (values.Length > 0 && DateTime.TryParseExact(values[0], dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime answerDate))
                     {
                         if (answerDate >= startDate && answerDate <= endDate)
                         {
