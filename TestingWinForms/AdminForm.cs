@@ -60,7 +60,7 @@ namespace TestingWinForms
             LoadNumQuestions();
             for (int i = 0; i < questionsNumber - 3; i++)
             {
-                addTab();
+                addTab(); 
             }
 
             // Customize the appearance of the TabControl for vertical tabs
@@ -658,7 +658,7 @@ namespace TestingWinForms
                                                                                                       //List<string> consolidatedPointAnswersF2 = consolidatedPointsFormat(filteredPlayerAnswers.Count); //Horizontal
 
             // Calculation for conslidated reponses data
-            responsesCount = new int[GlobalVariables.totalOptions];
+            responsesCount = new int[optionsNumber];
             List<string[]> responseSplitByQuestion = splitResponseByQuestion(reponsesFilterePlayerAnswers);
             List<string> consolidatedResponse = countAndAnalyzeResponse(responseSplitByQuestion);
 
@@ -800,8 +800,8 @@ namespace TestingWinForms
                 string[] values;
                 int a = response.Length;
 
-                responsesCount = new int[GlobalVariables.totalOptions];
-                percentageCount = new double[GlobalVariables.totalOptions];
+                responsesCount = new int[optionsNumber];
+                percentageCount = new double[optionsNumber];
 
                 for (int i = 0; i < response.Length; i++)
                 {
@@ -809,7 +809,7 @@ namespace TestingWinForms
                     string wee = response[i];
                     values = response[i].Split(';');
 
-                    for (int j = 0; j < GlobalVariables.totalOptions; j++)
+                    for (int j = 0; j < optionsNumber; j++)
                     {
                         if (!string.IsNullOrEmpty(values[j]) && values[j] != "" && values[j] != " ")
                         {

@@ -26,6 +26,8 @@ namespace TestingWinForms
         private string csvAdminAdvanceFilePath = "admin_advance.csv";
         private string randomQuestionsText = null;
 
+        private int optionsNumber = 8;
+
         String[] savedAnswers; //Stores answers to each question
 
         Dictionary<string, string> checkboxValues = new Dictionary<string, string>(); // Stores answers on checkbox change
@@ -92,7 +94,7 @@ namespace TestingWinForms
             questions = LoadQuestionsFromCSV();
             savedAnswers = new String[questions.Count];
 
-            string semicolonString = " " + string.Join("; ", new string[GlobalVariables.totalOptions]);
+            string semicolonString = " " + string.Join("; ", new string[optionsNumber]);
 
             for (int i = 0; i < savedAnswers.Length; i++)
             {
@@ -454,7 +456,37 @@ namespace TestingWinForms
         //for checkboxes
         private void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            // Loop through the checkboxes on the form
+            // Loop through the radio buttons on the form and its child controls
+            LoopThroughControls(this);
+
+            void LoopThroughControls(Control parentControl)
+            {
+                foreach (Control control in parentControl.Controls)
+                {
+                    if (control is CheckBox checkBox && checkBox.Name.StartsWith("option"))
+                    {
+                        // Extract the radio button name (e.g., optionA, optionB, etc.)
+                        string checkboxName = checkBox.Name.Replace("CheckBox", "");
+
+                        if (checkBox.Checked)
+                        {
+                            checkboxValues[checkboxName] = checkBox.Text;
+                        }
+                        else
+                        {
+                            checkboxValues[checkboxName] = " ";
+                        }
+                    }
+
+                    // Recursively loop through child controls if the control is a container control
+                    if (control.Controls.Count > 0)
+                    {
+                        LoopThroughControls(control);
+                    }
+                }
+            }
+
+            /*// Loop through the checkboxes on the form
             foreach (Control control in this.Controls)
             {
                 if (control is CheckBox checkbox && checkbox.Name.StartsWith("option"))
@@ -471,14 +503,45 @@ namespace TestingWinForms
                         checkboxValues[checkboxName] = " ";
                     }
                 }
-            }
+            }*/
 
         }
 
         //for radio buttons
         private void RadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            // Loop through the radio buttons on the form
+
+            // Loop through the radio buttons on the form and its child controls
+            LoopThroughControls(this);
+
+            void LoopThroughControls(Control parentControl)
+            {
+                foreach (Control control in parentControl.Controls)
+                {
+                    if (control is RadioButton radioButton && radioButton.Name.StartsWith("option"))
+                    {
+                        // Extract the radio button name (e.g., optionA, optionB, etc.)
+                        string radioButtonName = radioButton.Name.Replace("RadioButton", "");
+
+                        if (radioButton.Checked)
+                        {
+                            checkboxValues[radioButtonName] = radioButton.Text;
+                        }
+                        else
+                        {
+                            checkboxValues[radioButtonName] = " ";
+                        }
+                    }
+
+                    // Recursively loop through child controls if the control is a container control
+                    if (control.Controls.Count > 0)
+                    {
+                        LoopThroughControls(control);
+                    }
+                }
+            }
+
+            /*// Loop through the radio buttons on the form
             foreach (Control control in this.Controls)
             {
                 if (control is RadioButton radioButton && radioButton.Name.StartsWith("option"))
@@ -495,14 +558,14 @@ namespace TestingWinForms
                         checkboxValues[radioButtonName] = " ";
                     }
                 }
-            }
+            }*/
         }
 
         private void saveAnswersToArray() {
 
             if (checkboxValues == null || checkboxValues.Count == 0)
             {
-                for (int i = 0; i < GlobalVariables.totalOptions; i++)
+                for (int i = 0; i < optionsNumber; i++)
                 {
                     string key = "option" + (char)('A' + i);
                     string value = " ";
