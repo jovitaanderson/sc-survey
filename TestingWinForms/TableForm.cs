@@ -341,7 +341,11 @@ namespace TestingWinForms
             if (!File.Exists(csvAdminAdvanceFilePath) || !File.Exists(csvAdminQuestionsFilePath))
             {
                 MessageBox.Show("Please set details in admin page and save!");
-            } 
+            } else if (string.IsNullOrWhiteSpace(File.ReadAllText(csvAdminQuestionsFilePath)))
+            {
+                
+                MessageBox.Show("Please set questions in admin page and save!");
+            }
             else
             {
                 if (!hasClicked && drawingArea.Contains(e.Location))

@@ -485,7 +485,7 @@ namespace TestingWinForms
                     }
                 }
 
-                questionsNumber = lines.Length;
+                questionsNumber = Math.Max(questionsNumber, lines.Length);
             }
         }
 
