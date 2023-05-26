@@ -6,15 +6,12 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TestingWinForms
 {
-    public partial class AdminForm : Form
+    public partial class AdminForm : Form 
     {
-
         private string dateFormat = "dd/MM/yyyy HH:mm:ss";
 
         private int[] xAxisIntervalCounts = new int[21];  // Array to store the count of values from 0 to 10 (inclusive) with intervals of 0.5 for roundedFirstValue
@@ -29,13 +26,11 @@ namespace TestingWinForms
         {
             InitializeComponent();
             DoubleBuffered = true;
-
-
             FormBorderStyle = FormBorderStyle.None; // Remove the border
             WindowState = FormWindowState.Maximized; // Maximize the window
-
         }
 
+        // Helper method to prevent flickering
         protected override CreateParams CreateParams
         {
             get
@@ -65,7 +60,11 @@ namespace TestingWinForms
 
             // Form_Load event or constructor
             tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
-            tabControl.DrawItem += TabControl1_DrawItem; 
+            tabControl.DrawItem += TabControl1_DrawItem;
+
+            comboBox1.SelectedIndex = 1;
+            comboBox2.SelectedIndex = 1;
+            comboBox3.SelectedIndex = 1;
 
             // Load data from the CSV file
             LoadDataFromCSV();
@@ -113,6 +112,7 @@ namespace TestingWinForms
             }
         }
 
+        // Helper method to wrap text
         private void EnableTextBoxTextWrapping(TabControl tabControl)
         {
             foreach (TabPage tabPage in tabControl.TabPages)
@@ -132,6 +132,8 @@ namespace TestingWinForms
             }
         }
 
+
+        // Dont allow user to press enter as CSV will automatically save as new line
         private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
@@ -148,30 +150,7 @@ namespace TestingWinForms
         }
 
 
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            TableForm firstForm = new TableForm();
-            firstForm.Show();
-            this.Close();
-        }
-
-
-        private void btnUploadImage_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.Title = "Select Image";
-                openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    string selectedImagePath = openFileDialog.FileName;
-
-                    // Load the selected image into the PictureBox
-                    pictureBox.Image = Image.FromFile(selectedImagePath);
-                }
-            }
-        }
+        
 
         private void ClearCSVFiles()
         {
@@ -208,11 +187,8 @@ namespace TestingWinForms
             return Controls.Find(textBoxName, true).FirstOrDefault() as TextBox;
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void saveTable()
         {
-            // Clear the contents of the CSV files
-            ClearCSVFiles();
-
             // Get the data from the TextBox
             //Table
             string title = textBoxTitle.Text;
@@ -242,7 +218,10 @@ namespace TestingWinForms
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
 
+        private void saveQuestions()
+        {
             // Store the question and answer data in lists
             List<string> questions = new List<string>();
             List<List<string>> answers = new List<List<string>>();
@@ -254,7 +233,7 @@ namespace TestingWinForms
                 // Get the question text
                 TextBox textBoxQuestion = GetQuestionTextBox(i);
                 ComboBox comboBox = GetQuestionComboBox(i);
-                
+
                 if (!string.IsNullOrWhiteSpace(textBoxQuestion.Text))
                 {
                     questions.Add(textBoxQuestion.Text);
@@ -280,7 +259,7 @@ namespace TestingWinForms
                         types.Add(comboBox.Text);
                     }
                 }
-                    
+
             }
 
             // Save the questions and answers to the CSV file
@@ -311,10 +290,10 @@ namespace TestingWinForms
                     }
                 }
             }
+        }
 
-            UpdatePlayerCSVHeader();
-
-
+        private void saveAdvance()
+        {
             //Advance
             string timeOut = textBoxTimeOut.Text;
             if (string.IsNullOrEmpty(timeOut))
@@ -337,7 +316,7 @@ namespace TestingWinForms
                 string directoryPath = Path.Combine(rootPath, "Images");
 
                 // Create the directory if it doesn't exist
-                if (!Directory.Exists(directoryPath)) 
+                if (!Directory.Exists(directoryPath))
                 {
                     Directory.CreateDirectory(directoryPath);
                 }
@@ -351,7 +330,7 @@ namespace TestingWinForms
             }
 
             // Concatenate the data into a comma-separated string
-            string data = string.Format("{0},{1},{2},{3}", timeOut, randomQuestions, endSurveyText, imagePath); //, base64Image);
+            string data = string.Format("{0},{1},{2},{3}", timeOut, randomQuestions, endSurveyText, imagePath); 
 
             // Append the data to the CSV file
             while (true)
@@ -370,11 +349,10 @@ namespace TestingWinForms
                     MessageBox.Show(ex.Message);
                 }
             }
-
-            MessageBox.Show("Data saved to CSV file.");
         }
 
-        void UpdatePlayerCSVHeader() {
+        void UpdatePlayerCSVHeader()
+        {
 
             string columnHeader = "date,point_x,point_y,";
 
@@ -409,6 +387,23 @@ namespace TestingWinForms
 
         }
 
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            // Clear the contents of the CSV files
+            ClearCSVFiles();
+
+            saveTable();
+
+            saveQuestions();
+
+            UpdatePlayerCSVHeader();
+
+            saveAdvance();
+
+            MessageBox.Show("Data saved to CSV file.");
+        }
+        
+
         private void LoadDataFromCSV()
         {
             // Load data for the Table tab
@@ -426,37 +421,37 @@ namespace TestingWinForms
 
         private void LoadTableData()
         {
-                if (File.Exists(GlobalVariables.csvAdminTableFilePath))
+            if (File.Exists(GlobalVariables.csvAdminTableFilePath))
+            {
+                string[] lines;
+                while (true)
                 {
-                    string[] lines;
-                    while (true)
+                    try
                     {
-                        try
-                        {
-                            lines = File.ReadAllLines(GlobalVariables.csvAdminTableFilePath);
-                            break;
-                        }
-                        catch (IOException ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                    } 
-
-
-                    if (lines.Length > 0)
+                        lines = File.ReadAllLines(GlobalVariables.csvAdminTableFilePath);
+                        break;
+                    }
+                    catch (IOException ex)
                     {
-                        string[] values = lines[lines.Length - 1].Split(',');
+                        MessageBox.Show(ex.Message);
+                    }
+                } 
 
-                        if (values.Length == 5)
-                        {
-                            textBoxTitle.Text = values[0];
-                            textBoxXAxis.Text = values[1];
-                            textBoxYAxis.Text = values[2];
-                            btnExisColour.BackColor = ColorTranslator.FromHtml(values[3]);
-                            btnSelPointColour.BackColor = ColorTranslator.FromHtml(values[4]);
-                        }
+
+                if (lines.Length > 0)
+                {
+                    string[] values = lines[lines.Length - 1].Split(',');
+
+                    if (values.Length == 5)
+                    {
+                        textBoxTitle.Text = values[0];
+                        textBoxXAxis.Text = values[1];
+                        textBoxYAxis.Text = values[2];
+                        btnExisColour.BackColor = ColorTranslator.FromHtml(values[3]);
+                        btnSelPointColour.BackColor = ColorTranslator.FromHtml(values[4]);
                     }
                 }
+            }
 
         }
 
@@ -479,87 +474,87 @@ namespace TestingWinForms
                     }
                 }
 
-                questionsNumber = lines.Length;
+               
             }
         }
 
         private void LoadQuestionData(TabPage tabPage, string csvFilePath, int questionIndex)
         {
-                if (File.Exists(csvFilePath))
+            if (File.Exists(csvFilePath)) 
+            {
+                string[] lines = File.ReadAllLines(csvFilePath);
+                while (true)
                 {
-                    string[] lines = File.ReadAllLines(csvFilePath);
-                    while (true)
+                    try
                     {
-                        try
-                        {
-                            lines = File.ReadAllLines(csvFilePath);
-                            break;
-                        }
-                        catch (IOException ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                        lines = File.ReadAllLines(csvFilePath);
+                        break;
                     }
-
-                    if (lines.Length > questionIndex)
+                    catch (IOException ex)
                     {
-                        string[] values = lines[questionIndex].Split(',');
-
-                        TextBox questionTextBox = tabPage.Controls.OfType<TextBox>().FirstOrDefault(c => c.Name.StartsWith("textBoxQ"));
-                        TextBox[] answerTextBoxes = tabPage.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + "A" + (questionIndex + 1))).ToArray();
-                        ComboBox questionTypeComboBox = tabPage.Controls.OfType<ComboBox>().FirstOrDefault(c => c.Name.StartsWith("comboBox"));
-
-                    if (questionTextBox != null && answerTextBoxes.Length == optionsNumber && questionTypeComboBox != null)
-                        {
-                            questionTextBox.Text = values[0];
-                            for (int i = values.Length - 3; i >= 0; i--)
-                            {
-                                answerTextBoxes[values.Length - 3 - i].Text = values[i + 2];
-                            }
-                            questionTypeComboBox.Text = values[1];
-                        }
+                        MessageBox.Show(ex.Message);
                     }
                 }
+
+                if (lines.Length > questionIndex)
+                {
+                    string[] values = lines[questionIndex].Split(',');
+
+                    TextBox questionTextBox = tabPage.Controls.OfType<TextBox>().FirstOrDefault(c => c.Name.StartsWith("textBoxQ"));
+                    TextBox[] answerTextBoxes = tabPage.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + "A" + (questionIndex + 1))).ToArray();
+                    ComboBox questionTypeComboBox = tabPage.Controls.OfType<ComboBox>().FirstOrDefault(c => c.Name.StartsWith("comboBox"));
+
+                if (questionTextBox != null && answerTextBoxes.Length == optionsNumber && questionTypeComboBox != null)
+                    {
+                        questionTextBox.Text = values[0];
+                        for (int i = values.Length - 3; i >= 0; i--)
+                        {
+                            answerTextBoxes[values.Length - 3 - i].Text = values[i + 2];
+                        }
+                        questionTypeComboBox.Text = values[1];
+                    }
+                }
+            }
         }
 
 
         private void LoadAdvanceData()
         {
-                if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
+            if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
+            {
+                string[] lines;
+                while (true)
                 {
-                    string[] lines;
-                    while (true)
+                    try
                     {
-                        try
-                        {
-                            lines = File.ReadAllLines(GlobalVariables.csvAdminAdvanceFilePath);
-                            break;
-                        }
-                        catch (IOException ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
+                        lines = File.ReadAllLines(GlobalVariables.csvAdminAdvanceFilePath);
+                        break;
                     }
-                    if (lines.Length > 0)
+                    catch (IOException ex)
                     {
-                        string[] values = lines[lines.Length - 1].Split(',');
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                if (lines.Length > 0)
+                {
+                    string[] values = lines[lines.Length - 1].Split(',');
 
-                        if (values.Length == 4)
+                    if (values.Length == 4)
+                    {
+                        textBoxTimeOut.Text = values[0];
+                        comboBoxRandomQns.Text = values[1];
+                        textBoxEndMessage.Text = values[2];
+
+                        string imagePath = Path.Combine(values[3]);
+
+                        if (File.Exists(imagePath))
                         {
-                            textBoxTimeOut.Text = values[0];
-                            comboBoxRandomQns.Text = values[1];
-                            textBoxEndMessage.Text = values[2];
-
-                            string imagePath = Path.Combine(values[3]);
-
-                            if (File.Exists(imagePath))
-                            {
-                                Image image = Image.FromFile(imagePath);
-                                pictureBox.Image = image;
-                            }
+                            Image image = Image.FromFile(imagePath);
+                            pictureBox.Image = image;
                         }
                     }
                 }
+            }
 
         }
 
@@ -571,6 +566,9 @@ namespace TestingWinForms
             DateTime selectedEndDate = dateTimePickerEndDate.Value.Date;
             DateTime startDateTime = new DateTime(selectedStartDate.Year, selectedStartDate.Month, selectedStartDate.Day, 0, 0, 0); // Set the time as 00:00:00 (midnight)
             DateTime endDateTime = new DateTime(selectedEndDate.Year, selectedEndDate.Month, selectedEndDate.Day, 23, 59, 59); // Set the time as 23:59:59 (end of the day)
+
+            // Compare the date and time from start to end
+            int result = DateTime.Compare(selectedEndDate, selectedStartDate);
 
 
             // Filter the player answers based on the selected date range
@@ -625,6 +623,12 @@ namespace TestingWinForms
 
                     MessageBox.Show("Player answers downloaded successfully.");
                 }
+            }
+            else if (result < 0)
+            {
+                // End date is before the start date
+                // Display an error message or take appropriate action
+                MessageBox.Show("End date cannot be before the start date.");
             }
             else
             {
@@ -746,9 +750,12 @@ namespace TestingWinForms
 
                         for (int j = 0; j < optionsNumber; j++)
                         {
-                            if (!string.IsNullOrEmpty(values[j]) && values[j] != "" && values[j] != " ")
+                            if (j < values.Length)
                             {
-                                responsesCount[j]++;
+                                if (!string.IsNullOrEmpty(values[j]) && values[j] != "" && values[j] != " ")
+                                {
+                                    responsesCount[j]++;
+                                }
                             }
                         }
                     }
@@ -1208,16 +1215,6 @@ namespace TestingWinForms
             }
         }
 
-        private void labelQ2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnClear3_Click(object sender, EventArgs e)
         {
             ClearButton_Click(sender, e);
@@ -1231,6 +1228,31 @@ namespace TestingWinForms
         private void btnClear1_Click(object sender, EventArgs e)
         {
             ClearButton_Click(sender, e);
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            TableForm firstForm = new TableForm();
+            firstForm.Show();
+            this.Close();
+        }
+
+
+        private void btnUploadImage_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select Image";
+                openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedImagePath = openFileDialog.FileName;
+
+                    // Load the selected image into the PictureBox
+                    pictureBox.Image = Image.FromFile(selectedImagePath);
+                }
+            }
         }
 
         private void btnColourPicker_Click(object sender, EventArgs e)
@@ -1273,15 +1295,6 @@ namespace TestingWinForms
             }
         }
 
-        private void labelA28_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxA28_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnDownloadAll_Click(object sender, EventArgs e)
         {

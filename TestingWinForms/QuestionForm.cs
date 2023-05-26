@@ -652,15 +652,6 @@ namespace TestingWinForms
             timer.Start();
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 
     public class Question
