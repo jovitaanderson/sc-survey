@@ -805,15 +805,17 @@ namespace TestingWinForms
 
                 for (int i = 0; i < response.Length; i++)
                 {
-
-                    string wee = response[i];
-                    values = response[i].Split(';');
-
-                    for (int j = 0; j < optionsNumber; j++)
+                    if (response[i] != null)
                     {
-                        if (!string.IsNullOrEmpty(values[j]) && values[j] != "" && values[j] != " ")
+                        //string wee = response[i];
+                        values = response[i].Split(';');
+
+                        for (int j = 0; j < optionsNumber; j++)
                         {
-                            responsesCount[j]++;
+                            if (!string.IsNullOrEmpty(values[j]) && values[j] != "" && values[j] != " ")
+                            {
+                                responsesCount[j]++;
+                            }
                         }
                     }
                 }
@@ -984,28 +986,36 @@ namespace TestingWinForms
         private List<string[]> splitResponseByQuestion(List<string> responseFilterePlayerAnswers)
         {
             List<string[]> separatedArrays = new List<string[]>();
+            string[] values;
+            int finalNumQuestion = 0;
 
             // Split the responses and group the values by position
-            for (int i = 0; i < responseFilterePlayerAnswers.Count; i++)
-            {
-                string[] values = responseFilterePlayerAnswers[i].Split(',');
-
-                // Check if it's the first response, initialize the arrays accordingly
-                if (i == 0)
+            for (int i = responseFilterePlayerAnswers.Count - 1; i >= 0; i--)
+            {// Check if it's the first response, initialize the arrays accordingly
+                values = responseFilterePlayerAnswers[i].Split(',');
+                if (i == (responseFilterePlayerAnswers.Count - 1))
                 {
-                    // Create arrays with the same length as the number of values
                     for (int j = 0; j < values.Length; j++)
                     {
                         separatedArrays.Add(new string[responseFilterePlayerAnswers.Count]);
                     }
+                    finalNumQuestion = values.Length;
                 }
 
                 // Store the values in their respective arrays
-                for (int j = 0; j < values.Length; j++)
+                for (int j = 0; j < finalNumQuestion; j++)
                 {
-                    separatedArrays[j][i] = values[j];
+                    if (j < values.Length)
+                    {
+                        separatedArrays[j][i] = values[j];
+                    }
+                    else
+                    {
+                        separatedArrays[j][i] = ";;;;;;;;";
+                    }
                 }
             }
+            
             return separatedArrays;
         }
 
