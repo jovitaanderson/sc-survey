@@ -1211,16 +1211,6 @@ namespace TestingWinForms
             }
         }
 
-        private void labelQ2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnClear3_Click(object sender, EventArgs e)
         {
             ClearButton_Click(sender, e);
@@ -1276,15 +1266,6 @@ namespace TestingWinForms
             }
         }
 
-        private void labelA28_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxA28_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnDownloadAll_Click(object sender, EventArgs e)
         {

@@ -342,7 +342,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(968, 359);
             this.panel1.TabIndex = 23;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // tableLayoutPanel1
             // 
@@ -363,7 +362,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1174, 721);
             this.tableLayoutPanel1.TabIndex = 24;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // QuestionForm
             // 

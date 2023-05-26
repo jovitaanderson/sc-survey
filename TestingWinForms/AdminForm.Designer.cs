@@ -647,7 +647,6 @@ namespace TestingWinForms
             this.labelA16.Size = new System.Drawing.Size(129, 32);
             this.labelA16.TabIndex = 12;
             this.labelA16.Text = "answer 6";
-            this.labelA16.Click += new System.EventHandler(this.label1_Click);
             // 
             // textBoxA15
             // 
@@ -855,7 +854,6 @@ namespace TestingWinForms
             this.textBoxA28.Name = "textBoxA28";
             this.textBoxA28.Size = new System.Drawing.Size(236, 38);
             this.textBoxA28.TabIndex = 30;
-            this.textBoxA28.TextChanged += new System.EventHandler(this.textBoxA28_TextChanged);
             // 
             // labelA28
             // 
@@ -866,7 +864,6 @@ namespace TestingWinForms
             this.labelA28.Size = new System.Drawing.Size(129, 32);
             this.labelA28.TabIndex = 27;
             this.labelA28.Text = "answer 8";
-            this.labelA28.Click += new System.EventHandler(this.labelA28_Click);
             // 
             // textBoxA27
             // 
@@ -1027,7 +1024,6 @@ namespace TestingWinForms
             this.labelQ2.Size = new System.Drawing.Size(153, 32);
             this.labelQ2.TabIndex = 1;
             this.labelQ2.Text = "Question 2";
-            this.labelQ2.Click += new System.EventHandler(this.labelQ2_Click);
             // 
             // tabQuestion3
             // 
