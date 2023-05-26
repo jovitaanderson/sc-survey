@@ -746,12 +746,13 @@ namespace TestingWinForms
             foreach (string item in filteredPlayerAnswers)
             {
                 string[] values = item.Split(',');
+                values[0] = values[0].TrimStart('\'');
 
-                if (values.Length >= 1)
-                {
-                    DateTime date = DateTime.ParseExact(values[0], dateFormat, CultureInfo.InvariantCulture);
+                if (values.Length > 0 && DateTime.TryParseExact(values[0], dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date)) {
                     dateColumn.Add(date.Hour);
+
                 }
+
             }
 
             return dateColumn;
@@ -1044,6 +1045,8 @@ namespace TestingWinForms
                     // Assuming the date is the first column in the player answers CSV file
                     string[] values = answer.Split(',');
 
+                    values[0] = values[0].TrimStart('\'');
+
                     if (values.Length > 0 && DateTime.TryParseExact(values[0], dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime answerDate))
                     {
                         if (answerDate >= startDate && answerDate <= endDate)
@@ -1054,6 +1057,37 @@ namespace TestingWinForms
                 }
             }
             return filteredAnswers;
+        }
+
+        private List<string> AllPlayerAnswers(DateTime startDate, DateTime endDate)
+        {
+            List<string> AllAnswers = new List<string>();
+
+            if (File.Exists(csvFilePath))
+            {
+                string[] allAnswers;
+
+                while (true)
+                {
+                    try
+                    {
+                        allAnswers = File.ReadAllLines(csvFilePath);
+                        break;
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
+                foreach (string answer in allAnswers)
+                {
+                    AllAnswers.Add(answer);
+                }
+            }
+
+            AllAnswers.RemoveAt(0);
+            return AllAnswers;
         }
 
         private void btnEndApp_Click(object sender, EventArgs e)
@@ -1314,6 +1348,69 @@ namespace TestingWinForms
         private void textBoxA28_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnDownloadAll_Click(object sender, EventArgs e)
+        {
+
+            DateTime selectedDate = dateTimePickerStartDate.Value.Date; // Get the selected date without the time portion
+            DateTime startDateTime = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, 0, 0, 0); // Set the time as 00:00:00 (midnight)
+            DateTime endDateTime = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, 23, 59, 59); // Set the time as 23:59:59 (end of the day)
+
+
+            // Filter the player answers based on the selected date range
+            List<string> filteredPlayerAnswers = AllPlayerAnswers(startDateTime, endDateTime);
+            var combinedFilteredPlayerAnswers = separateData(filteredPlayerAnswers);
+            List<string> pointsFilterePlayerAnswers = combinedFilteredPlayerAnswers.Item1;
+            List<string> reponsesFilterePlayerAnswers = combinedFilteredPlayerAnswers.Item2;
+
+            // Calculate total reponse by time
+            List<int> dateColumn = getDateColumn(filteredPlayerAnswers);
+            List<string> hourCount = getHourCount(dateColumn);
+
+            //Calculation for conslidated points data
+            List<string> roundedFilterePlayerAnswers = roundDataPoints(pointsFilterePlayerAnswers);
+            List<string> consolidatedPointAnswers = countAndAnalyzePointsInterval(roundedFilterePlayerAnswers); //Vertical
+                                                                                                                //List<string> consolidatedPointAnswersF2 = consolidatedPointsFormat(filteredPlayerAnswers.Count); //Horizontal
+
+            // Calculation for conslidated reponses data
+            responsesCount = new int[optionsNumber];
+            List<string[]> responseSplitByQuestion = splitResponseByQuestion(reponsesFilterePlayerAnswers);
+            List<string> consolidatedResponse = countAndAnalyzeResponse(responseSplitByQuestion);
+
+            //Combine the csv file into one
+            List<string> combinedConslidatedData = combinedData(startDateTime, endDateTime, consolidatedPointAnswers, consolidatedResponse, hourCount);
+
+            // Check if there are any matching answerss
+            if (filteredPlayerAnswers.Count > 0)
+            {
+                // Open a SaveFileDialog to specify the download location
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
+
+                // Get the current date and time
+                DateTime currentDate = DateTime.Now;
+
+                // Format the date and time as strings
+                string dateString = currentDate.ToString("dd-MM-yyyy");
+                string timeString = currentDate.ToString("HHmmss");
+
+                saveFileDialog.FileName = $"{dateString}_{timeString}.csv";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string savePath = saveFileDialog.FileName;
+
+                    // Write the filtered player answers to the selected file
+                    File.WriteAllLines(savePath, combinedConslidatedData);
+
+                    MessageBox.Show("Player answers downloaded successfully.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No player answers found for the selected date range.");
+            }
         }
     }
 }

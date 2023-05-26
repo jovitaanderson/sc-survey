@@ -134,6 +134,7 @@ namespace TestingWinForms
             this.btnEndApp = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.btnDownloadAll = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabTable.SuspendLayout();
             this.tabDownload.SuspendLayout();
@@ -315,6 +316,7 @@ namespace TestingWinForms
             // 
             this.tabDownload.AutoScroll = true;
             this.tabDownload.BackColor = System.Drawing.Color.Transparent;
+            this.tabDownload.Controls.Add(this.btnDownloadAll);
             this.tabDownload.Controls.Add(this.btnDownload);
             this.tabDownload.Controls.Add(this.dateTimePickerEndDate);
             this.tabDownload.Controls.Add(this.dateTimePickerStartDate);
@@ -1344,6 +1346,17 @@ namespace TestingWinForms
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // btnDownloadAll
+            // 
+            this.btnDownloadAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDownloadAll.Location = new System.Drawing.Point(164, 225);
+            this.btnDownloadAll.Name = "btnDownloadAll";
+            this.btnDownloadAll.Size = new System.Drawing.Size(293, 41);
+            this.btnDownloadAll.TabIndex = 7;
+            this.btnDownloadAll.Text = "Download All";
+            this.btnDownloadAll.UseVisualStyleBackColor = true;
+            this.btnDownloadAll.Click += new System.EventHandler(this.btnDownloadAll_Click);
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1483,5 +1496,6 @@ namespace TestingWinForms
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnDownloadAll;
     }
 }
