@@ -28,12 +28,9 @@ namespace TestingWinForms
         private int[] yAxisIntervalCounts = new int[21]; // Array to store the count of values from 0 to 10 (inclusive) with intervals of 0.5 for roundedSecondValue
 
         private int questionsNumber = 3;
-<<<<<<< HEAD
         int[] responsesCount;
         double[] percentageCount;
-=======
         private static int optionsNumber = 8;
->>>>>>> 6a6276f800eac90b8660fbde19797d6c4c8ed0fe
 
         public AdminForm()
         {
@@ -485,7 +482,21 @@ namespace TestingWinForms
         {
             if (File.Exists(csvAdminQuestionsFilePath))
             {
-                string[] lines = File.ReadAllLines(csvAdminQuestionsFilePath);
+
+                string[] lines;
+                while (true)
+                {
+                    try
+                    {
+                        lines = File.ReadAllLines(csvAdminQuestionsFilePath);
+                        break;
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
                 questionsNumber = lines.Length;
             }
         }
@@ -673,7 +684,16 @@ namespace TestingWinForms
 
         private List<string> countAndAnalyzeResponse(List<string[]> responseList) {
 
-            int numOfResponses = responseList[0].Length;
+            int numOfResponses;
+
+            if (responseList.Count >= 1)
+            {
+                numOfResponses = responseList[0].Length;
+            }
+            else {
+                numOfResponses = 0;
+            }
+           
 
             List<string> conslidatedResponse = new List<string>();
             conslidatedResponse.Add("Response count for each question option");
@@ -682,7 +702,7 @@ namespace TestingWinForms
             conslidatedPercentageResponse.Add("Percentage of each response per question over total responses");
 
             string csvColumnHeader = "Question,optionA,optionB,optionC,optionD,optionE,optionF,optionG,optionH";
-            conslidatedResponse.Add(csvColumnHeader);
+            conslidatedResponse.Add($"{ csvColumnHeader},TotalAnswers");
             conslidatedPercentageResponse.Add(csvColumnHeader);
             int qnNumberCSV = 1;
             foreach (string[] response in responseList)
@@ -710,8 +730,14 @@ namespace TestingWinForms
                         }
                     }
                 }
+
+                int totalAnswers = 0;
+                for (int i = 0; i < responsesCount.Length; i++) { 
+                    totalAnswers += responsesCount[i];
+                }
+
                 string finalCountPerQuestion = string.Join(",", responsesCount);
-                conslidatedResponse.Add($"Question{qnNumberCSV},{finalCountPerQuestion}");
+                conslidatedResponse.Add($"Question{qnNumberCSV},{finalCountPerQuestion},{totalAnswers}");
 
                 for (int i = 0; i < responsesCount.Length; i++)
                 {
@@ -796,6 +822,8 @@ namespace TestingWinForms
             int numOfResponses = roundedPoints.Count;
             double[] percentageCountX = new double[21]; 
             double[] percentageCountY = new double[21];
+            float totalX = 0;
+            float totalY = 0;
 
             //List<string> pointsConslidatedFormat = new List<string>();
 
@@ -809,7 +837,7 @@ namespace TestingWinForms
 
 
             List<string> combinedData = new List<string>(); //seprataed by two columns
-            combinedData.Add(" ,Response count for each interval, , , ,Percentage of each response per interval");
+            combinedData.Add("Response count for each interval, , , ,Percentage of each response per interval");
             combinedData.Add($"{csvColumnHeader},,,{csvColumnHeader}");
 
             foreach (string item in roundedPoints)
@@ -821,14 +849,15 @@ namespace TestingWinForms
                     {
                         int x_axis = (int)(roundedFirstValue * 2);
                         int y_axis = (int)(roundedSecondValue * 2);
-
+                        totalX += roundedFirstValue;
+                        totalY += roundedSecondValue;
                         xAxisIntervalCounts[x_axis]++;
                         yAxisIntervalCounts[y_axis]++;
                     }
                 }
             }
 
-            //Calculate average
+            //Calculate % of responses
             for (int i = 0; i < 21; i++)
             {
                 percentageCountX[i] = ((double)xAxisIntervalCounts[i] / numOfResponses) * 100;
@@ -841,11 +870,14 @@ namespace TestingWinForms
                 float value = i / 2f;
                 //pointsConslidatedFormat.Add($"{value},{xAxisIntervalCounts[i]},{yAxisIntervalCounts[i]}");
                 //conslidatedPercentagePoint.Add($"{value},{percentageCountX[i]},{percentageCountY[i]}%");
-                combinedData.Add($"{value},{xAxisIntervalCounts[i]},{yAxisIntervalCounts[i]},,,{value},{percentageCountX[i]},{percentageCountY[i]}%");
+                combinedData.Add($"{value},{xAxisIntervalCounts[i]},{yAxisIntervalCounts[i]},,,{value},{percentageCountX[i]}%,{percentageCountY[i]}%");
 
             }
+            float avgX = totalX / numOfResponses;
+            float avgY = totalY / numOfResponses;
             //pointsConslidatedFormat.Add($"Total,{roundedPoints.Count},{roundedPoints.Count}");
             //conslidatedPercentagePoint.Add($"Total,{roundedPoints.Count},{roundedPoints.Count}");
+            combinedData.Add($"Average,{avgX},{avgY}");
             combinedData.Add($"Total,{roundedPoints.Count},{roundedPoints.Count},,,Total,{roundedPoints.Count},{roundedPoints.Count}");
 
             //pointsConslidatedFormat.Add("");
