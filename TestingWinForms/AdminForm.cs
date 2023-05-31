@@ -333,8 +333,62 @@ namespace TestingWinForms
                 image.Save(imagePath);
             }
 
+            // Get the image from the PictureBox
+            Image image2 = pictureBox1.Image;
+            string imagePath2 = null;
+
+            //save as root directory
+            if (image2 != null)
+            {
+                // Get the current root path of the application
+                string rootPath = Directory.GetCurrentDirectory();
+
+                // Specify the directory within the root path to save the image
+                string directoryPath = Path.Combine(rootPath, "Images");
+
+                // Create the directory if it doesn't exist
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                // Generate a unique file name for the image
+                string fileName = Guid.NewGuid().ToString() + ".png";
+
+                // Save the image to the specified directory
+                imagePath2 = Path.Combine(directoryPath, fileName);
+                image2.Save(imagePath2);
+            }
+
+            // Get the image from the PictureBox
+            Image image3 = pictureBox2.Image;
+            string imagePath3 = null;
+
+            //save as root directory
+            if (image3 != null)
+            {
+                // Get the current root path of the application
+                string rootPath = Directory.GetCurrentDirectory();
+
+                // Specify the directory within the root path to save the image
+                string directoryPath = Path.Combine(rootPath, "Images");
+
+                // Create the directory if it doesn't exist
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                // Generate a unique file name for the image
+                string fileName = Guid.NewGuid().ToString() + ".png";
+
+                // Save the image to the specified directory
+                imagePath3 = Path.Combine(directoryPath, fileName);
+                image3.Save(imagePath3);
+            }
+
             // Concatenate the data into a comma-separated string
-            string data = string.Format("{0},{1},{2},{3}", timeOut, randomQuestions, endSurveyText, imagePath); 
+            string data = string.Format("{0},{1},{2},{3},{4},{5}", timeOut, randomQuestions, endSurveyText, imagePath, imagePath2, imagePath3); 
 
             // Append the data to the CSV file
             while (true)
@@ -543,7 +597,7 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 4)
+                    if (values.Length == 6)
                     {
                         textBoxTimeOut.Text = values[0];
                         comboBoxRandomQns.Text = values[1];
@@ -555,6 +609,22 @@ namespace TestingWinForms
                         {
                             Image image = Image.FromFile(imagePath);
                             pictureBox.Image = image;
+                        }
+
+                        string imagePath2 = Path.Combine(values[4]);
+
+                        if (File.Exists(imagePath2))
+                        {
+                            Image image2 = Image.FromFile(imagePath2);
+                            pictureBox1.Image = image2;
+                        }
+
+                        string imagePath3 = Path.Combine(values[5]);
+
+                        if (File.Exists(imagePath3))
+                        {
+                            Image image3 = Image.FromFile(imagePath3);
+                            pictureBox2.Image = image3;
                         }
                     }
                 }
@@ -1382,6 +1452,40 @@ namespace TestingWinForms
                 conData.Add($"Date range: {startDate} to {endDate}");
             }
             return conData;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select Image";
+                openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedImagePath = openFileDialog.FileName;
+
+                    // Load the selected image into the PictureBox
+                    pictureBox1.Image = Image.FromFile(selectedImagePath);
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select Image";
+                openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedImagePath = openFileDialog.FileName;
+
+                    // Load the selected image into the PictureBox
+                    pictureBox2.Image = Image.FromFile(selectedImagePath);
+                }
+            }
         }
     }
 }

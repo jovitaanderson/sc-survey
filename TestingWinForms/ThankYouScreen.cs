@@ -62,9 +62,9 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values[3] != null)
+                    if (values[5] != null)
                     {
-                        string imagePath = Path.Combine(values[3]);
+                        string imagePath = Path.Combine(values[5]);
                         return imagePath;
                     }
                     else
