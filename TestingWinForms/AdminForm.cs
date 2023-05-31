@@ -28,6 +28,10 @@ namespace TestingWinForms
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None; // Remove the border
             WindowState = FormWindowState.Maximized; // Maximize the window
+
+            //Set the default colours when first opened
+            btnExisColour.BackColor = Color.Green;
+            btnSelPointColour.BackColor = Color.Red;
         }
 
         // Helper method to prevent flickering
