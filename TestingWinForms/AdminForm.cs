@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 
 namespace TestingWinForms
@@ -191,6 +192,20 @@ namespace TestingWinForms
             return Controls.Find(textBoxName, true).FirstOrDefault() as TextBox;
         }
 
+        private string FontToBinaryString(Font font)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(stream, font);
+
+                byte[] binaryData = stream.ToArray();
+                string base64String = Convert.ToBase64String(binaryData);
+
+                return base64String;
+            }
+        }
+
         private void saveTable()
         {
             // Get the data from the TextBox
@@ -198,12 +213,31 @@ namespace TestingWinForms
             string title = textBoxTitle.Text;
             string x_axis = textBoxXAxis.Text;
             string y_axis = textBoxYAxis.Text;
+
             // Convert the Color to a string representation
             string existingColour = ColorTranslator.ToHtml(btnExisColour.BackColor);
             string newColour = ColorTranslator.ToHtml(btnSelPointColour.BackColor);
 
+            /*// Get the font properties from the Titlelabel
+            Font labelTitleFont = sampleLabelTitle.Font;
+            string fontTitleName = labelTitleFont.FontFamily.Name;
+            string fontTitleSize = labelTitleFont.Size.ToString();
+            string fontTitleStyle = labelTitleFont.Style.ToString();
+
+            // Get the font properties from the label
+            Font labelXYaxisFont = sampleLabelYAxis.Font;
+            string fontXYaxiseName = labelXYaxisFont.FontFamily.Name;
+            string fontXYaxisSize = labelXYaxisFont.Size.ToString();
+            string fontXYaxisStyle = labelXYaxisFont.Style.ToString();
+            */
+
+            // Serialize the font object to a binary string
+            string fontTitle = FontToBinaryString(sampleLabelTitle.Font);
+            string fontXYAxis = FontToBinaryString(sampleLabelYAxis.Font);
+
             // Concatenate the data into a comma-separated string
-            string titleDate = string.Format("{0},{1},{2},{3},{4}", title, x_axis, y_axis, existingColour, newColour);
+            string titleDate = string.Format("{0},{1},{2},{3},{4},{5},{6}", 
+                title, x_axis, y_axis, existingColour, newColour, fontTitle, fontXYAxis);
 
             // Append the data to the CSV file
             while (true)
@@ -477,6 +511,17 @@ namespace TestingWinForms
             }
         }
 
+        private Font FontFromBinaryString(string fontData)
+        {
+            byte[] binaryData = Convert.FromBase64String(fontData);
+
+            using (MemoryStream stream = new MemoryStream(binaryData))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                return (Font)formatter.Deserialize(stream);
+            }
+        }
+
         private void LoadTableData()
         {
             if (File.Exists(GlobalVariables.csvAdminTableFilePath))
@@ -500,13 +545,27 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 5)
+                    if (values.Length == 7)
                     {
                         textBoxTitle.Text = values[0];
                         textBoxXAxis.Text = values[1];
                         textBoxYAxis.Text = values[2];
                         btnExisColour.BackColor = ColorTranslator.FromHtml(values[3]);
                         btnSelPointColour.BackColor = ColorTranslator.FromHtml(values[4]);
+
+                        // Load the font data from the CSV
+                        string fontTitle = values[5]; // Assuming font data is at index 5
+                        // Deserialize the font from the font data
+                        Font loadedFontTitle = FontFromBinaryString(fontTitle);
+                        // Apply the font to the label or control of your choice
+                        sampleLabelTitle.Font = loadedFontTitle;
+
+                        // Load the font data from the CSV
+                        string fontXYaxis = values[6]; // Assuming font data is at index 5
+                        // Deserialize the font from the font data
+                        Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
+                        // Apply the font to the label or control of your choice
+                        sampleLabelYAxis.Font = loadedFontXYaxis;
                     }
                 }
             }
@@ -1485,6 +1544,24 @@ namespace TestingWinForms
                     // Load the selected image into the PictureBox
                     pictureBox2.Image = Image.FromFile(selectedImagePath);
                 }
+            }
+        }
+
+        private void fontButton_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelTitle.Font = fontDialog.Font;
+            }
+        }
+
+        private void fontButtonXAxis_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelYAxis.Font = fontDialog.Font;
             }
         }
     }

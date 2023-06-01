@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.IO;
 using Microsoft.VisualBasic.FileIO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace TestingWinForms
 {
@@ -173,6 +174,17 @@ namespace TestingWinForms
             drawingArea = new Rectangle(x, y, squareSize, squareSize);
         }
 
+        private Font FontFromBinaryString(string fontData)
+        {
+            byte[] binaryData = Convert.FromBase64String(fontData);
+
+            using (MemoryStream stream = new MemoryStream(binaryData))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                return (Font)formatter.Deserialize(stream);
+            }
+        }
+
         private void LoadTableFromCSV()
         {
             if (File.Exists(GlobalVariables.csvAdminTableFilePath))
@@ -197,7 +209,7 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 5)
+                    if (values.Length == 7)
                     {
                         labelTitle.Text = values[0];
                         labelXAxis.Text = values[1];
@@ -227,6 +239,15 @@ namespace TestingWinForms
 
                         existingColour = ColorTranslator.FromHtml(values[3]);
                         selectedColour = ColorTranslator.FromHtml(values[4]);
+
+                        string fontTitle = values[5]; 
+                        Font loadedFontTitle = FontFromBinaryString(fontTitle);
+                        labelTitle.Font = loadedFontTitle;
+                        
+                        string fontXYaxis = values[6]; 
+                        Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
+                        labelXAxis.Font = loadedFontXYaxis;
+                        labelYAxis.Font = loadedFontXYaxis;
 
                     }
                 }
@@ -457,8 +478,8 @@ namespace TestingWinForms
             }
 
             // Draw X and Y axis labels
-            int xSteps = 10; // Specify the number of steps on the X axis
-            int ySteps = 10; // Specify the number of steps on the Y axis
+            int xSteps = 21; // Specify the number of steps on the X axis (from -10 to 10)
+            int ySteps = 21; // Specify the number of steps on the Y axis (from -10 to 10)
             int stepSizeX = drawingArea.Width / xSteps;
             int stepSizeY = drawingArea.Height / ySteps;
 
@@ -470,26 +491,27 @@ namespace TestingWinForms
                     format.LineAlignment = StringAlignment.Center;
 
                     // Draw X axis labels
-                    for (int i = 1; i <= xSteps; i++)
+                    for (int i = -10; i <= 10; i++)
                     {
-                        int labelX = drawingArea.Left + (i * stepSizeX);
+                        int labelX = drawingArea.Left + ((i + 10) * stepSizeX);
                         int labelY = drawingArea.Bottom + 5;
 
-                        string label = (i).ToString(); // Adjust the label based on your requirements
+                        string label = i.ToString(); // Adjust the label based on your requirements
                         e.Graphics.DrawString(label, font, Brushes.Black, labelX, labelY, format);
                     }
 
                     // Draw Y axis labels
-                    for (int i = 1; i <= ySteps; i++)
+                    for (int i = -10; i <= 10; i++)
                     {
                         int labelX = drawingArea.Left - 25;
-                        int labelY = drawingArea.Bottom - (i * stepSizeY);
+                        int labelY = drawingArea.Bottom - ((i + 10) * stepSizeY);
 
-                        string label = (i).ToString(); // Adjust the label based on your requirements
+                        string label = i.ToString(); // Adjust the label based on your requirements
                         e.Graphics.DrawString(label, font, Brushes.Black, labelX, labelY, format);
                     }
                 }
             }
+
         }
 
     }
