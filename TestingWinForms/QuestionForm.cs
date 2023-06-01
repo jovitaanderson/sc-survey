@@ -114,38 +114,7 @@ namespace TestingWinForms
             }
         }
 
-        private void DisplayBackground() 
-        {
-            // Suspend layout updates
-            this.SuspendLayout();
-
-            // Enable double buffering to reduce flickering
-            this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
-            
-            // Display background image
-            string imagePath = LoadBackgroundImageFromCSV();
-
-            if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
-            {
-                // Create a temporary Bitmap object from the image path
-                Bitmap backgroundImage = new Bitmap(imagePath);
-
-                // Dispose of the previous background image, if one exists
-                if (this.BackgroundImage != null)
-                {
-                    this.BackgroundImage.Dispose();
-                }
-
-                // Set the temporary Bitmap as the new background image
-                this.BackgroundImage = backgroundImage;
-
-                // Adjust the background image display settings
-                this.BackgroundImageLayout = ImageLayout.Stretch;
-            }
-
-            // Resume layout updates
-            this.ResumeLayout(true);
-        }
+        
 
         // Helper method to centralise the question label
         private void CenterQuestionLabel()
@@ -179,7 +148,40 @@ namespace TestingWinForms
 
         }
 
-        private string LoadBackgroundImageFromCSV()
+        /*private void DisplayBackground() 
+        {
+            // Suspend layout updates
+            this.SuspendLayout();
+
+            // Enable double buffering to reduce flickering
+            this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+            
+            // Display background image
+            string imagePath = LoadBackgroundImageFromCSV();
+
+            if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
+            {
+                // Create a temporary Bitmap object from the image path
+                Bitmap backgroundImage = new Bitmap(imagePath);
+
+                // Dispose of the previous background image, if one exists
+                if (this.BackgroundImage != null)
+                {
+                    this.BackgroundImage.Dispose();
+                }
+
+                // Set the temporary Bitmap as the new background image
+                this.BackgroundImage = backgroundImage;
+
+                // Adjust the background image display settings
+                this.BackgroundImageLayout = ImageLayout.Stretch;
+            }
+
+            // Resume layout updates
+            this.ResumeLayout(true);
+        }*/
+
+        /*private string LoadBackgroundImageFromCSV()
         {
             if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
             {
@@ -220,7 +222,7 @@ namespace TestingWinForms
             {
                 return null;
             }
-        }
+        }*/
 
 
         // Returns a List<Question> consisting of questions saved in admin_question.csv file

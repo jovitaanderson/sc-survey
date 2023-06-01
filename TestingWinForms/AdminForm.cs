@@ -377,6 +377,9 @@ namespace TestingWinForms
             Image image = pictureBox.Image;
             string imagePath = null;
 
+            // Serialize the font object to a binary string
+            string fontEndText = FontToBinaryString(sampleLabelEndText.Font);
+
             //save as root directory
             if (image != null)
             {
@@ -428,7 +431,7 @@ namespace TestingWinForms
             }
 
             // Concatenate the data into a comma-separated string
-            string data = string.Format("{0},{1},{2},{3},{4}", timeOut, randomQuestions, endSurveyText, imagePath, imagePath3); 
+            string data = string.Format("{0},{1},{2},{3},{4},{5}", timeOut, randomQuestions, endSurveyText, imagePath, imagePath3, fontEndText); 
 
             // Append the data to the CSV file
             while (true)
@@ -671,7 +674,7 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 5)
+                    if (values.Length == 6)
                     {
                         textBoxTimeOut.Text = values[0];
                         comboBoxRandomQns.Text = values[1];
@@ -692,6 +695,13 @@ namespace TestingWinForms
                             Image image3 = Image.FromFile(imagePath3);
                             pictureBox2.Image = image3;
                         }
+
+                        // Load the font data from the CSV
+                        string fontEndSurvey = values[5]; // Assuming font data is at index 5
+                        // Deserialize the font from the font data
+                        Font loadedFontEndSurvey = FontFromBinaryString(fontEndSurvey);
+                        // Apply the font to the label or control of your choice
+                        sampleLabelEndText.Font = loadedFontEndSurvey;
                     }
                 }
             }
@@ -1656,6 +1666,13 @@ namespace TestingWinForms
 
         }
 
-        
+        private void btnChangeEndSurveyFont_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelEndText.Font = fontDialog.Font;
+            }
+        }
     }
 }
