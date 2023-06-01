@@ -292,8 +292,9 @@ namespace TestingWinForms
             if (File.Exists(GlobalVariables.csvRawDataFilePath))
             {
                 // Calculate the inverse scaling factors
-                float inverseScaleX = drawingArea.Width / 10f;
-                float inverseScaleY = drawingArea.Height / 10f;
+                float inverseScaleX = drawingArea.Width / 20f; // Range: -10 to 10
+                float inverseScaleY = -drawingArea.Height / 20f; // Range: -10 to 10
+
 
                 string[] lines;
 
@@ -327,9 +328,9 @@ namespace TestingWinForms
                         //to fix 
 
                         // Scale back the coordinates to the original dimensions
-                        float originalX = (x * inverseScaleX) + drawingArea.X;
-                        float originalY = (y * inverseScaleY) + drawingArea.Y;
-
+                        float originalX = (x * inverseScaleX) + drawingArea.X + (drawingArea.Width / 2f);
+                        float originalY = (y * inverseScaleY) + drawingArea.Y + (drawingArea.Height / 2f);
+                        //float originalY = (10f - y) * inverseScaleY + drawingArea.Y + (drawingArea.Height / 2f);
                         existingClickedPositions.Add(new PointF(originalX, originalY));
                     }
                 }
@@ -375,11 +376,13 @@ namespace TestingWinForms
                 if (!hasClicked && drawingArea.Contains(e.Location))
                 {
                     // Calculate the scaled coordinates within the rectangle
-                    float scaleX = 10f / drawingArea.Width;
-                    float scaleY = 10f / drawingArea.Height;
+                    float scaleX = 20f / drawingArea.Width; // Range: -10 to 10
+                    float scaleY = 20f / drawingArea.Height; // Range: -10 to 10
 
-                    float scaledX = (e.Location.X - drawingArea.X) * scaleX;
-                    float scaledY = (e.Location.Y - drawingArea.Y) * scaleY;
+
+                    float scaledX = ((e.Location.X - drawingArea.X) * scaleX) - 10f; // Range: -10 to 10
+                    float scaledY = 10f - ((e.Location.Y - drawingArea.Y) * scaleY); // Range 10 to -10
+
                     //int scaledXInt = (int)Math.Round(scaledX);
                     //int scaledYInt = (int)Math.Round(scaledY);
 
@@ -468,7 +471,6 @@ namespace TestingWinForms
                 {
                     e.Graphics.FillEllipse(Brushes.Red, dotX, dotY, dotSize, dotSize);
                 }
-                
             }
         }
 
