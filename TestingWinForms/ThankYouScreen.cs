@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -62,9 +63,9 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values[3] != null)
+                    if (values[4] != null)
                     {
-                        string imagePath = Path.Combine(values[3]);
+                        string imagePath = Path.Combine(values[4]);
                         return imagePath;
                     }
                     else
@@ -94,6 +95,17 @@ namespace TestingWinForms
             this.Close();
         }
 
+        private Font FontFromBinaryString(string fontData)
+        {
+            byte[] binaryData = Convert.FromBase64String(fontData);
+
+            using (MemoryStream stream = new MemoryStream(binaryData))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                return (Font)formatter.Deserialize(stream);
+            }
+        }
+
         private void ThankYouScreen_Load(object sender, EventArgs e)
         {
             if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
@@ -121,6 +133,15 @@ namespace TestingWinForms
                         labelEndMessage.Location = new Point((this.ClientSize.Width - labelEndMessage.Width) / 2, (this.ClientSize.Height - labelEndMessage.Height) / 2);
                         btnMain.Location = new Point((this.ClientSize.Width - btnMain.Width) / 2, labelEndMessage.Bottom + 20);
 
+                    }
+                    if (values[5] != null)
+                    {
+                        // Load the font data from the CSV
+                        string fontEndSurvey = values[5]; // Assuming font data is at index 5
+                        // Deserialize the font from the font data
+                        Font loadedFontEndSurvey = FontFromBinaryString(fontEndSurvey);
+                        // Apply the font to the label or control of your choice
+                        labelEndMessage.Font = loadedFontEndSurvey;
                     }
                 }
             }

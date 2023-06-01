@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.IO;
 using Microsoft.VisualBasic.FileIO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace TestingWinForms
 {
@@ -182,6 +183,17 @@ namespace TestingWinForms
             horizontalLine = new Rectangle(x, y, squareSize, squareSize / 2);
         }
 
+        private Font FontFromBinaryString(string fontData)
+        {
+            byte[] binaryData = Convert.FromBase64String(fontData);
+
+            using (MemoryStream stream = new MemoryStream(binaryData))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                return (Font)formatter.Deserialize(stream);
+            }
+        }
+
         private void LoadTableFromCSV()
         {
             if (File.Exists(GlobalVariables.csvAdminTableFilePath))
@@ -206,7 +218,7 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 5)
+                    if (values.Length == 7)
                     {
                         labelTitle.Text = values[0];
                         labelXAxis.Text = values[1];
@@ -261,6 +273,15 @@ namespace TestingWinForms
 
                         existingColour = ColorTranslator.FromHtml(values[3]);
                         selectedColour = ColorTranslator.FromHtml(values[4]);
+
+                        string fontTitle = values[5]; 
+                        Font loadedFontTitle = FontFromBinaryString(fontTitle);
+                        labelTitle.Font = loadedFontTitle;
+                        
+                        string fontXYaxis = values[6]; 
+                        Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
+                        labelXAxis.Font = loadedFontXYaxis;
+                        labelYAxis.Font = loadedFontXYaxis;
 
                     }
                 }
@@ -499,6 +520,7 @@ namespace TestingWinForms
                     e.Graphics.FillEllipse(Brushes.Red, dotX, dotY, dotSize, dotSize);
                 }
             }
+
         }
 
         private void nextButton_Click(object sender, EventArgs e)
