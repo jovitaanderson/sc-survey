@@ -59,9 +59,9 @@
             this.questionLabel.AutoSize = true;
             this.questionLabel.BackColor = System.Drawing.Color.Transparent;
             this.questionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.questionLabel.Location = new System.Drawing.Point(501, 181);
+            this.questionLabel.Location = new System.Drawing.Point(557, 227);
             this.questionLabel.Name = "questionLabel";
-            this.questionLabel.Size = new System.Drawing.Size(171, 46);
+            this.questionLabel.Size = new System.Drawing.Size(206, 55);
             this.questionLabel.TabIndex = 4;
             this.questionLabel.Text = "question";
             // 
@@ -69,12 +69,12 @@
             // 
             this.submitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.submitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.submitButton.Location = new System.Drawing.Point(624, 196);
+            this.submitButton.Location = new System.Drawing.Point(704, 244);
             this.submitButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.submitButton.Name = "submitButton";
-            this.submitButton.Size = new System.Drawing.Size(133, 46);
+            this.submitButton.Size = new System.Drawing.Size(150, 58);
             this.submitButton.TabIndex = 5;
-            this.submitButton.Text = "Submit";
+            this.submitButton.Text = "Next";
             this.submitButton.UseVisualStyleBackColor = true;
             this.submitButton.Click += new System.EventHandler(this.submitButton_Click);
             // 
@@ -84,10 +84,10 @@
             this.optionACheckBox.AutoSize = true;
             this.optionACheckBox.BackColor = System.Drawing.Color.Transparent;
             this.optionACheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionACheckBox.Location = new System.Drawing.Point(353, -32);
+            this.optionACheckBox.Location = new System.Drawing.Point(398, -40);
             this.optionACheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.optionACheckBox.Name = "optionACheckBox";
-            this.optionACheckBox.Size = new System.Drawing.Size(241, 50);
+            this.optionACheckBox.Size = new System.Drawing.Size(286, 59);
             this.optionACheckBox.TabIndex = 6;
             this.optionACheckBox.Text = "checkBox1";
             this.optionACheckBox.UseVisualStyleBackColor = false;
@@ -98,10 +98,10 @@
             this.optionBCheckBox.AutoSize = true;
             this.optionBCheckBox.BackColor = System.Drawing.Color.Transparent;
             this.optionBCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionBCheckBox.Location = new System.Drawing.Point(353, 22);
+            this.optionBCheckBox.Location = new System.Drawing.Point(398, 28);
             this.optionBCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.optionBCheckBox.Name = "optionBCheckBox";
-            this.optionBCheckBox.Size = new System.Drawing.Size(241, 50);
+            this.optionBCheckBox.Size = new System.Drawing.Size(286, 59);
             this.optionBCheckBox.TabIndex = 7;
             this.optionBCheckBox.Text = "checkBox2";
             this.optionBCheckBox.UseVisualStyleBackColor = false;
@@ -112,10 +112,10 @@
             this.optionCCheckBox.AutoSize = true;
             this.optionCCheckBox.BackColor = System.Drawing.Color.Transparent;
             this.optionCCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionCCheckBox.Location = new System.Drawing.Point(352, 76);
+            this.optionCCheckBox.Location = new System.Drawing.Point(397, 95);
             this.optionCCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.optionCCheckBox.Name = "optionCCheckBox";
-            this.optionCCheckBox.Size = new System.Drawing.Size(241, 50);
+            this.optionCCheckBox.Size = new System.Drawing.Size(286, 59);
             this.optionCCheckBox.TabIndex = 8;
             this.optionCCheckBox.Text = "checkBox3";
             this.optionCCheckBox.UseVisualStyleBackColor = false;
@@ -126,10 +126,10 @@
             this.optionDCheckBox.AutoSize = true;
             this.optionDCheckBox.BackColor = System.Drawing.Color.Transparent;
             this.optionDCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionDCheckBox.Location = new System.Drawing.Point(352, 130);
+            this.optionDCheckBox.Location = new System.Drawing.Point(397, 162);
             this.optionDCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.optionDCheckBox.Name = "optionDCheckBox";
-            this.optionDCheckBox.Size = new System.Drawing.Size(241, 50);
+            this.optionDCheckBox.Size = new System.Drawing.Size(286, 59);
             this.optionDCheckBox.TabIndex = 9;
             this.optionDCheckBox.Text = "checkBox4";
             this.optionDCheckBox.UseVisualStyleBackColor = false;
@@ -140,10 +140,10 @@
             this.optionECheckBox.AutoSize = true;
             this.optionECheckBox.BackColor = System.Drawing.Color.Transparent;
             this.optionECheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionECheckBox.Location = new System.Drawing.Point(352, 184);
+            this.optionECheckBox.Location = new System.Drawing.Point(397, 230);
             this.optionECheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.optionECheckBox.Name = "optionECheckBox";
-            this.optionECheckBox.Size = new System.Drawing.Size(241, 50);
+            this.optionECheckBox.Size = new System.Drawing.Size(286, 59);
             this.optionECheckBox.TabIndex = 10;
             this.optionECheckBox.Text = "checkBox5";
             this.optionECheckBox.UseVisualStyleBackColor = false;
@@ -154,10 +154,10 @@
             this.optionFCheckBox.AutoSize = true;
             this.optionFCheckBox.BackColor = System.Drawing.Color.Transparent;
             this.optionFCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionFCheckBox.Location = new System.Drawing.Point(352, 238);
+            this.optionFCheckBox.Location = new System.Drawing.Point(397, 298);
             this.optionFCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.optionFCheckBox.Name = "optionFCheckBox";
-            this.optionFCheckBox.Size = new System.Drawing.Size(241, 50);
+            this.optionFCheckBox.Size = new System.Drawing.Size(286, 59);
             this.optionFCheckBox.TabIndex = 11;
             this.optionFCheckBox.Text = "checkBox6";
             this.optionFCheckBox.UseVisualStyleBackColor = false;
@@ -168,10 +168,10 @@
             this.optionGCheckBox.AutoSize = true;
             this.optionGCheckBox.BackColor = System.Drawing.Color.Transparent;
             this.optionGCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionGCheckBox.Location = new System.Drawing.Point(352, 292);
+            this.optionGCheckBox.Location = new System.Drawing.Point(397, 365);
             this.optionGCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.optionGCheckBox.Name = "optionGCheckBox";
-            this.optionGCheckBox.Size = new System.Drawing.Size(241, 50);
+            this.optionGCheckBox.Size = new System.Drawing.Size(286, 59);
             this.optionGCheckBox.TabIndex = 12;
             this.optionGCheckBox.Text = "checkBox7";
             this.optionGCheckBox.UseVisualStyleBackColor = false;
@@ -182,10 +182,10 @@
             this.optionHCheckBox.AutoSize = true;
             this.optionHCheckBox.BackColor = System.Drawing.Color.Transparent;
             this.optionHCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionHCheckBox.Location = new System.Drawing.Point(353, 346);
+            this.optionHCheckBox.Location = new System.Drawing.Point(398, 432);
             this.optionHCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.optionHCheckBox.Name = "optionHCheckBox";
-            this.optionHCheckBox.Size = new System.Drawing.Size(241, 50);
+            this.optionHCheckBox.Size = new System.Drawing.Size(286, 59);
             this.optionHCheckBox.TabIndex = 13;
             this.optionHCheckBox.Text = "checkBox8";
             this.optionHCheckBox.UseVisualStyleBackColor = false;
@@ -196,9 +196,10 @@
             this.optionARadioButton.AutoSize = true;
             this.optionARadioButton.BackColor = System.Drawing.Color.Transparent;
             this.optionARadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionARadioButton.Location = new System.Drawing.Point(352, -32);
+            this.optionARadioButton.Location = new System.Drawing.Point(397, -40);
+            this.optionARadioButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.optionARadioButton.Name = "optionARadioButton";
-            this.optionARadioButton.Size = new System.Drawing.Size(268, 50);
+            this.optionARadioButton.Size = new System.Drawing.Size(322, 59);
             this.optionARadioButton.TabIndex = 14;
             this.optionARadioButton.TabStop = true;
             this.optionARadioButton.Text = "radioButton1";
@@ -210,9 +211,10 @@
             this.optionBRadioButton.AutoSize = true;
             this.optionBRadioButton.BackColor = System.Drawing.Color.Transparent;
             this.optionBRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionBRadioButton.Location = new System.Drawing.Point(352, 24);
+            this.optionBRadioButton.Location = new System.Drawing.Point(397, 30);
+            this.optionBRadioButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.optionBRadioButton.Name = "optionBRadioButton";
-            this.optionBRadioButton.Size = new System.Drawing.Size(268, 50);
+            this.optionBRadioButton.Size = new System.Drawing.Size(322, 59);
             this.optionBRadioButton.TabIndex = 15;
             this.optionBRadioButton.TabStop = true;
             this.optionBRadioButton.Text = "radioButton2";
@@ -224,9 +226,10 @@
             this.optionERadioButton.AutoSize = true;
             this.optionERadioButton.BackColor = System.Drawing.Color.Transparent;
             this.optionERadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionERadioButton.Location = new System.Drawing.Point(352, 179);
+            this.optionERadioButton.Location = new System.Drawing.Point(397, 224);
+            this.optionERadioButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.optionERadioButton.Name = "optionERadioButton";
-            this.optionERadioButton.Size = new System.Drawing.Size(268, 50);
+            this.optionERadioButton.Size = new System.Drawing.Size(322, 59);
             this.optionERadioButton.TabIndex = 16;
             this.optionERadioButton.TabStop = true;
             this.optionERadioButton.Text = "radioButton5";
@@ -238,9 +241,10 @@
             this.optionFRadioButton.AutoSize = true;
             this.optionFRadioButton.BackColor = System.Drawing.Color.Transparent;
             this.optionFRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionFRadioButton.Location = new System.Drawing.Point(352, 235);
+            this.optionFRadioButton.Location = new System.Drawing.Point(397, 294);
+            this.optionFRadioButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.optionFRadioButton.Name = "optionFRadioButton";
-            this.optionFRadioButton.Size = new System.Drawing.Size(268, 50);
+            this.optionFRadioButton.Size = new System.Drawing.Size(322, 59);
             this.optionFRadioButton.TabIndex = 17;
             this.optionFRadioButton.TabStop = true;
             this.optionFRadioButton.Text = "radioButton6";
@@ -252,9 +256,10 @@
             this.optionGRadioButton.AutoSize = true;
             this.optionGRadioButton.BackColor = System.Drawing.Color.Transparent;
             this.optionGRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionGRadioButton.Location = new System.Drawing.Point(352, 291);
+            this.optionGRadioButton.Location = new System.Drawing.Point(397, 364);
+            this.optionGRadioButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.optionGRadioButton.Name = "optionGRadioButton";
-            this.optionGRadioButton.Size = new System.Drawing.Size(268, 50);
+            this.optionGRadioButton.Size = new System.Drawing.Size(322, 59);
             this.optionGRadioButton.TabIndex = 18;
             this.optionGRadioButton.TabStop = true;
             this.optionGRadioButton.Text = "radioButton7";
@@ -266,9 +271,10 @@
             this.optionHRadioButton.AutoSize = true;
             this.optionHRadioButton.BackColor = System.Drawing.Color.Transparent;
             this.optionHRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionHRadioButton.Location = new System.Drawing.Point(352, 350);
+            this.optionHRadioButton.Location = new System.Drawing.Point(397, 438);
+            this.optionHRadioButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.optionHRadioButton.Name = "optionHRadioButton";
-            this.optionHRadioButton.Size = new System.Drawing.Size(268, 50);
+            this.optionHRadioButton.Size = new System.Drawing.Size(322, 59);
             this.optionHRadioButton.TabIndex = 19;
             this.optionHRadioButton.TabStop = true;
             this.optionHRadioButton.Text = "radioButton8";
@@ -280,9 +286,10 @@
             this.optionDRadioButton.AutoSize = true;
             this.optionDRadioButton.BackColor = System.Drawing.Color.Transparent;
             this.optionDRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionDRadioButton.Location = new System.Drawing.Point(352, 130);
+            this.optionDRadioButton.Location = new System.Drawing.Point(397, 162);
+            this.optionDRadioButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.optionDRadioButton.Name = "optionDRadioButton";
-            this.optionDRadioButton.Size = new System.Drawing.Size(268, 50);
+            this.optionDRadioButton.Size = new System.Drawing.Size(322, 59);
             this.optionDRadioButton.TabIndex = 20;
             this.optionDRadioButton.TabStop = true;
             this.optionDRadioButton.Text = "radioButton4";
@@ -294,9 +301,10 @@
             this.optionCRadioButton.AutoSize = true;
             this.optionCRadioButton.BackColor = System.Drawing.Color.Transparent;
             this.optionCRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionCRadioButton.Location = new System.Drawing.Point(352, 77);
+            this.optionCRadioButton.Location = new System.Drawing.Point(397, 96);
+            this.optionCRadioButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.optionCRadioButton.Name = "optionCRadioButton";
-            this.optionCRadioButton.Size = new System.Drawing.Size(268, 50);
+            this.optionCRadioButton.Size = new System.Drawing.Size(322, 59);
             this.optionCRadioButton.TabIndex = 21;
             this.optionCRadioButton.TabStop = true;
             this.optionCRadioButton.Text = "radioButton3";
@@ -308,9 +316,9 @@
             this.labelMCQorMRQ.AutoSize = true;
             this.labelMCQorMRQ.BackColor = System.Drawing.Color.Transparent;
             this.labelMCQorMRQ.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMCQorMRQ.Location = new System.Drawing.Point(471, 110);
+            this.labelMCQorMRQ.Location = new System.Drawing.Point(526, 138);
             this.labelMCQorMRQ.Name = "labelMCQorMRQ";
-            this.labelMCQorMRQ.Size = new System.Drawing.Size(232, 32);
+            this.labelMCQorMRQ.Size = new System.Drawing.Size(268, 38);
             this.labelMCQorMRQ.TabIndex = 22;
             this.labelMCQorMRQ.Text = "labelMCQorMRQ";
             this.labelMCQorMRQ.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -338,9 +346,10 @@
             this.panel1.Controls.Add(this.optionHCheckBox);
             this.panel1.Controls.Add(this.optionBRadioButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(103, 259);
+            this.panel1.Location = new System.Drawing.Point(115, 324);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(968, 359);
+            this.panel1.Size = new System.Drawing.Size(1091, 448);
             this.panel1.TabIndex = 23;
             // 
             // tableLayoutPanel1
@@ -354,20 +363,21 @@
             this.tableLayoutPanel1.Controls.Add(this.questionLabel, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(100);
+            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(112, 125, 112, 125);
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1174, 721);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1321, 901);
             this.tableLayoutPanel1.TabIndex = 24;
             // 
             // QuestionForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1174, 721);
+            this.ClientSize = new System.Drawing.Size(1321, 901);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "QuestionForm";

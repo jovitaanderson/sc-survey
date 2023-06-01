@@ -467,13 +467,20 @@ namespace TestingWinForms
 
                         if (checkBox.Checked)
                         {
+                            checkBox.Paint -= CheckBox_Paint; // Unsubscribe from the previous Paint event handler
+                            checkBox.Paint += CheckBox_Paint; // Subscribe to the new Paint event handler
+                            //checkBox.BackColor = Color.Green;
                             checkboxValues[checkboxName] = checkBox.Text;
                         }
                         else
                         {
+                            checkBox.Paint -= CheckBox_Paint; // Unsubscribe from the Paint event handler
+                            //checkBox.BackColor = Color.Transparent;
                             checkboxValues[checkboxName] = " ";
                         }
                     }
+
+
 
                     // Recursively loop through child controls if the control is a container control
                     if (control.Controls.Count > 0)
@@ -483,26 +490,25 @@ namespace TestingWinForms
                 }
             }
 
-            /*// Loop through the checkboxes on the form
-            foreach (Control control in this.Controls)
-            {
-                if (control is CheckBox checkbox && checkbox.Name.StartsWith("option"))
-                {
-                    // Extract the checkbox name (e.g., optionA, optionB, etc.)
-                    string checkboxName = checkbox.Name.Replace("CheckBox", "");
-
-                    if (checkbox.Checked)
-                    {
-                        checkboxValues[checkboxName] = checkbox.Text;
-                    }
-                    else
-                    {
-                        checkboxValues[checkboxName] = " ";
-                    }
-                }
-            }*/
-
         }
+
+        private void CheckBox_Paint(object sender, PaintEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+
+            // Set the background color with transparency
+            Color backgroundColor = Color.FromArgb(100, Color.Green);
+
+            // Create a brush with the translucent background color
+            Brush brush = new SolidBrush(backgroundColor);
+
+            // Draw the background
+            e.Graphics.FillRectangle(brush, checkBox.ClientRectangle);
+
+            // Clean up resources
+            brush.Dispose();
+        }
+
 
         //for radio buttons
         private void RadioButton_CheckedChanged(object sender, EventArgs e)
@@ -522,10 +528,15 @@ namespace TestingWinForms
 
                         if (radioButton.Checked)
                         {
+                            radioButton.Paint -= RadioButton_Paint; // Unsubscribe from the previous Paint event handler
+                            radioButton.Paint += RadioButton_Paint; // Subscribe to the new Paint event handler
+                            radioButton.BackColor = Color.Transparent;
                             checkboxValues[radioButtonName] = radioButton.Text;
                         }
                         else
                         {
+                            radioButton.Paint -= RadioButton_Paint; // Unsubscribe from the Paint event handler
+                            radioButton.BackColor = Color.Transparent;
                             checkboxValues[radioButtonName] = " ";
                         }
                     }
@@ -537,26 +548,25 @@ namespace TestingWinForms
                     }
                 }
             }
-
-            /*// Loop through the radio buttons on the form
-            foreach (Control control in this.Controls)
-            {
-                if (control is RadioButton radioButton && radioButton.Name.StartsWith("option"))
-                {
-                    // Extract the radio button name (e.g., optionA, optionB, etc.)
-                    string radioButtonName = radioButton.Name.Replace("RadioButton", "");
-
-                    if (radioButton.Checked)
-                    {
-                        checkboxValues[radioButtonName] = radioButton.Text;
-                    }
-                    else
-                    {
-                        checkboxValues[radioButtonName] = " ";
-                    }
-                }
-            }*/
         }
+
+        private void RadioButton_Paint(object sender, PaintEventArgs e)
+        {
+            RadioButton radioButton = (RadioButton)sender;
+
+            // Set the background color with transparency
+            Color backgroundColor = Color.FromArgb(100, Color.Green);
+
+            // Create a brush with the translucent background color
+            Brush brush = new SolidBrush(backgroundColor);
+
+            // Draw the background
+            e.Graphics.FillRectangle(brush, radioButton.ClientRectangle);
+
+            // Clean up resources
+            brush.Dispose();
+        }
+
 
         private void saveAnswersToArray() {
 

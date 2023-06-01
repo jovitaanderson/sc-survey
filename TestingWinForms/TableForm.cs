@@ -56,6 +56,8 @@ namespace TestingWinForms
             string downloadPath = Path.Combine(rootPath, "downloads");
             string developerPath = Path.Combine(rootPath, "ForDevelopersOnly");
 
+            nextButton.Visible = false;
+
             // Create the directory if it doesn't exist
             if (!Directory.Exists(adminPath))
             {
@@ -209,28 +211,53 @@ namespace TestingWinForms
                         labelTitle.Text = values[0];
                         labelXAxis.Text = values[1];
                         labelYAxis.Text = values[2];
+                        //labelTitle.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+                        //labelXAxis.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+                        //labelYAxis.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+                        //labelXAxis2.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+                        //labelYAxis2.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
 
+                        int maxWidthTitle = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.25);
+                        int maxWidthAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.40);
+
+                        // Title 
+                        labelTitle.AutoSize = true;
+                        labelTitle.MaximumSize = new Size(maxWidthTitle, 0);
+                        labelTitle.MinimumSize = new Size(maxWidthTitle, 0);
+                        labelTitle.TextAlign = ContentAlignment.MiddleLeft;
+
+                        // Left y axis label
                         labelYAxis.AutoSize = true;
                         labelYAxis.MaximumSize = new Size(300, 0);
                         labelYAxis.MinimumSize = new Size(300, 0);
-                        labelYAxis.TextAlign = ContentAlignment.TopCenter;
+                        labelYAxis.TextAlign = ContentAlignment.MiddleCenter;
+                        labelYAxis.Left = (this.ClientSize.Width - drawingArea.Width - labelYAxis.Width ) / 2;
+                        labelYAxis.Top = (this.ClientSize.Height - labelYAxis.Height) / 2;
 
-                        int maxWidth = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.75);
+                        // Right y axis label
+                        labelYAxis2.AutoSize = true;
+                        labelYAxis2.MaximumSize = new Size(300, 0);
+                        labelYAxis2.MinimumSize = new Size(300, 0);
+                        labelYAxis2.TextAlign = ContentAlignment.MiddleCenter;
+                        //labelYAxis2.Left = (this.ClientSize.Width/2) + (drawingArea.Width/2);
+                        labelYAxis2.Top = (this.ClientSize.Height - labelYAxis2.Height) / 2;
 
+
+                        // Top x axis label
+                        labelXAxis2.AutoSize = true;
+                        labelXAxis2.MaximumSize = new Size(maxWidthAxis, 0);
+                        labelXAxis2.MinimumSize = new Size(maxWidthAxis, 0);
+                        labelXAxis2.TextAlign = ContentAlignment.TopCenter;
+                        labelXAxis2.Left = (this.ClientSize.Width - labelXAxis2.Width) / 2;
+
+
+                        // Bottom x axis label
                         labelXAxis.AutoSize = true;
-                        labelXAxis.MaximumSize = new Size(maxWidth, 0);
-                        labelXAxis.MinimumSize = new Size(maxWidth, 0);
+                        labelXAxis.MaximumSize = new Size(maxWidthAxis, 0);
+                        labelXAxis.MinimumSize = new Size(maxWidthAxis, 0);
                         labelXAxis.TextAlign = ContentAlignment.TopCenter;
-
-                        labelTitle.AutoSize = true;
-                        labelTitle.MaximumSize = new Size(maxWidth, 0);
-                        labelTitle.MinimumSize = new Size(maxWidth, 0);
-                        labelTitle.TextAlign = ContentAlignment.TopCenter;
-
-                        labelTitle.Left = (this.ClientSize.Width - labelTitle.Width) / 2;
                         labelXAxis.Left = (this.ClientSize.Width - labelXAxis.Width) / 2;
 
-                        
 
                         existingColour = ColorTranslator.FromHtml(values[3]);
                         selectedColour = ColorTranslator.FromHtml(values[4]);
@@ -368,7 +395,7 @@ namespace TestingWinForms
                 MessageBox.Show("Please set details in admin page and save!");
             } else if (string.IsNullOrWhiteSpace(File.ReadAllText(GlobalVariables.csvAdminQuestionsFilePath)))
             {
-                
+
                 MessageBox.Show("Please set questions in admin page and save!");
             }
             else
@@ -394,9 +421,9 @@ namespace TestingWinForms
                     Refresh(); // Redraw the form to display the dots
                     SavePointToCSV(point);
                     hasClicked = true;
-                    //Thread.Sleep(timerToShowAllPoints);
                     Refresh();
-                    timer = new System.Threading.Timer(OnTimerElapsed, null, timerToQuestionPage, Timeout.Infinite); // Start the timer for x seconds
+                    nextButton.Visible = true;
+                    //timer = new System.Threading.Timer(OnTimerElapsed, null, timerToQuestionPage, Timeout.Infinite); // Start the timer for x seconds
                 }
             }
             
@@ -474,5 +501,13 @@ namespace TestingWinForms
             }
         }
 
+        private void nextButton_Click(object sender, EventArgs e)
+        {
+            hasClicked = false;
+            QuestionForm newForm = new QuestionForm(lastRowNumber); // Navigate to a new page
+            newForm.Show();
+            nextButton.Visible = false;
+            this.Hide();
+        }
     }
 }
