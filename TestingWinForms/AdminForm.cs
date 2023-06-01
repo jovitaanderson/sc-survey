@@ -15,8 +15,8 @@ namespace TestingWinForms
     {
         private string dateFormat = "dd/MM/yyyy HH:mm:ss";
 
-        private int[] xAxisIntervalCounts = new int[21];  // Array to store the count of values from 0 to 10 (inclusive) with intervals of 0.5 for roundedFirstValue
-        private int[] yAxisIntervalCounts = new int[21]; // Array to store the count of values from 0 to 10 (inclusive) with intervals of 0.5 for roundedSecondValue
+        private int[] xAxisIntervalCounts = new int[41];  // Array to store the count of values from 0 to 10 (inclusive) with intervals of 0.5 for roundedFirstValue
+        private int[] yAxisIntervalCounts = new int[41]; // Array to store the count of values from 0 to 10 (inclusive) with intervals of 0.5 for roundedSecondValue
 
         private int questionsNumber = 3;
         int[] responsesCount;
@@ -762,7 +762,7 @@ namespace TestingWinForms
                 string dateString = currentDate.ToString("dd-MM-yyyy");
                 string timeString = currentDate.ToString("HHmmss");
 
-                saveFileDialog.FileName = $"{dateString}_{timeString}.csv";
+                saveFileDialog.FileName = $"CON_{dateString}_{timeString}.csv";
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -1000,8 +1000,8 @@ namespace TestingWinForms
         private List<string> countAndAnalyzePointsInterval(List<string> roundedPoints) {
 
             int numOfResponses = roundedPoints.Count;
-            double[] percentageCountX = new double[21]; 
-            double[] percentageCountY = new double[21];
+            double[] percentageCountX = new double[41]; 
+            double[] percentageCountY = new double[41];
             float totalX = 0;
             float totalY = 0;
 
@@ -1031,23 +1031,23 @@ namespace TestingWinForms
                         int y_axis = (int)(roundedSecondValue * 2);
                         totalX += roundedFirstValue;
                         totalY += roundedSecondValue;
-                        xAxisIntervalCounts[x_axis]++;
-                        yAxisIntervalCounts[y_axis]++;
+                        xAxisIntervalCounts[x_axis+20]++;
+                        yAxisIntervalCounts[y_axis+20]++;
                     }
                 }
             }
 
             //Calculate % of responses
-            for (int i = 0; i < 21; i++)
+            for (int i = 0; i < 41; i++)
             {
                 percentageCountX[i] = ((double)xAxisIntervalCounts[i] / numOfResponses) * 100;
                 percentageCountY[i] = ((double)yAxisIntervalCounts[i] / numOfResponses) * 100;
             }
 
             // Output the counts
-            for (int i = 0; i < 21; i++)
+            for (int i = 0; i < 41; i++)
             {
-                float value = i / 2f;
+                float value = (i / 2f) - 10;
                 //pointsConslidatedFormat.Add($"{value},{xAxisIntervalCounts[i]},{yAxisIntervalCounts[i]}");
                 //conslidatedPercentagePoint.Add($"{value},{percentageCountX[i]},{percentageCountY[i]}%");
                 combinedData.Add($"{value},{xAxisIntervalCounts[i]},{yAxisIntervalCounts[i]},,,{value},{percentageCountX[i]}%,{percentageCountY[i]}%");
@@ -1539,7 +1539,7 @@ namespace TestingWinForms
                 string dateString = currentDate.ToString("dd-MM-yyyy");
                 string timeString = currentDate.ToString("HHmmss");
 
-                saveFileDialog.FileName = $"{dateString}_{timeString}.csv";
+                saveFileDialog.FileName = $"ALL_{dateString}_{timeString}.csv";
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -1663,6 +1663,42 @@ namespace TestingWinForms
 
         private void btnDownloadRawData_Click(object sender, EventArgs e)
         {
+            // Specify the path of the existing CSV file
+            string sourceFilePath = GlobalVariables.csvRawDataFilePath;
+
+            // Create a SaveFileDialog to prompt the user to choose a save location
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV Files|*.csv";
+
+            // Get the current date and time
+            DateTime currentDate = DateTime.Now;
+
+            // Format the date and time as strings
+            string dateString = currentDate.ToString("dd-MM-yyyy");
+            string timeString = currentDate.ToString("HHmmss");
+
+            saveFileDialog.FileName = $"RAW_{dateString}_{timeString}.csv";
+
+            // Show the SaveFileDialog and check if the user clicked the OK button
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Get the selected file path
+                string destinationFilePath = saveFileDialog.FileName;
+
+                try
+                {
+                    // Copy the existing CSV file to the selected location
+                    File.Copy(sourceFilePath, destinationFilePath);
+
+                    // Display a success message
+                    MessageBox.Show("File downloaded successfully!");
+                }
+                catch (Exception ex)
+                {
+                    // Display an error message if the file copy fails
+                    MessageBox.Show("An error occurred while downloading the file: " + ex.Message);
+                }
+            }
 
         }
 

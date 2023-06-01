@@ -308,14 +308,19 @@ namespace TestingWinForms
                 if (lines.Length > 0)
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
-
-                    if (values[3] != null)
+                    if (values.Length >= 4)
                     {
-                        string imagePath = Path.Combine(values[3]);
-                        return imagePath;
-                    } 
-                    else
-                    {
+                        if (values[3] != null)
+                        {
+                            string imagePath = Path.Combine(values[3]);
+                            return imagePath;
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                    else {
                         return null;
                     }
                 }
