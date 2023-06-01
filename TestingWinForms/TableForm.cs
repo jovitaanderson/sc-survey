@@ -282,6 +282,8 @@ namespace TestingWinForms
                         Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
                         labelXAxis.Font = loadedFontXYaxis;
                         labelYAxis.Font = loadedFontXYaxis;
+                        labelXAxis2.Font = loadedFontXYaxis;
+                        labelYAxis2.Font = loadedFontXYaxis;
 
                     }
                 }
