@@ -151,17 +151,18 @@ namespace TestingWinForms
         {
             TextBox textBox = (TextBox)sender;
             // Adjust the height of the text box based on the preferred height and the fixed height
-            textBox.Height = TextRenderer.MeasureText("A", textBox.Font).Height * 2; 
+            textBox.Height = TextRenderer.MeasureText("A", textBox.Font).Height * 2;
         }
 
 
-        
+
 
         private void ClearCSVFiles()
         {
             try
             {
                 File.WriteAllText(GlobalVariables.csvAdminQuestionsFilePath, string.Empty);
+                File.WriteAllText(GlobalVariables.csvAdminFontFilePath, string.Empty);
                 File.WriteAllText(GlobalVariables.csvAdminTableFilePath, string.Empty);
                 File.WriteAllText(GlobalVariables.csvAdminAdvanceFilePath, string.Empty);
             }
@@ -189,6 +190,18 @@ namespace TestingWinForms
         {
             string pictureBoxName = "pictureBoxQ" + (pictureBoxIndex + 1);
             return Controls.Find(pictureBoxName, true).FirstOrDefault() as PictureBox;
+        }
+
+        private Label GetQuestionFontLabel(int labelIndex)
+        {
+            string labelName = "sampleLabelQ" + (labelIndex + 1);
+            return Controls.Find(labelName, true).FirstOrDefault() as Label;
+        }
+
+        private Label GetAnswerFontLabel(int questionIndex, int answerIndex)
+        {
+            string labelName = "sampleLabelA" + (questionIndex + 1) + (answerIndex + 1);
+            return Controls.Find(labelName, true).FirstOrDefault() as Label;
         }
 
         // Helper method to retrieve the answer TextBox based on the question and answer indices
@@ -259,11 +272,15 @@ namespace TestingWinForms
             List<string> types = new List<string>();
             List<string> imagePaths = new List<string>();
 
+            List<string> fontQuestions = new List<string>();
+            List<List<string>> fontAnswers = new List<List<string>>();
+
             // Loop through the questions
             for (int i = 0; i < questionsNumber; i++)
             {
                 // Get the question text
                 TextBox textBoxQuestion = GetQuestionTextBox(i);
+                Label sampleLabel = GetQuestionFontLabel(i);
                 ComboBox comboBox = GetQuestionComboBox(i);
 
                 // Get the image from the PictureBox
@@ -307,7 +324,10 @@ namespace TestingWinForms
                 if (!string.IsNullOrWhiteSpace(textBoxQuestion.Text))
                 {
                     questions.Add(textBoxQuestion.Text);
+                    fontQuestions.Add(FontToBinaryString(sampleLabel.Font));
 
+                    // Get the answer fonts
+                    List<string> answerFonts = new List<string>();
                     // Get the answer texts
                     List<string> answerOptions = new List<string>();
                     for (int j = 0; j < optionsNumber; j++)
@@ -315,8 +335,12 @@ namespace TestingWinForms
                         TextBox textBoxAnswer = GetAnswerTextBox(i, j);
                         string answer = textBoxAnswer.Text;
                         answerOptions.Add(answer);
+
+                        Label answerLabel = GetAnswerFontLabel(i, j);
+                        answerFonts.Add(FontToBinaryString(answerLabel.Font));
                     }
                     answers.Add(answerOptions);
+                    fontAnswers.Add(answerFonts);
 
                     //Add type of questions
                     if (comboBox.Text == "")
@@ -339,10 +363,13 @@ namespace TestingWinForms
                 string type = types[i];
                 List<string> answerOptions = answers[i];
                 string imagePath = imagePaths[i];
+                string fontQuestion = fontQuestions[i];
+                List<string> fontAnswer = fontAnswers[i];
 
                 // Concatenate the data into comma-separated rows
                 string rowData = string.Format("{0},{1},{2},{3}", imagePath, question, type, string.Join(",", answerOptions));
 
+               
                 // Append the rows to the CSV file
                 while (true)
                 {
@@ -351,6 +378,27 @@ namespace TestingWinForms
                         using (StreamWriter sw = new StreamWriter(GlobalVariables.csvAdminQuestionsFilePath, true))
                         {
                             sw.WriteLine(rowData);
+                        }
+                        break;
+                    }
+                    catch (IOException ex)
+                    {
+
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
+                //Concat the font data into FONT csv
+                string rowFontData = string.Format("{0},{1}", fontQuestion, string.Join(",", fontAnswer));
+
+                // Append the rows to the CSV file
+                while (true)
+                {
+                    try
+                    {
+                        using (StreamWriter sw = new StreamWriter(GlobalVariables.csvAdminFontFilePath, true))
+                        {
+                            sw.WriteLine(rowFontData);
                         }
                         break;
                     }
@@ -517,6 +565,7 @@ namespace TestingWinForms
             {
                 TabPage tabPage = tabControl.TabPages[i + 3];
                 LoadQuestionData(tabPage, GlobalVariables.csvAdminQuestionsFilePath, i);
+                LoadFontData(tabPage, GlobalVariables.csvAdminFontFilePath, i);
             }
         }
 
@@ -608,7 +657,7 @@ namespace TestingWinForms
         {
             if (File.Exists(csvFilePath)) 
             {
-                string[] lines = File.ReadAllLines(csvFilePath);
+                string[] lines;
                 while (true)
                 {
                     try
@@ -647,6 +696,43 @@ namespace TestingWinForms
                             questionPictureBox.Image = image;
                         }
 
+                    }
+                }
+            }
+        }
+
+        private void LoadFontData(TabPage tabPage, string csvFilePath, int questionIndex)
+        {
+            if (File.Exists(csvFilePath))
+            {
+                string[] lines;
+                while (true)
+                {
+                    try
+                    {
+                        lines = File.ReadAllLines(csvFilePath);
+                        break;
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
+                if (lines.Length > questionIndex)
+                {
+                    string[] values = lines[questionIndex].Split(',');
+
+                    Label sampleQuestionLabels = tabPage.Controls.OfType<Label>().FirstOrDefault(c => c.Name.StartsWith("sampleLabelQ"));
+                    Label[] sampleAnswerLabels = tabPage.Controls.OfType<Label>().Where(c => c.Name.StartsWith("sampleLabelA" + (questionIndex + 1))).ToArray();
+                   
+                    if (sampleQuestionLabels != null && sampleAnswerLabels.Length == optionsNumber)
+                    {
+                        sampleQuestionLabels.Font = FontFromBinaryString(values[0]);
+                        for (int i = values.Length - 1; i >= 1; i--)
+                        {
+                            sampleAnswerLabels[values.Length - 1 - i].Font = FontFromBinaryString(values[i]);
+                        }
                     }
                 }
             }
@@ -1672,6 +1758,291 @@ namespace TestingWinForms
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelEndText.Font = fontDialog.Font;
+            }
+        }
+
+        // helper method to change font dynamically
+        private void btnChangeFont_Click(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            string buttonName = clickedButton.Name;
+
+            if (buttonName.StartsWith("btnChangeQ"))
+            {
+                // Button name starts with "btnChangeQ"
+                // Handle logic for "Q" buttons
+                string lastDigit = buttonName.Substring(buttonName.Length - 1);
+                string labelName = "sampleLabelQ" + lastDigit;
+
+                FontDialog fontDialog = new FontDialog();
+                if (fontDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Control[] labels = this.Controls.Find(labelName, true);
+                    if (labels.Length > 0 && labels[0] is Label label)
+                    {
+                        label.Font = fontDialog.Font;
+                    }
+                }
+            }
+            else if (buttonName.StartsWith("btnChangeA"))
+            {
+                // Button name starts with "btnChangeA"
+                // Handle logic for "A" buttons
+                string lastTwoDigits = buttonName.Substring(buttonName.Length - 2);
+                string labelName = "sampleLabelA" + lastTwoDigits;
+
+                FontDialog fontDialog = new FontDialog();
+                if (fontDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Control[] labels = this.Controls.Find(labelName, true);
+                    if (labels.Length > 0 && labels[0] is Label label)
+                    {
+                        label.Font = fontDialog.Font;
+                    }
+                }
+            }
+        }
+
+        private void btnChangeQ1_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelQ1.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA17_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA17.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA16_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA16.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA15_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA15.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA14_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA14.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA13_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA13.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA12_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA12.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA11_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA11.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA18_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA18.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA28_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA28.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA21_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA21.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA22_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA22.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA23_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA23.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA24_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA24.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA25_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA25.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA26_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA26.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA27_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA27.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeQ2_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelQ2.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA38_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA38.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA31_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA31.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA32_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA32.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA33_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA33.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA34_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA34.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA35_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA35.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA36_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA36.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA37_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA37.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeQ3_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelQ3.Font = fontDialog.Font;
             }
         }
     }
