@@ -31,6 +31,10 @@ namespace TestingWinForms
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabTable = new System.Windows.Forms.TabPage();
+            this.fontButtonXYAxis = new System.Windows.Forms.Button();
+            this.sampleLabelYAxis = new System.Windows.Forms.Label();
+            this.sampleLabelTitle = new System.Windows.Forms.Label();
+            this.fontButton = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.btnSelPointColour = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -44,6 +48,7 @@ namespace TestingWinForms
             this.labelXAxis = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
             this.tabDownload = new System.Windows.Forms.TabPage();
+            this.btnDownloadRawData = new System.Windows.Forms.Button();
             this.btnDownloadAll = new System.Windows.Forms.Button();
             this.btnDownload = new System.Windows.Forms.Button();
             this.dateTimePickerEndDate = new System.Windows.Forms.DateTimePicker();
@@ -54,9 +59,6 @@ namespace TestingWinForms
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.btnUploadImage = new System.Windows.Forms.Button();
             this.textBoxEndMessage = new System.Windows.Forms.TextBox();
@@ -82,7 +84,6 @@ namespace TestingWinForms
             this.textBoxA14 = new System.Windows.Forms.TextBox();
             this.textBoxA13 = new System.Windows.Forms.TextBox();
             this.textBoxA12 = new System.Windows.Forms.TextBox();
-            this.textBoxA11 = new System.Windows.Forms.TextBox();
             this.textBoxQ1 = new System.Windows.Forms.TextBox();
             this.labelA15 = new System.Windows.Forms.Label();
             this.labelA14 = new System.Windows.Forms.Label();
@@ -141,20 +142,28 @@ namespace TestingWinForms
             this.btnEndApp = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.fontButton = new System.Windows.Forms.Button();
-            this.sampleLabelTitle = new System.Windows.Forms.Label();
-            this.sampleLabelYAxis = new System.Windows.Forms.Label();
-            this.fontButtonXYAxis = new System.Windows.Forms.Button();
+            this.btnBackground1 = new System.Windows.Forms.Button();
+            this.labelQuestionBackground1 = new System.Windows.Forms.Label();
+            this.pictureBoxQ1 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxQ2 = new System.Windows.Forms.PictureBox();
+            this.btnBackground2 = new System.Windows.Forms.Button();
+            this.labelQuestionBackground2 = new System.Windows.Forms.Label();
+            this.pictureBoxQ3 = new System.Windows.Forms.PictureBox();
+            this.btnBackground3 = new System.Windows.Forms.Button();
+            this.labelQuestionBackground3 = new System.Windows.Forms.Label();
+            this.textBoxA11 = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabTable.SuspendLayout();
             this.tabDownload.SuspendLayout();
             this.tabAdvance.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.tabQuestion1.SuspendLayout();
             this.tabQuestion2.SuspendLayout();
             this.tabQuestion3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQ1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQ2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQ3)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -203,6 +212,47 @@ namespace TestingWinForms
             this.tabTable.Size = new System.Drawing.Size(486, 396);
             this.tabTable.TabIndex = 0;
             this.tabTable.Text = "Table";
+            // 
+            // fontButtonXYAxis
+            // 
+            this.fontButtonXYAxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.fontButtonXYAxis.Location = new System.Drawing.Point(323, 85);
+            this.fontButtonXYAxis.Name = "fontButtonXYAxis";
+            this.fontButtonXYAxis.Size = new System.Drawing.Size(115, 29);
+            this.fontButtonXYAxis.TabIndex = 16;
+            this.fontButtonXYAxis.Text = "Change Font";
+            this.fontButtonXYAxis.UseVisualStyleBackColor = true;
+            this.fontButtonXYAxis.Click += new System.EventHandler(this.fontButtonXAxis_Click);
+            // 
+            // sampleLabelYAxis
+            // 
+            this.sampleLabelYAxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.sampleLabelYAxis.AutoSize = true;
+            this.sampleLabelYAxis.Location = new System.Drawing.Point(246, 442);
+            this.sampleLabelYAxis.Name = "sampleLabelYAxis";
+            this.sampleLabelYAxis.Size = new System.Drawing.Size(51, 17);
+            this.sampleLabelYAxis.TabIndex = 15;
+            this.sampleLabelYAxis.Text = "XYAxis";
+            // 
+            // sampleLabelTitle
+            // 
+            this.sampleLabelTitle.AutoSize = true;
+            this.sampleLabelTitle.Location = new System.Drawing.Point(46, 442);
+            this.sampleLabelTitle.Name = "sampleLabelTitle";
+            this.sampleLabelTitle.Size = new System.Drawing.Size(35, 17);
+            this.sampleLabelTitle.TabIndex = 13;
+            this.sampleLabelTitle.Text = "Title";
+            // 
+            // fontButton
+            // 
+            this.fontButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.fontButton.Location = new System.Drawing.Point(323, 6);
+            this.fontButton.Name = "fontButton";
+            this.fontButton.Size = new System.Drawing.Size(115, 29);
+            this.fontButton.TabIndex = 12;
+            this.fontButton.Text = "Change Font";
+            this.fontButton.UseVisualStyleBackColor = true;
+            this.fontButton.Click += new System.EventHandler(this.fontButton_Click);
             // 
             // label4
             // 
@@ -275,7 +325,7 @@ namespace TestingWinForms
             this.textBoxYAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxYAxis.Location = new System.Drawing.Point(194, 169);
             this.textBoxYAxis.Name = "textBoxYAxis";
-            this.textBoxYAxis.Size = new System.Drawing.Size(36, 38);
+            this.textBoxYAxis.Size = new System.Drawing.Size(15, 38);
             this.textBoxYAxis.TabIndex = 3;
             // 
             // textBoxXAxis
@@ -285,7 +335,7 @@ namespace TestingWinForms
             this.textBoxXAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxXAxis.Location = new System.Drawing.Point(194, 85);
             this.textBoxXAxis.Name = "textBoxXAxis";
-            this.textBoxXAxis.Size = new System.Drawing.Size(36, 38);
+            this.textBoxXAxis.Size = new System.Drawing.Size(15, 38);
             this.textBoxXAxis.TabIndex = 2;
             // 
             // textBoxTitle
@@ -295,7 +345,7 @@ namespace TestingWinForms
             this.textBoxTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTitle.Location = new System.Drawing.Point(194, 3);
             this.textBoxTitle.Name = "textBoxTitle";
-            this.textBoxTitle.Size = new System.Drawing.Size(36, 38);
+            this.textBoxTitle.Size = new System.Drawing.Size(15, 38);
             this.textBoxTitle.TabIndex = 1;
             // 
             // labelYAxis
@@ -332,6 +382,7 @@ namespace TestingWinForms
             // 
             this.tabDownload.AutoScroll = true;
             this.tabDownload.BackColor = System.Drawing.Color.Transparent;
+            this.tabDownload.Controls.Add(this.btnDownloadRawData);
             this.tabDownload.Controls.Add(this.btnDownloadAll);
             this.tabDownload.Controls.Add(this.btnDownload);
             this.tabDownload.Controls.Add(this.dateTimePickerEndDate);
@@ -344,9 +395,20 @@ namespace TestingWinForms
             this.tabDownload.TabIndex = 4;
             this.tabDownload.Text = "Download";
             // 
+            // btnDownloadRawData
+            // 
+            this.btnDownloadRawData.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDownloadRawData.Location = new System.Drawing.Point(164, 305);
+            this.btnDownloadRawData.Name = "btnDownloadRawData";
+            this.btnDownloadRawData.Size = new System.Drawing.Size(293, 41);
+            this.btnDownloadRawData.TabIndex = 8;
+            this.btnDownloadRawData.Text = "Download Raw Data";
+            this.btnDownloadRawData.UseVisualStyleBackColor = true;
+            this.btnDownloadRawData.Click += new System.EventHandler(this.btnDownloadRawData_Click);
+            // 
             // btnDownloadAll
             // 
-            this.btnDownloadAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDownloadAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDownloadAll.Location = new System.Drawing.Point(164, 225);
             this.btnDownloadAll.Name = "btnDownloadAll";
             this.btnDownloadAll.Size = new System.Drawing.Size(293, 41);
@@ -357,12 +419,12 @@ namespace TestingWinForms
             // 
             // btnDownload
             // 
-            this.btnDownload.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDownload.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDownload.Location = new System.Drawing.Point(164, 158);
             this.btnDownload.Name = "btnDownload";
-            this.btnDownload.Size = new System.Drawing.Size(169, 41);
+            this.btnDownload.Size = new System.Drawing.Size(293, 41);
             this.btnDownload.TabIndex = 6;
-            this.btnDownload.Text = "Download";
+            this.btnDownload.Text = "Download Consolidated Data";
             this.btnDownload.UseVisualStyleBackColor = true;
             this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
             // 
@@ -413,9 +475,6 @@ namespace TestingWinForms
             this.tabAdvance.Controls.Add(this.pictureBox2);
             this.tabAdvance.Controls.Add(this.button2);
             this.tabAdvance.Controls.Add(this.label9);
-            this.tabAdvance.Controls.Add(this.pictureBox1);
-            this.tabAdvance.Controls.Add(this.button1);
-            this.tabAdvance.Controls.Add(this.label8);
             this.tabAdvance.Controls.Add(this.pictureBox);
             this.tabAdvance.Controls.Add(this.btnUploadImage);
             this.tabAdvance.Controls.Add(this.textBoxEndMessage);
@@ -436,12 +495,9 @@ namespace TestingWinForms
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.Location = new System.Drawing.Point(45, 627);
+            this.pictureBox2.Location = new System.Drawing.Point(45, 477);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(44, 314);
+            this.pictureBox2.Size = new System.Drawing.Size(102, 100);
             this.pictureBox2.TabIndex = 16;
             this.pictureBox2.TabStop = false;
             // 
@@ -450,9 +506,9 @@ namespace TestingWinForms
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(277, 577);
+            this.button2.Location = new System.Drawing.Point(277, 430);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(70, 54);
+            this.button2.Size = new System.Drawing.Size(49, 54);
             this.button2.TabIndex = 14;
             this.button2.Text = "Upload Background Image";
             this.button2.UseVisualStyleBackColor = true;
@@ -462,54 +518,17 @@ namespace TestingWinForms
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(15, 577);
+            this.label9.Location = new System.Drawing.Point(15, 430);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(233, 32);
             this.label9.TabIndex = 13;
             this.label9.Text = "End Background:";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Location = new System.Drawing.Point(45, 458);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(44, 327);
-            this.pictureBox1.TabIndex = 12;
-            this.pictureBox1.TabStop = false;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(277, 411);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(70, 54);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Upload Background Image";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(15, 411);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(297, 32);
-            this.label8.TabIndex = 10;
-            this.label8.Text = "Question Background:";
-            // 
             // pictureBox
             // 
-            this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox.Location = new System.Drawing.Point(45, 279);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(44, 325);
+            this.pictureBox.Size = new System.Drawing.Size(103, 100);
             this.pictureBox.TabIndex = 9;
             this.pictureBox.TabStop = false;
             // 
@@ -520,7 +539,7 @@ namespace TestingWinForms
             this.btnUploadImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUploadImage.Location = new System.Drawing.Point(277, 224);
             this.btnUploadImage.Name = "btnUploadImage";
-            this.btnUploadImage.Size = new System.Drawing.Size(70, 54);
+            this.btnUploadImage.Size = new System.Drawing.Size(49, 54);
             this.btnUploadImage.TabIndex = 9;
             this.btnUploadImage.Text = "Upload Background Image";
             this.btnUploadImage.UseVisualStyleBackColor = true;
@@ -533,7 +552,7 @@ namespace TestingWinForms
             this.textBoxEndMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxEndMessage.Location = new System.Drawing.Point(250, 150);
             this.textBoxEndMessage.Name = "textBoxEndMessage";
-            this.textBoxEndMessage.Size = new System.Drawing.Size(97, 38);
+            this.textBoxEndMessage.Size = new System.Drawing.Size(76, 38);
             this.textBoxEndMessage.TabIndex = 8;
             // 
             // comboBoxRandomQns
@@ -547,7 +566,7 @@ namespace TestingWinForms
             "No"});
             this.comboBoxRandomQns.Location = new System.Drawing.Point(216, 87);
             this.comboBoxRandomQns.Name = "comboBoxRandomQns";
-            this.comboBoxRandomQns.Size = new System.Drawing.Size(67, 39);
+            this.comboBoxRandomQns.Size = new System.Drawing.Size(46, 39);
             this.comboBoxRandomQns.TabIndex = 7;
             // 
             // label17
@@ -555,7 +574,7 @@ namespace TestingWinForms
             this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(289, 25);
+            this.label17.Location = new System.Drawing.Point(268, 25);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(64, 32);
             this.label17.TabIndex = 5;
@@ -568,7 +587,7 @@ namespace TestingWinForms
             this.textBoxTimeOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTimeOut.Location = new System.Drawing.Point(216, 19);
             this.textBoxTimeOut.Name = "textBoxTimeOut";
-            this.textBoxTimeOut.Size = new System.Drawing.Size(67, 38);
+            this.textBoxTimeOut.Size = new System.Drawing.Size(46, 38);
             this.textBoxTimeOut.TabIndex = 6;
             // 
             // label16
@@ -615,6 +634,9 @@ namespace TestingWinForms
             // 
             this.tabQuestion1.AutoScroll = true;
             this.tabQuestion1.BackColor = System.Drawing.Color.Transparent;
+            this.tabQuestion1.Controls.Add(this.pictureBoxQ1);
+            this.tabQuestion1.Controls.Add(this.btnBackground1);
+            this.tabQuestion1.Controls.Add(this.labelQuestionBackground1);
             this.tabQuestion1.Controls.Add(this.label5);
             this.tabQuestion1.Controls.Add(this.comboBox1);
             this.tabQuestion1.Controls.Add(this.labelType1);
@@ -665,7 +687,7 @@ namespace TestingWinForms
             "MRQ"});
             this.comboBox1.Location = new System.Drawing.Point(164, 81);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(467, 39);
+            this.comboBox1.Size = new System.Drawing.Size(513, 39);
             this.comboBox1.TabIndex = 11;
             // 
             // labelType1
@@ -696,7 +718,7 @@ namespace TestingWinForms
             this.textBoxA18.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA18.Location = new System.Drawing.Point(168, 687);
             this.textBoxA18.Name = "textBoxA18";
-            this.textBoxA18.Size = new System.Drawing.Size(467, 38);
+            this.textBoxA18.Size = new System.Drawing.Size(513, 38);
             this.textBoxA18.TabIndex = 19;
             // 
             // labelA18
@@ -716,7 +738,7 @@ namespace TestingWinForms
             this.textBoxA17.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA17.Location = new System.Drawing.Point(168, 619);
             this.textBoxA17.Name = "textBoxA17";
-            this.textBoxA17.Size = new System.Drawing.Size(467, 38);
+            this.textBoxA17.Size = new System.Drawing.Size(513, 38);
             this.textBoxA17.TabIndex = 18;
             // 
             // labelA17
@@ -736,7 +758,7 @@ namespace TestingWinForms
             this.textBoxA16.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA16.Location = new System.Drawing.Point(168, 548);
             this.textBoxA16.Name = "textBoxA16";
-            this.textBoxA16.Size = new System.Drawing.Size(467, 38);
+            this.textBoxA16.Size = new System.Drawing.Size(513, 38);
             this.textBoxA16.TabIndex = 17;
             // 
             // labelA16
@@ -756,7 +778,7 @@ namespace TestingWinForms
             this.textBoxA15.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA15.Location = new System.Drawing.Point(168, 477);
             this.textBoxA15.Name = "textBoxA15";
-            this.textBoxA15.Size = new System.Drawing.Size(467, 38);
+            this.textBoxA15.Size = new System.Drawing.Size(513, 38);
             this.textBoxA15.TabIndex = 16;
             // 
             // textBoxA14
@@ -766,7 +788,7 @@ namespace TestingWinForms
             this.textBoxA14.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA14.Location = new System.Drawing.Point(168, 405);
             this.textBoxA14.Name = "textBoxA14";
-            this.textBoxA14.Size = new System.Drawing.Size(467, 38);
+            this.textBoxA14.Size = new System.Drawing.Size(513, 38);
             this.textBoxA14.TabIndex = 15;
             // 
             // textBoxA13
@@ -776,7 +798,7 @@ namespace TestingWinForms
             this.textBoxA13.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA13.Location = new System.Drawing.Point(168, 333);
             this.textBoxA13.Name = "textBoxA13";
-            this.textBoxA13.Size = new System.Drawing.Size(467, 38);
+            this.textBoxA13.Size = new System.Drawing.Size(513, 38);
             this.textBoxA13.TabIndex = 14;
             // 
             // textBoxA12
@@ -786,18 +808,8 @@ namespace TestingWinForms
             this.textBoxA12.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA12.Location = new System.Drawing.Point(168, 263);
             this.textBoxA12.Name = "textBoxA12";
-            this.textBoxA12.Size = new System.Drawing.Size(467, 38);
+            this.textBoxA12.Size = new System.Drawing.Size(513, 38);
             this.textBoxA12.TabIndex = 13;
-            // 
-            // textBoxA11
-            // 
-            this.textBoxA11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxA11.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxA11.Location = new System.Drawing.Point(168, 191);
-            this.textBoxA11.Name = "textBoxA11";
-            this.textBoxA11.Size = new System.Drawing.Size(467, 38);
-            this.textBoxA11.TabIndex = 12;
             // 
             // textBoxQ1
             // 
@@ -806,7 +818,7 @@ namespace TestingWinForms
             this.textBoxQ1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxQ1.Location = new System.Drawing.Point(164, 9);
             this.textBoxQ1.Name = "textBoxQ1";
-            this.textBoxQ1.Size = new System.Drawing.Size(467, 38);
+            this.textBoxQ1.Size = new System.Drawing.Size(513, 38);
             this.textBoxQ1.TabIndex = 10;
             // 
             // labelA15
@@ -873,6 +885,9 @@ namespace TestingWinForms
             // 
             this.tabQuestion2.AutoScroll = true;
             this.tabQuestion2.BackColor = System.Drawing.Color.Transparent;
+            this.tabQuestion2.Controls.Add(this.pictureBoxQ2);
+            this.tabQuestion2.Controls.Add(this.btnBackground2);
+            this.tabQuestion2.Controls.Add(this.labelQuestionBackground2);
             this.tabQuestion2.Controls.Add(this.label6);
             this.tabQuestion2.Controls.Add(this.comboBox2);
             this.tabQuestion2.Controls.Add(this.btnClear2);
@@ -922,7 +937,7 @@ namespace TestingWinForms
             "MRQ"});
             this.comboBox2.Location = new System.Drawing.Point(169, 82);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(416, 39);
+            this.comboBox2.Size = new System.Drawing.Size(461, 39);
             this.comboBox2.TabIndex = 22;
             // 
             // btnClear2
@@ -953,7 +968,7 @@ namespace TestingWinForms
             this.textBoxA28.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA28.Location = new System.Drawing.Point(169, 714);
             this.textBoxA28.Name = "textBoxA28";
-            this.textBoxA28.Size = new System.Drawing.Size(416, 38);
+            this.textBoxA28.Size = new System.Drawing.Size(461, 38);
             this.textBoxA28.TabIndex = 30;
             // 
             // labelA28
@@ -973,7 +988,7 @@ namespace TestingWinForms
             this.textBoxA27.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA27.Location = new System.Drawing.Point(169, 639);
             this.textBoxA27.Name = "textBoxA27";
-            this.textBoxA27.Size = new System.Drawing.Size(416, 38);
+            this.textBoxA27.Size = new System.Drawing.Size(461, 38);
             this.textBoxA27.TabIndex = 29;
             // 
             // labelA27
@@ -993,7 +1008,7 @@ namespace TestingWinForms
             this.textBoxA26.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA26.Location = new System.Drawing.Point(169, 561);
             this.textBoxA26.Name = "textBoxA26";
-            this.textBoxA26.Size = new System.Drawing.Size(416, 38);
+            this.textBoxA26.Size = new System.Drawing.Size(461, 38);
             this.textBoxA26.TabIndex = 28;
             // 
             // labelA26
@@ -1013,7 +1028,7 @@ namespace TestingWinForms
             this.textBoxA25.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA25.Location = new System.Drawing.Point(169, 487);
             this.textBoxA25.Name = "textBoxA25";
-            this.textBoxA25.Size = new System.Drawing.Size(416, 38);
+            this.textBoxA25.Size = new System.Drawing.Size(461, 38);
             this.textBoxA25.TabIndex = 27;
             // 
             // textBoxA24
@@ -1023,7 +1038,7 @@ namespace TestingWinForms
             this.textBoxA24.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA24.Location = new System.Drawing.Point(169, 414);
             this.textBoxA24.Name = "textBoxA24";
-            this.textBoxA24.Size = new System.Drawing.Size(416, 38);
+            this.textBoxA24.Size = new System.Drawing.Size(461, 38);
             this.textBoxA24.TabIndex = 26;
             // 
             // textBoxA23
@@ -1033,7 +1048,7 @@ namespace TestingWinForms
             this.textBoxA23.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA23.Location = new System.Drawing.Point(169, 342);
             this.textBoxA23.Name = "textBoxA23";
-            this.textBoxA23.Size = new System.Drawing.Size(416, 38);
+            this.textBoxA23.Size = new System.Drawing.Size(461, 38);
             this.textBoxA23.TabIndex = 25;
             // 
             // textBoxA22
@@ -1043,7 +1058,7 @@ namespace TestingWinForms
             this.textBoxA22.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA22.Location = new System.Drawing.Point(169, 269);
             this.textBoxA22.Name = "textBoxA22";
-            this.textBoxA22.Size = new System.Drawing.Size(416, 38);
+            this.textBoxA22.Size = new System.Drawing.Size(461, 38);
             this.textBoxA22.TabIndex = 24;
             // 
             // textBoxA21
@@ -1053,7 +1068,7 @@ namespace TestingWinForms
             this.textBoxA21.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA21.Location = new System.Drawing.Point(169, 191);
             this.textBoxA21.Name = "textBoxA21";
-            this.textBoxA21.Size = new System.Drawing.Size(416, 38);
+            this.textBoxA21.Size = new System.Drawing.Size(461, 38);
             this.textBoxA21.TabIndex = 23;
             // 
             // textBoxQ2
@@ -1063,7 +1078,7 @@ namespace TestingWinForms
             this.textBoxQ2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxQ2.Location = new System.Drawing.Point(169, 0);
             this.textBoxQ2.Name = "textBoxQ2";
-            this.textBoxQ2.Size = new System.Drawing.Size(416, 38);
+            this.textBoxQ2.Size = new System.Drawing.Size(461, 38);
             this.textBoxQ2.TabIndex = 21;
             // 
             // labelA25
@@ -1130,6 +1145,9 @@ namespace TestingWinForms
             // 
             this.tabQuestion3.AutoScroll = true;
             this.tabQuestion3.BackColor = System.Drawing.Color.Transparent;
+            this.tabQuestion3.Controls.Add(this.pictureBoxQ3);
+            this.tabQuestion3.Controls.Add(this.btnBackground3);
+            this.tabQuestion3.Controls.Add(this.labelQuestionBackground3);
             this.tabQuestion3.Controls.Add(this.label7);
             this.tabQuestion3.Controls.Add(this.comboBox3);
             this.tabQuestion3.Controls.Add(this.labelType3);
@@ -1179,7 +1197,7 @@ namespace TestingWinForms
             "MRQ"});
             this.comboBox3.Location = new System.Drawing.Point(183, 89);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(404, 39);
+            this.comboBox3.Size = new System.Drawing.Size(449, 39);
             this.comboBox3.TabIndex = 33;
             // 
             // labelType3
@@ -1210,7 +1228,7 @@ namespace TestingWinForms
             this.textBoxA38.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA38.Location = new System.Drawing.Point(183, 740);
             this.textBoxA38.Name = "textBoxA38";
-            this.textBoxA38.Size = new System.Drawing.Size(404, 38);
+            this.textBoxA38.Size = new System.Drawing.Size(449, 38);
             this.textBoxA38.TabIndex = 41;
             // 
             // labelA38
@@ -1230,7 +1248,7 @@ namespace TestingWinForms
             this.textBoxA37.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA37.Location = new System.Drawing.Point(183, 668);
             this.textBoxA37.Name = "textBoxA37";
-            this.textBoxA37.Size = new System.Drawing.Size(404, 38);
+            this.textBoxA37.Size = new System.Drawing.Size(449, 38);
             this.textBoxA37.TabIndex = 40;
             // 
             // labelA37
@@ -1250,7 +1268,7 @@ namespace TestingWinForms
             this.textBoxA36.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA36.Location = new System.Drawing.Point(183, 593);
             this.textBoxA36.Name = "textBoxA36";
-            this.textBoxA36.Size = new System.Drawing.Size(404, 38);
+            this.textBoxA36.Size = new System.Drawing.Size(449, 38);
             this.textBoxA36.TabIndex = 39;
             // 
             // labelA36
@@ -1270,7 +1288,7 @@ namespace TestingWinForms
             this.textBoxA35.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA35.Location = new System.Drawing.Point(183, 519);
             this.textBoxA35.Name = "textBoxA35";
-            this.textBoxA35.Size = new System.Drawing.Size(404, 38);
+            this.textBoxA35.Size = new System.Drawing.Size(449, 38);
             this.textBoxA35.TabIndex = 38;
             // 
             // textBoxA34
@@ -1280,7 +1298,7 @@ namespace TestingWinForms
             this.textBoxA34.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA34.Location = new System.Drawing.Point(183, 442);
             this.textBoxA34.Name = "textBoxA34";
-            this.textBoxA34.Size = new System.Drawing.Size(404, 38);
+            this.textBoxA34.Size = new System.Drawing.Size(449, 38);
             this.textBoxA34.TabIndex = 37;
             // 
             // textBoxA33
@@ -1290,7 +1308,7 @@ namespace TestingWinForms
             this.textBoxA33.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA33.Location = new System.Drawing.Point(183, 362);
             this.textBoxA33.Name = "textBoxA33";
-            this.textBoxA33.Size = new System.Drawing.Size(404, 38);
+            this.textBoxA33.Size = new System.Drawing.Size(449, 38);
             this.textBoxA33.TabIndex = 36;
             // 
             // textBoxA32
@@ -1300,7 +1318,7 @@ namespace TestingWinForms
             this.textBoxA32.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA32.Location = new System.Drawing.Point(183, 281);
             this.textBoxA32.Name = "textBoxA32";
-            this.textBoxA32.Size = new System.Drawing.Size(404, 38);
+            this.textBoxA32.Size = new System.Drawing.Size(449, 38);
             this.textBoxA32.TabIndex = 35;
             // 
             // textBoxA31
@@ -1310,7 +1328,7 @@ namespace TestingWinForms
             this.textBoxA31.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxA31.Location = new System.Drawing.Point(183, 197);
             this.textBoxA31.Name = "textBoxA31";
-            this.textBoxA31.Size = new System.Drawing.Size(404, 38);
+            this.textBoxA31.Size = new System.Drawing.Size(449, 38);
             this.textBoxA31.TabIndex = 34;
             // 
             // textBoxQ3
@@ -1320,7 +1338,7 @@ namespace TestingWinForms
             this.textBoxQ3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxQ3.Location = new System.Drawing.Point(183, 9);
             this.textBoxQ3.Name = "textBoxQ3";
-            this.textBoxQ3.Size = new System.Drawing.Size(404, 38);
+            this.textBoxQ3.Size = new System.Drawing.Size(449, 38);
             this.textBoxQ3.TabIndex = 32;
             // 
             // labelA35
@@ -1443,46 +1461,108 @@ namespace TestingWinForms
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
-            // fontButton
+            // btnBackground1
             // 
-            this.fontButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.fontButton.Location = new System.Drawing.Point(344, 6);
-            this.fontButton.Name = "fontButton";
-            this.fontButton.Size = new System.Drawing.Size(115, 29);
-            this.fontButton.TabIndex = 12;
-            this.fontButton.Text = "Change Font";
-            this.fontButton.UseVisualStyleBackColor = true;
-            this.fontButton.Click += new System.EventHandler(this.fontButton_Click);
+            this.btnBackground1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBackground1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBackground1.Location = new System.Drawing.Point(39, 871);
+            this.btnBackground1.Name = "btnBackground1";
+            this.btnBackground1.Size = new System.Drawing.Size(328, 44);
+            this.btnBackground1.TabIndex = 23;
+            this.btnBackground1.Text = "Upload Background Image";
+            this.btnBackground1.UseVisualStyleBackColor = true;
+            this.btnBackground1.Click += new System.EventHandler(this.btnBackground1_Click);
             // 
-            // sampleLabelTitle
+            // labelQuestionBackground1
             // 
-            this.sampleLabelTitle.AutoSize = true;
-            this.sampleLabelTitle.Location = new System.Drawing.Point(46, 442);
-            this.sampleLabelTitle.Name = "sampleLabelTitle";
-            this.sampleLabelTitle.Size = new System.Drawing.Size(35, 17);
-            this.sampleLabelTitle.TabIndex = 13;
-            this.sampleLabelTitle.Text = "Title";
+            this.labelQuestionBackground1.AutoSize = true;
+            this.labelQuestionBackground1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuestionBackground1.Location = new System.Drawing.Point(33, 836);
+            this.labelQuestionBackground1.Name = "labelQuestionBackground1";
+            this.labelQuestionBackground1.Size = new System.Drawing.Size(297, 32);
+            this.labelQuestionBackground1.TabIndex = 22;
+            this.labelQuestionBackground1.Text = "Question Background:";
             // 
-            // sampleLabelYAxis
+            // pictureBoxQ1
             // 
-            this.sampleLabelYAxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.sampleLabelYAxis.AutoSize = true;
-            this.sampleLabelYAxis.Location = new System.Drawing.Point(267, 442);
-            this.sampleLabelYAxis.Name = "sampleLabelYAxis";
-            this.sampleLabelYAxis.Size = new System.Drawing.Size(51, 17);
-            this.sampleLabelYAxis.TabIndex = 15;
-            this.sampleLabelYAxis.Text = "XYAxis";
+            this.pictureBoxQ1.Location = new System.Drawing.Point(39, 927);
+            this.pictureBoxQ1.Name = "pictureBoxQ1";
+            this.pictureBoxQ1.Size = new System.Drawing.Size(102, 100);
+            this.pictureBoxQ1.TabIndex = 25;
+            this.pictureBoxQ1.TabStop = false;
             // 
-            // fontButtonXYAxis
+            // pictureBoxQ2
             // 
-            this.fontButtonXYAxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.fontButtonXYAxis.Location = new System.Drawing.Point(344, 85);
-            this.fontButtonXYAxis.Name = "fontButtonXYAxis";
-            this.fontButtonXYAxis.Size = new System.Drawing.Size(115, 29);
-            this.fontButtonXYAxis.TabIndex = 16;
-            this.fontButtonXYAxis.Text = "Change Font";
-            this.fontButtonXYAxis.UseVisualStyleBackColor = true;
-            this.fontButtonXYAxis.Click += new System.EventHandler(this.fontButtonXAxis_Click);
+            this.pictureBoxQ2.Location = new System.Drawing.Point(38, 934);
+            this.pictureBoxQ2.Name = "pictureBoxQ2";
+            this.pictureBoxQ2.Size = new System.Drawing.Size(102, 100);
+            this.pictureBoxQ2.TabIndex = 35;
+            this.pictureBoxQ2.TabStop = false;
+            // 
+            // btnBackground2
+            // 
+            this.btnBackground2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBackground2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBackground2.Location = new System.Drawing.Point(38, 878);
+            this.btnBackground2.Name = "btnBackground2";
+            this.btnBackground2.Size = new System.Drawing.Size(328, 44);
+            this.btnBackground2.TabIndex = 34;
+            this.btnBackground2.Text = "Upload Background Image";
+            this.btnBackground2.UseVisualStyleBackColor = true;
+            this.btnBackground2.Click += new System.EventHandler(this.btnBackground2_Click);
+            // 
+            // labelQuestionBackground2
+            // 
+            this.labelQuestionBackground2.AutoSize = true;
+            this.labelQuestionBackground2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuestionBackground2.Location = new System.Drawing.Point(32, 843);
+            this.labelQuestionBackground2.Name = "labelQuestionBackground2";
+            this.labelQuestionBackground2.Size = new System.Drawing.Size(297, 32);
+            this.labelQuestionBackground2.TabIndex = 33;
+            this.labelQuestionBackground2.Text = "Question Background:";
+            // 
+            // pictureBoxQ3
+            // 
+            this.pictureBoxQ3.Location = new System.Drawing.Point(36, 970);
+            this.pictureBoxQ3.Name = "pictureBoxQ3";
+            this.pictureBoxQ3.Size = new System.Drawing.Size(102, 100);
+            this.pictureBoxQ3.TabIndex = 46;
+            this.pictureBoxQ3.TabStop = false;
+            // 
+            // btnBackground3
+            // 
+            this.btnBackground3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBackground3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBackground3.Location = new System.Drawing.Point(36, 914);
+            this.btnBackground3.Name = "btnBackground3";
+            this.btnBackground3.Size = new System.Drawing.Size(328, 44);
+            this.btnBackground3.TabIndex = 45;
+            this.btnBackground3.Text = "Upload Background Image";
+            this.btnBackground3.UseVisualStyleBackColor = true;
+            this.btnBackground3.Click += new System.EventHandler(this.btnBackground3_Click);
+            // 
+            // labelQuestionBackground3
+            // 
+            this.labelQuestionBackground3.AutoSize = true;
+            this.labelQuestionBackground3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQuestionBackground3.Location = new System.Drawing.Point(30, 879);
+            this.labelQuestionBackground3.Name = "labelQuestionBackground3";
+            this.labelQuestionBackground3.Size = new System.Drawing.Size(297, 32);
+            this.labelQuestionBackground3.TabIndex = 44;
+            this.labelQuestionBackground3.Text = "Question Background:";
+            // 
+            // textBoxA11
+            // 
+            this.textBoxA11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxA11.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxA11.Location = new System.Drawing.Point(168, 191);
+            this.textBoxA11.Name = "textBoxA11";
+            this.textBoxA11.Size = new System.Drawing.Size(513, 38);
+            this.textBoxA11.TabIndex = 12;
             // 
             // AdminForm
             // 
@@ -1506,7 +1586,6 @@ namespace TestingWinForms
             this.tabAdvance.ResumeLayout(false);
             this.tabAdvance.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.tabQuestion1.ResumeLayout(false);
             this.tabQuestion1.PerformLayout();
@@ -1514,6 +1593,9 @@ namespace TestingWinForms
             this.tabQuestion2.PerformLayout();
             this.tabQuestion3.ResumeLayout(false);
             this.tabQuestion3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQ1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQ2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQ3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1540,7 +1622,6 @@ namespace TestingWinForms
         private System.Windows.Forms.TextBox textBoxA14;
         private System.Windows.Forms.TextBox textBoxA13;
         private System.Windows.Forms.TextBox textBoxA12;
-        private System.Windows.Forms.TextBox textBoxA11;
         private System.Windows.Forms.TextBox textBoxQ1;
         private System.Windows.Forms.Label labelA15;
         private System.Windows.Forms.Label labelA14;
@@ -1628,13 +1709,21 @@ namespace TestingWinForms
         private System.Windows.Forms.Button btnDownloadAll;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button fontButton;
         private System.Windows.Forms.Label sampleLabelYAxis;
         private System.Windows.Forms.Label sampleLabelTitle;
         private System.Windows.Forms.Button fontButtonXYAxis;
+        private System.Windows.Forms.Button btnDownloadRawData;
+        private System.Windows.Forms.Button btnBackground1;
+        private System.Windows.Forms.Label labelQuestionBackground1;
+        private System.Windows.Forms.PictureBox pictureBoxQ1;
+        private System.Windows.Forms.PictureBox pictureBoxQ2;
+        private System.Windows.Forms.Button btnBackground2;
+        private System.Windows.Forms.Label labelQuestionBackground2;
+        private System.Windows.Forms.PictureBox pictureBoxQ3;
+        private System.Windows.Forms.Button btnBackground3;
+        private System.Windows.Forms.Label labelQuestionBackground3;
+        private System.Windows.Forms.TextBox textBoxA11;
     }
 }

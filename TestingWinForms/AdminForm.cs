@@ -185,6 +185,12 @@ namespace TestingWinForms
             return Controls.Find(comboBoxName, true).FirstOrDefault() as ComboBox;
         }
 
+        private PictureBox GetPictureBox(int pictureBoxIndex)
+        {
+            string pictureBoxName = "pictureBoxQ" + (pictureBoxIndex + 1);
+            return Controls.Find(pictureBoxName, true).FirstOrDefault() as PictureBox;
+        }
+
         // Helper method to retrieve the answer TextBox based on the question and answer indices
         private TextBox GetAnswerTextBox(int questionIndex, int answerIndex)
         {
@@ -217,19 +223,6 @@ namespace TestingWinForms
             // Convert the Color to a string representation
             string existingColour = ColorTranslator.ToHtml(btnExisColour.BackColor);
             string newColour = ColorTranslator.ToHtml(btnSelPointColour.BackColor);
-
-            /*// Get the font properties from the Titlelabel
-            Font labelTitleFont = sampleLabelTitle.Font;
-            string fontTitleName = labelTitleFont.FontFamily.Name;
-            string fontTitleSize = labelTitleFont.Size.ToString();
-            string fontTitleStyle = labelTitleFont.Style.ToString();
-
-            // Get the font properties from the label
-            Font labelXYaxisFont = sampleLabelYAxis.Font;
-            string fontXYaxiseName = labelXYaxisFont.FontFamily.Name;
-            string fontXYaxisSize = labelXYaxisFont.Size.ToString();
-            string fontXYaxisStyle = labelXYaxisFont.Style.ToString();
-            */
 
             // Serialize the font object to a binary string
             string fontTitle = FontToBinaryString(sampleLabelTitle.Font);
@@ -264,6 +257,7 @@ namespace TestingWinForms
             List<string> questions = new List<string>();
             List<List<string>> answers = new List<List<string>>();
             List<string> types = new List<string>();
+            List<string> imagePaths = new List<string>();
 
             // Loop through the questions
             for (int i = 0; i < questionsNumber; i++)
@@ -271,6 +265,44 @@ namespace TestingWinForms
                 // Get the question text
                 TextBox textBoxQuestion = GetQuestionTextBox(i);
                 ComboBox comboBox = GetQuestionComboBox(i);
+
+                // Get the image from the PictureBox
+                Image image;
+                if (GetPictureBox(i).Image != null)
+                {
+                    image = GetPictureBox(i).Image;
+
+                    string imagePath = null;
+
+                    //save as root directory
+                    if (image != null)
+                    {
+                        // Get the current root path of the application
+                        string rootPath = Directory.GetCurrentDirectory();
+
+                        // Specify the directory within the root path to save the image
+                        string directoryPath = Path.Combine(rootPath, "Images");
+
+                        // Create the directory if it doesn't exist
+                        if (!Directory.Exists(directoryPath))
+                        {
+                            Directory.CreateDirectory(directoryPath);
+                        }
+
+                        // Generate a unique file name for the image
+                        string fileName = Guid.NewGuid().ToString() + ".png";
+
+                        // Save the image to the specified directory
+                        imagePath = Path.Combine(directoryPath, fileName);
+                        image.Save(imagePath);
+                        imagePaths.Add(imagePath);
+                    }
+                } else
+                {
+                    imagePaths.Add("");
+                }
+
+                
 
                 if (!string.IsNullOrWhiteSpace(textBoxQuestion.Text))
                 {
@@ -306,9 +338,10 @@ namespace TestingWinForms
                 string question = questions[i];
                 string type = types[i];
                 List<string> answerOptions = answers[i];
+                string imagePath = imagePaths[i];
 
                 // Concatenate the data into comma-separated rows
-                string rowData = string.Format("{0},{1},{2}", question, type, string.Join(",", answerOptions));
+                string rowData = string.Format("{0},{1},{2},{3}", imagePath, question, type, string.Join(",", answerOptions));
 
                 // Append the rows to the CSV file
                 while (true)
@@ -368,33 +401,6 @@ namespace TestingWinForms
             }
 
             // Get the image from the PictureBox
-            Image image2 = pictureBox1.Image;
-            string imagePath2 = null;
-
-            //save as root directory
-            if (image2 != null)
-            {
-                // Get the current root path of the application
-                string rootPath = Directory.GetCurrentDirectory();
-
-                // Specify the directory within the root path to save the image
-                string directoryPath = Path.Combine(rootPath, "Images");
-
-                // Create the directory if it doesn't exist
-                if (!Directory.Exists(directoryPath))
-                {
-                    Directory.CreateDirectory(directoryPath);
-                }
-
-                // Generate a unique file name for the image
-                string fileName = Guid.NewGuid().ToString() + ".png";
-
-                // Save the image to the specified directory
-                imagePath2 = Path.Combine(directoryPath, fileName);
-                image2.Save(imagePath2);
-            }
-
-            // Get the image from the PictureBox
             Image image3 = pictureBox2.Image;
             string imagePath3 = null;
 
@@ -422,7 +428,7 @@ namespace TestingWinForms
             }
 
             // Concatenate the data into a comma-separated string
-            string data = string.Format("{0},{1},{2},{3},{4},{5}", timeOut, randomQuestions, endSurveyText, imagePath, imagePath2, imagePath3); 
+            string data = string.Format("{0},{1},{2},{3},{4}", timeOut, randomQuestions, endSurveyText, imagePath, imagePath3); 
 
             // Append the data to the CSV file
             while (true)
@@ -620,15 +626,24 @@ namespace TestingWinForms
                     TextBox questionTextBox = tabPage.Controls.OfType<TextBox>().FirstOrDefault(c => c.Name.StartsWith("textBoxQ"));
                     TextBox[] answerTextBoxes = tabPage.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + "A" + (questionIndex + 1))).ToArray();
                     ComboBox questionTypeComboBox = tabPage.Controls.OfType<ComboBox>().FirstOrDefault(c => c.Name.StartsWith("comboBox"));
+                    PictureBox questionPictureBox = tabPage.Controls.OfType<PictureBox>().FirstOrDefault(c => c.Name.StartsWith("pictureBoxQ"));
 
-                if (questionTextBox != null && answerTextBoxes.Length == optionsNumber && questionTypeComboBox != null)
+                    if (questionTextBox != null && answerTextBoxes.Length == optionsNumber && questionTypeComboBox != null)
                     {
-                        questionTextBox.Text = values[0];
-                        for (int i = values.Length - 3; i >= 0; i--)
+                        questionTextBox.Text = values[1];
+                        for (int i = values.Length - 4; i >= 0; i--)
                         {
-                            answerTextBoxes[values.Length - 3 - i].Text = values[i + 2];
+                            answerTextBoxes[values.Length - 4 - i].Text = values[i + 3];
                         }
-                        questionTypeComboBox.Text = values[1];
+                        questionTypeComboBox.Text = values[2];
+
+                        string imagePath = Path.Combine(values[0]);
+                        if (File.Exists(imagePath))
+                        {
+                            Image image = Image.FromFile(imagePath);
+                            questionPictureBox.Image = image;
+                        }
+
                     }
                 }
             }
@@ -656,7 +671,7 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 6)
+                    if (values.Length == 5)
                     {
                         textBoxTimeOut.Text = values[0];
                         comboBoxRandomQns.Text = values[1];
@@ -670,15 +685,7 @@ namespace TestingWinForms
                             pictureBox.Image = image;
                         }
 
-                        string imagePath2 = Path.Combine(values[4]);
-
-                        if (File.Exists(imagePath2))
-                        {
-                            Image image2 = Image.FromFile(imagePath2);
-                            pictureBox1.Image = image2;
-                        }
-
-                        string imagePath3 = Path.Combine(values[5]);
+                        string imagePath3 = Path.Combine(values[4]);
 
                         if (File.Exists(imagePath3))
                         {
@@ -1255,6 +1262,7 @@ namespace TestingWinForms
                         labelT.Name = newLabelTypeName; // Update the Label with the new tab name
 
                         labelT.Text = control.Text;
+
                     }
 
                     else if (newControl is Button button && control.Name.StartsWith("btnClear"))
@@ -1282,6 +1290,23 @@ namespace TestingWinForms
                                 comboBox.Items.Add(item);
                             }
                         }
+                    }
+                    else if (newControl is PictureBox pictureBox && control.Name.StartsWith("pictureBoxQ"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newPictureBoxName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        pictureBox.Name = newPictureBoxName;
+
+                    }
+                    else if (newControl is Button buttonBackground && control.Name.StartsWith("btnBackground"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        buttonBackground.Name = newButtonName;
+                        buttonBackground.Text = control.Text;
+                        buttonBackground.Click += UploadBackground_Click;
                     }
 
                     newControl.TabIndex = control.TabIndex + tabIndexOffset;
@@ -1331,6 +1356,33 @@ namespace TestingWinForms
                 }
             }
         }
+
+        private void UploadBackground_Click(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            int buttonIndex = int.Parse(clickedButton.Name.Substring(clickedButton.Name.Length - 1));
+
+            // Find the corresponding PictureBox based on the button index
+            string pictureBoxName = "pictureBoxQ" + (buttonIndex);
+            Control[] pictureBoxes = this.Controls.Find(pictureBoxName, true);
+            if (pictureBoxes.Length > 0 && pictureBoxes[0] is PictureBox pictureBox)
+            {
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    openFileDialog.Title = "Select Image";
+                    openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string selectedImagePath = openFileDialog.FileName;
+
+                        // Load the selected image into the PictureBox
+                        pictureBox.Image = Image.FromFile(selectedImagePath);
+                    }
+                }
+            }
+        }
+
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -1513,23 +1565,6 @@ namespace TestingWinForms
             return conData;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.Title = "Select Image";
-                openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    string selectedImagePath = openFileDialog.FileName;
-
-                    // Load the selected image into the PictureBox
-                    pictureBox1.Image = Image.FromFile(selectedImagePath);
-                }
-            }
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -1543,6 +1578,57 @@ namespace TestingWinForms
 
                     // Load the selected image into the PictureBox
                     pictureBox2.Image = Image.FromFile(selectedImagePath);
+                }
+            }
+        }
+
+        private void btnBackground1_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select Image";
+                openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedImagePath = openFileDialog.FileName;
+
+                    // Load the selected image into the PictureBox
+                    pictureBoxQ1.Image = Image.FromFile(selectedImagePath);
+                }
+            }
+        }
+
+        private void btnBackground2_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select Image";
+                openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedImagePath = openFileDialog.FileName;
+
+                    // Load the selected image into the PictureBox
+                    pictureBoxQ2.Image = Image.FromFile(selectedImagePath);
+                }
+            }
+        }
+
+        private void btnBackground3_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select Image";
+                openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedImagePath = openFileDialog.FileName;
+
+                    // Load the selected image into the PictureBox
+                    pictureBoxQ3.Image = Image.FromFile(selectedImagePath);
                 }
             }
         }
@@ -1564,5 +1650,12 @@ namespace TestingWinForms
                 sampleLabelYAxis.Font = fontDialog.Font;
             }
         }
+
+        private void btnDownloadRawData_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }
