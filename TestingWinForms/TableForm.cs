@@ -19,12 +19,16 @@ namespace TestingWinForms
         private Point clickedPosition; // Stores the current clicked positions
         //private Rectangle drawingArea = new Rectangle(100, 50, 200, 200); // Defines the drawing area (x, y, height, width)
         private Rectangle drawingArea;
-        private int drawingAreaBorderWidth = 2; // Specify the width of the border
+        private Rectangle verticalLine;
+        private Rectangle horizontalLine;
+        private int lineWidth = 2; // Specify the width of the border
         private int dotSize = 10;
         private System.Threading.Timer timer; // Timer to wait for 3 seconds
 
         private string columnNames;
         private int timerToQuestionPage = 1000;
+        private int timerToShowAllPoints = 1000;
+
         private int lastRowNumber;
         private bool hasClicked = false;
 
@@ -151,7 +155,7 @@ namespace TestingWinForms
             // Recalculate the drawing area when the form is resized
             CalculateDrawingArea();
             LoadPointsFromCSV();
-            Refresh();
+            //Refresh();
         }
 
         private void CalculateDrawingArea()
@@ -171,6 +175,9 @@ namespace TestingWinForms
 
             // Update the drawing area rectangle
             drawingArea = new Rectangle(x, y, squareSize, squareSize);
+
+            verticalLine = new Rectangle(x, y, squareSize/2, squareSize);
+            horizontalLine = new Rectangle(x, y, squareSize, squareSize / 2);
         }
 
         private void LoadTableFromCSV()
@@ -327,7 +334,7 @@ namespace TestingWinForms
                     }
                 }
 
-                Refresh(); // Redraw the form to display the loaded points
+                //Refresh(); // Redraw the form to display the loaded points
             }
         }
 
@@ -384,7 +391,8 @@ namespace TestingWinForms
                     Refresh(); // Redraw the form to display the dots
                     SavePointToCSV(point);
                     hasClicked = true;
-
+                    //Thread.Sleep(timerToShowAllPoints);
+                    Refresh();
                     timer = new System.Threading.Timer(OnTimerElapsed, null, timerToQuestionPage, Timeout.Infinite); // Start the timer for x seconds
                 }
             }
@@ -410,28 +418,35 @@ namespace TestingWinForms
         {
             base.OnPaint(e);
 
-            ControlPaint.DrawBorder(e.Graphics, drawingArea, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid);
+            //ControlPaint.DrawBorder(e.Graphics, drawingArea, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid);
 
-            // Paint existing dots
-            foreach (PointF position in existingClickedPositions)
+            ControlPaint.DrawBorder(e.Graphics, verticalLine, Color.Transparent, lineWidth, ButtonBorderStyle.Solid, Color.Transparent, lineWidth, ButtonBorderStyle.Solid, Color.Black, lineWidth, ButtonBorderStyle.Solid, Color.Transparent, lineWidth, ButtonBorderStyle.Solid);
+            ControlPaint.DrawBorder(e.Graphics, horizontalLine, Color.Transparent, lineWidth, ButtonBorderStyle.Solid, Color.Transparent, lineWidth, ButtonBorderStyle.Solid, Color.Transparent, lineWidth, ButtonBorderStyle.Solid, Color.Black, lineWidth, ButtonBorderStyle.Solid);
+
+
+            if (hasClicked == true)
             {
-                Point roundedPosition = Point.Round(position); // Convert PointF to Point
-                if (drawingArea.Contains(roundedPosition))
+                // Paint existing dots
+                foreach (PointF position in existingClickedPositions)
                 {
-                    float dotX = position.X - dotSize / 2;
-                    float dotY = position.Y - dotSize / 2;
+                    Point roundedPosition = Point.Round(position); // Convert PointF to Point
+                    if (drawingArea.Contains(roundedPosition))
+                    {
+                        float dotX = position.X - dotSize / 2;
+                        float dotY = position.Y - dotSize / 2;
 
-                    // Update the FillEllipse brush with existingColour
-                    if (selectedColour != null)
-                    {
-                        using (Brush brush = new SolidBrush(existingColour))
+                        // Update the FillEllipse brush with existingColour
+                        if (selectedColour != null)
                         {
-                            e.Graphics.FillEllipse(brush, dotX, dotY, dotSize, dotSize);
+                            using (Brush brush = new SolidBrush(existingColour))
+                            {
+                                e.Graphics.FillEllipse(brush, dotX, dotY, dotSize, dotSize);
+                            }
                         }
-                    }
-                    else
-                    {
-                        e.Graphics.FillEllipse(Brushes.Blue, dotX, dotY, dotSize, dotSize);
+                        else
+                        {
+                            e.Graphics.FillEllipse(Brushes.Blue, dotX, dotY, dotSize, dotSize);
+                        }
                     }
                 }
             }
@@ -454,41 +469,6 @@ namespace TestingWinForms
                     e.Graphics.FillEllipse(Brushes.Red, dotX, dotY, dotSize, dotSize);
                 }
                 
-            }
-
-            // Draw X and Y axis labels
-            int xSteps = 10; // Specify the number of steps on the X axis
-            int ySteps = 10; // Specify the number of steps on the Y axis
-            int stepSizeX = drawingArea.Width / xSteps;
-            int stepSizeY = drawingArea.Height / ySteps;
-
-            using (Font font = new Font("Arial", 10))
-            {
-                using (StringFormat format = new StringFormat())
-                {
-                    format.Alignment = StringAlignment.Center;
-                    format.LineAlignment = StringAlignment.Center;
-
-                    // Draw X axis labels
-                    for (int i = 1; i <= xSteps; i++)
-                    {
-                        int labelX = drawingArea.Left + (i * stepSizeX);
-                        int labelY = drawingArea.Bottom + 5;
-
-                        string label = (i).ToString(); // Adjust the label based on your requirements
-                        e.Graphics.DrawString(label, font, Brushes.Black, labelX, labelY, format);
-                    }
-
-                    // Draw Y axis labels
-                    for (int i = 1; i <= ySteps; i++)
-                    {
-                        int labelX = drawingArea.Left - 25;
-                        int labelY = drawingArea.Bottom - (i * stepSizeY);
-
-                        string label = (i).ToString(); // Adjust the label based on your requirements
-                        e.Graphics.DrawString(label, font, Brushes.Black, labelX, labelY, format);
-                    }
-                }
             }
         }
 
