@@ -244,8 +244,10 @@ namespace TestingWinForms
             // Get the data from the TextBox
             //Table
             string title = textBoxTitle.Text;
-            string x_axis = textBoxXAxis.Text;
-            string y_axis = textBoxYAxis.Text;
+            string x_axis_top = textBoxXAxisTop.Text;
+            string x_axis_bottom = textBoxXAxisBottom.Text;
+            string y_axis_left = textBoxYAxisLeft.Text;
+            string y_axis_right = textBoxYAxisRight.Text;
 
             // Convert the Color to a string representation
             string existingColour = ColorTranslator.ToHtml(btnExisColour.BackColor);
@@ -256,8 +258,8 @@ namespace TestingWinForms
             string fontXYAxis = FontToBinaryString(sampleLabelYAxis.Font);
 
             // Concatenate the data into a comma-separated string
-            string titleDate = string.Format("{0},{1},{2},{3},{4},{5},{6}", 
-                title, x_axis, y_axis, existingColour, newColour, fontTitle, fontXYAxis);
+            string titleDate = string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}", 
+                title, x_axis_top, x_axis_bottom, y_axis_left, y_axis_right, existingColour, newColour, fontTitle, fontXYAxis);
 
             // Append the data to the CSV file
             while (true)
@@ -617,23 +619,26 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 7)
+                    if (values.Length == 9)
                     {
                         textBoxTitle.Text = values[0];
-                        textBoxXAxis.Text = values[1];
-                        textBoxYAxis.Text = values[2];
-                        btnExisColour.BackColor = ColorTranslator.FromHtml(values[3]);
-                        btnSelPointColour.BackColor = ColorTranslator.FromHtml(values[4]);
+                        textBoxXAxisTop.Text = values[1];
+                        textBoxXAxisBottom.Text = values[2];
+                        textBoxYAxisLeft.Text = values[3];
+                        textBoxYAxisRight.Text = values[4];
+
+                        btnExisColour.BackColor = ColorTranslator.FromHtml(values[5]);
+                        btnSelPointColour.BackColor = ColorTranslator.FromHtml(values[6]);
 
                         // Load the font data from the CSV
-                        string fontTitle = values[5]; // Assuming font data is at index 5
+                        string fontTitle = values[7]; // Assuming font data is at index 5
                         // Deserialize the font from the font data
                         Font loadedFontTitle = FontFromBinaryString(fontTitle);
                         // Apply the font to the label or control of your choice
                         sampleLabelTitle.Font = loadedFontTitle;
 
                         // Load the font data from the CSV
-                        string fontXYaxis = values[6]; // Assuming font data is at index 5
+                        string fontXYaxis = values[8]; // Assuming font data is at index 5
                         // Deserialize the font from the font data
                         Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
                         // Apply the font to the label or control of your choice

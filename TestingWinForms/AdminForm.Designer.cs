@@ -41,11 +41,11 @@ namespace TestingWinForms
             this.label2 = new System.Windows.Forms.Label();
             this.btnExisColour = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxYAxis = new System.Windows.Forms.TextBox();
-            this.textBoxXAxis = new System.Windows.Forms.TextBox();
+            this.textBoxXAxisBottom = new System.Windows.Forms.TextBox();
+            this.textBoxXAxisTop = new System.Windows.Forms.TextBox();
             this.textBoxTitle = new System.Windows.Forms.TextBox();
-            this.labelYAxis = new System.Windows.Forms.Label();
-            this.labelXAxis = new System.Windows.Forms.Label();
+            this.labelXAxisBottom = new System.Windows.Forms.Label();
+            this.labelXAxisTop = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
             this.tabDownload = new System.Windows.Forms.TabPage();
             this.btnDownloadRawData = new System.Windows.Forms.Button();
@@ -208,6 +208,10 @@ namespace TestingWinForms
             this.btnEndApp = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.textBoxYAxisRight = new System.Windows.Forms.TextBox();
+            this.textBoxYAxisLeft = new System.Windows.Forms.TextBox();
+            this.labelYAxisRight = new System.Windows.Forms.Label();
+            this.labelYAxisLeft = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabTable.SuspendLayout();
             this.tabDownload.SuspendLayout();
@@ -246,6 +250,10 @@ namespace TestingWinForms
             // 
             this.tabTable.AutoScroll = true;
             this.tabTable.BackColor = System.Drawing.Color.Transparent;
+            this.tabTable.Controls.Add(this.textBoxYAxisRight);
+            this.tabTable.Controls.Add(this.textBoxYAxisLeft);
+            this.tabTable.Controls.Add(this.labelYAxisRight);
+            this.tabTable.Controls.Add(this.labelYAxisLeft);
             this.tabTable.Controls.Add(this.btnChangeXYAxis);
             this.tabTable.Controls.Add(this.sampleLabelYAxis);
             this.tabTable.Controls.Add(this.sampleLabelTitle);
@@ -256,23 +264,23 @@ namespace TestingWinForms
             this.tabTable.Controls.Add(this.label2);
             this.tabTable.Controls.Add(this.btnExisColour);
             this.tabTable.Controls.Add(this.label1);
-            this.tabTable.Controls.Add(this.textBoxYAxis);
-            this.tabTable.Controls.Add(this.textBoxXAxis);
+            this.tabTable.Controls.Add(this.textBoxXAxisBottom);
+            this.tabTable.Controls.Add(this.textBoxXAxisTop);
             this.tabTable.Controls.Add(this.textBoxTitle);
-            this.tabTable.Controls.Add(this.labelYAxis);
-            this.tabTable.Controls.Add(this.labelXAxis);
+            this.tabTable.Controls.Add(this.labelXAxisBottom);
+            this.tabTable.Controls.Add(this.labelXAxisTop);
             this.tabTable.Controls.Add(this.labelTitle);
             this.tabTable.Location = new System.Drawing.Point(46, 4);
             this.tabTable.Name = "tabTable";
             this.tabTable.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTable.Size = new System.Drawing.Size(486, 396);
+            this.tabTable.Size = new System.Drawing.Size(508, 396);
             this.tabTable.TabIndex = 0;
             this.tabTable.Text = "Table";
             // 
             // btnChangeXYAxis
             // 
             this.btnChangeXYAxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChangeXYAxis.Location = new System.Drawing.Point(336, 87);
+            this.btnChangeXYAxis.Location = new System.Drawing.Point(358, 87);
             this.btnChangeXYAxis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeXYAxis.Name = "btnChangeXYAxis";
             this.btnChangeXYAxis.Size = new System.Drawing.Size(102, 44);
@@ -285,7 +293,7 @@ namespace TestingWinForms
             // 
             this.sampleLabelYAxis.AutoSize = true;
             this.sampleLabelYAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sampleLabelYAxis.Location = new System.Drawing.Point(37, 611);
+            this.sampleLabelYAxis.Location = new System.Drawing.Point(37, 765);
             this.sampleLabelYAxis.Name = "sampleLabelYAxis";
             this.sampleLabelYAxis.Size = new System.Drawing.Size(107, 32);
             this.sampleLabelYAxis.TabIndex = 15;
@@ -295,7 +303,7 @@ namespace TestingWinForms
             // 
             this.sampleLabelTitle.AutoSize = true;
             this.sampleLabelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sampleLabelTitle.Location = new System.Drawing.Point(40, 507);
+            this.sampleLabelTitle.Location = new System.Drawing.Point(40, 661);
             this.sampleLabelTitle.Name = "sampleLabelTitle";
             this.sampleLabelTitle.Size = new System.Drawing.Size(70, 32);
             this.sampleLabelTitle.TabIndex = 13;
@@ -304,7 +312,7 @@ namespace TestingWinForms
             // btnChangeTableTitle
             // 
             this.btnChangeTableTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnChangeTableTitle.Location = new System.Drawing.Point(336, 5);
+            this.btnChangeTableTitle.Location = new System.Drawing.Point(358, 5);
             this.btnChangeTableTitle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeTableTitle.Name = "btnChangeTableTitle";
             this.btnChangeTableTitle.Size = new System.Drawing.Size(102, 44);
@@ -317,7 +325,7 @@ namespace TestingWinForms
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(5, 324);
+            this.label4.Location = new System.Drawing.Point(5, 510);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(208, 32);
             this.label4.TabIndex = 11;
@@ -326,11 +334,11 @@ namespace TestingWinForms
             // btnSelPointColour
             // 
             this.btnSelPointColour.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSelPointColour.Location = new System.Drawing.Point(185, 360);
+            this.btnSelPointColour.Location = new System.Drawing.Point(185, 546);
             this.btnSelPointColour.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSelPointColour.Name = "btnSelPointColour";
             this.btnSelPointColour.Size = new System.Drawing.Size(262, 42);
-            this.btnSelPointColour.TabIndex = 10;
+            this.btnSelPointColour.TabIndex = 7;
             this.btnSelPointColour.Text = "Select Colour";
             this.btnSelPointColour.UseVisualStyleBackColor = true;
             this.btnSelPointColour.Click += new System.EventHandler(this.btnSelPointColour_Click);
@@ -339,7 +347,7 @@ namespace TestingWinForms
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(72, 364);
+            this.label3.Location = new System.Drawing.Point(72, 550);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(107, 32);
             this.label3.TabIndex = 9;
@@ -349,7 +357,7 @@ namespace TestingWinForms
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(5, 237);
+            this.label2.Location = new System.Drawing.Point(5, 423);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(211, 32);
             this.label2.TabIndex = 8;
@@ -358,11 +366,11 @@ namespace TestingWinForms
             // btnExisColour
             // 
             this.btnExisColour.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExisColour.Location = new System.Drawing.Point(185, 273);
+            this.btnExisColour.Location = new System.Drawing.Point(185, 459);
             this.btnExisColour.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnExisColour.Name = "btnExisColour";
             this.btnExisColour.Size = new System.Drawing.Size(262, 42);
-            this.btnExisColour.TabIndex = 7;
+            this.btnExisColour.TabIndex = 6;
             this.btnExisColour.Text = "Select Colour";
             this.btnExisColour.UseVisualStyleBackColor = true;
             this.btnExisColour.Click += new System.EventHandler(this.btnColourPicker_Click);
@@ -371,31 +379,31 @@ namespace TestingWinForms
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(72, 278);
+            this.label1.Location = new System.Drawing.Point(72, 464);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 32);
             this.label1.TabIndex = 6;
             this.label1.Text = "Colour:";
             // 
-            // textBoxYAxis
+            // textBoxXAxisBottom
             // 
-            this.textBoxYAxis.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBoxXAxisBottom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxYAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxYAxis.Location = new System.Drawing.Point(194, 169);
-            this.textBoxYAxis.Name = "textBoxYAxis";
-            this.textBoxYAxis.Size = new System.Drawing.Size(117, 38);
-            this.textBoxYAxis.TabIndex = 3;
+            this.textBoxXAxisBottom.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxXAxisBottom.Location = new System.Drawing.Point(311, 169);
+            this.textBoxXAxisBottom.Name = "textBoxXAxisBottom";
+            this.textBoxXAxisBottom.Size = new System.Drawing.Size(41, 38);
+            this.textBoxXAxisBottom.TabIndex = 3;
             // 
-            // textBoxXAxis
+            // textBoxXAxisTop
             // 
-            this.textBoxXAxis.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBoxXAxisTop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxXAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxXAxis.Location = new System.Drawing.Point(194, 85);
-            this.textBoxXAxis.Name = "textBoxXAxis";
-            this.textBoxXAxis.Size = new System.Drawing.Size(117, 38);
-            this.textBoxXAxis.TabIndex = 2;
+            this.textBoxXAxisTop.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxXAxisTop.Location = new System.Drawing.Point(311, 85);
+            this.textBoxXAxisTop.Name = "textBoxXAxisTop";
+            this.textBoxXAxisTop.Size = new System.Drawing.Size(41, 38);
+            this.textBoxXAxisTop.TabIndex = 2;
             // 
             // textBoxTitle
             // 
@@ -404,28 +412,28 @@ namespace TestingWinForms
             this.textBoxTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTitle.Location = new System.Drawing.Point(194, 3);
             this.textBoxTitle.Name = "textBoxTitle";
-            this.textBoxTitle.Size = new System.Drawing.Size(117, 38);
+            this.textBoxTitle.Size = new System.Drawing.Size(158, 38);
             this.textBoxTitle.TabIndex = 1;
             // 
-            // labelYAxis
+            // labelXAxisBottom
             // 
-            this.labelYAxis.AutoSize = true;
-            this.labelYAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelYAxis.Location = new System.Drawing.Point(3, 169);
-            this.labelYAxis.Name = "labelYAxis";
-            this.labelYAxis.Size = new System.Drawing.Size(185, 32);
-            this.labelYAxis.TabIndex = 2;
-            this.labelYAxis.Text = "Y Axis Name:";
+            this.labelXAxisBottom.AutoSize = true;
+            this.labelXAxisBottom.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelXAxisBottom.Location = new System.Drawing.Point(3, 169);
+            this.labelXAxisBottom.Name = "labelXAxisBottom";
+            this.labelXAxisBottom.Size = new System.Drawing.Size(300, 32);
+            this.labelXAxisBottom.TabIndex = 2;
+            this.labelXAxisBottom.Text = "X Axis Name (Bottom):";
             // 
-            // labelXAxis
+            // labelXAxisTop
             // 
-            this.labelXAxis.AutoSize = true;
-            this.labelXAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelXAxis.Location = new System.Drawing.Point(3, 85);
-            this.labelXAxis.Name = "labelXAxis";
-            this.labelXAxis.Size = new System.Drawing.Size(185, 32);
-            this.labelXAxis.TabIndex = 1;
-            this.labelXAxis.Text = "X Axis Name:";
+            this.labelXAxisTop.AutoSize = true;
+            this.labelXAxisTop.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelXAxisTop.Location = new System.Drawing.Point(3, 85);
+            this.labelXAxisTop.Name = "labelXAxisTop";
+            this.labelXAxisTop.Size = new System.Drawing.Size(259, 32);
+            this.labelXAxisTop.TabIndex = 1;
+            this.labelXAxisTop.Text = "X Axis Name (Top):";
             // 
             // labelTitle
             // 
@@ -2310,6 +2318,46 @@ namespace TestingWinForms
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // textBoxYAxisRight
+            // 
+            this.textBoxYAxisRight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxYAxisRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxYAxisRight.Location = new System.Drawing.Point(311, 337);
+            this.textBoxYAxisRight.Name = "textBoxYAxisRight";
+            this.textBoxYAxisRight.Size = new System.Drawing.Size(44, 38);
+            this.textBoxYAxisRight.TabIndex = 5;
+            // 
+            // textBoxYAxisLeft
+            // 
+            this.textBoxYAxisLeft.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxYAxisLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxYAxisLeft.Location = new System.Drawing.Point(311, 253);
+            this.textBoxYAxisLeft.Name = "textBoxYAxisLeft";
+            this.textBoxYAxisLeft.Size = new System.Drawing.Size(44, 38);
+            this.textBoxYAxisLeft.TabIndex = 4;
+            // 
+            // labelYAxisRight
+            // 
+            this.labelYAxisRight.AutoSize = true;
+            this.labelYAxisRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelYAxisRight.Location = new System.Drawing.Point(6, 337);
+            this.labelYAxisRight.Name = "labelYAxisRight";
+            this.labelYAxisRight.Size = new System.Drawing.Size(277, 32);
+            this.labelYAxisRight.TabIndex = 19;
+            this.labelYAxisRight.Text = "Y Axis Name (Right):";
+            // 
+            // labelYAxisLeft
+            // 
+            this.labelYAxisLeft.AutoSize = true;
+            this.labelYAxisLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelYAxisLeft.Location = new System.Drawing.Point(6, 253);
+            this.labelYAxisLeft.Name = "labelYAxisLeft";
+            this.labelYAxisLeft.Size = new System.Drawing.Size(258, 32);
+            this.labelYAxisLeft.TabIndex = 17;
+            this.labelYAxisLeft.Text = "Y Axis Name (Left):";
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2357,10 +2405,10 @@ namespace TestingWinForms
         private System.Windows.Forms.TabPage tabDownload;
         private System.Windows.Forms.TabPage tabAdvance;
         private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.Label labelYAxis;
-        private System.Windows.Forms.Label labelXAxis;
-        private System.Windows.Forms.TextBox textBoxYAxis;
-        private System.Windows.Forms.TextBox textBoxXAxis;
+        private System.Windows.Forms.Label labelXAxisBottom;
+        private System.Windows.Forms.Label labelXAxisTop;
+        private System.Windows.Forms.TextBox textBoxXAxisBottom;
+        private System.Windows.Forms.TextBox textBoxXAxisTop;
         private System.Windows.Forms.TextBox textBoxTitle;
         private System.Windows.Forms.Label labelA11;
         private System.Windows.Forms.Label labelQ1;
@@ -2527,5 +2575,9 @@ namespace TestingWinForms
         private System.Windows.Forms.Label sampleLabelA32;
         private System.Windows.Forms.Label sampleLabelA31;
         private System.Windows.Forms.Label sampleLabelQ3;
+        private System.Windows.Forms.TextBox textBoxYAxisRight;
+        private System.Windows.Forms.TextBox textBoxYAxisLeft;
+        private System.Windows.Forms.Label labelYAxisRight;
+        private System.Windows.Forms.Label labelYAxisLeft;
     }
 }

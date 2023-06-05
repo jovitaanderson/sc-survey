@@ -218,11 +218,13 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 7)
+                    if (values.Length == 9)
                     {
                         labelTitle.Text = values[0];
                         labelXAxis.Text = values[1];
-                        labelYAxis.Text = values[2];
+                        labelXAxis2.Text = values[2];
+                        labelYAxis.Text = values[3];
+                        labelYAxis2.Text = values[4];
                         //labelTitle.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
                         //labelXAxis.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
                         //labelYAxis.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
@@ -271,14 +273,14 @@ namespace TestingWinForms
                         labelXAxis.Left = (this.ClientSize.Width - labelXAxis.Width) / 2;
 
 
-                        existingColour = ColorTranslator.FromHtml(values[3]);
-                        selectedColour = ColorTranslator.FromHtml(values[4]);
+                        existingColour = ColorTranslator.FromHtml(values[5]);
+                        selectedColour = ColorTranslator.FromHtml(values[6]);
 
-                        string fontTitle = values[5]; 
+                        string fontTitle = values[7]; 
                         Font loadedFontTitle = FontFromBinaryString(fontTitle);
                         labelTitle.Font = loadedFontTitle;
                         
-                        string fontXYaxis = values[6]; 
+                        string fontXYaxis = values[8]; 
                         Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
                         labelXAxis.Font = loadedFontXYaxis;
                         labelYAxis.Font = loadedFontXYaxis;
