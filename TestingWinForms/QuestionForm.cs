@@ -38,11 +38,17 @@ namespace TestingWinForms
             defaultQuestions = new List<Question>()
             {
                 new Question(0, "MCQ", "Question 1", new List<string> { "Option A", "Option B", "Option C", "Option D", "Option E", "Option C", "Option D", "Option E",}, "",
-                "", new List<string>{ "", "", "", "", "", "", "", ""}),
+                "", new List<string>{ "", "", "", "", "", "", "", ""}, 
+                ContentAlignment.TopLeft, new List<ContentAlignment>{ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft },
+                true, new List<bool>{true, true, true, true, true, true, true, true }),
                 new Question(1, "MCQ", "Question 2", new List<string> { "Option D", "Option E", "Option F", "Option D", "Option E", "Option C", "Option D", "Option E"}, "",
-                "", new List<string>{ "", "", "", "", "", "", "", ""}),
+                "", new List<string>{ "", "", "", "", "", "", "", ""},
+                ContentAlignment.TopLeft, new List<ContentAlignment>{ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft },
+                true, new List<bool>{true, true, true, true, true, true, true, true }),
                 new Question(2, "MRQ", "Question 3", new List<string> { "Option G", "Option H", "Option I", "Option D", "Option E", "Option C", "Option D", "Option E" }, "",
-                "", new List<string>{ "", "", "", "", "", "", "", ""}),
+                "", new List<string>{ "", "", "", "", "", "", "", ""},
+                ContentAlignment.TopLeft, new List<ContentAlignment>{ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft },
+                true, new List<bool>{true, true, true, true, true, true, true, true }),
             };
 
             InitializeComponent();
@@ -263,11 +269,84 @@ namespace TestingWinForms
 
 
                                     //fonts
-                                    string fontQuestion = fontValues[0];
-                                    List<string> fontOptions = new List<string> { fontValues[1], fontValues[2],
-                                    fontValues[3], fontValues[4], fontValues[5], fontValues[6], fontValues[7], fontValues[8] };
+                                    //string fontQuestion = fontValues[0];
+                                    ContentAlignment textAlignQuestion = ContentAlignment.TopLeft;
+                                    bool textWrapQuestion = true;
+                                    string[] fontQuestionProperties = fontValues[0].Split(';'); // Assuming text font and alignment data is at index 5
+                                    string fontQuestion = fontQuestionProperties[0]; // First ; is text font
+                                    if (fontQuestionProperties.Length > 2)
+                                    { 
 
-                                    questions.Add(new Question(currQuestionIndex, questionText, type, options, imagePath, fontQuestion, fontOptions));
+                                        // Parse the textAlignValue as ContentAlignment
+                                        if (Enum.TryParse(fontQuestionProperties[1], out ContentAlignment alignment))
+                                        {
+                                            textAlignQuestion = alignment;
+                                        }
+                                        else
+                                        {
+                                            textAlignQuestion = ContentAlignment.TopLeft;
+                                        }
+
+                                        // Parse the textWrapValue as boolean
+                                        if (bool.TryParse(fontQuestionProperties[2], out bool wrapValue))
+                                        {
+                                            textWrapQuestion = wrapValue;
+                                        }
+                                        else
+                                        {
+                                            textWrapQuestion = true;
+                                        }
+                                    }
+
+                                    //string fontQuestion = fontValues[0];
+                                    //List<string> fontOptions = new List<string> { fontValues[1], fontValues[2],
+                                    //fontValues[3], fontValues[4], fontValues[5], fontValues[6], fontValues[7], fontValues[8] };
+
+                                    List<string> fontOptions = new List<string>();
+                                    List<ContentAlignment> textAlignOptions = new List<ContentAlignment>();
+                                    List<bool> textWrapOptions = new List<bool>();
+
+                                    for (int i = 1; i < 9; i++)
+                                    {
+                                        string[] answerData = fontValues[i].Split(';');
+
+                                        if (answerData.Length >= 3)
+                                        {
+                                            string answerValue1 = answerData[0];
+                                            string answerValue2 = answerData[1];
+                                            string answerValue3 = answerData[2];
+
+                                            // Add the three data values to the answer list
+                                            fontOptions.Add(answerValue1);
+
+                                            // Parse the second value as ContentAlignment
+                                            if (Enum.TryParse(answerValue2, out ContentAlignment alignment))
+                                            {
+                                                textAlignOptions.Add(alignment);
+                                            }
+                                            else
+                                            {
+                                                // Handle parsing error (e.g., provide a default value or error handling logic)
+                                                // Here, we'll add a default value to the textAlignOptions list
+                                                textAlignOptions.Add(ContentAlignment.TopLeft);
+                                            }
+
+                                            // Parse the third value as boolean
+                                            if (bool.TryParse(answerValue3, out bool wrapValue))
+                                            {
+                                                textWrapOptions.Add(wrapValue);
+                                            }
+                                            else
+                                            {
+                                                // Handle parsing error (e.g., provide a default value or error handling logic)
+                                                // Here, we'll add a default value to the textWrapOptions list
+                                                textWrapOptions.Add(true);
+                                            }
+                                        }
+                                    }
+
+                                    questions.Add(new Question(currQuestionIndex, questionText, type, options, imagePath, fontQuestion, fontOptions,
+                                        textAlignQuestion, textAlignOptions, textWrapQuestion, textWrapOptions));
                                     currQuestionIndex++;
                                 }
                                 else
@@ -418,6 +497,11 @@ namespace TestingWinForms
                 // Update the question label
                 questionLabel.Text = currentQuestion.Text;
                 questionLabel.Font = FontFromBinaryString(currentQuestion.FontQuestion);
+                questionLabel.TextAlign = currentQuestion.QuestionAlignment;
+                questionLabel.AutoSize = currentQuestion.QuestionAutoSize;
+                int maxWidthAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.40);
+                questionLabel.MaximumSize = new Size(maxWidthAxis, 0);
+                questionLabel.MinimumSize = new Size(maxWidthAxis, 0);
 
                 int numOptions = 8;
 
@@ -437,6 +521,8 @@ namespace TestingWinForms
                         radioButton.Checked = false;
 
                         radioButton.Font = FontFromBinaryString(currentQuestion.FontValues[i]);
+                        radioButton.TextAlign = currentQuestion.TextAligns[i];
+                        radioButton.AutoSize = currentQuestion.AutoSizes[i];
                     }
 
                     // Clear the selection for any remaining radio buttons
@@ -471,6 +557,9 @@ namespace TestingWinForms
                         checkbox.Checked = false;
 
                         checkbox.Font = FontFromBinaryString(currentQuestion.FontValues[i]);
+
+                        checkbox.TextAlign = currentQuestion.TextAligns[i];
+                        checkbox.AutoSize = currentQuestion.AutoSizes[i];
                     }
 
                     // Clear the selection for any remaining checkboxes
@@ -747,7 +836,16 @@ namespace TestingWinForms
 
         public List<string> FontValues { get; set; }
 
-        public Question(int index, string text, string type, List<string> options, string imagePath, string fontQuestion, List<string> fontValues)
+        public List<ContentAlignment> TextAligns { get; set; }
+
+        public ContentAlignment QuestionAlignment { get; set; }
+
+        public bool QuestionAutoSize { get; set; }
+
+        public List<bool> AutoSizes { get; set; }
+
+        public Question(int index, string text, string type, List<string> options, string imagePath, 
+            string fontQuestion, List<string> fontValues, ContentAlignment questionAlignment, List<ContentAlignment> textAligns, bool questionAutoSize, List<bool> autoSizes)
         {
             Index = index;
             Text = text;
@@ -756,6 +854,10 @@ namespace TestingWinForms
             Image = imagePath;
             FontQuestion = fontQuestion;
             FontValues = fontValues;
+            QuestionAlignment = questionAlignment;
+            TextAligns = textAligns;
+            QuestionAutoSize = questionAutoSize;
+            AutoSizes = autoSizes;
         }
     }
 }

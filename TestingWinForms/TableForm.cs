@@ -323,18 +323,18 @@ namespace TestingWinForms
 
                             labelTitle.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
                         }
-                        Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
+                        //Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
                         // X Top axis
-                        labelXAxis2.Font = loadedFontXYaxis;
+                        //labelXAxis2.Font = loadedFontXYaxis;
                         /*labelYAxis.Font = loadedFontXYaxis;
                         labelXAxis2.Font = loadedFontXYaxis;
                         labelYAxis2.Font = loadedFontXYaxis;*/
                         
                         
                         //labelXAxis2.Font = FontFromBinaryString(values[8]);
-                        labelXAxis.Font = FontFromBinaryString(values[9]);
-                        labelYAxis.Font = FontFromBinaryString(values[10]);
-                        labelYAxis2.Font = FontFromBinaryString(values[11]);
+                        //labelXAxis.Font = FontFromBinaryString(values[9]);
+                        //labelYAxis.Font = FontFromBinaryString(values[10]);
+                        //labelYAxis2.Font = FontFromBinaryString(values[11]);
 
 
 

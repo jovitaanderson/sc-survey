@@ -334,7 +334,10 @@ namespace TestingWinForms
                 if (!string.IsNullOrWhiteSpace(textBoxQuestion.Text))
                 {
                     questions.Add(textBoxQuestion.Text);
-                    fontQuestions.Add(FontToBinaryString(sampleLabel.Font));
+
+                    string fontQuestionToAdd = $"{FontToBinaryString(sampleLabelTitle.Font)};{sampleLabelTitle.TextAlign};{sampleLabelTitle.AutoSize}";
+                    fontQuestions.Add(fontQuestionToAdd);
+                    //fontQuestions.Add(FontToBinaryString(sampleLabel.Font));
 
                     // Get the answer fonts
                     List<string> answerFonts = new List<string>();
@@ -347,8 +350,7 @@ namespace TestingWinForms
                         answerOptions.Add(answer);
 
                         Label answerLabel = GetAnswerFontLabel(i, j);
-                        ContentAlignment contentAlignment = answerLabel.TextAlign;
-                        answerFonts.Add($"{FontToBinaryString(answerLabel.Font)};{contentAlignment}");
+                        answerFonts.Add($"{FontToBinaryString(answerLabel.Font)};{answerLabel.TextAlign};{answerLabel.AutoSize}");
                     }
                     answers.Add(answerOptions);
                     fontAnswers.Add(answerFonts);
@@ -667,10 +669,10 @@ namespace TestingWinForms
                         //sampleLabelYAxis.Font = loadedFontXYaxis;
 
                         
-                        sampleLabelXTopAxis.Font = FontFromBinaryString(values[8]);
-                        sampleLabelXBotAxis.Font = FontFromBinaryString(values[9]);
-                        sampleLabelYLeftAxis.Font = FontFromBinaryString(values[10]);
-                        sampleLabelYRightAxis.Font = FontFromBinaryString(values[11]);
+                        //sampleLabelXTopAxis.Font = FontFromBinaryString(values[8]);
+                        //sampleLabelXBotAxis.Font = FontFromBinaryString(values[9]);
+                        //sampleLabelYLeftAxis.Font = FontFromBinaryString(values[10]);
+                        //sampleLabelYRightAxis.Font = FontFromBinaryString(values[11]);
                     }
                 }
             }
@@ -777,17 +779,40 @@ namespace TestingWinForms
                    
                     if (sampleQuestionLabels != null && sampleAnswerLabels.Length == optionsNumber)
                     {
-                        sampleQuestionLabels.Font = FontFromBinaryString(values[0]);
+                        string[] textProperties = values[0].Split(';'); // Assuming text font and alignment data is at index 5
+                        string fontTitle = textProperties[0]; // First ; is text font
+                        if (textProperties.Length > 2)
+                        {
+                            String textAlign = textProperties[1]; // Second ; is text align properties
+                            String textWrap = textProperties[2];
+                            // Load text alignment
+                            if (Enum.TryParse(textAlign, out ContentAlignment alignment))
+                            {
+                                // Conversion succeeded, and the alignment variable now contains the corresponding enum value
+                                // You can use the alignment variable as needed
+                                sampleQuestionLabels.TextAlign = alignment;
+                            }
+                            else
+                            {
+                                // Conversion failed, handle the error or set a default value
+                                sampleQuestionLabels.TextAlign = ContentAlignment.MiddleCenter;
+                            }
+                            sampleQuestionLabels.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
+
+                        }
+
+                        sampleQuestionLabels.Font = FontFromBinaryString(fontTitle);
+
                         for (int i = values.Length - 1; i >= 1; i--)
                         {
-                            string[] textProperties = values[i].Split(';');
-                            String font = textProperties[0];
-                            if (textProperties.Length > 1)
+                            string[] answerTextProperties = values[i].Split(';');
+                            String font = answerTextProperties[0];
+                            if (answerTextProperties.Length > 2)
                             {
-                                String textAlign = textProperties[1];
-                                ContentAlignment alignment;
+                                String textAlign = answerTextProperties[1];
+                                String textWrap = answerTextProperties[2];
 
-                                if (Enum.TryParse(textAlign, out alignment))
+                                if (Enum.TryParse(textAlign, out ContentAlignment alignment))
                                 {
                                     // Conversion succeeded, and the alignment variable now contains the corresponding enum value
                                     // You can use the alignment variable as needed
@@ -796,8 +821,9 @@ namespace TestingWinForms
                                 else
                                 {
                                     // Conversion failed, handle the error or set a default value
-                                    //sampleAnswerLabels[values.Length - 1 - i].TextAlign = ContentAlignment.MiddleCenter;
+                                    sampleAnswerLabels[values.Length - 1 - i].TextAlign = ContentAlignment.TopLeft;
                                 }
+                                sampleAnswerLabels[values.Length - 1 - i].AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
                             }
 
                             sampleAnswerLabels[values.Length - 1 - i].Font = FontFromBinaryString(font);
@@ -1608,6 +1634,50 @@ namespace TestingWinForms
             }
         }
 
+        // helper method to change font dynamically
+        private void btnTextChange_Click(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            string buttonName = clickedButton.Name;
+
+            if (buttonName.StartsWith("btnTextChangeQ"))
+            {
+                string lastDigit = buttonName.Substring(buttonName.Length - 1);
+                string labelName = "sampleLabelQ" + lastDigit;
+
+                Control[] labels = this.Controls.Find(labelName, true);
+                if (labels.Length > 0 && labels[0] is Label label)
+                {
+                    using (CustomText dialog = new CustomText(label.TextAlign, label.AutoSize))
+                    {
+                        if (dialog.ShowDialog() == DialogResult.OK)
+                        {
+                            label.TextAlign = dialog.SelectedAlignment;
+                            label.AutoSize = dialog.SelectedWrap;
+                        }
+                    }
+                }
+            }
+            else if (buttonName.StartsWith("btnTextChangeA"))
+            {
+                string lastTwoDigits = buttonName.Substring(buttonName.Length - 2);
+                string labelName = "sampleLabelA" + lastTwoDigits;
+
+                Control[] labels = this.Controls.Find(labelName, true);
+                if (labels.Length > 0 && labels[0] is Label label)
+                {
+                    using (CustomText dialog = new CustomText(label.TextAlign, label.AutoSize))
+                    {
+                        if (dialog.ShowDialog() == DialogResult.OK)
+                        {
+                            label.TextAlign = dialog.SelectedAlignment;
+                            label.AutoSize = dialog.SelectedWrap;
+                        }
+                    }
+                }
+            }
+        }
+
         private void ClearButton_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
@@ -2274,6 +2344,384 @@ namespace TestingWinForms
         private void BtnTextChangeXYAxis_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnTextChangeQ1_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelQ1.TextAlign,
+            sampleLabelQ1.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelQ1.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelQ1.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeQ2_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelQ2.TextAlign,
+            sampleLabelQ2.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelQ2.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelQ2.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeQ3_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelQ3.TextAlign,
+            sampleLabelQ3.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelQ3.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelQ3.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA11_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA11.TextAlign,
+            sampleLabelA11.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA11.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA11.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA12_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA12.TextAlign,
+            sampleLabelA12.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA12.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA12.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA13_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA13.TextAlign,
+            sampleLabelA13.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA13.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA13.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA14_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA14.TextAlign,
+            sampleLabelA14.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA14.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA14.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA15_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA15.TextAlign,
+            sampleLabelA15.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA15.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA15.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA16_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA16.TextAlign,
+            sampleLabelA16.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA16.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA16.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA17_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA17.TextAlign,
+            sampleLabelA17.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA17.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA17.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA18_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA18.TextAlign,
+            sampleLabelA18.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA18.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA18.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA28_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA28.TextAlign,
+            sampleLabelA28.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA28.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA28.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA22_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA22.TextAlign,
+            sampleLabelA22.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA22.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA22.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA23_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA23.TextAlign,
+            sampleLabelA23.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA23.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA23.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA24_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA24.TextAlign,
+            sampleLabelA24.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA24.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA24.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA25_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA25.TextAlign,
+            sampleLabelA25.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA25.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA25.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA26_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA26.TextAlign,
+            sampleLabelA26.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA26.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA26.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA27_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA27.TextAlign,
+            sampleLabelA27.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA27.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA27.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA21_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA21.TextAlign,
+            sampleLabelA21.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA21.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA21.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA38_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA38.TextAlign,
+            sampleLabelA38.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA38.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA38.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA32_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA32.TextAlign,
+            sampleLabelA32.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA32.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA32.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA33_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA33.TextAlign,
+            sampleLabelA33.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA33.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA33.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA34_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA34.TextAlign,
+            sampleLabelA34.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA34.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA34.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA35_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA35.TextAlign,
+            sampleLabelA35.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA35.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA35.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA36_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA36.TextAlign,
+            sampleLabelA36.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA36.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA36.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA37_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA37.TextAlign,
+            sampleLabelA37.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA37.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA37.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA31_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA31.TextAlign,
+            sampleLabelA31.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA31.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA31.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
         }
     }
 }
