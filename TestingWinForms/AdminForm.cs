@@ -244,8 +244,8 @@ namespace TestingWinForms
             // Serialize the font object to a binary string
             //string fontTitle = FontToBinaryString(sampleLabelTitle.Font);
             string fontTitle = $"{FontToBinaryString(sampleLabelTitle.Font)};{sampleLabelTitle.TextAlign};{sampleLabelTitle.AutoSize}";
-            string fontXYAxis = $"{FontToBinaryString(sampleLabelYAxis.Font)};{sampleLabelYAxis.TextAlign};{sampleLabelYAxis.AutoSize}";
-
+            //string fontXYAxis = $"{FontToBinaryString(sampleLabelYAxis.Font)};{sampleLabelYAxis.TextAlign};{sampleLabelYAxis.AutoSize}";
+            string fontXTopAxis = $"{FontToBinaryString(sampleLabelXTopAxis.Font)};{sampleLabelXTopAxis.TextAlign};{sampleLabelXTopAxis.AutoSize}";
             string fontXBotAxis = FontToBinaryString(sampleLabelXBotAxis.Font);
             string fontYLeftAxis = FontToBinaryString(sampleLabelYLeftAxis.Font);
             string fontYRightAxis = FontToBinaryString(sampleLabelYRightAxis.Font);
@@ -655,16 +655,16 @@ namespace TestingWinForms
                         // Apply the font to the label or control of your choice
                         //sampleLabelTitle.Font = loadedFontTitle;
 
-                        int requiredHeight = (int)Math.Ceiling(loadedFontTitle.GetHeight()) + Padding.Vertical;
+                        int requiredHeight = (int)Math.Ceiling(FontFromBinaryString(fontTitle).GetHeight()) + Padding.Vertical;
                         labelTitle.Height = requiredHeight;
 
 
                         // Load the font data from the CSV
                         //string fontXYaxis = values[6]; // Assuming font data is at index 5
                         // Deserialize the font from the font data
-                        Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
+                        //Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
                         // Apply the font to the label or control of your choice
-                        sampleLabelYAxis.Font = loadedFontXYaxis;
+                        //sampleLabelYAxis.Font = loadedFontXYaxis;
 
                         
                         sampleLabelXTopAxis.Font = FontFromBinaryString(values[8]);
@@ -2230,7 +2230,7 @@ namespace TestingWinForms
             }
         }
 
-        private void BtnTextChangeXYAxis_Click(object sender, EventArgs e)
+        /*private void BtnTextChangeXYAxis_Click(object sender, EventArgs e)
         {
             using (CustomText dialog = new CustomText(sampleLabelYAxis.TextAlign,
             sampleLabelYAxis.AutoSize))
@@ -2241,6 +2241,9 @@ namespace TestingWinForms
                     sampleLabelYAxis.AutoSize = dialog.SelectedWrap;
 
                 }
+            }
+        }*/
+
         private void btnChangeXBotAxis_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
@@ -2266,6 +2269,11 @@ namespace TestingWinForms
             {
                 sampleLabelYRightAxis.Font = fontDialog.Font;
             }
+        }
+
+        private void BtnTextChangeXYAxis_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

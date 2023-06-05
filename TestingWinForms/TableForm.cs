@@ -301,7 +301,7 @@ namespace TestingWinForms
                         labelTitle.Height = requiredHeight;
 
                         string fontXYaxis = values[8];
-                        string[] XYaxisTextProperties = values[6].Split(';'); // Assuming text font and alignment data is at index 5
+                        string[] XYaxisTextProperties = values[8].Split(';'); // Assuming text font and alignment data is at index 5
                         string XYaxisFontTitle = XYaxisTextProperties[0]; // First ; is text font
                         if (textProperties.Length > 2)
                         {
@@ -324,16 +324,14 @@ namespace TestingWinForms
                             labelTitle.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
                         }
                         Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
-                        labelXAxis.Font = loadedFontXYaxis;
-                        labelYAxis.Font = loadedFontXYaxis;
+                        // X Top axis
                         labelXAxis2.Font = loadedFontXYaxis;
-                        labelYAxis2.Font = loadedFontXYaxis;
+                        /*labelYAxis.Font = loadedFontXYaxis;
+                        labelXAxis2.Font = loadedFontXYaxis;
+                        labelYAxis2.Font = loadedFontXYaxis;*/
                         
-                        string fontTitle = values[7]; 
-                        Font loadedFontTitle = FontFromBinaryString(fontTitle);
-                        labelTitle.Font = loadedFontTitle;
                         
-                        labelXAxis2.Font = FontFromBinaryString(values[8]);
+                        //labelXAxis2.Font = FontFromBinaryString(values[8]);
                         labelXAxis.Font = FontFromBinaryString(values[9]);
                         labelYAxis.Font = FontFromBinaryString(values[10]);
                         labelYAxis2.Font = FontFromBinaryString(values[11]);
