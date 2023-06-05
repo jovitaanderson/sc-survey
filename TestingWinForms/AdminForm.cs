@@ -333,7 +333,7 @@ namespace TestingWinForms
                 {
                     questions.Add(textBoxQuestion.Text);
 
-                    string fontQuestionToAdd = $"{FontToBinaryString(sampleLabelTitle.Font)};{sampleLabelTitle.TextAlign};{sampleLabelTitle.AutoSize}";
+                    string fontQuestionToAdd = $"{FontToBinaryString(sampleLabel.Font)};{sampleLabel.TextAlign};{sampleLabel.AutoSize}";
                     fontQuestions.Add(fontQuestionToAdd);
                     //fontQuestions.Add(FontToBinaryString(sampleLabel.Font));
 
