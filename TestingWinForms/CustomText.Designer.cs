@@ -91,6 +91,7 @@
             this.Controls.Add(this.comboBoxAlignment);
             this.Controls.Add(this.lblInstructions);
             this.Name = "CustomText";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CustomText";
             this.ResumeLayout(false);
             this.PerformLayout();

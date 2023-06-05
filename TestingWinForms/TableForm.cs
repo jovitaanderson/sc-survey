@@ -272,76 +272,41 @@ namespace TestingWinForms
                         existingColour = ColorTranslator.FromHtml(values[5]);
                         selectedColour = ColorTranslator.FromHtml(values[6]);
 
-
-                        string[] textProperties = values[7].Split(';'); // Assuming text font and alignment data is at index 5
-                        string fontTitle = textProperties[0]; // First ; is text font
-                        if (textProperties.Length > 2)
-                        {
-                            String textAlign = textProperties[1]; // Second ; is text align properties
-                            String textWrap = textProperties[2]; // Second ; is text align properties
-
-                            // Load text alignment
-                            if (Enum.TryParse(textAlign, out ContentAlignment alignment))
-                            {
-                                // Conversion succeeded, and the alignment variable now contains the corresponding enum value
-                                // You can use the alignment variable as needed
-                                labelTitle.TextAlign = alignment;
-                            }
-                            else
-                            {
-                                // Conversion failed, handle the error or set a default value
-                                labelTitle.TextAlign = ContentAlignment.MiddleCenter;
-                            }
-
-                            labelTitle.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
-                        }
-                        Font loadedFontTitle = FontFromBinaryString(fontTitle);
-                        labelTitle.Font = loadedFontTitle;
-                        int requiredHeight = (int)Math.Ceiling(loadedFontTitle.GetHeight()) + Padding.Vertical;
-                        labelTitle.Height = requiredHeight;
-
-                        string fontXYaxis = values[8];
-                        string[] XYaxisTextProperties = values[8].Split(';'); // Assuming text font and alignment data is at index 5
-                        string XYaxisFontTitle = XYaxisTextProperties[0]; // First ; is text font
-                        if (textProperties.Length > 2)
-                        {
-                            String textAlign = textProperties[1]; // Second ; is text align properties
-                            String textWrap = textProperties[2]; // Second ; is text align properties
-
-                            // Load text alignment
-                            if (Enum.TryParse(textAlign, out ContentAlignment alignment))
-                            {
-                                // Conversion succeeded, and the alignment variable now contains the corresponding enum value
-                                // You can use the alignment variable as needed
-                                labelTitle.TextAlign = alignment;
-                            }
-                            else
-                            {
-                                // Conversion failed, handle the error or set a default value
-                                labelTitle.TextAlign = ContentAlignment.MiddleCenter;
-                            }
-
-                            labelTitle.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
-                        }
-                        Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
-                        // X Top axis
-                        labelXAxis2.Font = loadedFontXYaxis;
-                        /*labelYAxis.Font = loadedFontXYaxis;
-                        labelXAxis2.Font = loadedFontXYaxis;
-                        labelYAxis2.Font = loadedFontXYaxis;*/
-                        
-                        
-                        //labelXAxis2.Font = FontFromBinaryString(values[8]);
-                        labelXAxis.Font = FontFromBinaryString(values[9]);
-                        labelYAxis.Font = FontFromBinaryString(values[10]);
-                        labelYAxis2.Font = FontFromBinaryString(values[11]);
-
-
-
+                        loadContentToComponent(values, 7, labelTitle);
+                        loadContentToComponent(values, 8, labelXAxis2);
+                        loadContentToComponent(values, 9, labelXAxis);
+                        loadContentToComponent(values, 10, labelYAxis);
+                        loadContentToComponent(values, 11, labelYAxis2);
 
                     }
                 }
             } 
+        }
+
+        void loadContentToComponent(string[] values, int ValueIndex, Label label)
+        {
+            string[] textProperties = values[ValueIndex].Split(';'); // Assuming text font and alignment data is at index 5
+            string fontTitle = textProperties[0]; // First ; is text font
+
+            Font loadedFontTitle = FontFromBinaryString(fontTitle);
+            label.Font = loadedFontTitle;
+            label.Height = (int)Math.Ceiling(FontFromBinaryString(fontTitle).GetHeight()) + Padding.Vertical; ;
+
+            if (textProperties.Length > 2)
+            {
+                String textAlign = textProperties[1]; // Second ; is text align property
+                String textWrap = textProperties[2]; // Third ; is text wrap property
+                if (Enum.TryParse(textAlign, out ContentAlignment alignment))
+                {
+                    label.TextAlign = alignment;
+                }
+                else
+                {
+                    label.TextAlign = ContentAlignment.TopLeft; //default ContentAlignment
+                }
+                label.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
+            }
+            labelTitle.Height = (int)Math.Ceiling(loadedFontTitle.GetHeight()) + Padding.Vertical;
         }
 
         private string LoadBackgroundImageFromCSV()
