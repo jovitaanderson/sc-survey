@@ -218,16 +218,13 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 7)
+                    if (values.Length == 12)
                     {
                         labelTitle.Text = values[0];
                         labelXAxis.Text = values[1];
-                        labelYAxis.Text = values[2];
-                        //labelTitle.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
-                        //labelXAxis.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
-                        //labelYAxis.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
-                        //labelXAxis2.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
-                        //labelYAxis2.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+                        labelXAxis2.Text = values[2];
+                        labelYAxis.Text = values[3];
+                        labelYAxis2.Text = values[4];
 
                         int maxWidthTitle = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.25);
                         int maxWidthAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.40);
@@ -271,19 +268,18 @@ namespace TestingWinForms
                         labelXAxis.Left = (this.ClientSize.Width - labelXAxis.Width) / 2;
 
 
-                        existingColour = ColorTranslator.FromHtml(values[3]);
-                        selectedColour = ColorTranslator.FromHtml(values[4]);
+                        existingColour = ColorTranslator.FromHtml(values[5]);
+                        selectedColour = ColorTranslator.FromHtml(values[6]);
 
-                        string fontTitle = values[5]; 
+                        string fontTitle = values[7]; 
                         Font loadedFontTitle = FontFromBinaryString(fontTitle);
                         labelTitle.Font = loadedFontTitle;
                         
-                        string fontXYaxis = values[6]; 
-                        Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
-                        labelXAxis.Font = loadedFontXYaxis;
-                        labelYAxis.Font = loadedFontXYaxis;
-                        labelXAxis2.Font = loadedFontXYaxis;
-                        labelYAxis2.Font = loadedFontXYaxis;
+                        labelXAxis2.Font = FontFromBinaryString(values[8]);
+                        labelXAxis.Font = FontFromBinaryString(values[9]);
+                        labelYAxis.Font = FontFromBinaryString(values[10]);
+                        labelYAxis2.Font = FontFromBinaryString(values[11]);
+
 
                     }
                 }
