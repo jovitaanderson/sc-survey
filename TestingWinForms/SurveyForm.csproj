@@ -59,6 +59,12 @@
     <Compile Include="AdminForm.Designer.cs">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomText.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomText.Designer.cs">
+      <DependentUpon>CustomText.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalVariables.cs" />
     <Compile Include="TableForm.cs">
       <SubType>Form</SubType>
@@ -82,6 +88,9 @@
     </Compile>
     <EmbeddedResource Include="AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomText.resx">
+      <DependentUpon>CustomText.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TableForm.resx">
       <DependentUpon>TableForm.cs</DependentUpon>

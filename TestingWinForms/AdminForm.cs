@@ -237,9 +237,15 @@ namespace TestingWinForms
             string existingColour = ColorTranslator.ToHtml(btnExisColour.BackColor);
             string newColour = ColorTranslator.ToHtml(btnSelPointColour.BackColor);
 
+
+            ContentAlignment textAlignment = sampleLabelTitle.TextAlign;
+            bool textWrap = sampleLabelTitle.AutoSize;
+
             // Serialize the font object to a binary string
-            string fontTitle = FontToBinaryString(sampleLabelTitle.Font);
-            string fontXYAxis = FontToBinaryString(sampleLabelYAxis.Font);
+            //string fontTitle = FontToBinaryString(sampleLabelTitle.Font);
+            string fontTitle = $"{FontToBinaryString(sampleLabelTitle.Font)};{sampleLabelTitle.TextAlign};{sampleLabelTitle.AutoSize}";
+            string fontXYAxis = $"{FontToBinaryString(sampleLabelYAxis.Font)};{sampleLabelYAxis.TextAlign};{sampleLabelYAxis.AutoSize}";
+
 
             // Concatenate the data into a comma-separated string
             string titleDate = string.Format("{0},{1},{2},{3},{4},{5},{6}", 
@@ -337,7 +343,8 @@ namespace TestingWinForms
                         answerOptions.Add(answer);
 
                         Label answerLabel = GetAnswerFontLabel(i, j);
-                        answerFonts.Add(FontToBinaryString(answerLabel.Font));
+                        ContentAlignment contentAlignment = answerLabel.TextAlign;
+                        answerFonts.Add($"{FontToBinaryString(answerLabel.Font)};{contentAlignment}");
                     }
                     answers.Add(answerOptions);
                     fontAnswers.Add(answerFonts);
@@ -612,11 +619,37 @@ namespace TestingWinForms
                         btnSelPointColour.BackColor = ColorTranslator.FromHtml(values[4]);
 
                         // Load the font data from the CSV
-                        string fontTitle = values[5]; // Assuming font data is at index 5
+
+                        string[] textProperties = values[5].Split(';'); // Assuming text font and alignment data is at index 5
+                        string fontTitle = textProperties[0]; // First ; is text font
+                        if (textProperties.Length > 2) {
+                            String textAlign = textProperties[1]; // Second ; is text align properties
+                            String textWrap = textProperties[2];
+                            // Load text alignment
+                            if (Enum.TryParse(textAlign, out ContentAlignment alignment))
+                            {
+                                // Conversion succeeded, and the alignment variable now contains the corresponding enum value
+                                // You can use the alignment variable as needed
+                                sampleLabelTitle.TextAlign = alignment;
+                            }
+                            else
+                            {
+                                // Conversion failed, handle the error or set a default value
+                                sampleLabelTitle.TextAlign = ContentAlignment.MiddleCenter;
+                            }
+                            sampleLabelTitle.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
+
+                        }
+
+                        // Load font text
                         // Deserialize the font from the font data
                         Font loadedFontTitle = FontFromBinaryString(fontTitle);
                         // Apply the font to the label or control of your choice
                         sampleLabelTitle.Font = loadedFontTitle;
+
+                        int requiredHeight = (int)Math.Ceiling(loadedFontTitle.GetHeight()) + Padding.Vertical;
+                        labelTitle.Height = requiredHeight;
+
 
                         // Load the font data from the CSV
                         string fontXYaxis = values[6]; // Assuming font data is at index 5
@@ -624,6 +657,7 @@ namespace TestingWinForms
                         Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
                         // Apply the font to the label or control of your choice
                         sampleLabelYAxis.Font = loadedFontXYaxis;
+
                     }
                 }
             }
@@ -731,7 +765,28 @@ namespace TestingWinForms
                         sampleQuestionLabels.Font = FontFromBinaryString(values[0]);
                         for (int i = values.Length - 1; i >= 1; i--)
                         {
-                            sampleAnswerLabels[values.Length - 1 - i].Font = FontFromBinaryString(values[i]);
+                            string[] textProperties = values[i].Split(';');
+                            String font = textProperties[0];
+                            if (textProperties.Length > 1)
+                            {
+                                String textAlign = textProperties[1];
+                                ContentAlignment alignment;
+
+                                if (Enum.TryParse(textAlign, out alignment))
+                                {
+                                    // Conversion succeeded, and the alignment variable now contains the corresponding enum value
+                                    // You can use the alignment variable as needed
+                                    sampleAnswerLabels[values.Length - 1 - i].TextAlign = alignment;
+                                }
+                                else
+                                {
+                                    // Conversion failed, handle the error or set a default value
+                                    //sampleAnswerLabels[values.Length - 1 - i].TextAlign = ContentAlignment.MiddleCenter;
+                                }
+                            }
+
+                            sampleAnswerLabels[values.Length - 1 - i].Font = FontFromBinaryString(font);
+                            
                         }
                     }
                 }
@@ -2079,6 +2134,34 @@ namespace TestingWinForms
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelQ3.Font = fontDialog.Font;
+            }
+        }
+
+        private void BtnTextChangeTitle_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelTitle.TextAlign,
+            sampleLabelTitle.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelTitle.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelTitle.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void BtnTextChangeXYAxis_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelYAxis.TextAlign,
+            sampleLabelYAxis.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelYAxis.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelYAxis.AutoSize = dialog.SelectedWrap;
+
+                }
             }
         }
     }
