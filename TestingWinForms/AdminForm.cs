@@ -1481,6 +1481,16 @@ namespace TestingWinForms
                         fontButtonQ.Click += btnChangeFont_Click;
                         fontButtonQ.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
                     }
+                    else if (newControl is Button textChangeButtonQ && control.Name.StartsWith("btnTextChangeQ"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newFontButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        textChangeButtonQ.Name = newFontButtonName; // Update the Label with the new tab name
+                        textChangeButtonQ.Text = control.Text;
+                        textChangeButtonQ.Click += btnTextChange_Click;
+                        textChangeButtonQ.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
+                    }
                     else if (newControl is Button fontButtonA && control.Name.StartsWith("btnChangeA"))
                     {
                         string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
@@ -1490,6 +1500,16 @@ namespace TestingWinForms
                         fontButtonA.Text = control.Text;
                         fontButtonA.Click += btnChangeFont_Click;
                         fontButtonA.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
+                    }
+                    else if (newControl is Button textChangeButtonA && control.Name.StartsWith("btnTextChangeA"))
+                    {
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newFontButtonA = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        textChangeButtonA.Name = newFontButtonA; // Update the Label with the new tab name
+                        textChangeButtonA.Text = control.Text;
+                        textChangeButtonA.Click += btnTextChange_Click;
+                        textChangeButtonA.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
                     }
 
                     else if (newControl is Button button && control.Name.StartsWith("btnClear"))
