@@ -36,9 +36,9 @@ namespace TestingWinForms
             // Initialize the list of questions
             defaultQuestions = new List<Question>()
             {
-                new Question(0, "MCQ", "Question 1", new List<string> { "Option A", "Option B", "Option C", "Option D", "Option E", "Option C", "Option D", "Option E" }),
-                new Question(1, "MCQ", "Question 2", new List<string> { "Option D", "Option E", "Option F", "Option D", "Option E", "Option C", "Option D", "Option E"}),
-                new Question(2, "MRQ", "Question 3", new List<string> { "Option G", "Option H", "Option I", "Option D", "Option E", "Option C", "Option D", "Option E" })
+                new Question(0, "MCQ", "Question 1", new List<string> { "Option A", "Option B", "Option C", "Option D", "Option E", "Option C", "Option D", "Option E",}, ""),
+                new Question(1, "MCQ", "Question 2", new List<string> { "Option D", "Option E", "Option F", "Option D", "Option E", "Option C", "Option D", "Option E"}, ""),
+                new Question(2, "MRQ", "Question 3", new List<string> { "Option G", "Option H", "Option I", "Option D", "Option E", "Option C", "Option D", "Option E" }, ""),
             };
 
             InitializeComponent();
@@ -98,7 +98,7 @@ namespace TestingWinForms
                 savedAnswers[i] = semicolonString;
             }
             DisplayQuestion(); //Display first question
-            DisplayBackground();
+            //DisplayBackground();
             tableLayoutPanel1.ResumeLayout();
             
             
@@ -114,38 +114,7 @@ namespace TestingWinForms
             }
         }
 
-        private void DisplayBackground() 
-        {
-            // Suspend layout updates
-            this.SuspendLayout();
-
-            // Enable double buffering to reduce flickering
-            this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
-            
-            // Display background image
-            string imagePath = LoadBackgroundImageFromCSV();
-
-            if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
-            {
-                // Create a temporary Bitmap object from the image path
-                Bitmap backgroundImage = new Bitmap(imagePath);
-
-                // Dispose of the previous background image, if one exists
-                if (this.BackgroundImage != null)
-                {
-                    this.BackgroundImage.Dispose();
-                }
-
-                // Set the temporary Bitmap as the new background image
-                this.BackgroundImage = backgroundImage;
-
-                // Adjust the background image display settings
-                this.BackgroundImageLayout = ImageLayout.Stretch;
-            }
-
-            // Resume layout updates
-            this.ResumeLayout(true);
-        }
+        
 
         // Helper method to centralise the question label
         private void CenterQuestionLabel()
@@ -179,7 +148,40 @@ namespace TestingWinForms
 
         }
 
-        private string LoadBackgroundImageFromCSV()
+        /*private void DisplayBackground() 
+        {
+            // Suspend layout updates
+            this.SuspendLayout();
+
+            // Enable double buffering to reduce flickering
+            this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+            
+            // Display background image
+            string imagePath = LoadBackgroundImageFromCSV();
+
+            if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
+            {
+                // Create a temporary Bitmap object from the image path
+                Bitmap backgroundImage = new Bitmap(imagePath);
+
+                // Dispose of the previous background image, if one exists
+                if (this.BackgroundImage != null)
+                {
+                    this.BackgroundImage.Dispose();
+                }
+
+                // Set the temporary Bitmap as the new background image
+                this.BackgroundImage = backgroundImage;
+
+                // Adjust the background image display settings
+                this.BackgroundImageLayout = ImageLayout.Stretch;
+            }
+
+            // Resume layout updates
+            this.ResumeLayout(true);
+        }*/
+
+        /*private string LoadBackgroundImageFromCSV()
         {
             if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
             {
@@ -201,9 +203,9 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values[3] != null)
+                    if (values[4] != null)
                     {
-                        string imagePath = Path.Combine(values[3]);
+                        string imagePath = Path.Combine(values[4]);
                         return imagePath;
                     }
                     else
@@ -220,7 +222,7 @@ namespace TestingWinForms
             {
                 return null;
             }
-        }
+        }*/
 
 
         // Returns a List<Question> consisting of questions saved in admin_question.csv file
@@ -241,12 +243,14 @@ namespace TestingWinForms
 
                         if (values.Length >= 2) // Assuming each line in the CSV has at least 4 values: question, option1, option2, option3
                         {
-                            string questionText = values[0];
-                            string type = values[1];
-                            List<string> options = new List<string> { values[2], values[3], values[4], 
-                                values[5], values[6], values[7], values[8], values[9] };
+                            string imagePath = Path.Combine(values[0]);
+                            string questionText = values[1];
+                            string type = values[2];
+                            
+                            List<string> options = new List<string> { values[3], values[4], 
+                                values[5], values[6], values[7], values[8], values[9], values[10]  };
 
-                            questions.Add(new Question(currQuestionIndex, questionText, type, options));
+                            questions.Add(new Question(currQuestionIndex, questionText, type, options, imagePath));
                             currQuestionIndex++;
                         }
                         else
@@ -353,6 +357,26 @@ namespace TestingWinForms
                 ResetTimer();
 
                 Question currentQuestion = questions[currentQuestionIndex];
+
+                //Update the background
+                // Display Background
+                if (!string.IsNullOrEmpty(currentQuestion.Image) && File.Exists(currentQuestion.Image))
+                {
+                    // Create a temporary Bitmap object from the image path
+                    Bitmap backgroundImage = new Bitmap(currentQuestion.Image);
+
+                    // Dispose of the previous background image, if one exists
+                    if (this.BackgroundImage != null)
+                    {
+                        this.BackgroundImage.Dispose();
+                    }
+
+                    // Set the temporary Bitmap as the new background image
+                    this.BackgroundImage = backgroundImage;
+
+                    // Adjust the background image display settings
+                    this.BackgroundImageLayout = ImageLayout.Stretch;
+                }
 
                 // Update the question label
                 questionLabel.Text = currentQuestion.Text;
@@ -467,13 +491,20 @@ namespace TestingWinForms
 
                         if (checkBox.Checked)
                         {
+                            checkBox.Paint -= CheckBox_Paint; // Unsubscribe from the previous Paint event handler
+                            checkBox.Paint += CheckBox_Paint; // Subscribe to the new Paint event handler
+                            //checkBox.BackColor = Color.Green;
                             checkboxValues[checkboxName] = checkBox.Text;
                         }
                         else
                         {
+                            checkBox.Paint -= CheckBox_Paint; // Unsubscribe from the Paint event handler
+                            //checkBox.BackColor = Color.Transparent;
                             checkboxValues[checkboxName] = " ";
                         }
                     }
+
+
 
                     // Recursively loop through child controls if the control is a container control
                     if (control.Controls.Count > 0)
@@ -483,26 +514,25 @@ namespace TestingWinForms
                 }
             }
 
-            /*// Loop through the checkboxes on the form
-            foreach (Control control in this.Controls)
-            {
-                if (control is CheckBox checkbox && checkbox.Name.StartsWith("option"))
-                {
-                    // Extract the checkbox name (e.g., optionA, optionB, etc.)
-                    string checkboxName = checkbox.Name.Replace("CheckBox", "");
-
-                    if (checkbox.Checked)
-                    {
-                        checkboxValues[checkboxName] = checkbox.Text;
-                    }
-                    else
-                    {
-                        checkboxValues[checkboxName] = " ";
-                    }
-                }
-            }*/
-
         }
+
+        private void CheckBox_Paint(object sender, PaintEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+
+            // Set the background color with transparency
+            Color backgroundColor = Color.FromArgb(100, Color.Green);
+
+            // Create a brush with the translucent background color
+            Brush brush = new SolidBrush(backgroundColor);
+
+            // Draw the background
+            e.Graphics.FillRectangle(brush, checkBox.ClientRectangle);
+
+            // Clean up resources
+            brush.Dispose();
+        }
+
 
         //for radio buttons
         private void RadioButton_CheckedChanged(object sender, EventArgs e)
@@ -522,10 +552,15 @@ namespace TestingWinForms
 
                         if (radioButton.Checked)
                         {
+                            radioButton.Paint -= RadioButton_Paint; // Unsubscribe from the previous Paint event handler
+                            radioButton.Paint += RadioButton_Paint; // Subscribe to the new Paint event handler
+                            radioButton.BackColor = Color.Transparent;
                             checkboxValues[radioButtonName] = radioButton.Text;
                         }
                         else
                         {
+                            radioButton.Paint -= RadioButton_Paint; // Unsubscribe from the Paint event handler
+                            radioButton.BackColor = Color.Transparent;
                             checkboxValues[radioButtonName] = " ";
                         }
                     }
@@ -537,26 +572,25 @@ namespace TestingWinForms
                     }
                 }
             }
-
-            /*// Loop through the radio buttons on the form
-            foreach (Control control in this.Controls)
-            {
-                if (control is RadioButton radioButton && radioButton.Name.StartsWith("option"))
-                {
-                    // Extract the radio button name (e.g., optionA, optionB, etc.)
-                    string radioButtonName = radioButton.Name.Replace("RadioButton", "");
-
-                    if (radioButton.Checked)
-                    {
-                        checkboxValues[radioButtonName] = radioButton.Text;
-                    }
-                    else
-                    {
-                        checkboxValues[radioButtonName] = " ";
-                    }
-                }
-            }*/
         }
+
+        private void RadioButton_Paint(object sender, PaintEventArgs e)
+        {
+            RadioButton radioButton = (RadioButton)sender;
+
+            // Set the background color with transparency
+            Color backgroundColor = Color.FromArgb(100, Color.Green);
+
+            // Create a brush with the translucent background color
+            Brush brush = new SolidBrush(backgroundColor);
+
+            // Draw the background
+            e.Graphics.FillRectangle(brush, radioButton.ClientRectangle);
+
+            // Clean up resources
+            brush.Dispose();
+        }
+
 
         private void saveAnswersToArray() {
 
@@ -661,13 +695,16 @@ namespace TestingWinForms
 
         public string Type { get; set; }
 
+        public string Image { get; set; }
+
         public List<string> Options { get; set; }
-        public Question(int index, string text, string type, List<string> options)
+        public Question(int index, string text, string type, List<string> options, string imagePath)
         {
             Index = index;
             Text = text;
             Type = type;
             Options = options;
+            Image = imagePath;
         }
     }
 }

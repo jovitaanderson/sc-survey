@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.IO;
 using Microsoft.VisualBasic.FileIO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace TestingWinForms
 {
@@ -19,12 +20,16 @@ namespace TestingWinForms
         private Point clickedPosition; // Stores the current clicked positions
         //private Rectangle drawingArea = new Rectangle(100, 50, 200, 200); // Defines the drawing area (x, y, height, width)
         private Rectangle drawingArea;
-        private int drawingAreaBorderWidth = 2; // Specify the width of the border
+        private Rectangle verticalLine;
+        private Rectangle horizontalLine;
+        private int lineWidth = 2; // Specify the width of the border
         private int dotSize = 10;
         private System.Threading.Timer timer; // Timer to wait for 3 seconds
 
         private string columnNames;
         private int timerToQuestionPage = 1000;
+        private int timerToShowAllPoints = 1000;
+
         private int lastRowNumber;
         private bool hasClicked = false;
 
@@ -51,6 +56,8 @@ namespace TestingWinForms
             string adminPath = Path.Combine(rootPath, "admin");
             string downloadPath = Path.Combine(rootPath, "downloads");
             string developerPath = Path.Combine(rootPath, "ForDevelopersOnly");
+
+            nextButton.Visible = false;
 
             // Create the directory if it doesn't exist
             if (!Directory.Exists(adminPath))
@@ -151,7 +158,7 @@ namespace TestingWinForms
             // Recalculate the drawing area when the form is resized
             CalculateDrawingArea();
             LoadPointsFromCSV();
-            Refresh();
+            //Refresh();
         }
 
         private void CalculateDrawingArea()
@@ -171,6 +178,20 @@ namespace TestingWinForms
 
             // Update the drawing area rectangle
             drawingArea = new Rectangle(x, y, squareSize, squareSize);
+
+            verticalLine = new Rectangle(x, y, squareSize/2, squareSize);
+            horizontalLine = new Rectangle(x, y, squareSize, squareSize / 2);
+        }
+
+        private Font FontFromBinaryString(string fontData)
+        {
+            byte[] binaryData = Convert.FromBase64String(fontData);
+
+            using (MemoryStream stream = new MemoryStream(binaryData))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                return (Font)formatter.Deserialize(stream);
+            }
         }
 
         private void LoadTableFromCSV()
@@ -197,36 +218,72 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 5)
+                    if (values.Length == 7)
                     {
                         labelTitle.Text = values[0];
                         labelXAxis.Text = values[1];
                         labelYAxis.Text = values[2];
+                        //labelTitle.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+                        //labelXAxis.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+                        //labelYAxis.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+                        //labelXAxis2.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+                        //labelYAxis2.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
 
+                        int maxWidthTitle = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.25);
+                        int maxWidthAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.40);
+
+                        // Title 
+                        labelTitle.AutoSize = true;
+                        labelTitle.MaximumSize = new Size(maxWidthTitle, 0);
+                        labelTitle.MinimumSize = new Size(maxWidthTitle, 0);
+                        labelTitle.TextAlign = ContentAlignment.MiddleLeft;
+
+                        // Left y axis label
                         labelYAxis.AutoSize = true;
                         labelYAxis.MaximumSize = new Size(300, 0);
                         labelYAxis.MinimumSize = new Size(300, 0);
-                        labelYAxis.TextAlign = ContentAlignment.TopCenter;
+                        labelYAxis.TextAlign = ContentAlignment.MiddleCenter;
+                        labelYAxis.Left = (this.ClientSize.Width - drawingArea.Width - labelYAxis.Width ) / 2;
+                        labelYAxis.Top = (this.ClientSize.Height - labelYAxis.Height) / 2;
 
-                        int maxWidth = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.75);
+                        // Right y axis label
+                        labelYAxis2.AutoSize = true;
+                        labelYAxis2.MaximumSize = new Size(300, 0);
+                        labelYAxis2.MinimumSize = new Size(300, 0);
+                        labelYAxis2.TextAlign = ContentAlignment.MiddleCenter;
+                        //labelYAxis2.Left = (this.ClientSize.Width/2) + (drawingArea.Width/2);
+                        labelYAxis2.Top = (this.ClientSize.Height - labelYAxis2.Height) / 2;
 
+
+                        // Top x axis label
+                        labelXAxis2.AutoSize = true;
+                        labelXAxis2.MaximumSize = new Size(maxWidthAxis, 0);
+                        labelXAxis2.MinimumSize = new Size(maxWidthAxis, 0);
+                        labelXAxis2.TextAlign = ContentAlignment.TopCenter;
+                        labelXAxis2.Left = (this.ClientSize.Width - labelXAxis2.Width) / 2;
+
+
+                        // Bottom x axis label
                         labelXAxis.AutoSize = true;
-                        labelXAxis.MaximumSize = new Size(maxWidth, 0);
-                        labelXAxis.MinimumSize = new Size(maxWidth, 0);
+                        labelXAxis.MaximumSize = new Size(maxWidthAxis, 0);
+                        labelXAxis.MinimumSize = new Size(maxWidthAxis, 0);
                         labelXAxis.TextAlign = ContentAlignment.TopCenter;
-
-                        labelTitle.AutoSize = true;
-                        labelTitle.MaximumSize = new Size(maxWidth, 0);
-                        labelTitle.MinimumSize = new Size(maxWidth, 0);
-                        labelTitle.TextAlign = ContentAlignment.TopCenter;
-
-                        labelTitle.Left = (this.ClientSize.Width - labelTitle.Width) / 2;
                         labelXAxis.Left = (this.ClientSize.Width - labelXAxis.Width) / 2;
 
-                        
 
                         existingColour = ColorTranslator.FromHtml(values[3]);
                         selectedColour = ColorTranslator.FromHtml(values[4]);
+
+                        string fontTitle = values[5]; 
+                        Font loadedFontTitle = FontFromBinaryString(fontTitle);
+                        labelTitle.Font = loadedFontTitle;
+                        
+                        string fontXYaxis = values[6]; 
+                        Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
+                        labelXAxis.Font = loadedFontXYaxis;
+                        labelYAxis.Font = loadedFontXYaxis;
+                        labelXAxis2.Font = loadedFontXYaxis;
+                        labelYAxis2.Font = loadedFontXYaxis;
 
                     }
                 }
@@ -253,14 +310,19 @@ namespace TestingWinForms
                 if (lines.Length > 0)
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
-
-                    if (values[3] != null)
+                    if (values.Length >= 4)
                     {
-                        string imagePath = Path.Combine(values[3]);
-                        return imagePath;
-                    } 
-                    else
-                    {
+                        if (values[3] != null)
+                        {
+                            string imagePath = Path.Combine(values[3]);
+                            return imagePath;
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                    else {
                         return null;
                     }
                 }
@@ -285,8 +347,9 @@ namespace TestingWinForms
             if (File.Exists(GlobalVariables.csvRawDataFilePath))
             {
                 // Calculate the inverse scaling factors
-                float inverseScaleX = drawingArea.Width / 10f;
-                float inverseScaleY = drawingArea.Height / 10f;
+                float inverseScaleX = drawingArea.Width / 20f; // Range: -10 to 10
+                float inverseScaleY = -drawingArea.Height / 20f; // Range: -10 to 10
+
 
                 string[] lines;
 
@@ -320,14 +383,14 @@ namespace TestingWinForms
                         //to fix 
 
                         // Scale back the coordinates to the original dimensions
-                        float originalX = (x * inverseScaleX) + drawingArea.X;
-                        float originalY = (y * inverseScaleY) + drawingArea.Y;
-
+                        float originalX = (x * inverseScaleX) + drawingArea.X + (drawingArea.Width / 2f);
+                        float originalY = (y * inverseScaleY) + drawingArea.Y + (drawingArea.Height / 2f);
+                        //float originalY = (10f - y) * inverseScaleY + drawingArea.Y + (drawingArea.Height / 2f);
                         existingClickedPositions.Add(new PointF(originalX, originalY));
                     }
                 }
 
-                Refresh(); // Redraw the form to display the loaded points
+                //Refresh(); // Redraw the form to display the loaded points
             }
         }
 
@@ -360,7 +423,7 @@ namespace TestingWinForms
                 MessageBox.Show("Please set details in admin page and save!");
             } else if (string.IsNullOrWhiteSpace(File.ReadAllText(GlobalVariables.csvAdminQuestionsFilePath)))
             {
-                
+
                 MessageBox.Show("Please set questions in admin page and save!");
             }
             else
@@ -368,11 +431,13 @@ namespace TestingWinForms
                 if (!hasClicked && drawingArea.Contains(e.Location))
                 {
                     // Calculate the scaled coordinates within the rectangle
-                    float scaleX = 10f / drawingArea.Width;
-                    float scaleY = 10f / drawingArea.Height;
+                    float scaleX = 20f / drawingArea.Width; // Range: -10 to 10
+                    float scaleY = 20f / drawingArea.Height; // Range: -10 to 10
 
-                    float scaledX = (e.Location.X - drawingArea.X) * scaleX;
-                    float scaledY = (e.Location.Y - drawingArea.Y) * scaleY;
+
+                    float scaledX = ((e.Location.X - drawingArea.X) * scaleX) - 10f; // Range: -10 to 10
+                    float scaledY = 10f - ((e.Location.Y - drawingArea.Y) * scaleY); // Range 10 to -10
+
                     //int scaledXInt = (int)Math.Round(scaledX);
                     //int scaledYInt = (int)Math.Round(scaledY);
 
@@ -384,8 +449,9 @@ namespace TestingWinForms
                     Refresh(); // Redraw the form to display the dots
                     SavePointToCSV(point);
                     hasClicked = true;
-
-                    timer = new System.Threading.Timer(OnTimerElapsed, null, timerToQuestionPage, Timeout.Infinite); // Start the timer for x seconds
+                    Refresh();
+                    nextButton.Visible = true;
+                    //timer = new System.Threading.Timer(OnTimerElapsed, null, timerToQuestionPage, Timeout.Infinite); // Start the timer for x seconds
                 }
             }
             
@@ -410,28 +476,35 @@ namespace TestingWinForms
         {
             base.OnPaint(e);
 
-            ControlPaint.DrawBorder(e.Graphics, drawingArea, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid);
+            //ControlPaint.DrawBorder(e.Graphics, drawingArea, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid, Color.Black, drawingAreaBorderWidth, ButtonBorderStyle.Solid);
 
-            // Paint existing dots
-            foreach (PointF position in existingClickedPositions)
+            ControlPaint.DrawBorder(e.Graphics, verticalLine, Color.Transparent, lineWidth, ButtonBorderStyle.Solid, Color.Transparent, lineWidth, ButtonBorderStyle.Solid, Color.Black, lineWidth, ButtonBorderStyle.Solid, Color.Transparent, lineWidth, ButtonBorderStyle.Solid);
+            ControlPaint.DrawBorder(e.Graphics, horizontalLine, Color.Transparent, lineWidth, ButtonBorderStyle.Solid, Color.Transparent, lineWidth, ButtonBorderStyle.Solid, Color.Transparent, lineWidth, ButtonBorderStyle.Solid, Color.Black, lineWidth, ButtonBorderStyle.Solid);
+
+
+            if (hasClicked == true)
             {
-                Point roundedPosition = Point.Round(position); // Convert PointF to Point
-                if (drawingArea.Contains(roundedPosition))
+                // Paint existing dots
+                foreach (PointF position in existingClickedPositions)
                 {
-                    float dotX = position.X - dotSize / 2;
-                    float dotY = position.Y - dotSize / 2;
+                    Point roundedPosition = Point.Round(position); // Convert PointF to Point
+                    if (drawingArea.Contains(roundedPosition))
+                    {
+                        float dotX = position.X - dotSize / 2;
+                        float dotY = position.Y - dotSize / 2;
 
-                    // Update the FillEllipse brush with existingColour
-                    if (selectedColour != null)
-                    {
-                        using (Brush brush = new SolidBrush(existingColour))
+                        // Update the FillEllipse brush with existingColour
+                        if (selectedColour != null)
                         {
-                            e.Graphics.FillEllipse(brush, dotX, dotY, dotSize, dotSize);
+                            using (Brush brush = new SolidBrush(existingColour))
+                            {
+                                e.Graphics.FillEllipse(brush, dotX, dotY, dotSize, dotSize);
+                            }
                         }
-                    }
-                    else
-                    {
-                        e.Graphics.FillEllipse(Brushes.Blue, dotX, dotY, dotSize, dotSize);
+                        else
+                        {
+                            e.Graphics.FillEllipse(Brushes.Blue, dotX, dotY, dotSize, dotSize);
+                        }
                     }
                 }
             }
@@ -453,44 +526,17 @@ namespace TestingWinForms
                 {
                     e.Graphics.FillEllipse(Brushes.Red, dotX, dotY, dotSize, dotSize);
                 }
-                
             }
 
-            // Draw X and Y axis labels
-            int xSteps = 10; // Specify the number of steps on the X axis
-            int ySteps = 10; // Specify the number of steps on the Y axis
-            int stepSizeX = drawingArea.Width / xSteps;
-            int stepSizeY = drawingArea.Height / ySteps;
-
-            using (Font font = new Font("Arial", 10))
-            {
-                using (StringFormat format = new StringFormat())
-                {
-                    format.Alignment = StringAlignment.Center;
-                    format.LineAlignment = StringAlignment.Center;
-
-                    // Draw X axis labels
-                    for (int i = 1; i <= xSteps; i++)
-                    {
-                        int labelX = drawingArea.Left + (i * stepSizeX);
-                        int labelY = drawingArea.Bottom + 5;
-
-                        string label = (i).ToString(); // Adjust the label based on your requirements
-                        e.Graphics.DrawString(label, font, Brushes.Black, labelX, labelY, format);
-                    }
-
-                    // Draw Y axis labels
-                    for (int i = 1; i <= ySteps; i++)
-                    {
-                        int labelX = drawingArea.Left - 25;
-                        int labelY = drawingArea.Bottom - (i * stepSizeY);
-
-                        string label = (i).ToString(); // Adjust the label based on your requirements
-                        e.Graphics.DrawString(label, font, Brushes.Black, labelX, labelY, format);
-                    }
-                }
-            }
         }
 
+        private void nextButton_Click(object sender, EventArgs e)
+        {
+            hasClicked = false;
+            QuestionForm newForm = new QuestionForm(lastRowNumber); // Navigate to a new page
+            newForm.Show();
+            nextButton.Visible = false;
+            this.Hide();
+        }
     }
 }
