@@ -67,6 +67,7 @@ namespace TestingWinForms
             tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
             tabControl.DrawItem += TabControl1_DrawItem;
 
+
             comboBox1.SelectedIndex = 1;
             comboBox2.SelectedIndex = 1;
             comboBox3.SelectedIndex = 1;
@@ -154,9 +155,6 @@ namespace TestingWinForms
             textBox.Height = TextRenderer.MeasureText("A", textBox.Font).Height * 2;
         }
 
-
-
-
         private void ClearCSVFiles()
         {
             try
@@ -230,8 +228,10 @@ namespace TestingWinForms
             // Get the data from the TextBox
             //Table
             string title = textBoxTitle.Text;
-            string x_axis = textBoxXAxis.Text;
-            string y_axis = textBoxYAxis.Text;
+            string x_axis_top = textBoxXAxisTop.Text;
+            string x_axis_bottom = textBoxXAxisBottom.Text;
+            string y_axis_left = textBoxYAxisLeft.Text;
+            string y_axis_right = textBoxYAxisRight.Text;
 
             // Convert the Color to a string representation
             string existingColour = ColorTranslator.ToHtml(btnExisColour.BackColor);
@@ -246,10 +246,14 @@ namespace TestingWinForms
             string fontTitle = $"{FontToBinaryString(sampleLabelTitle.Font)};{sampleLabelTitle.TextAlign};{sampleLabelTitle.AutoSize}";
             string fontXYAxis = $"{FontToBinaryString(sampleLabelYAxis.Font)};{sampleLabelYAxis.TextAlign};{sampleLabelYAxis.AutoSize}";
 
+            string fontXBotAxis = FontToBinaryString(sampleLabelXBotAxis.Font);
+            string fontYLeftAxis = FontToBinaryString(sampleLabelYLeftAxis.Font);
+            string fontYRightAxis = FontToBinaryString(sampleLabelYRightAxis.Font);
 
             // Concatenate the data into a comma-separated string
-            string titleDate = string.Format("{0},{1},{2},{3},{4},{5},{6}", 
-                title, x_axis, y_axis, existingColour, newColour, fontTitle, fontXYAxis);
+            string titleDate = string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}", 
+                title, x_axis_top, x_axis_bottom, y_axis_left, y_axis_right, existingColour, newColour,
+                fontTitle, fontXTopAxis, fontXBotAxis, fontYLeftAxis, fontYRightAxis);
 
             // Append the data to the CSV file
             while (true)
@@ -610,17 +614,20 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 7)
+                    if (values.Length == 12)
                     {
                         textBoxTitle.Text = values[0];
-                        textBoxXAxis.Text = values[1];
-                        textBoxYAxis.Text = values[2];
-                        btnExisColour.BackColor = ColorTranslator.FromHtml(values[3]);
-                        btnSelPointColour.BackColor = ColorTranslator.FromHtml(values[4]);
+                        textBoxXAxisTop.Text = values[1];
+                        textBoxXAxisBottom.Text = values[2];
+                        textBoxYAxisLeft.Text = values[3];
+                        textBoxYAxisRight.Text = values[4];
+
+                        btnExisColour.BackColor = ColorTranslator.FromHtml(values[5]);
+                        btnSelPointColour.BackColor = ColorTranslator.FromHtml(values[6]);
 
                         // Load the font data from the CSV
 
-                        string[] textProperties = values[5].Split(';'); // Assuming text font and alignment data is at index 5
+                        string[] textProperties = values[7].Split(';'); // Assuming text font and alignment data is at index 5
                         string fontTitle = textProperties[0]; // First ; is text font
                         if (textProperties.Length > 2) {
                             String textAlign = textProperties[1]; // Second ; is text align properties
@@ -642,22 +649,28 @@ namespace TestingWinForms
                         }
 
                         // Load font text
+                        //string fontTitle = values[7]; // Assuming font data is at index 5
                         // Deserialize the font from the font data
-                        Font loadedFontTitle = FontFromBinaryString(fontTitle);
+                        //Font loadedFontTitle = FontFromBinaryString(fontTitle);
                         // Apply the font to the label or control of your choice
-                        sampleLabelTitle.Font = loadedFontTitle;
+                        //sampleLabelTitle.Font = loadedFontTitle;
 
                         int requiredHeight = (int)Math.Ceiling(loadedFontTitle.GetHeight()) + Padding.Vertical;
                         labelTitle.Height = requiredHeight;
 
 
                         // Load the font data from the CSV
-                        string fontXYaxis = values[6]; // Assuming font data is at index 5
+                        //string fontXYaxis = values[6]; // Assuming font data is at index 5
                         // Deserialize the font from the font data
                         Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
                         // Apply the font to the label or control of your choice
                         sampleLabelYAxis.Font = loadedFontXYaxis;
 
+                        
+                        sampleLabelXTopAxis.Font = FontFromBinaryString(values[8]);
+                        sampleLabelXBotAxis.Font = FontFromBinaryString(values[9]);
+                        sampleLabelYLeftAxis.Font = FontFromBinaryString(values[10]);
+                        sampleLabelYRightAxis.Font = FontFromBinaryString(values[11]);
                     }
                 }
             }
@@ -675,6 +688,7 @@ namespace TestingWinForms
                     try
                     {
                         lines = File.ReadAllLines(GlobalVariables.csvAdminQuestionsFilePath);
+                        questionsNumber = lines.Length;
                         break;
                     }
                     catch (IOException ex)
@@ -727,6 +741,7 @@ namespace TestingWinForms
                         if (File.Exists(imagePath))
                         {
                             Image image = Image.FromFile(imagePath);
+                            questionPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                             questionPictureBox.Image = image;
                         }
 
@@ -826,6 +841,7 @@ namespace TestingWinForms
                         if (File.Exists(imagePath))
                         {
                             Image image = Image.FromFile(imagePath);
+                            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                             pictureBox.Image = image;
                         }
 
@@ -834,6 +850,7 @@ namespace TestingWinForms
                         if (File.Exists(imagePath3))
                         {
                             Image image3 = Image.FromFile(imagePath3);
+                            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
                             pictureBox2.Image = image3;
                         }
 
@@ -1353,7 +1370,9 @@ namespace TestingWinForms
             if (tabControl.TabPages.Count > 0)
             {
                 TabPage previousTabPage = tabControl.TabPages[tabControl.TabPages.Count - 1];
-                foreach (Control control in previousTabPage.Controls)
+                previousTabPage.VerticalScroll.Value = 0;
+
+                foreach (Control control in previousTabPage.Controls)   
                 {
                     Control newControl = (Control)Activator.CreateInstance(control.GetType());
                     newControl.Location = control.Location;
@@ -1394,6 +1413,7 @@ namespace TestingWinForms
                         string previousControlText = control.Text;
                         string newTabText = previousControlText.Substring(0, previousControlText.Length - 1) + (lastDigitValue + 1);
                         label.Text = newTabText;
+
                     }
                     //this is controls for answers
                     else if (newControl is Label labelA && control.Name.StartsWith("labelA"))
@@ -1414,6 +1434,53 @@ namespace TestingWinForms
 
                         labelT.Text = control.Text;
 
+                        labelT.Font = control.Font;
+                    }
+                    else if (newControl is Label labelSampleQuestion && control.Name.StartsWith("sampleLabelQ"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newLabelTypeName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        labelSampleQuestion.Name = newLabelTypeName; // Update the Label with the new tab name
+
+                        labelSampleQuestion.Text = control.Text;
+
+                        // Set the default font style and size
+                        labelSampleQuestion.Font = new Font("Microsoft Sans Serif", 16f, FontStyle.Regular);
+
+                    }
+                    else if (newControl is Label labelSampleAnswer && control.Name.StartsWith("sampleLabelA"))
+                    {
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        labelSampleAnswer.Name = newTabName; // Update the Label with the new tab name
+
+                        labelSampleAnswer.Text = control.Text;
+
+                        // Set the default font style and size 
+                        labelSampleAnswer.Font = new Font("Microsoft Sans Serif", 16f, FontStyle.Regular);
+
+                    }
+                    else if (newControl is Button fontButtonQ && control.Name.StartsWith("btnChangeQ"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newFontButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        fontButtonQ.Name = newFontButtonName; // Update the Label with the new tab name
+                        fontButtonQ.Text = control.Text;
+                        fontButtonQ.Click += btnChangeFont_Click;
+                        fontButtonQ.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
+                    }
+                    else if (newControl is Button fontButtonA && control.Name.StartsWith("btnChangeA"))
+                    {
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newFontButtonA = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        fontButtonA.Name = newFontButtonA; // Update the Label with the new tab name
+                        fontButtonA.Text = control.Text;
+                        fontButtonA.Click += btnChangeFont_Click;
+                        fontButtonA.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
                     }
 
                     else if (newControl is Button button && control.Name.StartsWith("btnClear"))
@@ -1471,6 +1538,8 @@ namespace TestingWinForms
 
             tabControl.TabPages.Add(newTabPage);
 
+            // Set the selected tab to the newly added tab
+            tabControl.SelectedTab = newTabPage;
 
             foreach (TabPage tabPage in tabControl.TabPages)
             {
@@ -1484,6 +1553,56 @@ namespace TestingWinForms
                     if (control is ComboBox comboBox)
                     {
                         comboBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                    }
+                    if (control is Button changeButton && control.Name.StartsWith("btnChange"))
+                    {
+                        changeButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                    }
+                    else if (control is Button normalButton)
+                    {
+                        normalButton.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                    }
+                }
+            }
+        }
+
+        // helper method to change font dynamically
+        private void btnChangeFont_Click(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            string buttonName = clickedButton.Name;
+
+            if (buttonName.StartsWith("btnChangeQ"))
+            {
+                // Button name starts with "btnChangeQ"
+                // Handle logic for "Q" buttons
+                string lastDigit = buttonName.Substring(buttonName.Length - 1);
+                string labelName = "sampleLabelQ" + lastDigit;
+
+                FontDialog fontDialog = new FontDialog();
+                if (fontDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Control[] labels = this.Controls.Find(labelName, true);
+                    if (labels.Length > 0 && labels[0] is Label label)
+                    {
+                        label.Font = fontDialog.Font;
+                    }
+                }
+            }
+            else if (buttonName.StartsWith("btnChangeA"))
+            {
+                // Button name starts with "btnChangeA"
+                // Handle logic for "A" buttons
+                string lastTwoDigits = buttonName.Substring(buttonName.Length - 2);
+                string labelName = "sampleLabelA" + lastTwoDigits;
+
+                FontDialog fontDialog = new FontDialog();
+                if (fontDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Control[] labels = this.Controls.Find(labelName, true);
+                    if (labels.Length > 0 && labels[0] is Label label)
+                    {
+                        label.Font = fontDialog.Font;
                     }
                 }
             }
@@ -1528,6 +1647,7 @@ namespace TestingWinForms
                         string selectedImagePath = openFileDialog.FileName;
 
                         // Load the selected image into the PictureBox
+                        pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                         pictureBox.Image = Image.FromFile(selectedImagePath);
                     }
                 }
@@ -1798,7 +1918,7 @@ namespace TestingWinForms
             FontDialog fontDialog = new FontDialog();
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
-                sampleLabelYAxis.Font = fontDialog.Font;
+                sampleLabelXTopAxis.Font = fontDialog.Font;
             }
         }
 
@@ -1852,47 +1972,6 @@ namespace TestingWinForms
             }
         }
 
-        // helper method to change font dynamically
-        private void btnChangeFont_Click(object sender, EventArgs e)
-        {
-            Button clickedButton = (Button)sender;
-            string buttonName = clickedButton.Name;
-
-            if (buttonName.StartsWith("btnChangeQ"))
-            {
-                // Button name starts with "btnChangeQ"
-                // Handle logic for "Q" buttons
-                string lastDigit = buttonName.Substring(buttonName.Length - 1);
-                string labelName = "sampleLabelQ" + lastDigit;
-
-                FontDialog fontDialog = new FontDialog();
-                if (fontDialog.ShowDialog() == DialogResult.OK)
-                {
-                    Control[] labels = this.Controls.Find(labelName, true);
-                    if (labels.Length > 0 && labels[0] is Label label)
-                    {
-                        label.Font = fontDialog.Font;
-                    }
-                }
-            }
-            else if (buttonName.StartsWith("btnChangeA"))
-            {
-                // Button name starts with "btnChangeA"
-                // Handle logic for "A" buttons
-                string lastTwoDigits = buttonName.Substring(buttonName.Length - 2);
-                string labelName = "sampleLabelA" + lastTwoDigits;
-
-                FontDialog fontDialog = new FontDialog();
-                if (fontDialog.ShowDialog() == DialogResult.OK)
-                {
-                    Control[] labels = this.Controls.Find(labelName, true);
-                    if (labels.Length > 0 && labels[0] is Label label)
-                    {
-                        label.Font = fontDialog.Font;
-                    }
-                }
-            }
-        }
 
         private void btnChangeQ1_Click(object sender, EventArgs e)
         {
@@ -2162,6 +2241,30 @@ namespace TestingWinForms
                     sampleLabelYAxis.AutoSize = dialog.SelectedWrap;
 
                 }
+        private void btnChangeXBotAxis_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelXBotAxis.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeYLeftAxis_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelYLeftAxis.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeYRightAxis_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelYRightAxis.Font = fontDialog.Font;
             }
         }
     }

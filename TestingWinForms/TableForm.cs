@@ -218,16 +218,13 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 7)
+                    if (values.Length == 12)
                     {
                         labelTitle.Text = values[0];
                         labelXAxis.Text = values[1];
-                        labelYAxis.Text = values[2];
-                        //labelTitle.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
-                        //labelXAxis.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
-                        //labelYAxis.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
-                        //labelXAxis2.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
-                        //labelYAxis2.Text = "weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+                        labelXAxis2.Text = values[2];
+                        labelYAxis.Text = values[3];
+                        labelYAxis2.Text = values[4];
 
                         int maxWidthTitle = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.25);
                         int maxHeightTitle = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.20);
@@ -272,11 +269,11 @@ namespace TestingWinForms
                         labelXAxis.Left = (this.ClientSize.Width - labelXAxis.Width) / 2;
 
 
-                        existingColour = ColorTranslator.FromHtml(values[3]);
-                        selectedColour = ColorTranslator.FromHtml(values[4]);
+                        existingColour = ColorTranslator.FromHtml(values[5]);
+                        selectedColour = ColorTranslator.FromHtml(values[6]);
 
 
-                        string[] textProperties = values[5].Split(';'); // Assuming text font and alignment data is at index 5
+                        string[] textProperties = values[7].Split(';'); // Assuming text font and alignment data is at index 5
                         string fontTitle = textProperties[0]; // First ; is text font
                         if (textProperties.Length > 2)
                         {
@@ -303,7 +300,7 @@ namespace TestingWinForms
                         int requiredHeight = (int)Math.Ceiling(loadedFontTitle.GetHeight()) + Padding.Vertical;
                         labelTitle.Height = requiredHeight;
 
-                        string fontXYaxis = values[6];
+                        string fontXYaxis = values[8];
                         string[] XYaxisTextProperties = values[6].Split(';'); // Assuming text font and alignment data is at index 5
                         string XYaxisFontTitle = XYaxisTextProperties[0]; // First ; is text font
                         if (textProperties.Length > 2)
@@ -331,6 +328,16 @@ namespace TestingWinForms
                         labelYAxis.Font = loadedFontXYaxis;
                         labelXAxis2.Font = loadedFontXYaxis;
                         labelYAxis2.Font = loadedFontXYaxis;
+                        
+                        string fontTitle = values[7]; 
+                        Font loadedFontTitle = FontFromBinaryString(fontTitle);
+                        labelTitle.Font = loadedFontTitle;
+                        
+                        labelXAxis2.Font = FontFromBinaryString(values[8]);
+                        labelXAxis.Font = FontFromBinaryString(values[9]);
+                        labelYAxis.Font = FontFromBinaryString(values[10]);
+                        labelYAxis2.Font = FontFromBinaryString(values[11]);
+
 
 
 
