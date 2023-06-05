@@ -154,9 +154,6 @@ namespace TestingWinForms
             textBox.Height = TextRenderer.MeasureText("A", textBox.Font).Height * 2;
         }
 
-
-
-
         private void ClearCSVFiles()
         {
             try
@@ -1358,6 +1355,34 @@ namespace TestingWinForms
                         labelT.Name = newLabelTypeName; // Update the Label with the new tab name
 
                         labelT.Text = control.Text;
+
+                    }
+                    else if (newControl is Label labelSampleQuestion && control.Name.StartsWith("sampleLabelQ"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newLabelTypeName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        labelSampleQuestion.Name = newLabelTypeName; // Update the Label with the new tab name
+
+                        labelSampleQuestion.Text = control.Text;
+
+                        // Set the default font style and size
+                        labelSampleQuestion.Font = new Font("Microsoft Sans Serif", 16f, FontStyle.Regular);
+
+
+                    }
+                    else if (newControl is Label labelSampleAnswer && control.Name.StartsWith("sampleLabelA"))
+                    {
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        labelSampleAnswer.Name = newTabName; // Update the Label with the new tab name
+
+                        labelSampleAnswer.Text = control.Text;
+
+                        // Set the default font style and size
+                        labelSampleAnswer.Font = new Font("Microsoft Sans Serif", 16f, FontStyle.Regular);
+
 
                     }
 
