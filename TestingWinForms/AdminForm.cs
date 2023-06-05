@@ -67,6 +67,8 @@ namespace TestingWinForms
             tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
             tabControl.DrawItem += TabControl1_DrawItem;
 
+            tabControl.SelectedIndexChanged += TabControl1_SelectedIndexChanged;
+
             comboBox1.SelectedIndex = 1;
             comboBox2.SelectedIndex = 1;
             comboBox3.SelectedIndex = 1;
@@ -80,6 +82,21 @@ namespace TestingWinForms
             // Make modifications to the form or controls
             this.ResumeLayout();
 
+        }
+
+        private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TabControl tabControl = (TabControl)sender;
+            TabPage selectedTabPage = tabControl.SelectedTab;
+
+            // Iterate over the controls of the selected tab page
+            foreach (Control control in selectedTabPage.Controls)
+            {
+                if (control is Button button && (control.Name.StartsWith("btnChange")))
+                {
+                    button.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
+                }
+            }
         }
 
         // DrawItem event handler
@@ -638,6 +655,7 @@ namespace TestingWinForms
                     try
                     {
                         lines = File.ReadAllLines(GlobalVariables.csvAdminQuestionsFilePath);
+                        questionsNumber = lines.Length;
                         break;
                     }
                     catch (IOException ex)
@@ -1356,6 +1374,8 @@ namespace TestingWinForms
 
                         labelT.Text = control.Text;
 
+                        labelT.Font = control.Font;
+
                     }
                     else if (newControl is Label labelSampleQuestion && control.Name.StartsWith("sampleLabelQ"))
                     {
@@ -1380,10 +1400,30 @@ namespace TestingWinForms
 
                         labelSampleAnswer.Text = control.Text;
 
-                        // Set the default font style and size
+                        // Set the default font style and size 
                         labelSampleAnswer.Font = new Font("Microsoft Sans Serif", 16f, FontStyle.Regular);
 
 
+                    }
+                    else if (newControl is Button fontButtonQ && control.Name.StartsWith("btnChangeQ"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newFontButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        fontButtonQ.Name = newFontButtonName; // Update the Label with the new tab name
+                        fontButtonQ.Text = control.Text;
+                        fontButtonQ.Click += btnChangeFont_Click;
+                        fontButtonQ.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
+                    }
+                    else if (newControl is Button fontButtonA && control.Name.StartsWith("btnChangeA"))
+                    {
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newFontButtonA = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        fontButtonA.Name = newFontButtonA; // Update the Label with the new tab name
+                        fontButtonA.Text = control.Text;
+                        fontButtonA.Click += btnChangeFont_Click;
+                        fontButtonA.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
                     }
 
                     else if (newControl is Button button && control.Name.StartsWith("btnClear"))
@@ -1454,6 +1494,48 @@ namespace TestingWinForms
                     if (control is ComboBox comboBox)
                     {
                         comboBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                    }
+                }
+            }
+        }
+
+        // helper method to change font dynamically
+        private void btnChangeFont_Click(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            string buttonName = clickedButton.Name;
+
+            if (buttonName.StartsWith("btnChangeQ"))
+            {
+                // Button name starts with "btnChangeQ"
+                // Handle logic for "Q" buttons
+                string lastDigit = buttonName.Substring(buttonName.Length - 1);
+                string labelName = "sampleLabelQ" + lastDigit;
+
+                FontDialog fontDialog = new FontDialog();
+                if (fontDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Control[] labels = this.Controls.Find(labelName, true);
+                    if (labels.Length > 0 && labels[0] is Label label)
+                    {
+                        label.Font = fontDialog.Font;
+                    }
+                }
+            }
+            else if (buttonName.StartsWith("btnChangeA"))
+            {
+                // Button name starts with "btnChangeA"
+                // Handle logic for "A" buttons
+                string lastTwoDigits = buttonName.Substring(buttonName.Length - 2);
+                string labelName = "sampleLabelA" + lastTwoDigits;
+
+                FontDialog fontDialog = new FontDialog();
+                if (fontDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Control[] labels = this.Controls.Find(labelName, true);
+                    if (labels.Length > 0 && labels[0] is Label label)
+                    {
+                        label.Font = fontDialog.Font;
                     }
                 }
             }
@@ -1822,47 +1904,6 @@ namespace TestingWinForms
             }
         }
 
-        // helper method to change font dynamically
-        private void btnChangeFont_Click(object sender, EventArgs e)
-        {
-            Button clickedButton = (Button)sender;
-            string buttonName = clickedButton.Name;
-
-            if (buttonName.StartsWith("btnChangeQ"))
-            {
-                // Button name starts with "btnChangeQ"
-                // Handle logic for "Q" buttons
-                string lastDigit = buttonName.Substring(buttonName.Length - 1);
-                string labelName = "sampleLabelQ" + lastDigit;
-
-                FontDialog fontDialog = new FontDialog();
-                if (fontDialog.ShowDialog() == DialogResult.OK)
-                {
-                    Control[] labels = this.Controls.Find(labelName, true);
-                    if (labels.Length > 0 && labels[0] is Label label)
-                    {
-                        label.Font = fontDialog.Font;
-                    }
-                }
-            }
-            else if (buttonName.StartsWith("btnChangeA"))
-            {
-                // Button name starts with "btnChangeA"
-                // Handle logic for "A" buttons
-                string lastTwoDigits = buttonName.Substring(buttonName.Length - 2);
-                string labelName = "sampleLabelA" + lastTwoDigits;
-
-                FontDialog fontDialog = new FontDialog();
-                if (fontDialog.ShowDialog() == DialogResult.OK)
-                {
-                    Control[] labels = this.Controls.Find(labelName, true);
-                    if (labels.Length > 0 && labels[0] is Label label)
-                    {
-                        label.Font = fontDialog.Font;
-                    }
-                }
-            }
-        }
 
         private void btnChangeQ1_Click(object sender, EventArgs e)
         {
