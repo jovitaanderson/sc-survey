@@ -67,7 +67,6 @@ namespace TestingWinForms
             tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
             tabControl.DrawItem += TabControl1_DrawItem;
 
-            tabControl.SelectedIndexChanged += TabControl1_SelectedIndexChanged;
 
             comboBox1.SelectedIndex = 1;
             comboBox2.SelectedIndex = 1;
@@ -82,21 +81,6 @@ namespace TestingWinForms
             // Make modifications to the form or controls
             this.ResumeLayout();
 
-        }
-
-        private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            TabControl tabControl = (TabControl)sender;
-            TabPage selectedTabPage = tabControl.SelectedTab;
-
-            // Iterate over the controls of the selected tab page
-            foreach (Control control in selectedTabPage.Controls)
-            {
-                if (control is Button button && (control.Name.StartsWith("btnChange")))
-                {
-                    button.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
-                }
-            }
         }
 
         // DrawItem event handler
@@ -1318,6 +1302,7 @@ namespace TestingWinForms
             if (tabControl.TabPages.Count > 0)
             {
                 TabPage previousTabPage = tabControl.TabPages[tabControl.TabPages.Count - 1];
+
                 foreach (Control control in previousTabPage.Controls)
                 {
                     Control newControl = (Control)Activator.CreateInstance(control.GetType());
@@ -1394,6 +1379,15 @@ namespace TestingWinForms
                         // Set the default font style and size
                         labelSampleQuestion.Font = new Font("Microsoft Sans Serif", 16f, FontStyle.Regular);
 
+                        // Calculate the size of the text with the new font
+                        using (Graphics graphics = labelSampleQuestion.CreateGraphics())
+                        {
+                            SizeF textSize = graphics.MeasureString(labelSampleQuestion.Text, labelSampleQuestion.Font);
+
+                            // Adjust the size of the label to fit the text
+                            labelSampleQuestion.Size = new Size((int)textSize.Width, (int)textSize.Height);
+                        }
+
 
                     }
                     else if (newControl is Label labelSampleAnswer && control.Name.StartsWith("sampleLabelA"))
@@ -1407,6 +1401,15 @@ namespace TestingWinForms
 
                         // Set the default font style and size 
                         labelSampleAnswer.Font = new Font("Microsoft Sans Serif", 16f, FontStyle.Regular);
+
+                        // Calculate the size of the text with the new font
+                        using (Graphics graphics = labelSampleAnswer.CreateGraphics())
+                        {
+                            SizeF textSize = graphics.MeasureString(labelSampleAnswer.Text, labelSampleAnswer.Font);
+
+                            // Adjust the size of the label to fit the text
+                            labelSampleAnswer.Size = new Size((int)textSize.Width, (int)textSize.Height);
+                        }
 
 
                     }
