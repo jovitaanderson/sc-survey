@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -36,9 +37,12 @@ namespace TestingWinForms
             // Initialize the list of questions
             defaultQuestions = new List<Question>()
             {
-                new Question(0, "MCQ", "Question 1", new List<string> { "Option A", "Option B", "Option C", "Option D", "Option E", "Option C", "Option D", "Option E" }),
-                new Question(1, "MCQ", "Question 2", new List<string> { "Option D", "Option E", "Option F", "Option D", "Option E", "Option C", "Option D", "Option E"}),
-                new Question(2, "MRQ", "Question 3", new List<string> { "Option G", "Option H", "Option I", "Option D", "Option E", "Option C", "Option D", "Option E" })
+                new Question(0, "MCQ", "Question 1", new List<string> { "Option A", "Option B", "Option C", "Option D", "Option E", "Option C", "Option D", "Option E",}, "",
+                "", new List<string>{ "", "", "", "", "", "", "", ""}),
+                new Question(1, "MCQ", "Question 2", new List<string> { "Option D", "Option E", "Option F", "Option D", "Option E", "Option C", "Option D", "Option E"}, "",
+                "", new List<string>{ "", "", "", "", "", "", "", ""}),
+                new Question(2, "MRQ", "Question 3", new List<string> { "Option G", "Option H", "Option I", "Option D", "Option E", "Option C", "Option D", "Option E" }, "",
+                "", new List<string>{ "", "", "", "", "", "", "", ""}),
             };
 
             InitializeComponent();
@@ -98,7 +102,7 @@ namespace TestingWinForms
                 savedAnswers[i] = semicolonString;
             }
             DisplayQuestion(); //Display first question
-            DisplayBackground();
+            //DisplayBackground();
             tableLayoutPanel1.ResumeLayout();
             
             
@@ -114,38 +118,7 @@ namespace TestingWinForms
             }
         }
 
-        private void DisplayBackground() 
-        {
-            // Suspend layout updates
-            this.SuspendLayout();
-
-            // Enable double buffering to reduce flickering
-            this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
-            
-            // Display background image
-            string imagePath = LoadBackgroundImageFromCSV();
-
-            if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
-            {
-                // Create a temporary Bitmap object from the image path
-                Bitmap backgroundImage = new Bitmap(imagePath);
-
-                // Dispose of the previous background image, if one exists
-                if (this.BackgroundImage != null)
-                {
-                    this.BackgroundImage.Dispose();
-                }
-
-                // Set the temporary Bitmap as the new background image
-                this.BackgroundImage = backgroundImage;
-
-                // Adjust the background image display settings
-                this.BackgroundImageLayout = ImageLayout.Stretch;
-            }
-
-            // Resume layout updates
-            this.ResumeLayout(true);
-        }
+        
 
         // Helper method to centralise the question label
         private void CenterQuestionLabel()
@@ -179,7 +152,40 @@ namespace TestingWinForms
 
         }
 
-        private string LoadBackgroundImageFromCSV()
+        /*private void DisplayBackground() 
+        {
+            // Suspend layout updates
+            this.SuspendLayout();
+
+            // Enable double buffering to reduce flickering
+            this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+            
+            // Display background image
+            string imagePath = LoadBackgroundImageFromCSV();
+
+            if (!string.IsNullOrEmpty(imagePath) && File.Exists(imagePath))
+            {
+                // Create a temporary Bitmap object from the image path
+                Bitmap backgroundImage = new Bitmap(imagePath);
+
+                // Dispose of the previous background image, if one exists
+                if (this.BackgroundImage != null)
+                {
+                    this.BackgroundImage.Dispose();
+                }
+
+                // Set the temporary Bitmap as the new background image
+                this.BackgroundImage = backgroundImage;
+
+                // Adjust the background image display settings
+                this.BackgroundImageLayout = ImageLayout.Stretch;
+            }
+
+            // Resume layout updates
+            this.ResumeLayout(true);
+        }*/
+
+        /*private string LoadBackgroundImageFromCSV()
         {
             if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
             {
@@ -201,9 +207,9 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values[3] != null)
+                    if (values[4] != null)
                     {
-                        string imagePath = Path.Combine(values[3]);
+                        string imagePath = Path.Combine(values[4]);
                         return imagePath;
                     }
                     else
@@ -220,7 +226,7 @@ namespace TestingWinForms
             {
                 return null;
             }
-        }
+        }*/
 
 
         // Returns a List<Question> consisting of questions saved in admin_question.csv file
@@ -234,26 +240,50 @@ namespace TestingWinForms
             {
                 using (var reader = new StreamReader(GlobalVariables.csvAdminQuestionsFilePath))
                 {
-                    while (!reader.EndOfStream)
+                    if (File.Exists(GlobalVariables.csvAdminFontFilePath))
                     {
-                        var line = reader.ReadLine();
-                        var values = line.Split(',');
-
-                        if (values.Length >= 2) // Assuming each line in the CSV has at least 4 values: question, option1, option2, option3
+                        using (var fontReader = new StreamReader(GlobalVariables.csvAdminFontFilePath))
                         {
-                            string questionText = values[0];
-                            string type = values[1];
-                            List<string> options = new List<string> { values[2], values[3], values[4], 
-                                values[5], values[6], values[7], values[8], values[9] };
+                            while (!reader.EndOfStream)
+                            {
+                                var line = reader.ReadLine();
+                                var values = line.Split(',');
 
-                            questions.Add(new Question(currQuestionIndex, questionText, type, options));
-                            currQuestionIndex++;
+                                var fontLine = fontReader.ReadLine();
+                                var fontValues = fontLine.Split(',');
+
+                                if (values.Length >= 2 && fontValues.Length != 0) // Assuming each line in the CSV has at least 4 values: question, option1, option2, option3
+                                {
+                                    string imagePath = Path.Combine(values[0]);
+                                    string questionText = values[1];
+                                    string type = values[2];
+
+                                    List<string> options = new List<string> { values[3], values[4],
+                                    values[5], values[6], values[7], values[8], values[9], values[10]  };
+
+
+                                    //fonts
+                                    string fontQuestion = fontValues[0];
+                                    List<string> fontOptions = new List<string> { fontValues[1], fontValues[2],
+                                    fontValues[3], fontValues[4], fontValues[5], fontValues[6], fontValues[7], fontValues[8] };
+
+                                    questions.Add(new Question(currQuestionIndex, questionText, type, options, imagePath, fontQuestion, fontOptions));
+                                    currQuestionIndex++;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Invalid line format in CSV: " + line);
+                                }
+                            }
+
+                            
                         }
-                        else
-                        {
-                            Console.WriteLine("Invalid line format in CSV: " + line);
-                        }
+                    } 
+                    else
+                    {
+
                     }
+                    
                 }
 
                 currQuestionIndex = 0;
@@ -318,6 +348,17 @@ namespace TestingWinForms
             }
         }
 
+        //Helper method to get font from csv
+        private Font FontFromBinaryString(string fontData)
+        {
+            byte[] binaryData = Convert.FromBase64String(fontData);
+
+            using (MemoryStream stream = new MemoryStream(binaryData))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                return (Font)formatter.Deserialize(stream);
+            }
+        }
 
         private void DisplayQuestion()
         {
@@ -354,8 +395,30 @@ namespace TestingWinForms
 
                 Question currentQuestion = questions[currentQuestionIndex];
 
+                //Update the background
+                // Display Background
+                if (!string.IsNullOrEmpty(currentQuestion.Image) && File.Exists(currentQuestion.Image))
+                {
+                    // Create a temporary Bitmap object from the image path
+                    Bitmap backgroundImage = new Bitmap(currentQuestion.Image);
+
+                    // Dispose of the previous background image, if one exists
+                    if (this.BackgroundImage != null)
+                    {
+                        this.BackgroundImage.Dispose();
+                    }
+
+                    // Set the temporary Bitmap as the new background image
+                    this.BackgroundImage = backgroundImage;
+
+                    // Adjust the background image display settings
+                    this.BackgroundImageLayout = ImageLayout.Stretch;
+                }    
+
                 // Update the question label
                 questionLabel.Text = currentQuestion.Text;
+                questionLabel.Font = FontFromBinaryString(currentQuestion.FontQuestion);
+
                 int numOptions = 8;
 
                 //TODO: change to dynamic (loop)
@@ -372,6 +435,8 @@ namespace TestingWinForms
                         radioButton.Visible = !string.IsNullOrEmpty(optionText);
                         radioButton.Text = optionText;
                         radioButton.Checked = false;
+
+                        radioButton.Font = FontFromBinaryString(currentQuestion.FontValues[i]);
                     }
 
                     // Clear the selection for any remaining radio buttons
@@ -404,6 +469,8 @@ namespace TestingWinForms
                         checkbox.Visible = !string.IsNullOrEmpty(optionText);
                         checkbox.Text = optionText;
                         checkbox.Checked = false;
+
+                        checkbox.Font = FontFromBinaryString(currentQuestion.FontValues[i]);
                     }
 
                     // Clear the selection for any remaining checkboxes
@@ -661,13 +728,24 @@ namespace TestingWinForms
 
         public string Type { get; set; }
 
+        public string Image { get; set; }
+
         public List<string> Options { get; set; }
-        public Question(int index, string text, string type, List<string> options)
+
+        //Fonts
+        public string FontQuestion { get; set; }
+
+        public List<string> FontValues { get; set; }
+
+        public Question(int index, string text, string type, List<string> options, string imagePath, string fontQuestion, List<string> fontValues)
         {
             Index = index;
             Text = text;
             Type = type;
             Options = options;
+            Image = imagePath;
+            FontQuestion = fontQuestion;
+            FontValues = fontValues;
         }
     }
 }

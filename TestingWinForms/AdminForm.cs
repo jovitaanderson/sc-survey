@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 
 namespace TestingWinForms
@@ -28,6 +29,10 @@ namespace TestingWinForms
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None; // Remove the border
             WindowState = FormWindowState.Maximized; // Maximize the window
+
+            //Set the default colours when first opened
+            btnExisColour.BackColor = Color.Green;
+            btnSelPointColour.BackColor = Color.Red;
         }
 
         // Helper method to prevent flickering
@@ -146,17 +151,18 @@ namespace TestingWinForms
         {
             TextBox textBox = (TextBox)sender;
             // Adjust the height of the text box based on the preferred height and the fixed height
-            textBox.Height = TextRenderer.MeasureText("A", textBox.Font).Height * 2; 
+            textBox.Height = TextRenderer.MeasureText("A", textBox.Font).Height * 2;
         }
 
 
-        
+
 
         private void ClearCSVFiles()
         {
             try
             {
                 File.WriteAllText(GlobalVariables.csvAdminQuestionsFilePath, string.Empty);
+                File.WriteAllText(GlobalVariables.csvAdminFontFilePath, string.Empty);
                 File.WriteAllText(GlobalVariables.csvAdminTableFilePath, string.Empty);
                 File.WriteAllText(GlobalVariables.csvAdminAdvanceFilePath, string.Empty);
             }
@@ -180,11 +186,43 @@ namespace TestingWinForms
             return Controls.Find(comboBoxName, true).FirstOrDefault() as ComboBox;
         }
 
+        private PictureBox GetPictureBox(int pictureBoxIndex)
+        {
+            string pictureBoxName = "pictureBoxQ" + (pictureBoxIndex + 1);
+            return Controls.Find(pictureBoxName, true).FirstOrDefault() as PictureBox;
+        }
+
+        private Label GetQuestionFontLabel(int labelIndex)
+        {
+            string labelName = "sampleLabelQ" + (labelIndex + 1);
+            return Controls.Find(labelName, true).FirstOrDefault() as Label;
+        }
+
+        private Label GetAnswerFontLabel(int questionIndex, int answerIndex)
+        {
+            string labelName = "sampleLabelA" + (questionIndex + 1) + (answerIndex + 1);
+            return Controls.Find(labelName, true).FirstOrDefault() as Label;
+        }
+
         // Helper method to retrieve the answer TextBox based on the question and answer indices
         private TextBox GetAnswerTextBox(int questionIndex, int answerIndex)
         {
             string textBoxName = "textBoxA" + (questionIndex + 1) + (answerIndex + 1);
             return Controls.Find(textBoxName, true).FirstOrDefault() as TextBox;
+        }
+
+        private string FontToBinaryString(Font font)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(stream, font);
+
+                byte[] binaryData = stream.ToArray();
+                string base64String = Convert.ToBase64String(binaryData);
+
+                return base64String;
+            }
         }
 
         private void saveTable()
@@ -194,12 +232,18 @@ namespace TestingWinForms
             string title = textBoxTitle.Text;
             string x_axis = textBoxXAxis.Text;
             string y_axis = textBoxYAxis.Text;
+
             // Convert the Color to a string representation
             string existingColour = ColorTranslator.ToHtml(btnExisColour.BackColor);
             string newColour = ColorTranslator.ToHtml(btnSelPointColour.BackColor);
 
+            // Serialize the font object to a binary string
+            string fontTitle = FontToBinaryString(sampleLabelTitle.Font);
+            string fontXYAxis = FontToBinaryString(sampleLabelYAxis.Font);
+
             // Concatenate the data into a comma-separated string
-            string titleDate = string.Format("{0},{1},{2},{3},{4}", title, x_axis, y_axis, existingColour, newColour);
+            string titleDate = string.Format("{0},{1},{2},{3},{4},{5},{6}", 
+                title, x_axis, y_axis, existingColour, newColour, fontTitle, fontXYAxis);
 
             // Append the data to the CSV file
             while (true)
@@ -226,18 +270,64 @@ namespace TestingWinForms
             List<string> questions = new List<string>();
             List<List<string>> answers = new List<List<string>>();
             List<string> types = new List<string>();
+            List<string> imagePaths = new List<string>();
+
+            List<string> fontQuestions = new List<string>();
+            List<List<string>> fontAnswers = new List<List<string>>();
 
             // Loop through the questions
             for (int i = 0; i < questionsNumber; i++)
             {
                 // Get the question text
                 TextBox textBoxQuestion = GetQuestionTextBox(i);
+                Label sampleLabel = GetQuestionFontLabel(i);
                 ComboBox comboBox = GetQuestionComboBox(i);
+
+                // Get the image from the PictureBox
+                Image image;
+                if (GetPictureBox(i).Image != null)
+                {
+                    image = GetPictureBox(i).Image;
+
+                    string imagePath = null;
+
+                    //save as root directory
+                    if (image != null)
+                    {
+                        // Get the current root path of the application
+                        string rootPath = Directory.GetCurrentDirectory();
+
+                        // Specify the directory within the root path to save the image
+                        string directoryPath = Path.Combine(rootPath, "Images");
+
+                        // Create the directory if it doesn't exist
+                        if (!Directory.Exists(directoryPath))
+                        {
+                            Directory.CreateDirectory(directoryPath);
+                        }
+
+                        // Generate a unique file name for the image
+                        string fileName = Guid.NewGuid().ToString() + ".png";
+
+                        // Save the image to the specified directory
+                        imagePath = Path.Combine(directoryPath, fileName);
+                        image.Save(imagePath);
+                        imagePaths.Add(imagePath);
+                    }
+                } else
+                {
+                    imagePaths.Add("");
+                }
+
+                
 
                 if (!string.IsNullOrWhiteSpace(textBoxQuestion.Text))
                 {
                     questions.Add(textBoxQuestion.Text);
+                    fontQuestions.Add(FontToBinaryString(sampleLabel.Font));
 
+                    // Get the answer fonts
+                    List<string> answerFonts = new List<string>();
                     // Get the answer texts
                     List<string> answerOptions = new List<string>();
                     for (int j = 0; j < optionsNumber; j++)
@@ -245,8 +335,12 @@ namespace TestingWinForms
                         TextBox textBoxAnswer = GetAnswerTextBox(i, j);
                         string answer = textBoxAnswer.Text;
                         answerOptions.Add(answer);
+
+                        Label answerLabel = GetAnswerFontLabel(i, j);
+                        answerFonts.Add(FontToBinaryString(answerLabel.Font));
                     }
                     answers.Add(answerOptions);
+                    fontAnswers.Add(answerFonts);
 
                     //Add type of questions
                     if (comboBox.Text == "")
@@ -268,10 +362,14 @@ namespace TestingWinForms
                 string question = questions[i];
                 string type = types[i];
                 List<string> answerOptions = answers[i];
+                string imagePath = imagePaths[i];
+                string fontQuestion = fontQuestions[i];
+                List<string> fontAnswer = fontAnswers[i];
 
                 // Concatenate the data into comma-separated rows
-                string rowData = string.Format("{0},{1},{2}", question, type, string.Join(",", answerOptions));
+                string rowData = string.Format("{0},{1},{2},{3}", imagePath, question, type, string.Join(",", answerOptions));
 
+               
                 // Append the rows to the CSV file
                 while (true)
                 {
@@ -280,6 +378,27 @@ namespace TestingWinForms
                         using (StreamWriter sw = new StreamWriter(GlobalVariables.csvAdminQuestionsFilePath, true))
                         {
                             sw.WriteLine(rowData);
+                        }
+                        break;
+                    }
+                    catch (IOException ex)
+                    {
+
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
+                //Concat the font data into FONT csv
+                string rowFontData = string.Format("{0},{1}", fontQuestion, string.Join(",", fontAnswer));
+
+                // Append the rows to the CSV file
+                while (true)
+                {
+                    try
+                    {
+                        using (StreamWriter sw = new StreamWriter(GlobalVariables.csvAdminFontFilePath, true))
+                        {
+                            sw.WriteLine(rowFontData);
                         }
                         break;
                     }
@@ -306,6 +425,9 @@ namespace TestingWinForms
             Image image = pictureBox.Image;
             string imagePath = null;
 
+            // Serialize the font object to a binary string
+            string fontEndText = FontToBinaryString(sampleLabelEndText.Font);
+
             //save as root directory
             if (image != null)
             {
@@ -329,8 +451,35 @@ namespace TestingWinForms
                 image.Save(imagePath);
             }
 
+            // Get the image from the PictureBox
+            Image image3 = pictureBox2.Image;
+            string imagePath3 = null;
+
+            //save as root directory
+            if (image3 != null)
+            {
+                // Get the current root path of the application
+                string rootPath = Directory.GetCurrentDirectory();
+
+                // Specify the directory within the root path to save the image
+                string directoryPath = Path.Combine(rootPath, "Images");
+
+                // Create the directory if it doesn't exist
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                // Generate a unique file name for the image
+                string fileName = Guid.NewGuid().ToString() + ".png";
+
+                // Save the image to the specified directory
+                imagePath3 = Path.Combine(directoryPath, fileName);
+                image3.Save(imagePath3);
+            }
+
             // Concatenate the data into a comma-separated string
-            string data = string.Format("{0},{1},{2},{3}", timeOut, randomQuestions, endSurveyText, imagePath); 
+            string data = string.Format("{0},{1},{2},{3},{4},{5}", timeOut, randomQuestions, endSurveyText, imagePath, imagePath3, fontEndText); 
 
             // Append the data to the CSV file
             while (true)
@@ -416,6 +565,18 @@ namespace TestingWinForms
             {
                 TabPage tabPage = tabControl.TabPages[i + 3];
                 LoadQuestionData(tabPage, GlobalVariables.csvAdminQuestionsFilePath, i);
+                LoadFontData(tabPage, GlobalVariables.csvAdminFontFilePath, i);
+            }
+        }
+
+        private Font FontFromBinaryString(string fontData)
+        {
+            byte[] binaryData = Convert.FromBase64String(fontData);
+
+            using (MemoryStream stream = new MemoryStream(binaryData))
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                return (Font)formatter.Deserialize(stream);
             }
         }
 
@@ -442,13 +603,27 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 5)
+                    if (values.Length == 7)
                     {
                         textBoxTitle.Text = values[0];
                         textBoxXAxis.Text = values[1];
                         textBoxYAxis.Text = values[2];
                         btnExisColour.BackColor = ColorTranslator.FromHtml(values[3]);
                         btnSelPointColour.BackColor = ColorTranslator.FromHtml(values[4]);
+
+                        // Load the font data from the CSV
+                        string fontTitle = values[5]; // Assuming font data is at index 5
+                        // Deserialize the font from the font data
+                        Font loadedFontTitle = FontFromBinaryString(fontTitle);
+                        // Apply the font to the label or control of your choice
+                        sampleLabelTitle.Font = loadedFontTitle;
+
+                        // Load the font data from the CSV
+                        string fontXYaxis = values[6]; // Assuming font data is at index 5
+                        // Deserialize the font from the font data
+                        Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
+                        // Apply the font to the label or control of your choice
+                        sampleLabelYAxis.Font = loadedFontXYaxis;
                     }
                 }
             }
@@ -482,7 +657,7 @@ namespace TestingWinForms
         {
             if (File.Exists(csvFilePath)) 
             {
-                string[] lines = File.ReadAllLines(csvFilePath);
+                string[] lines;
                 while (true)
                 {
                     try
@@ -503,15 +678,61 @@ namespace TestingWinForms
                     TextBox questionTextBox = tabPage.Controls.OfType<TextBox>().FirstOrDefault(c => c.Name.StartsWith("textBoxQ"));
                     TextBox[] answerTextBoxes = tabPage.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + "A" + (questionIndex + 1))).ToArray();
                     ComboBox questionTypeComboBox = tabPage.Controls.OfType<ComboBox>().FirstOrDefault(c => c.Name.StartsWith("comboBox"));
+                    PictureBox questionPictureBox = tabPage.Controls.OfType<PictureBox>().FirstOrDefault(c => c.Name.StartsWith("pictureBoxQ"));
 
-                if (questionTextBox != null && answerTextBoxes.Length == optionsNumber && questionTypeComboBox != null)
+                    if (questionTextBox != null && answerTextBoxes.Length == optionsNumber && questionTypeComboBox != null)
                     {
-                        questionTextBox.Text = values[0];
-                        for (int i = values.Length - 3; i >= 0; i--)
+                        questionTextBox.Text = values[1];
+                        for (int i = values.Length - 4; i >= 0; i--)
                         {
-                            answerTextBoxes[values.Length - 3 - i].Text = values[i + 2];
+                            answerTextBoxes[values.Length - 4 - i].Text = values[i + 3];
                         }
-                        questionTypeComboBox.Text = values[1];
+                        questionTypeComboBox.Text = values[2];
+
+                        string imagePath = Path.Combine(values[0]);
+                        if (File.Exists(imagePath))
+                        {
+                            Image image = Image.FromFile(imagePath);
+                            questionPictureBox.Image = image;
+                        }
+
+                    }
+                }
+            }
+        }
+
+        private void LoadFontData(TabPage tabPage, string csvFilePath, int questionIndex)
+        {
+            if (File.Exists(csvFilePath))
+            {
+                string[] lines;
+                while (true)
+                {
+                    try
+                    {
+                        lines = File.ReadAllLines(csvFilePath);
+                        break;
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
+                if (lines.Length > questionIndex)
+                {
+                    string[] values = lines[questionIndex].Split(',');
+
+                    Label sampleQuestionLabels = tabPage.Controls.OfType<Label>().FirstOrDefault(c => c.Name.StartsWith("sampleLabelQ"));
+                    Label[] sampleAnswerLabels = tabPage.Controls.OfType<Label>().Where(c => c.Name.StartsWith("sampleLabelA" + (questionIndex + 1))).ToArray();
+                   
+                    if (sampleQuestionLabels != null && sampleAnswerLabels.Length == optionsNumber)
+                    {
+                        sampleQuestionLabels.Font = FontFromBinaryString(values[0]);
+                        for (int i = values.Length - 1; i >= 1; i--)
+                        {
+                            sampleAnswerLabels[values.Length - 1 - i].Font = FontFromBinaryString(values[i]);
+                        }
                     }
                 }
             }
@@ -539,7 +760,7 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 4)
+                    if (values.Length == 6)
                     {
                         textBoxTimeOut.Text = values[0];
                         comboBoxRandomQns.Text = values[1];
@@ -552,6 +773,21 @@ namespace TestingWinForms
                             Image image = Image.FromFile(imagePath);
                             pictureBox.Image = image;
                         }
+
+                        string imagePath3 = Path.Combine(values[4]);
+
+                        if (File.Exists(imagePath3))
+                        {
+                            Image image3 = Image.FromFile(imagePath3);
+                            pictureBox2.Image = image3;
+                        }
+
+                        // Load the font data from the CSV
+                        string fontEndSurvey = values[5]; // Assuming font data is at index 5
+                        // Deserialize the font from the font data
+                        Font loadedFontEndSurvey = FontFromBinaryString(fontEndSurvey);
+                        // Apply the font to the label or control of your choice
+                        sampleLabelEndText.Font = loadedFontEndSurvey;
                     }
                 }
             }
@@ -1122,6 +1358,7 @@ namespace TestingWinForms
                         labelT.Name = newLabelTypeName; // Update the Label with the new tab name
 
                         labelT.Text = control.Text;
+
                     }
 
                     else if (newControl is Button button && control.Name.StartsWith("btnClear"))
@@ -1149,6 +1386,23 @@ namespace TestingWinForms
                                 comboBox.Items.Add(item);
                             }
                         }
+                    }
+                    else if (newControl is PictureBox pictureBox && control.Name.StartsWith("pictureBoxQ"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newPictureBoxName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        pictureBox.Name = newPictureBoxName;
+
+                    }
+                    else if (newControl is Button buttonBackground && control.Name.StartsWith("btnBackground"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        buttonBackground.Name = newButtonName;
+                        buttonBackground.Text = control.Text;
+                        buttonBackground.Click += UploadBackground_Click;
                     }
 
                     newControl.TabIndex = control.TabIndex + tabIndexOffset;
@@ -1198,6 +1452,33 @@ namespace TestingWinForms
                 }
             }
         }
+
+        private void UploadBackground_Click(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            int buttonIndex = int.Parse(clickedButton.Name.Substring(clickedButton.Name.Length - 1));
+
+            // Find the corresponding PictureBox based on the button index
+            string pictureBoxName = "pictureBoxQ" + (buttonIndex);
+            Control[] pictureBoxes = this.Controls.Find(pictureBoxName, true);
+            if (pictureBoxes.Length > 0 && pictureBoxes[0] is PictureBox pictureBox)
+            {
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    openFileDialog.Title = "Select Image";
+                    openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string selectedImagePath = openFileDialog.FileName;
+
+                        // Load the selected image into the PictureBox
+                        pictureBox.Image = Image.FromFile(selectedImagePath);
+                    }
+                }
+            }
+        }
+
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -1378,6 +1659,391 @@ namespace TestingWinForms
                 conData.Add($"Date range: {startDate} to {endDate}");
             }
             return conData;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select Image";
+                openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedImagePath = openFileDialog.FileName;
+
+                    // Load the selected image into the PictureBox
+                    pictureBox2.Image = Image.FromFile(selectedImagePath);
+                }
+            }
+        }
+
+        private void btnBackground1_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select Image";
+                openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedImagePath = openFileDialog.FileName;
+
+                    // Load the selected image into the PictureBox
+                    pictureBoxQ1.Image = Image.FromFile(selectedImagePath);
+                }
+            }
+        }
+
+        private void btnBackground2_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select Image";
+                openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedImagePath = openFileDialog.FileName;
+
+                    // Load the selected image into the PictureBox
+                    pictureBoxQ2.Image = Image.FromFile(selectedImagePath);
+                }
+            }
+        }
+
+        private void btnBackground3_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select Image";
+                openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedImagePath = openFileDialog.FileName;
+
+                    // Load the selected image into the PictureBox
+                    pictureBoxQ3.Image = Image.FromFile(selectedImagePath);
+                }
+            }
+        }
+
+        private void fontButton_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelTitle.Font = fontDialog.Font;
+            }
+        }
+
+        private void fontButtonXAxis_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelYAxis.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnDownloadRawData_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnChangeEndSurveyFont_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelEndText.Font = fontDialog.Font;
+            }
+        }
+
+        // helper method to change font dynamically
+        private void btnChangeFont_Click(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            string buttonName = clickedButton.Name;
+
+            if (buttonName.StartsWith("btnChangeQ"))
+            {
+                // Button name starts with "btnChangeQ"
+                // Handle logic for "Q" buttons
+                string lastDigit = buttonName.Substring(buttonName.Length - 1);
+                string labelName = "sampleLabelQ" + lastDigit;
+
+                FontDialog fontDialog = new FontDialog();
+                if (fontDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Control[] labels = this.Controls.Find(labelName, true);
+                    if (labels.Length > 0 && labels[0] is Label label)
+                    {
+                        label.Font = fontDialog.Font;
+                    }
+                }
+            }
+            else if (buttonName.StartsWith("btnChangeA"))
+            {
+                // Button name starts with "btnChangeA"
+                // Handle logic for "A" buttons
+                string lastTwoDigits = buttonName.Substring(buttonName.Length - 2);
+                string labelName = "sampleLabelA" + lastTwoDigits;
+
+                FontDialog fontDialog = new FontDialog();
+                if (fontDialog.ShowDialog() == DialogResult.OK)
+                {
+                    Control[] labels = this.Controls.Find(labelName, true);
+                    if (labels.Length > 0 && labels[0] is Label label)
+                    {
+                        label.Font = fontDialog.Font;
+                    }
+                }
+            }
+        }
+
+        private void btnChangeQ1_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelQ1.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA17_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA17.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA16_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA16.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA15_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA15.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA14_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA14.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA13_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA13.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA12_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA12.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA11_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA11.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA18_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA18.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA28_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA28.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA21_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA21.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA22_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA22.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA23_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA23.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA24_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA24.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA25_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA25.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA26_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA26.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA27_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA27.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeQ2_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelQ2.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA38_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA38.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA31_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA31.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA32_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA32.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA33_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA33.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA34_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA34.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA35_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA35.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA36_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA36.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeA37_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelA37.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeQ3_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelQ3.Font = fontDialog.Font;
+            }
         }
     }
 }

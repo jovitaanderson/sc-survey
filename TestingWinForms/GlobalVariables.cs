@@ -15,12 +15,15 @@ namespace TestingWinForms
         public static string csvAdminAdvanceFilePath { get; set; }
         public static string csvRawDataFilePath { get; set; }
 
+        public static string csvAdminFontFilePath { get; set; }
+
         static GlobalVariables()
         {
             totalOptions = 8;
             csvAdminQuestionsFilePath = "admin/admin_questions.csv";
             csvAdminTableFilePath = "admin/admin_table.csv";
             csvAdminAdvanceFilePath = "admin/admin_advance.csv";
+            csvAdminFontFilePath = "admin/admin_questions_fonts.csv";
             csvRawDataFilePath = "ForDevelopersOnly/raw_data.csv";
         }
     }
