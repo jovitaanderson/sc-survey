@@ -2274,6 +2274,8 @@ namespace TestingWinForms
         private void btnChangeTitle_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelTitle.Font; // Set the initial font
+
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelTitle.Font = fontDialog.Font;
@@ -2322,7 +2324,7 @@ namespace TestingWinForms
         private void btnChangeXBotAxis_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
-
+            fontDialog.Font = sampleLabelTitle.Font; // Set the initial font
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelXBotAxis.Font = fontDialog.Font;
@@ -2346,6 +2348,7 @@ namespace TestingWinForms
         private void btnChangeYLeftAxis_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelYLeftAxis.Font; // Set the initial font
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelYLeftAxis.Font = fontDialog.Font;
@@ -2368,6 +2371,7 @@ namespace TestingWinForms
         private void btnChangeYRightAxis_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelYRightAxis.Font; // Set the initial font
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelYRightAxis.Font = fontDialog.Font;
