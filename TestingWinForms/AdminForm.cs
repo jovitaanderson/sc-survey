@@ -242,13 +242,11 @@ namespace TestingWinForms
             bool textWrap = sampleLabelTitle.AutoSize;
 
             // Serialize the font object to a binary string
-            //string fontTitle = FontToBinaryString(sampleLabelTitle.Font);
             string fontTitle = $"{FontToBinaryString(sampleLabelTitle.Font)};{sampleLabelTitle.TextAlign};{sampleLabelTitle.AutoSize}";
-            //string fontXYAxis = $"{FontToBinaryString(sampleLabelYAxis.Font)};{sampleLabelYAxis.TextAlign};{sampleLabelYAxis.AutoSize}";
             string fontXTopAxis = $"{FontToBinaryString(sampleLabelXTopAxis.Font)};{sampleLabelXTopAxis.TextAlign};{sampleLabelXTopAxis.AutoSize}";
-            string fontXBotAxis = FontToBinaryString(sampleLabelXBotAxis.Font);
-            string fontYLeftAxis = FontToBinaryString(sampleLabelYLeftAxis.Font);
-            string fontYRightAxis = FontToBinaryString(sampleLabelYRightAxis.Font);
+            string fontXBotAxis = $"{FontToBinaryString(sampleLabelXBotAxis.Font)};{sampleLabelXBotAxis.TextAlign};{sampleLabelXBotAxis.AutoSize}";
+            string fontYLeftAxis = $"{FontToBinaryString(sampleLabelYLeftAxis.Font)};{sampleLabelYLeftAxis.TextAlign};{sampleLabelYLeftAxis.AutoSize}";
+            string fontYRightAxis = $"{FontToBinaryString(sampleLabelYRightAxis.Font)};{sampleLabelYRightAxis.TextAlign};{sampleLabelYRightAxis.AutoSize}";
 
             // Concatenate the data into a comma-separated string
             string titleDate = string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}", 
@@ -626,55 +624,40 @@ namespace TestingWinForms
                         btnSelPointColour.BackColor = ColorTranslator.FromHtml(values[6]);
 
                         // Load the font data from the CSV
+                        loadContentToComponent(values, 7, sampleLabelTitle);
+                        loadContentToComponent(values, 8, sampleLabelXTopAxis);
+                        loadContentToComponent(values, 9, sampleLabelXBotAxis);
+                        loadContentToComponent(values, 10, sampleLabelYLeftAxis);
+                        loadContentToComponent(values, 11, sampleLabelYRightAxis);
 
-                        string[] textProperties = values[7].Split(';'); // Assuming text font and alignment data is at index 5
-                        string fontTitle = textProperties[0]; // First ; is text font
-                        if (textProperties.Length > 2) {
-                            String textAlign = textProperties[1]; // Second ; is text align properties
-                            String textWrap = textProperties[2];
-                            // Load text alignment
-                            if (Enum.TryParse(textAlign, out ContentAlignment alignment))
-                            {
-                                // Conversion succeeded, and the alignment variable now contains the corresponding enum value
-                                // You can use the alignment variable as needed
-                                sampleLabelTitle.TextAlign = alignment;
-                            }
-                            else
-                            {
-                                // Conversion failed, handle the error or set a default value
-                                sampleLabelTitle.TextAlign = ContentAlignment.MiddleCenter;
-                            }
-                            sampleLabelTitle.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
-
-                        }
-
-                        // Load font text
-                        //string fontTitle = values[7]; // Assuming font data is at index 5
-                        // Deserialize the font from the font data
-                        //Font loadedFontTitle = FontFromBinaryString(fontTitle);
-                        // Apply the font to the label or control of your choice
-                        //sampleLabelTitle.Font = loadedFontTitle;
-
-                        int requiredHeight = (int)Math.Ceiling(FontFromBinaryString(fontTitle).GetHeight()) + Padding.Vertical;
-                        labelTitle.Height = requiredHeight;
-
-
-                        // Load the font data from the CSV
-                        //string fontXYaxis = values[6]; // Assuming font data is at index 5
-                        // Deserialize the font from the font data
-                        //Font loadedFontXYaxis = FontFromBinaryString(fontXYaxis);
-                        // Apply the font to the label or control of your choice
-                        //sampleLabelYAxis.Font = loadedFontXYaxis;
-
-                        
-                        sampleLabelXTopAxis.Font = FontFromBinaryString(values[8]);
-                        sampleLabelXBotAxis.Font = FontFromBinaryString(values[9]);
-                        sampleLabelYLeftAxis.Font = FontFromBinaryString(values[10]);
-                        sampleLabelYRightAxis.Font = FontFromBinaryString(values[11]);
                     }
                 }
             }
 
+        }
+
+        void loadContentToComponent(string[] values, int ValueIndex, Label label) {
+            string[] textProperties = values[ValueIndex].Split(';'); // Assuming text font and alignment data is at index 5
+            string fontTitle = textProperties[0]; // First ; is text font
+
+            Font loadedFontTitle = FontFromBinaryString(fontTitle);
+            label.Font = loadedFontTitle;
+            label.Height = (int)Math.Ceiling(FontFromBinaryString(fontTitle).GetHeight()) + Padding.Vertical; ;
+
+            if (textProperties.Length > 2)
+            {
+                String textAlign = textProperties[1]; // Second ; is text align property
+                String textWrap = textProperties[2]; // Third ; is text wrap property
+                if (Enum.TryParse(textAlign, out ContentAlignment alignment))
+                {
+                    label.TextAlign = alignment;
+                }
+                else
+                {
+                    label.TextAlign = ContentAlignment.TopLeft; //default ContentAlignment
+                }
+                label.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
+            }
         }
 
         private void LoadNumQuestions()
@@ -1904,24 +1887,6 @@ namespace TestingWinForms
             }
         }
 
-        private void fontButton_Click(object sender, EventArgs e)
-        {
-            FontDialog fontDialog = new FontDialog();
-            if (fontDialog.ShowDialog() == DialogResult.OK)
-            {
-                sampleLabelTitle.Font = fontDialog.Font;
-            }
-        }
-
-        private void fontButtonXAxis_Click(object sender, EventArgs e)
-        {
-            FontDialog fontDialog = new FontDialog();
-            if (fontDialog.ShowDialog() == DialogResult.OK)
-            {
-                sampleLabelXTopAxis.Font = fontDialog.Font;
-            }
-        }
-
         private void btnDownloadRawData_Click(object sender, EventArgs e)
         {
             // Specify the path of the existing CSV file
@@ -2216,7 +2181,16 @@ namespace TestingWinForms
             }
         }
 
-        private void BtnTextChangeTitle_Click(object sender, EventArgs e)
+        private void btnChangeTitle_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelTitle.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnTextChangeTitle_Click(object sender, EventArgs e)
         {
             using (CustomText dialog = new CustomText(sampleLabelTitle.TextAlign,
             sampleLabelTitle.AutoSize))
@@ -2225,32 +2199,58 @@ namespace TestingWinForms
                 {
                     sampleLabelTitle.TextAlign = dialog.SelectedAlignment;
                     sampleLabelTitle.AutoSize = dialog.SelectedWrap;
+                }
+            }
+        }
+
+        private void btnChangeXTopAxis_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelXTopAxis.Font;
+
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelXTopAxis.Font = fontDialog.Font;
+            }
+        }
+
+
+        private void btnTextChangeXTopAxis_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelXTopAxis.TextAlign,
+            sampleLabelXTopAxis.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelXTopAxis.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelXTopAxis.AutoSize = dialog.SelectedWrap;
 
                 }
             }
         }
 
-        /*private void BtnTextChangeXYAxis_Click(object sender, EventArgs e)
-        {
-            using (CustomText dialog = new CustomText(sampleLabelYAxis.TextAlign,
-            sampleLabelYAxis.AutoSize))
-            {
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    sampleLabelYAxis.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelYAxis.AutoSize = dialog.SelectedWrap;
-
-                }
-            }
-        }*/
-
         private void btnChangeXBotAxis_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelXBotAxis.Font = fontDialog.Font;
             }
+        }
+        private void btnTextChangeXBotAxis_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelXBotAxis.TextAlign,
+            sampleLabelXBotAxis.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelXBotAxis.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelXBotAxis.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+
         }
 
         private void btnChangeYLeftAxis_Click(object sender, EventArgs e)
@@ -2259,6 +2259,19 @@ namespace TestingWinForms
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelYLeftAxis.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnTextChangeYLeftAxis_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelYLeftAxis.TextAlign,
+            sampleLabelYLeftAxis.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelYLeftAxis.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelYLeftAxis.AutoSize = dialog.SelectedWrap;
+                }
             }
         }
 
@@ -2271,9 +2284,17 @@ namespace TestingWinForms
             }
         }
 
-        private void BtnTextChangeXYAxis_Click(object sender, EventArgs e)
+        private void btnTextChangeYRightAxis_Click(object sender, EventArgs e)
         {
-
+            using (CustomText dialog = new CustomText(sampleLabelYRightAxis.TextAlign,
+            sampleLabelYRightAxis.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelYRightAxis.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelYRightAxis.AutoSize = dialog.SelectedWrap;
+                }
+            }
         }
     }
 }
