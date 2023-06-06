@@ -56,7 +56,7 @@ namespace TestingWinForms
             BackgroundImageLayout = ImageLayout.None;
 
 
-            tableLayoutPanel1.SuspendLayout();
+            //tableLayoutPanel1.SuspendLayout();
 
             // Check if admin wants questions to be in random
             LoadRandomQuestionsAndTimerIntervalData();
@@ -109,7 +109,7 @@ namespace TestingWinForms
             }
             DisplayQuestion(); //Display first question
             //DisplayBackground();
-            tableLayoutPanel1.ResumeLayout();
+            //tableLayoutPanel1.ResumeLayout();
             
             
         }
@@ -469,7 +469,7 @@ namespace TestingWinForms
             };
 
             // Declare an array of panels
-            Panel[] panels = new Panel[]
+            /*Panel[] panels = new Panel[]
             {
                     panel1,
                     panel2,
@@ -479,7 +479,7 @@ namespace TestingWinForms
                     panel6,
                     panel7,
                     panel8
-            };
+            };*/
 
             if (currentQuestionIndex < questions.Count)
             {
@@ -557,15 +557,21 @@ namespace TestingWinForms
                         checkbox.Checked = false;
                     }
 
+                    tableLayoutPanelRadioButton.Visible = true;
+                    tableLayoutPanelCheckBox.Visible = false;
+
                 } else
                 {
                     labelMCQorMRQ.Text = "Select multiple options.";
+
+                    tableLayoutPanelRadioButton.Visible = false;
+                    tableLayoutPanelCheckBox.Visible = true;
 
                     // Update the options visibility and text
                     for (int i = 0; i < numOptions; i++)
                     {
                         CheckBox checkbox = checkboxes[i];
-                        Panel panel = panels[i];
+                        //Panel panel = panels[i];
                         string optionText = currentQuestion.Options[i];
 
                         checkbox.Visible = !string.IsNullOrEmpty(optionText);
@@ -576,18 +582,18 @@ namespace TestingWinForms
                         
                         checkbox.TextAlign = currentQuestion.TextAligns[i];
                         checkbox.AutoSize = currentQuestion.AutoSizes[i];
-                        panel.Height = (int)Math.Ceiling(textFont.GetHeight()) + Padding.Vertical;
+                        //panel.Height = (int)Math.Ceiling(textFont.GetHeight()) + Padding.Vertical;
                     }
 
                     // Clear the selection for any remaining checkboxes
                     for (int i = numOptions; i < checkboxes.Length; i++)
                     {
                         CheckBox checkbox = checkboxes[i];
-                        Panel panel = panels[i];
+                        //Panel panel = panels[i];
                         checkbox.Visible = false;
                         checkbox.Text = string.Empty;
                         checkbox.Checked = false;
-                        panel.Parent.Controls.Remove(panel);
+                        //panel.Parent.Controls.Remove(panel);
                     }
 
                     // Hide radio buttons
