@@ -229,7 +229,8 @@ namespace TestingWinForms
                         int maxWidthTitle = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.25);
                         int maxHeightTitle = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.20);
                         int maxWidthAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.40);
-
+                        int maxHeightXAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height * 0.11);
+                        int maxHeightYAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height * 0.40);
                         // Title 
                         labelTitle.AutoSize = true;
                         labelTitle.MaximumSize = new Size(maxWidthTitle, maxHeightTitle);
@@ -238,7 +239,7 @@ namespace TestingWinForms
 
                         // Left y axis label
                         labelYAxis.AutoSize = true;
-                        labelYAxis.MaximumSize = new Size(300, 0);
+                        labelYAxis.MaximumSize = new Size(300, maxHeightYAxis);
                         labelYAxis.MinimumSize = new Size(300, 0);
                         labelYAxis.TextAlign = ContentAlignment.MiddleCenter;
                         labelYAxis.Left = (this.ClientSize.Width - drawingArea.Width - labelYAxis.Width ) / 2;
@@ -246,7 +247,7 @@ namespace TestingWinForms
 
                         // Right y axis label
                         labelYAxis2.AutoSize = true;
-                        labelYAxis2.MaximumSize = new Size(300, 0);
+                        labelYAxis2.MaximumSize = new Size(300, maxHeightYAxis);
                         labelYAxis2.MinimumSize = new Size(300, 0);
                         labelYAxis2.TextAlign = ContentAlignment.MiddleCenter;
                         //labelYAxis2.Left = (this.ClientSize.Width/2) + (drawingArea.Width/2);
@@ -255,7 +256,7 @@ namespace TestingWinForms
 
                         // Top x axis label
                         labelXAxis2.AutoSize = true;
-                        labelXAxis2.MaximumSize = new Size(maxWidthAxis, 0);
+                        labelXAxis2.MaximumSize = new Size(maxWidthAxis, maxHeightXAxis);
                         labelXAxis2.MinimumSize = new Size(maxWidthAxis, 0);
                         labelXAxis2.TextAlign = ContentAlignment.TopCenter;
                         labelXAxis2.Left = (this.ClientSize.Width - labelXAxis2.Width) / 2;
@@ -263,7 +264,7 @@ namespace TestingWinForms
 
                         // Bottom x axis label
                         labelXAxis.AutoSize = true;
-                        labelXAxis.MaximumSize = new Size(maxWidthAxis, 0);
+                        labelXAxis.MaximumSize = new Size(maxWidthAxis, maxHeightXAxis);
                         labelXAxis.MinimumSize = new Size(maxWidthAxis, 0);
                         labelXAxis.TextAlign = ContentAlignment.TopCenter;
                         labelXAxis.Left = (this.ClientSize.Width - labelXAxis.Width) / 2;
