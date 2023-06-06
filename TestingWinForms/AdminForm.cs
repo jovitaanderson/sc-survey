@@ -1383,7 +1383,8 @@ namespace TestingWinForms
             Application.Exit();
         }
 
-        /*private TabPage addTab()
+        /*
+        private TabPage addTab()
         {
             string labelText = "";
             if (tabControl.TabPages.Count > 0)
@@ -1652,49 +1653,259 @@ namespace TestingWinForms
 
         private TabPage addTab()
         {
-            // Create a new tab page
+            string labelText = "";
+            if (tabControl.TabPages.Count > 0)
+            {
+                TabPage lastTabPage = tabControl.TabPages[tabControl.TabPages.Count - 1];
+                if (lastTabPage != null)
+                {
+                    labelText = lastTabPage.Text;
+                }
+            }
+
+            int newQuestionNumber = 0;
+            // Extract the current question number from the previous tab text
+            string numberText = labelText.Substring("Question ".Length);
+            if (int.TryParse(numberText, out newQuestionNumber))
+            {
+                // Increment the question number
+                newQuestionNumber++;
+            }
+
             TabPage newTabPage = new TabPage();
-            newTabPage.Text = "Question " + (tabControl.TabPages.Count + 1);
+            newTabPage.Text = "Question " + newQuestionNumber;
 
-            // Create a new TableLayoutPanel and set its properties to match the existing one
-            TableLayoutPanel existingTableLayout = (TableLayoutPanel)tabControl.TabPages[0].Controls.Find("tableLayoutPanel", true)[0];
-            TableLayoutPanel newTableLayout = new TableLayoutPanel();
-            newTableLayout.Name = "tableLayoutPanel";
-            newTableLayout.Dock = existingTableLayout.Dock;
-            newTableLayout.ColumnCount = existingTableLayout.ColumnCount;
-            newTableLayout.RowCount = existingTableLayout.RowCount;
-            newTableLayout.ColumnStyles.Clear();
-            newTableLayout.RowStyles.Clear();
-            foreach (ColumnStyle columnStyle in existingTableLayout.ColumnStyles)
+            // Get the TableLayoutPanel from the previous tab
+            TableLayoutPanel previousLayout = null;
+            if (tabControl.TabPages.Count > 0)
             {
-                newTableLayout.ColumnStyles.Add(new ColumnStyle(columnStyle.SizeType, columnStyle.Width));
-            }
-            foreach (RowStyle rowStyle in existingTableLayout.RowStyles)
-            {
-                newTableLayout.RowStyles.Add(new RowStyle(rowStyle.SizeType, rowStyle.Height));
+                TabPage previousTabPage = tabControl.TabPages[tabControl.TabPages.Count - 1];
+                previousLayout = previousTabPage.Controls.OfType<TableLayoutPanel>().FirstOrDefault();
             }
 
-            // Iterate through each control in the existing tab's TableLayoutPanel
-            foreach (Control control in existingTableLayout.Controls)
+            // Copy the controls from the previous tab to the new tab
+            if (previousLayout != null)
             {
-                // Create a new instance of the control type and set its properties
-                Control newControl = (Control)Activator.CreateInstance(control.GetType());
-                newControl.Name = control.Name;
-                newControl.Text = control.Text;
+                TableLayoutPanel newLayout = new TableLayoutPanel();
+                newLayout.RowCount = previousLayout.RowCount;
+                newLayout.ColumnCount = previousLayout.ColumnCount;
+                newLayout.Dock = previousLayout.Dock;
+                newLayout.AutoSize = previousLayout.AutoSize;
+                newLayout.AutoScroll = previousLayout.AutoScroll;
+                newLayout.ColumnStyles.Clear();
+                newLayout.RowStyles.Clear();
 
-                // Add the new control to the new tab's TableLayoutPanel at the corresponding row and column
-                int row = existingTableLayout.GetRow(control);
-                int column = existingTableLayout.GetColumn(control);
-                newTableLayout.Controls.Add(newControl, column, row);
+                // Copy the row and column styles
+                // Clone the column styles
+                foreach (ColumnStyle style in previousLayout.ColumnStyles)
+                {
+                    newLayout.ColumnStyles.Add(new ColumnStyle(style.SizeType, style.Width));
+                }
+
+                // Clone the row styles
+                foreach (RowStyle style in previousLayout.RowStyles)
+                {
+                    newLayout.RowStyles.Add(new RowStyle(style.SizeType, style.Height));
+                }
+
+                // Copy the controls
+                foreach (Control control in previousLayout.Controls)
+                {
+                    Control newControl = (Control)Activator.CreateInstance(control.GetType());
+                    newControl.Location = control.Location;
+                    newControl.Size = control.Size;
+
+                    // Get the row and column assignment of the control in the previous layout
+                    int row = previousLayout.GetRow(control);
+                    int column = previousLayout.GetColumn(control);
+                    int rowSpan = previousLayout.GetRowSpan(control);
+                    int columnSpan = previousLayout.GetColumnSpan(control);
+
+                    string previousControlName = control.Name;
+
+                    if (newControl is TextBox textBox && (control.Name.StartsWith("textBoxQ")))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        textBox.Name = newTabName; // Update the Label with the new tab name
+
+                        textBox.Text = ""; // Set the TextBox to blank
+                        textBox.Font = control.Font;
+                    }
+                    else if (newControl is TextBox textBoxA)
+                    {
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        textBoxA.Name = newTabName;
+
+                        textBoxA.Text = "";
+                        textBoxA.Font = control.Font;
+                    }
+                    //label
+                    else if (newControl is Label label && (control.Name.StartsWith("labelQ")))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        label.Name = newTabName; // Update the Label with the new tab name
+
+                        string previousControlText = control.Text;
+                        string newTabText = previousControlText.Substring(0, previousControlText.Length - 1) + (lastDigitValue + 1);
+                        label.Text = newTabText;
+                        label.Font = control.Font;
+
+                    }//this is controls for answers
+                    else if (newControl is Label labelA && control.Name.StartsWith("labelA"))
+                    {
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        labelA.Name = newTabName; // Update the Label with the new tab name
+
+                        labelA.Text = control.Text;
+                        labelA.Font = control.Font;
+                    }
+                    else if (newControl is Label labelT && control.Name.StartsWith("label"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newLabelTypeName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        labelT.Name = newLabelTypeName; // Update the Label with the new tab name
+
+                        labelT.Text = control.Text;
+
+                        labelT.Font = control.Font;
+                    }
+                    else if (newControl is Label labelSampleQuestion && control.Name.StartsWith("sampleLabelQ"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newLabelTypeName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        labelSampleQuestion.Name = newLabelTypeName; // Update the Label with the new tab name
+
+                        labelSampleQuestion.Text = control.Text;
+
+                        // Set the default font style and size
+                        labelSampleQuestion.Font = new Font("Microsoft Sans Serif", 16f, FontStyle.Regular);
+
+                    }
+                    else if (newControl is Label labelSampleAnswer && control.Name.StartsWith("sampleLabelA"))
+                    {
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        labelSampleAnswer.Name = newTabName; // Update the Label with the new tab name
+
+                        labelSampleAnswer.Text = control.Text;
+
+                        // Set the default font style and size 
+                        labelSampleAnswer.Font = new Font("Microsoft Sans Serif", 16f, FontStyle.Regular);
+
+                    }
+                    else if (newControl is Button fontButtonQ && control.Name.StartsWith("btnChangeQ"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newFontButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        fontButtonQ.Name = newFontButtonName; // Update the Label with the new tab name
+                        fontButtonQ.Text = control.Text;
+                        fontButtonQ.Click += btnChangeFont_Click;
+                        fontButtonQ.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
+                    }
+                    else if (newControl is Button textChangeButtonQ && control.Name.StartsWith("btnTextChangeQ"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newFontButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        textChangeButtonQ.Name = newFontButtonName; // Update the Label with the new tab name
+                        textChangeButtonQ.Text = control.Text;
+                        textChangeButtonQ.Click += btnTextChange_Click;
+                        textChangeButtonQ.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
+                    }
+                    else if (newControl is Button fontButtonA && control.Name.StartsWith("btnChangeA"))
+                    {
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newFontButtonA = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        fontButtonA.Name = newFontButtonA; // Update the Label with the new tab name
+                        fontButtonA.Text = control.Text;
+                        fontButtonA.Click += btnChangeFont_Click;
+                        fontButtonA.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
+                    }
+                    else if (newControl is Button textChangeButtonA && control.Name.StartsWith("btnTextChangeA"))
+                    {
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newFontButtonA = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        textChangeButtonA.Name = newFontButtonA; // Update the Label with the new tab name
+                        textChangeButtonA.Text = control.Text;
+                        textChangeButtonA.Click += btnTextChange_Click;
+                        textChangeButtonA.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
+                    }
+
+                    else if (newControl is Button button && control.Name.StartsWith("btnClear"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        button.Name = newButtonName;
+                        button.Text = control.Text;
+                        button.Click += ClearButton_Click;
+                        button.Font = control.Font;
+                    }
+                    else if (newControl is ComboBox comboBox && control.Name.StartsWith("comboBox"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        comboBox.Name = newButtonName;
+                        comboBox.Text = "MRQ"; //Default is pick MRQ
+                        comboBox.Font = control.Font;
+
+                        // Copy items from the previous ComboBox
+                        if (control is ComboBox previousComboBox)
+                        {
+                            foreach (var item in previousComboBox.Items)
+                            {
+                                comboBox.Items.Add(item);
+                            }
+                        }
+                    }
+                    else if (newControl is PictureBox pictureBox && control.Name.StartsWith("pictureBoxQ"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newPictureBoxName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        pictureBox.Name = newPictureBoxName;
+
+                    }
+                    else if (newControl is Button buttonBackground && control.Name.StartsWith("btnBackground"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        buttonBackground.Name = newButtonName;
+                        buttonBackground.Text = control.Text;
+                        buttonBackground.Click += UploadBackground_Click;
+                        buttonBackground.Font = control.Font;
+                    }
+
+
+                    // Set the row and column assignment for the control in the new layout
+                    newLayout.Controls.Add(newControl, column, row);
+                    newLayout.SetRowSpan(newControl, rowSpan);
+                    newLayout.SetColumnSpan(newControl, columnSpan);
+                }
+
+                // Add the new layout to the new tab page
+                newTabPage.Controls.Add(newLayout);
             }
-
-            // Add the new TableLayoutPanel to the new tab
-            newTabPage.Controls.Add(newTableLayout);
 
             // Add auto-scrolling to the TabControl
             newTabPage.AutoScroll = true;
 
-            // Add the new tab to the TabControl
             tabControl.TabPages.Add(newTabPage);
 
             // Set the selected tab to the newly added tab
@@ -1703,27 +1914,8 @@ namespace TestingWinForms
             // Enable text wrapping for textboxes in the newly added tab
             EnableTextBoxTextWrapping(tabControl);
 
-            // Adjust the appearance of controls in the new tab
-            foreach (Control control in newTableLayout.Controls)
-            {
-                // Customize the appearance of each control as needed
-                if (control is TextBox textBox)
-                {
-                    // Adjust TextBox properties
-                }
-                else if (control is Button button)
-                {
-                    // Adjust Button properties
-                }
-                else if (control is Label label)
-                {
-                    // Adjust Label properties
-                }
-            }
-
             return newTabPage;
         }
-
 
         // helper method to change font dynamically
         private void btnChangeFont_Click(object sender, EventArgs e)
