@@ -2706,7 +2706,7 @@ namespace TestingWinForms
         private void btnChangeXBotAxis_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
-            fontDialog.Font = sampleLabelTitle.Font; // Set the initial font
+            fontDialog.Font = sampleLabelXBotAxis.Font; // Set the initial font
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelXBotAxis.Font = fontDialog.Font;

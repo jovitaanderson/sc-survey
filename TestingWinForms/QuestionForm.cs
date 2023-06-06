@@ -136,10 +136,9 @@ namespace TestingWinForms
                 // Enable text wrapping
                 questionLabel.AutoSize = true;
                 questionLabel.MaximumSize = new Size(maxWidth, 0);
-                questionLabel.MaximumSize = new Size(maxWidth, 0);
             }
 
-            questionLabel.TextAlign = ContentAlignment.MiddleCenter;
+            //questionLabel.TextAlign = ContentAlignment.MiddleCenter;
             // Calculate the center position of the form
             int centerX = Width / 2;
             // Calculate the center position of the question label
@@ -504,7 +503,7 @@ namespace TestingWinForms
                 questionLabel.AutoSize = currentQuestion.QuestionAutoSize;
                 int maxWidthAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.40);
                 questionLabel.MaximumSize = new Size(maxWidthAxis, 0);
-                questionLabel.MinimumSize = new Size(maxWidthAxis, 0);
+                questionLabel.MinimumSize = new Size(0, 0);
                 questionLabel.Height = (int)Math.Ceiling(questionFont.GetHeight()) + Padding.Vertical;
 
                 int numOptions = 8;

@@ -48,13 +48,13 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.labelMCQorMRQ = new System.Windows.Forms.Label();
             this.questionLabel = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanelRadioButton = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelCheckBox = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.tableLayoutPanelRadioButton.SuspendLayout();
             this.tableLayoutPanelCheckBox.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // submitButton
@@ -62,7 +62,7 @@
             this.submitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.submitButton.AutoSize = true;
             this.submitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.submitButton.Location = new System.Drawing.Point(1059, 650);
+            this.submitButton.Location = new System.Drawing.Point(941, 650);
             this.submitButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.submitButton.Name = "submitButton";
             this.submitButton.Size = new System.Drawing.Size(112, 44);
@@ -306,7 +306,7 @@
             this.labelMCQorMRQ.AutoSize = true;
             this.labelMCQorMRQ.BackColor = System.Drawing.Color.Transparent;
             this.labelMCQorMRQ.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMCQorMRQ.Location = new System.Drawing.Point(423, 20);
+            this.labelMCQorMRQ.Location = new System.Drawing.Point(470, 20);
             this.labelMCQorMRQ.Name = "labelMCQorMRQ";
             this.labelMCQorMRQ.Size = new System.Drawing.Size(232, 32);
             this.labelMCQorMRQ.TabIndex = 22;
@@ -318,12 +318,24 @@
             this.questionLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.questionLabel.AutoSize = true;
             this.questionLabel.BackColor = System.Drawing.Color.Transparent;
+            this.questionLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.questionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.questionLabel.Location = new System.Drawing.Point(454, 157);
+            this.questionLabel.Location = new System.Drawing.Point(500, 156);
             this.questionLabel.Name = "questionLabel";
-            this.questionLabel.Size = new System.Drawing.Size(171, 46);
+            this.questionLabel.Size = new System.Drawing.Size(173, 48);
             this.questionLabel.TabIndex = 4;
             this.questionLabel.Text = "question";
+            // 
+            // panel1
+            // 
+            this.panel1.AutoSize = true;
+            this.panel1.Controls.Add(this.tableLayoutPanelRadioButton);
+            this.panel1.Controls.Add(this.tableLayoutPanelCheckBox);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(120, 291);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(933, 354);
+            this.panel1.TabIndex = 27;
             // 
             // tableLayoutPanelRadioButton
             // 
@@ -352,7 +364,7 @@
             this.tableLayoutPanelRadioButton.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelRadioButton.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelRadioButton.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelRadioButton.Size = new System.Drawing.Size(1027, 354);
+            this.tableLayoutPanelRadioButton.Size = new System.Drawing.Size(933, 354);
             this.tableLayoutPanelRadioButton.TabIndex = 0;
             // 
             // tableLayoutPanelCheckBox
@@ -381,19 +393,8 @@
             this.tableLayoutPanelCheckBox.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelCheckBox.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelCheckBox.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelCheckBox.Size = new System.Drawing.Size(1027, 354);
+            this.tableLayoutPanelCheckBox.Size = new System.Drawing.Size(933, 354);
             this.tableLayoutPanelCheckBox.TabIndex = 26;
-            // 
-            // panel1
-            // 
-            this.panel1.AutoSize = true;
-            this.panel1.Controls.Add(this.tableLayoutPanelRadioButton);
-            this.panel1.Controls.Add(this.tableLayoutPanelCheckBox);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(26, 291);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1027, 354);
-            this.panel1.TabIndex = 27;
             // 
             // QuestionForm
             // 
@@ -406,12 +407,12 @@
             this.Text = "Form2";
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.tableLayoutPanelRadioButton.ResumeLayout(false);
             this.tableLayoutPanelRadioButton.PerformLayout();
             this.tableLayoutPanelCheckBox.ResumeLayout(false);
             this.tableLayoutPanelCheckBox.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
