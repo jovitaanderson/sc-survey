@@ -277,7 +277,7 @@ namespace TestingWinForms
             this.tabControl.Controls.Add(this.tabQuestion1);
             this.tabControl.Controls.Add(this.tabQuestion2);
             this.tabControl.Controls.Add(this.tabQuestion3);
-            this.tabControl.Location = new System.Drawing.Point(272, 178);
+            this.tabControl.Location = new System.Drawing.Point(294, 156);
             this.tabControl.Margin = new System.Windows.Forms.Padding(20);
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
@@ -3025,7 +3025,7 @@ namespace TestingWinForms
             // 
             this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExit.Location = new System.Drawing.Point(624, 556);
+            this.btnExit.Location = new System.Drawing.Point(646, 534);
             this.btnExit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(117, 39);
@@ -3038,7 +3038,7 @@ namespace TestingWinForms
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSave.Location = new System.Drawing.Point(746, 556);
+            this.buttonSave.Location = new System.Drawing.Point(768, 534);
             this.buttonSave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(117, 39);
@@ -3051,7 +3051,7 @@ namespace TestingWinForms
             // 
             this.btnEndApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEndApp.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEndApp.Location = new System.Drawing.Point(380, 556);
+            this.btnEndApp.Location = new System.Drawing.Point(402, 534);
             this.btnEndApp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnEndApp.Name = "btnEndApp";
             this.btnEndApp.Size = new System.Drawing.Size(236, 39);
@@ -3064,7 +3064,7 @@ namespace TestingWinForms
             // 
             this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Location = new System.Drawing.Point(272, 556);
+            this.btnAdd.Location = new System.Drawing.Point(294, 534);
             this.btnAdd.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(110, 39);
@@ -3077,7 +3077,7 @@ namespace TestingWinForms
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(389, 556);
+            this.btnDelete.Location = new System.Drawing.Point(411, 534);
             this.btnDelete.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(120, 39);

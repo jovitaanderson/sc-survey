@@ -261,11 +261,12 @@ namespace TestingWinForms
                                 if (values.Length >= 2 && fontValues.Length != 0) // Assuming each line in the CSV has at least 4 values: question, option1, option2, option3
                                 {
                                     string imagePath = Path.Combine(values[0]);
-                                    string questionText = values[1];
+                                    string questionText = values[1].Replace("\0", ",");
                                     string type = values[2];
 
-                                    List<string> options = new List<string> { values[3], values[4],
-                                    values[5], values[6], values[7], values[8], values[9], values[10]  };
+                                    List<string> options = new List<string> { values[3].Replace("\0", ","), values[4].Replace("\0", ","),
+                                    values[5].Replace("\0", ","), values[6].Replace("\0", ","), values[7].Replace("\0", ","), 
+                                        values[8].Replace("\0", ","), values[9].Replace("\0", ","), values[10].Replace("\0", ",")  };
 
 
                                     //fonts
@@ -496,12 +497,14 @@ namespace TestingWinForms
 
                 // Update the question label
                 questionLabel.Text = currentQuestion.Text;
-                questionLabel.Font = FontFromBinaryString(currentQuestion.FontQuestion);
+                Font questionFont = FontFromBinaryString(currentQuestion.FontQuestion);
+                questionLabel.Font = questionFont;
                 questionLabel.TextAlign = currentQuestion.QuestionAlignment;
                 questionLabel.AutoSize = currentQuestion.QuestionAutoSize;
                 int maxWidthAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.40);
                 questionLabel.MaximumSize = new Size(maxWidthAxis, 0);
                 questionLabel.MinimumSize = new Size(maxWidthAxis, 0);
+                questionLabel.Height = (int)Math.Ceiling(questionFont.GetHeight()) + Padding.Vertical;
 
                 int numOptions = 8;
 

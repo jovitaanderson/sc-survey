@@ -331,11 +331,15 @@ namespace TestingWinForms
 
                 if (!string.IsNullOrWhiteSpace(textBoxQuestion.Text))
                 {
-                    questions.Add(textBoxQuestion.Text);
+                    string questionText = textBoxQuestion.Text;
+                    if (questionText.Contains(","))
+                    {
+                        questionText = questionText.Replace(",", "\0");
+                    }
+                    questions.Add(questionText);
 
                     string fontQuestionToAdd = $"{FontToBinaryString(sampleLabel.Font)};{sampleLabel.TextAlign};{sampleLabel.AutoSize}";
                     fontQuestions.Add(fontQuestionToAdd);
-                    //fontQuestions.Add(FontToBinaryString(sampleLabel.Font));
 
                     // Get the answer fonts
                     List<string> answerFonts = new List<string>();
@@ -345,7 +349,12 @@ namespace TestingWinForms
                     {
                         TextBox textBoxAnswer = GetAnswerTextBox(i, j);
                         string answer = textBoxAnswer.Text;
+                        if (answer.Contains(","))
+                        {
+                            answer = answer.Replace(",", "\0");
+                        }
                         answerOptions.Add(answer);
+
 
                         Label answerLabel = GetAnswerFontLabel(i, j);
                         answerFonts.Add($"{FontToBinaryString(answerLabel.Font)};{answerLabel.TextAlign};{answerLabel.AutoSize}");
@@ -715,10 +724,11 @@ namespace TestingWinForms
 
                     if (questionTextBox != null && answerTextBoxes.Length == optionsNumber && questionTypeComboBox != null)
                     {
-                        questionTextBox.Text = values[1];
+                        //if got comma, change back to comma
+                        questionTextBox.Text = values[1].Replace("\0", ",");
                         for (int i = values.Length - 4; i >= 0; i--)
                         {
-                            answerTextBoxes[values.Length - 4 - i].Text = values[i + 3];
+                            answerTextBoxes[values.Length - 4 - i].Text = values[i + 3].Replace("\0", ",");
                         }
                         questionTypeComboBox.Text = values[2];
 
@@ -1375,6 +1385,8 @@ namespace TestingWinForms
 
             TabPage newTabPage = new TabPage();
             newTabPage.Text = "Question " + newQuestionNumber;
+
+
             // Copy the controls from the previous tab to the new tab
             if (tabControl.TabPages.Count > 0)
             {
@@ -1569,6 +1581,9 @@ namespace TestingWinForms
 
             // Set the selected tab to the newly added tab
             tabControl.SelectedTab = newTabPage;
+
+            // Enable text wrapping for textboxes in the newly added tab
+            EnableTextBoxTextWrapping(tabControl);
 
             foreach (TabPage tabPage in tabControl.TabPages)
             {
