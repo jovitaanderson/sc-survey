@@ -2020,20 +2020,44 @@ namespace TestingWinForms
         private void ClearButton_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            TabPage tabPage = (TabPage)button.Parent; // Get the parent tab page
+            TabPage tabPage = FindParentTabPage(button);
 
-            // Clear the text of all textboxes within the tab page
-            foreach (Control control in tabPage.Controls)
+            // Find the TableLayoutPanel within the tab page
+            TableLayoutPanel tableLayoutPanel = FindTableLayoutPanel(tabPage);
+
+            // Clear the text of all textboxes and comboboxes within the TableLayoutPanel
+            foreach (Control control in tableLayoutPanel.Controls)
             {
                 if (control is TextBox textBox)
                 {
                     textBox.Text = "";
                 }
-                if (control is ComboBox comboBox)
+                else if (control is ComboBox comboBox)
                 {
                     comboBox.Text = "";
                 }
+                else if (control is PictureBox pictureBox)
+                {
+                    pictureBox.Image = null;
+                }
+                else if (control is Label label && label.Name.StartsWith("sampleLabel"))
+                {
+                    label.Font = new Font("Microsoft Sans Serif", 16f, FontStyle.Regular);
+                    label.AutoSize = true;
+                    label.TextAlign = ContentAlignment.TopLeft;
+                }
             }
+        }
+
+        // Helper method to find the parent TabPage of a control
+        private TabPage FindParentTabPage(Control control)
+        {
+            while (control != null && !(control is TabPage))
+            {
+                control = control.Parent;
+            }
+
+            return (TabPage)control;
         }
 
         private void UploadBackground_Click(object sender, EventArgs e)
