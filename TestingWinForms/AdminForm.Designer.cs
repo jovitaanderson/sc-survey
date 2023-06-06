@@ -255,6 +255,8 @@ namespace TestingWinForms
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl.SuspendLayout();
             this.tabTable.SuspendLayout();
             this.tabDownload.SuspendLayout();
@@ -271,6 +273,8 @@ namespace TestingWinForms
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQ3)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -310,7 +314,7 @@ namespace TestingWinForms
             // 
             this.btnTextChangeYRightAxis.AutoSize = true;
             this.btnTextChangeYRightAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeYRightAxis.Location = new System.Drawing.Point(481, 154);
+            this.btnTextChangeYRightAxis.Location = new System.Drawing.Point(608, 154);
             this.btnTextChangeYRightAxis.Margin = new System.Windows.Forms.Padding(2);
             this.btnTextChangeYRightAxis.Name = "btnTextChangeYRightAxis";
             this.btnTextChangeYRightAxis.Size = new System.Drawing.Size(78, 23);
@@ -323,7 +327,7 @@ namespace TestingWinForms
             // 
             this.btnTextChangeYLeftAxis.AutoSize = true;
             this.btnTextChangeYLeftAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeYLeftAxis.Location = new System.Drawing.Point(481, 116);
+            this.btnTextChangeYLeftAxis.Location = new System.Drawing.Point(608, 116);
             this.btnTextChangeYLeftAxis.Margin = new System.Windows.Forms.Padding(2);
             this.btnTextChangeYLeftAxis.Name = "btnTextChangeYLeftAxis";
             this.btnTextChangeYLeftAxis.Size = new System.Drawing.Size(78, 23);
@@ -336,7 +340,7 @@ namespace TestingWinForms
             // 
             this.btnTextChangeXBotAxis.AutoSize = true;
             this.btnTextChangeXBotAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeXBotAxis.Location = new System.Drawing.Point(481, 78);
+            this.btnTextChangeXBotAxis.Location = new System.Drawing.Point(608, 78);
             this.btnTextChangeXBotAxis.Margin = new System.Windows.Forms.Padding(2);
             this.btnTextChangeXBotAxis.Name = "btnTextChangeXBotAxis";
             this.btnTextChangeXBotAxis.Size = new System.Drawing.Size(78, 23);
@@ -349,7 +353,7 @@ namespace TestingWinForms
             // 
             this.btnTextChangeXTopAxis.AutoSize = true;
             this.btnTextChangeXTopAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeXTopAxis.Location = new System.Drawing.Point(481, 40);
+            this.btnTextChangeXTopAxis.Location = new System.Drawing.Point(608, 40);
             this.btnTextChangeXTopAxis.Margin = new System.Windows.Forms.Padding(2);
             this.btnTextChangeXTopAxis.Name = "btnTextChangeXTopAxis";
             this.btnTextChangeXTopAxis.Size = new System.Drawing.Size(78, 23);
@@ -362,7 +366,7 @@ namespace TestingWinForms
             // 
             this.btnTextChangeTitle.AutoSize = true;
             this.btnTextChangeTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeTitle.Location = new System.Drawing.Point(481, 2);
+            this.btnTextChangeTitle.Location = new System.Drawing.Point(608, 2);
             this.btnTextChangeTitle.Margin = new System.Windows.Forms.Padding(2);
             this.btnTextChangeTitle.Name = "btnTextChangeTitle";
             this.btnTextChangeTitle.Size = new System.Drawing.Size(78, 23);
@@ -408,7 +412,7 @@ namespace TestingWinForms
             // 
             this.btnChangeYRightAxis.AutoSize = true;
             this.btnChangeYRightAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeYRightAxis.Location = new System.Drawing.Point(399, 154);
+            this.btnChangeYRightAxis.Location = new System.Drawing.Point(526, 154);
             this.btnChangeYRightAxis.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnChangeYRightAxis.Name = "btnChangeYRightAxis";
             this.btnChangeYRightAxis.Size = new System.Drawing.Size(78, 23);
@@ -421,7 +425,7 @@ namespace TestingWinForms
             // 
             this.btnChangeYLeftAxis.AutoSize = true;
             this.btnChangeYLeftAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeYLeftAxis.Location = new System.Drawing.Point(399, 116);
+            this.btnChangeYLeftAxis.Location = new System.Drawing.Point(526, 116);
             this.btnChangeYLeftAxis.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnChangeYLeftAxis.Name = "btnChangeYLeftAxis";
             this.btnChangeYLeftAxis.Size = new System.Drawing.Size(78, 23);
@@ -434,7 +438,7 @@ namespace TestingWinForms
             // 
             this.btnChangeXBotAxis.AutoSize = true;
             this.btnChangeXBotAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeXBotAxis.Location = new System.Drawing.Point(399, 78);
+            this.btnChangeXBotAxis.Location = new System.Drawing.Point(526, 78);
             this.btnChangeXBotAxis.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnChangeXBotAxis.Name = "btnChangeXBotAxis";
             this.btnChangeXBotAxis.Size = new System.Drawing.Size(78, 23);
@@ -451,7 +455,7 @@ namespace TestingWinForms
             this.textBoxYAxisRight.Location = new System.Drawing.Point(242, 155);
             this.textBoxYAxisRight.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBoxYAxisRight.Name = "textBoxYAxisRight";
-            this.textBoxYAxisRight.Size = new System.Drawing.Size(153, 32);
+            this.textBoxYAxisRight.Size = new System.Drawing.Size(280, 32);
             this.textBoxYAxisRight.TabIndex = 5;
             // 
             // textBoxYAxisLeft
@@ -462,7 +466,7 @@ namespace TestingWinForms
             this.textBoxYAxisLeft.Location = new System.Drawing.Point(242, 117);
             this.textBoxYAxisLeft.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBoxYAxisLeft.Name = "textBoxYAxisLeft";
-            this.textBoxYAxisLeft.Size = new System.Drawing.Size(153, 32);
+            this.textBoxYAxisLeft.Size = new System.Drawing.Size(280, 32);
             this.textBoxYAxisLeft.TabIndex = 4;
             // 
             // labelYAxisRight
@@ -491,7 +495,7 @@ namespace TestingWinForms
             // 
             this.btnChangeXTopAxis.AutoSize = true;
             this.btnChangeXTopAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeXTopAxis.Location = new System.Drawing.Point(399, 40);
+            this.btnChangeXTopAxis.Location = new System.Drawing.Point(526, 40);
             this.btnChangeXTopAxis.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnChangeXTopAxis.Name = "btnChangeXTopAxis";
             this.btnChangeXTopAxis.Size = new System.Drawing.Size(78, 23);
@@ -526,7 +530,7 @@ namespace TestingWinForms
             // 
             this.btnChangeTitle.AutoSize = true;
             this.btnChangeTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeTitle.Location = new System.Drawing.Point(399, 2);
+            this.btnChangeTitle.Location = new System.Drawing.Point(526, 2);
             this.btnChangeTitle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnChangeTitle.Name = "btnChangeTitle";
             this.btnChangeTitle.Size = new System.Drawing.Size(78, 23);
@@ -613,7 +617,7 @@ namespace TestingWinForms
             this.textBoxXAxisBottom.Location = new System.Drawing.Point(242, 79);
             this.textBoxXAxisBottom.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBoxXAxisBottom.Name = "textBoxXAxisBottom";
-            this.textBoxXAxisBottom.Size = new System.Drawing.Size(153, 32);
+            this.textBoxXAxisBottom.Size = new System.Drawing.Size(280, 32);
             this.textBoxXAxisBottom.TabIndex = 3;
             // 
             // textBoxXAxisTop
@@ -624,7 +628,7 @@ namespace TestingWinForms
             this.textBoxXAxisTop.Location = new System.Drawing.Point(242, 41);
             this.textBoxXAxisTop.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBoxXAxisTop.Name = "textBoxXAxisTop";
-            this.textBoxXAxisTop.Size = new System.Drawing.Size(153, 32);
+            this.textBoxXAxisTop.Size = new System.Drawing.Size(280, 32);
             this.textBoxXAxisTop.TabIndex = 2;
             // 
             // textBoxTitle
@@ -635,7 +639,7 @@ namespace TestingWinForms
             this.textBoxTitle.Location = new System.Drawing.Point(242, 3);
             this.textBoxTitle.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBoxTitle.Name = "textBoxTitle";
-            this.textBoxTitle.Size = new System.Drawing.Size(153, 32);
+            this.textBoxTitle.Size = new System.Drawing.Size(280, 32);
             this.textBoxTitle.TabIndex = 1;
             // 
             // labelXAxisBottom
@@ -675,17 +679,11 @@ namespace TestingWinForms
             // 
             this.tabDownload.AutoScroll = true;
             this.tabDownload.BackColor = System.Drawing.Color.Transparent;
-            this.tabDownload.Controls.Add(this.btnDownloadRawData);
-            this.tabDownload.Controls.Add(this.btnDownloadAll);
-            this.tabDownload.Controls.Add(this.btnDownload);
-            this.tabDownload.Controls.Add(this.dateTimePickerEndDate);
-            this.tabDownload.Controls.Add(this.dateTimePickerStartDate);
-            this.tabDownload.Controls.Add(this.label13);
-            this.tabDownload.Controls.Add(this.label12);
-            this.tabDownload.Location = new System.Drawing.Point(23, 4);
+            this.tabDownload.Controls.Add(this.tableLayoutPanel5);
+            this.tabDownload.Location = new System.Drawing.Point(42, 4);
             this.tabDownload.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabDownload.Name = "tabDownload";
-            this.tabDownload.Size = new System.Drawing.Size(413, 294);
+            this.tabDownload.Size = new System.Drawing.Size(394, 294);
             this.tabDownload.TabIndex = 4;
             this.tabDownload.Text = "Download";
             // 
@@ -693,7 +691,7 @@ namespace TestingWinForms
             // 
             this.btnDownloadRawData.AutoSize = true;
             this.btnDownloadRawData.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDownloadRawData.Location = new System.Drawing.Point(107, 204);
+            this.btnDownloadRawData.Location = new System.Drawing.Point(124, 146);
             this.btnDownloadRawData.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnDownloadRawData.Name = "btnDownloadRawData";
             this.btnDownloadRawData.Size = new System.Drawing.Size(165, 30);
@@ -706,10 +704,10 @@ namespace TestingWinForms
             // 
             this.btnDownloadAll.AutoSize = true;
             this.btnDownloadAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDownloadAll.Location = new System.Drawing.Point(107, 152);
+            this.btnDownloadAll.Location = new System.Drawing.Point(124, 112);
             this.btnDownloadAll.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnDownloadAll.Name = "btnDownloadAll";
-            this.btnDownloadAll.Size = new System.Drawing.Size(111, 33);
+            this.btnDownloadAll.Size = new System.Drawing.Size(111, 30);
             this.btnDownloadAll.TabIndex = 7;
             this.btnDownloadAll.Text = "Download All";
             this.btnDownloadAll.UseVisualStyleBackColor = true;
@@ -719,7 +717,7 @@ namespace TestingWinForms
             // 
             this.btnDownload.AutoSize = true;
             this.btnDownload.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDownload.Location = new System.Drawing.Point(107, 108);
+            this.btnDownload.Location = new System.Drawing.Point(124, 78);
             this.btnDownload.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(226, 30);
@@ -733,10 +731,10 @@ namespace TestingWinForms
             this.dateTimePickerEndDate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePickerEndDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePickerEndDate.Location = new System.Drawing.Point(110, 65);
+            this.dateTimePickerEndDate.Location = new System.Drawing.Point(124, 41);
             this.dateTimePickerEndDate.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
-            this.dateTimePickerEndDate.Size = new System.Drawing.Size(180, 32);
+            this.dateTimePickerEndDate.Size = new System.Drawing.Size(268, 32);
             this.dateTimePickerEndDate.TabIndex = 5;
             // 
             // dateTimePickerStartDate
@@ -744,17 +742,17 @@ namespace TestingWinForms
             this.dateTimePickerStartDate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePickerStartDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePickerStartDate.Location = new System.Drawing.Point(110, 10);
+            this.dateTimePickerStartDate.Location = new System.Drawing.Point(124, 3);
             this.dateTimePickerStartDate.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
-            this.dateTimePickerStartDate.Size = new System.Drawing.Size(180, 32);
+            this.dateTimePickerStartDate.Size = new System.Drawing.Size(268, 32);
             this.dateTimePickerStartDate.TabIndex = 4;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(5, 65);
+            this.label13.Location = new System.Drawing.Point(2, 38);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(111, 26);
@@ -765,7 +763,7 @@ namespace TestingWinForms
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(5, 10);
+            this.label12.Location = new System.Drawing.Point(2, 0);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(118, 26);
@@ -776,40 +774,24 @@ namespace TestingWinForms
             // 
             this.tabAdvance.AutoScroll = true;
             this.tabAdvance.BackColor = System.Drawing.Color.Transparent;
-            this.tabAdvance.Controls.Add(this.btnChangeEndSurveyFont);
-            this.tabAdvance.Controls.Add(this.btnTextChangeEndSurveyFont);
-            this.tabAdvance.Controls.Add(this.sampleLabelEndText);
-            this.tabAdvance.Controls.Add(this.pictureBox2);
-            this.tabAdvance.Controls.Add(this.button2);
-            this.tabAdvance.Controls.Add(this.label9);
-            this.tabAdvance.Controls.Add(this.pictureBox);
-            this.tabAdvance.Controls.Add(this.btnUploadImage);
-            this.tabAdvance.Controls.Add(this.textBoxEndMessage);
-            this.tabAdvance.Controls.Add(this.comboBoxRandomQns);
-            this.tabAdvance.Controls.Add(this.label17);
-            this.tabAdvance.Controls.Add(this.textBoxTimeOut);
-            this.tabAdvance.Controls.Add(this.label16);
-            this.tabAdvance.Controls.Add(this.label15);
-            this.tabAdvance.Controls.Add(this.label14);
-            this.tabAdvance.Controls.Add(this.labelTimeOut);
+            this.tabAdvance.Controls.Add(this.tableLayoutPanel6);
             this.tabAdvance.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabAdvance.Location = new System.Drawing.Point(23, 4);
+            this.tabAdvance.Location = new System.Drawing.Point(42, 4);
             this.tabAdvance.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabAdvance.Name = "tabAdvance";
             this.tabAdvance.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tabAdvance.Size = new System.Drawing.Size(413, 294);
+            this.tabAdvance.Size = new System.Drawing.Size(394, 294);
             this.tabAdvance.TabIndex = 5;
             this.tabAdvance.Text = "Advance";
             // 
             // btnChangeEndSurveyFont
             // 
-            this.btnChangeEndSurveyFont.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeEndSurveyFont.AutoSize = true;
             this.btnChangeEndSurveyFont.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeEndSurveyFont.Location = new System.Drawing.Point(137, 122);
+            this.btnChangeEndSurveyFont.Location = new System.Drawing.Point(490, 80);
             this.btnChangeEndSurveyFont.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnChangeEndSurveyFont.Name = "btnChangeEndSurveyFont";
-            this.btnChangeEndSurveyFont.Size = new System.Drawing.Size(84, 31);
+            this.btnChangeEndSurveyFont.Size = new System.Drawing.Size(78, 23);
             this.btnChangeEndSurveyFont.TabIndex = 17;
             this.btnChangeEndSurveyFont.Text = "Change Font";
             this.btnChangeEndSurveyFont.UseVisualStyleBackColor = true;
@@ -817,13 +799,12 @@ namespace TestingWinForms
             // 
             // btnTextChangeEndSurveyFont
             // 
-            this.btnTextChangeEndSurveyFont.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeEndSurveyFont.AutoSize = true;
             this.btnTextChangeEndSurveyFont.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeEndSurveyFont.Location = new System.Drawing.Point(228, 122);
+            this.btnTextChangeEndSurveyFont.Location = new System.Drawing.Point(572, 80);
             this.btnTextChangeEndSurveyFont.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnTextChangeEndSurveyFont.Name = "btnTextChangeEndSurveyFont";
-            this.btnTextChangeEndSurveyFont.Size = new System.Drawing.Size(82, 31);
+            this.btnTextChangeEndSurveyFont.Size = new System.Drawing.Size(78, 23);
             this.btnTextChangeEndSurveyFont.TabIndex = 19;
             this.btnTextChangeEndSurveyFont.Text = "Change Text";
             this.btnTextChangeEndSurveyFont.UseVisualStyleBackColor = true;
@@ -833,7 +814,7 @@ namespace TestingWinForms
             // 
             this.sampleLabelEndText.AutoSize = true;
             this.sampleLabelEndText.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sampleLabelEndText.Location = new System.Drawing.Point(10, 188);
+            this.sampleLabelEndText.Location = new System.Drawing.Point(2, 116);
             this.sampleLabelEndText.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.sampleLabelEndText.Name = "sampleLabelEndText";
             this.sampleLabelEndText.Size = new System.Drawing.Size(98, 26);
@@ -842,7 +823,7 @@ namespace TestingWinForms
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(30, 509);
+            this.pictureBox2.Location = new System.Drawing.Point(2, 356);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(153, 151);
@@ -853,7 +834,7 @@ namespace TestingWinForms
             // 
             this.button2.AutoSize = true;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(189, 478);
+            this.button2.Location = new System.Drawing.Point(206, 316);
             this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(280, 36);
@@ -866,7 +847,7 @@ namespace TestingWinForms
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(10, 478);
+            this.label9.Location = new System.Drawing.Point(2, 314);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(179, 26);
@@ -875,7 +856,7 @@ namespace TestingWinForms
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(30, 314);
+            this.pictureBox.Location = new System.Drawing.Point(2, 184);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(154, 128);
@@ -886,7 +867,7 @@ namespace TestingWinForms
             // 
             this.btnUploadImage.AutoSize = true;
             this.btnUploadImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUploadImage.Location = new System.Drawing.Point(210, 278);
+            this.btnUploadImage.Location = new System.Drawing.Point(206, 144);
             this.btnUploadImage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnUploadImage.Name = "btnUploadImage";
             this.btnUploadImage.Size = new System.Drawing.Size(280, 36);
@@ -900,10 +881,10 @@ namespace TestingWinForms
             this.textBoxEndMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxEndMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxEndMessage.Location = new System.Drawing.Point(187, 122);
+            this.textBoxEndMessage.Location = new System.Drawing.Point(206, 81);
             this.textBoxEndMessage.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBoxEndMessage.Name = "textBoxEndMessage";
-            this.textBoxEndMessage.Size = new System.Drawing.Size(0, 32);
+            this.textBoxEndMessage.Size = new System.Drawing.Size(280, 32);
             this.textBoxEndMessage.TabIndex = 8;
             // 
             // comboBoxRandomQns
@@ -915,18 +896,17 @@ namespace TestingWinForms
             this.comboBoxRandomQns.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxRandomQns.Location = new System.Drawing.Point(187, 76);
+            this.comboBoxRandomQns.Location = new System.Drawing.Point(206, 41);
             this.comboBoxRandomQns.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.comboBoxRandomQns.Name = "comboBoxRandomQns";
-            this.comboBoxRandomQns.Size = new System.Drawing.Size(0, 34);
+            this.comboBoxRandomQns.Size = new System.Drawing.Size(280, 34);
             this.comboBoxRandomQns.TabIndex = 7;
             // 
             // label17
             // 
-            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(137, 20);
+            this.label17.Location = new System.Drawing.Point(490, 0);
             this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(50, 26);
@@ -938,17 +918,17 @@ namespace TestingWinForms
             this.textBoxTimeOut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxTimeOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTimeOut.Location = new System.Drawing.Point(187, 15);
+            this.textBoxTimeOut.Location = new System.Drawing.Point(206, 3);
             this.textBoxTimeOut.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBoxTimeOut.Name = "textBoxTimeOut";
-            this.textBoxTimeOut.Size = new System.Drawing.Size(0, 32);
+            this.textBoxTimeOut.Size = new System.Drawing.Size(280, 32);
             this.textBoxTimeOut.TabIndex = 6;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(10, 278);
+            this.label16.Location = new System.Drawing.Point(2, 142);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(200, 26);
@@ -959,7 +939,7 @@ namespace TestingWinForms
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(10, 122);
+            this.label15.Location = new System.Drawing.Point(2, 78);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(179, 26);
@@ -970,7 +950,7 @@ namespace TestingWinForms
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(10, 78);
+            this.label14.Location = new System.Drawing.Point(2, 38);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(147, 26);
@@ -981,7 +961,7 @@ namespace TestingWinForms
             // 
             this.labelTimeOut.AutoSize = true;
             this.labelTimeOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTimeOut.Location = new System.Drawing.Point(10, 19);
+            this.labelTimeOut.Location = new System.Drawing.Point(2, 0);
             this.labelTimeOut.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelTimeOut.Name = "labelTimeOut";
             this.labelTimeOut.Size = new System.Drawing.Size(102, 26);
@@ -993,11 +973,11 @@ namespace TestingWinForms
             this.tabQuestion1.AutoScroll = true;
             this.tabQuestion1.BackColor = System.Drawing.Color.Transparent;
             this.tabQuestion1.Controls.Add(this.tableLayoutPanel1);
-            this.tabQuestion1.Location = new System.Drawing.Point(23, 4);
+            this.tabQuestion1.Location = new System.Drawing.Point(42, 4);
             this.tabQuestion1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tabQuestion1.Name = "tabQuestion1";
             this.tabQuestion1.Padding = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.tabQuestion1.Size = new System.Drawing.Size(413, 294);
+            this.tabQuestion1.Size = new System.Drawing.Size(394, 294);
             this.tabQuestion1.TabIndex = 1;
             this.tabQuestion1.Text = "Question 1";
             // 
@@ -1089,7 +1069,7 @@ namespace TestingWinForms
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(409, 288);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(390, 288);
             this.tableLayoutPanel1.TabIndex = 48;
             // 
             // btnTextChangeA11
@@ -3269,6 +3249,69 @@ namespace TestingWinForms
             this.tableLayoutPanel4.Size = new System.Drawing.Size(390, 288);
             this.tableLayoutPanel4.TabIndex = 48;
             // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel5.Controls.Add(this.btnDownloadRawData, 1, 4);
+            this.tableLayoutPanel5.Controls.Add(this.label12, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.btnDownloadAll, 1, 3);
+            this.tableLayoutPanel5.Controls.Add(this.dateTimePickerStartDate, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.btnDownload, 1, 2);
+            this.tableLayoutPanel5.Controls.Add(this.label13, 0, 1);
+            this.tableLayoutPanel5.Controls.Add(this.dateTimePickerEndDate, 1, 1);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 5;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(394, 294);
+            this.tableLayoutPanel5.TabIndex = 48;
+            // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.AutoScroll = true;
+            this.tableLayoutPanel6.ColumnCount = 4;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel6.Controls.Add(this.textBoxEndMessage, 1, 2);
+            this.tableLayoutPanel6.Controls.Add(this.pictureBox2, 0, 7);
+            this.tableLayoutPanel6.Controls.Add(this.comboBoxRandomQns, 1, 1);
+            this.tableLayoutPanel6.Controls.Add(this.btnTextChangeEndSurveyFont, 3, 2);
+            this.tableLayoutPanel6.Controls.Add(this.textBoxTimeOut, 1, 0);
+            this.tableLayoutPanel6.Controls.Add(this.button2, 1, 6);
+            this.tableLayoutPanel6.Controls.Add(this.labelTimeOut, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.label9, 0, 6);
+            this.tableLayoutPanel6.Controls.Add(this.label14, 0, 1);
+            this.tableLayoutPanel6.Controls.Add(this.pictureBox, 0, 5);
+            this.tableLayoutPanel6.Controls.Add(this.sampleLabelEndText, 0, 3);
+            this.tableLayoutPanel6.Controls.Add(this.btnUploadImage, 1, 4);
+            this.tableLayoutPanel6.Controls.Add(this.label15, 0, 2);
+            this.tableLayoutPanel6.Controls.Add(this.label17, 2, 0);
+            this.tableLayoutPanel6.Controls.Add(this.btnChangeEndSurveyFont, 2, 2);
+            this.tableLayoutPanel6.Controls.Add(this.label16, 0, 4);
+            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 8;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(394, 294);
+            this.tableLayoutPanel6.TabIndex = 48;
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3287,9 +3330,7 @@ namespace TestingWinForms
             this.tabControl.ResumeLayout(false);
             this.tabTable.ResumeLayout(false);
             this.tabDownload.ResumeLayout(false);
-            this.tabDownload.PerformLayout();
             this.tabAdvance.ResumeLayout(false);
-            this.tabAdvance.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.tabQuestion1.ResumeLayout(false);
@@ -3306,6 +3347,10 @@ namespace TestingWinForms
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxQ3)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3538,5 +3583,7 @@ namespace TestingWinForms
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
     }
 }
