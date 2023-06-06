@@ -468,18 +468,6 @@ namespace TestingWinForms
                     optionHCheckBox
             };
 
-            // Declare an array of panels
-            /*Panel[] panels = new Panel[]
-            {
-                    panel1,
-                    panel2,
-                    panel3,
-                    panel4,
-                    panel5,
-                    panel6,
-                    panel7,
-                    panel8
-            };*/
 
             if (currentQuestionIndex < questions.Count)
             {
@@ -582,7 +570,6 @@ namespace TestingWinForms
                         
                         checkbox.TextAlign = currentQuestion.TextAligns[i];
                         checkbox.AutoSize = currentQuestion.AutoSizes[i];
-                        //panel.Height = (int)Math.Ceiling(textFont.GetHeight()) + Padding.Vertical;
                     }
 
                     // Clear the selection for any remaining checkboxes
@@ -593,7 +580,6 @@ namespace TestingWinForms
                         checkbox.Visible = false;
                         checkbox.Text = string.Empty;
                         checkbox.Checked = false;
-                        //panel.Parent.Controls.Remove(panel);
                     }
 
                     // Hide radio buttons

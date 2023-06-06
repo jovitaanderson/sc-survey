@@ -41,6 +41,17 @@ namespace TestingWinForms
             
         }
 
+        // Helper method to prevent flickering
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams handleParams = base.CreateParams;
+                handleParams.ExStyle = 0x02000000;
+                return handleParams;
+            }
+        }
+
         private string LoadBackgroundImageFromCSV()
         {
             if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
