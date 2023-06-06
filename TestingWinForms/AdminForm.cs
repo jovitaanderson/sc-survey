@@ -1364,7 +1364,7 @@ namespace TestingWinForms
             Application.Exit();
         }
 
-        private void addTab()
+        private TabPage addTab()
         {
             string labelText = "";
             if (tabControl.TabPages.Count > 0)
@@ -1627,6 +1627,8 @@ namespace TestingWinForms
                     }
                 }
             }
+
+            return newTabPage;
         }
 
         // helper method to change font dynamically
@@ -1764,8 +1766,12 @@ namespace TestingWinForms
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            addTab();
+            TabPage newTabPage = addTab();
             questionsNumber++;
+
+            // Set the selected tab to the newly added tab
+            tabControl.SelectedTab = newTabPage;
+
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
