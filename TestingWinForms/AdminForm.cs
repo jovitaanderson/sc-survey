@@ -793,61 +793,67 @@ namespace TestingWinForms
                 {
                     string[] values = lines[questionIndex].Split(',');
 
-                    Label sampleQuestionLabels = tabPage.Controls.OfType<Label>().FirstOrDefault(c => c.Name.StartsWith("sampleLabelQ"));
-                    Label[] sampleAnswerLabels = tabPage.Controls.OfType<Label>().Where(c => c.Name.StartsWith("sampleLabelA" + (questionIndex + 1))).ToArray();
-                   
-                    if (sampleQuestionLabels != null && sampleAnswerLabels.Length == optionsNumber)
+                    TableLayoutPanel layoutPanel = tabPage.Controls.OfType<TableLayoutPanel>().FirstOrDefault();
+                    if (layoutPanel != null)
                     {
-                        string[] textProperties = values[0].Split(';'); // Assuming text font and alignment data is at index 5
-                        string fontTitle = textProperties[0]; // First ; is text font
-                        if (textProperties.Length > 2)
+                        Label sampleQuestionLabels = layoutPanel.Controls.OfType<Label>().FirstOrDefault(c => c.Name.StartsWith("sampleLabelQ"));
+                        Label[] sampleAnswerLabels = layoutPanel.Controls.OfType<Label>().Where(c => c.Name.StartsWith("sampleLabelA" + (questionIndex + 1))).ToArray();
+
+                        if (sampleQuestionLabels != null && sampleAnswerLabels.Length == optionsNumber)
                         {
-                            String textAlign = textProperties[1]; // Second ; is text align properties
-                            String textWrap = textProperties[2];
-                            // Load text alignment
-                            if (Enum.TryParse(textAlign, out ContentAlignment alignment))
+                            string[] textProperties = values[0].Split(';'); // Assuming text font and alignment data is at index 5
+                            string fontTitle = textProperties[0]; // First ; is text font
+                            if (textProperties.Length > 2)
                             {
-                                // Conversion succeeded, and the alignment variable now contains the corresponding enum value
-                                // You can use the alignment variable as needed
-                                sampleQuestionLabels.TextAlign = alignment;
-                            }
-                            else
-                            {
-                                // Conversion failed, handle the error or set a default value
-                                sampleQuestionLabels.TextAlign = ContentAlignment.MiddleCenter;
-                            }
-                            sampleQuestionLabels.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
-
-                        }
-
-                        sampleQuestionLabels.Font = FontFromBinaryString(fontTitle);
-
-                        for (int i = values.Length - 1; i >= 1; i--)
-                        {
-                            string[] answerTextProperties = values[i].Split(';');
-                            String font = answerTextProperties[0];
-                            if (answerTextProperties.Length > 2)
-                            {
-                                String textAlign = answerTextProperties[1];
-                                String textWrap = answerTextProperties[2];
-
+                                String textAlign = textProperties[1]; // Second ; is text align properties
+                                String textWrap = textProperties[2];
+                                // Load text alignment
                                 if (Enum.TryParse(textAlign, out ContentAlignment alignment))
                                 {
                                     // Conversion succeeded, and the alignment variable now contains the corresponding enum value
                                     // You can use the alignment variable as needed
-                                    sampleAnswerLabels[values.Length - 1 - i].TextAlign = alignment;
+                                    sampleQuestionLabels.TextAlign = alignment;
                                 }
                                 else
                                 {
                                     // Conversion failed, handle the error or set a default value
-                                    sampleAnswerLabels[values.Length - 1 - i].TextAlign = ContentAlignment.TopLeft;
+                                    sampleQuestionLabels.TextAlign = ContentAlignment.MiddleCenter;
                                 }
-                                sampleAnswerLabels[values.Length - 1 - i].AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
+                                sampleQuestionLabels.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
+
                             }
 
-                            sampleAnswerLabels[values.Length - 1 - i].Font = FontFromBinaryString(font);
-                            
+                            sampleQuestionLabels.Font = FontFromBinaryString(fontTitle);
+
+                            for (int i = values.Length - 1; i >= 1; i--)
+                            {
+                                string[] answerTextProperties = values[i].Split(';');
+                                String font = answerTextProperties[0];
+                                if (answerTextProperties.Length > 2)
+                                {
+                                    String textAlign = answerTextProperties[1];
+                                    String textWrap = answerTextProperties[2];
+
+                                    if (Enum.TryParse(textAlign, out ContentAlignment alignment))
+                                    {
+                                        // Conversion succeeded, and the alignment variable now contains the corresponding enum value
+                                        // You can use the alignment variable as needed
+                                        sampleAnswerLabels[values.Length - 1 - i].TextAlign = alignment;
+                                    }
+                                    else
+                                    {
+                                        // Conversion failed, handle the error or set a default value
+                                        sampleAnswerLabels[values.Length - 1 - i].TextAlign = ContentAlignment.TopLeft;
+                                    }
+                                    sampleAnswerLabels[values.Length - 1 - i].AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
+                                }
+
+                                sampleAnswerLabels[values.Length - 1 - i].Font = FontFromBinaryString(font);
+
+                            }
                         }
+
+                        
                     }
                 }
             }
