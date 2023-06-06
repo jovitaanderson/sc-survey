@@ -737,31 +737,36 @@ namespace TestingWinForms
                 {
                     string[] values = lines[questionIndex].Split(',');
 
-                    TextBox questionTextBox = tabPage.Controls.OfType<TextBox>().FirstOrDefault(c => c.Name.StartsWith("textBoxQ"));
-                    TextBox[] answerTextBoxes = tabPage.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + "A" + (questionIndex + 1))).ToArray();
-                    ComboBox questionTypeComboBox = tabPage.Controls.OfType<ComboBox>().FirstOrDefault(c => c.Name.StartsWith("comboBox"));
-                    PictureBox questionPictureBox = tabPage.Controls.OfType<PictureBox>().FirstOrDefault(c => c.Name.StartsWith("pictureBoxQ"));
+                    TableLayoutPanel layoutPanel = tabPage.Controls.OfType<TableLayoutPanel>().FirstOrDefault();
 
-                    if (questionTextBox != null && answerTextBoxes.Length == optionsNumber && questionTypeComboBox != null)
+                    if (layoutPanel != null)
                     {
-                        //if got comma, change back to comma
-                        questionTextBox.Text = values[1].Replace("\0", ",");
-                        for (int i = values.Length - 4; i >= 0; i--)
-                        {
-                            answerTextBoxes[values.Length - 4 - i].Text = values[i + 3].Replace("\0", ",");
-                        }
-                        questionTypeComboBox.Text = values[2];
+                        TextBox questionTextBox = layoutPanel.Controls.OfType<TextBox>().FirstOrDefault(c => c.Name.StartsWith("textBoxQ"));
+                        TextBox[] answerTextBoxes = layoutPanel.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + "A" + (questionIndex + 1))).ToArray();
+                        ComboBox questionTypeComboBox = layoutPanel.Controls.OfType<ComboBox>().FirstOrDefault(c => c.Name.StartsWith("comboBox"));
+                        PictureBox questionPictureBox = layoutPanel.Controls.OfType<PictureBox>().FirstOrDefault(c => c.Name.StartsWith("pictureBoxQ"));
 
-                        string imagePath = Path.Combine(values[0]);
-                        if (File.Exists(imagePath))
+                        if (questionTextBox != null && answerTextBoxes.Length == optionsNumber && questionTypeComboBox != null)
                         {
-                            Image image = Image.FromFile(imagePath);
-                            questionPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                            questionPictureBox.Image = image;
-                        }
+                            //if got comma, change back to comma
+                            questionTextBox.Text = values[1].Replace("\0", ",");
+                            for (int i = values.Length - 4; i >= 0; i--)
+                            {
+                                answerTextBoxes[values.Length - 4 - i].Text = values[i + 3].Replace("\0", ",");
+                            }
+                            questionTypeComboBox.Text = values[2];
 
+                            string imagePath = Path.Combine(values[0]);
+                            if (File.Exists(imagePath))
+                            {
+                                Image image = Image.FromFile(imagePath);
+                                questionPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                                questionPictureBox.Image = image;
+                            }
+                        }
                     }
                 }
+
             }
         }
 
