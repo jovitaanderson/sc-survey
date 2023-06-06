@@ -741,8 +741,8 @@ namespace TestingWinForms
 
                     if (layoutPanel != null)
                     {
+                        TextBox[] answerTextBoxes = layoutPanel.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + "A" + (questionIndex + 1))).OrderBy(c => c.Location.Y).ToArray();
                         TextBox questionTextBox = layoutPanel.Controls.OfType<TextBox>().FirstOrDefault(c => c.Name.StartsWith("textBoxQ"));
-                        TextBox[] answerTextBoxes = layoutPanel.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + "A" + (questionIndex + 1))).ToArray();
                         ComboBox questionTypeComboBox = layoutPanel.Controls.OfType<ComboBox>().FirstOrDefault(c => c.Name.StartsWith("comboBox"));
                         PictureBox questionPictureBox = layoutPanel.Controls.OfType<PictureBox>().FirstOrDefault(c => c.Name.StartsWith("pictureBoxQ"));
 
@@ -750,9 +750,10 @@ namespace TestingWinForms
                         {
                             //if got comma, change back to comma
                             questionTextBox.Text = values[1].Replace("\0", ",");
-                            for (int i = values.Length - 4; i >= 0; i--)
+
+                            for (int i = 0; i < values.Length - 3; i++)
                             {
-                                answerTextBoxes[values.Length - 4 - i].Text = values[i + 3].Replace("\0", ",");
+                                answerTextBoxes[i].Text = values[i + 3].Replace("\0", ",");
                             }
                             questionTypeComboBox.Text = values[2];
 
