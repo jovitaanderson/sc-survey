@@ -1801,6 +1801,7 @@ namespace TestingWinForms
 
                         // Set the default font style and size
                         labelSampleQuestion.Font = new Font("Microsoft Sans Serif", 16f, FontStyle.Regular);
+                        labelSampleQuestion.AutoSize = true;
 
                     }
                     else if (newControl is Label labelSampleAnswer && control.Name.StartsWith("sampleLabelA"))
@@ -1814,6 +1815,7 @@ namespace TestingWinForms
 
                         // Set the default font style and size 
                         labelSampleAnswer.Font = new Font("Microsoft Sans Serif", 16f, FontStyle.Regular);
+                        labelSampleAnswer.AutoSize = true;
 
                     }
                     else if (newControl is Button fontButtonQ && control.Name.StartsWith("btnChangeQ"))
