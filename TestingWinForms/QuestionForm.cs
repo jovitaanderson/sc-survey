@@ -468,6 +468,19 @@ namespace TestingWinForms
                     optionHCheckBox
             };
 
+            // Declare an array of panels
+            Panel[] panels = new Panel[]
+            {
+                    panel1,
+                    panel2,
+                    panel3,
+                    panel4,
+                    panel5,
+                    panel6,
+                    panel7,
+                    panel8
+            };
+
             if (currentQuestionIndex < questions.Count)
             {
                 // Reset the timer
@@ -522,7 +535,6 @@ namespace TestingWinForms
                         radioButton.Visible = !string.IsNullOrEmpty(optionText);
                         radioButton.Text = optionText;
                         radioButton.Checked = false;
-
                         radioButton.Font = FontFromBinaryString(currentQuestion.FontValues[i]);
                         radioButton.TextAlign = currentQuestion.TextAligns[i];
                         radioButton.AutoSize = currentQuestion.AutoSizes[i];
@@ -553,25 +565,29 @@ namespace TestingWinForms
                     for (int i = 0; i < numOptions; i++)
                     {
                         CheckBox checkbox = checkboxes[i];
+                        Panel panel = panels[i];
                         string optionText = currentQuestion.Options[i];
 
                         checkbox.Visible = !string.IsNullOrEmpty(optionText);
                         checkbox.Text = optionText;
                         checkbox.Checked = false;
-
-                        checkbox.Font = FontFromBinaryString(currentQuestion.FontValues[i]);
-
+                        Font textFont = FontFromBinaryString(currentQuestion.FontValues[i]);
+                        checkbox.Font = textFont;
+                        
                         checkbox.TextAlign = currentQuestion.TextAligns[i];
                         checkbox.AutoSize = currentQuestion.AutoSizes[i];
+                        panel.Height = (int)Math.Ceiling(textFont.GetHeight()) + Padding.Vertical;
                     }
 
                     // Clear the selection for any remaining checkboxes
                     for (int i = numOptions; i < checkboxes.Length; i++)
                     {
                         CheckBox checkbox = checkboxes[i];
+                        Panel panel = panels[i];
                         checkbox.Visible = false;
                         checkbox.Text = string.Empty;
                         checkbox.Checked = false;
+                        panel.Parent.Controls.Remove(panel);
                     }
 
                     // Hide radio buttons
