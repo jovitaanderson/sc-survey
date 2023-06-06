@@ -42,7 +42,7 @@ namespace TestingWinForms
             this.labelEndMessage.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelEndMessage.BackColor = System.Drawing.Color.Transparent;
             this.labelEndMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelEndMessage.Location = new System.Drawing.Point(266, 90);
+            this.labelEndMessage.Location = new System.Drawing.Point(266, 201);
             this.labelEndMessage.Name = "labelEndMessage";
             this.labelEndMessage.Size = new System.Drawing.Size(267, 44);
             this.labelEndMessage.TabIndex = 0;
@@ -53,7 +53,7 @@ namespace TestingWinForms
             // 
             this.btnMain.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMain.Location = new System.Drawing.Point(299, 317);
+            this.btnMain.Location = new System.Drawing.Point(299, 354);
             this.btnMain.Name = "btnMain";
             this.btnMain.Size = new System.Drawing.Size(201, 40);
             this.btnMain.TabIndex = 1;
@@ -69,15 +69,16 @@ namespace TestingWinForms
             // 
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
             this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.labelEndMessage, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnMain, 0, 1);
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.labelEndMessage, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnMain, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(800, 450);
             this.tableLayoutPanel1.TabIndex = 2;
             // 

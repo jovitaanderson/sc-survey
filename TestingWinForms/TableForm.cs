@@ -230,7 +230,7 @@ namespace TestingWinForms
                         int maxHeightTitle = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.20);
                         int maxWidthAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.40);
                         int maxHeightXAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height * 0.11);
-                        int maxHeightYAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height * 0.40);
+                        int maxHeightYAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height * 0.35);
                         // Title 
                         labelTitle.AutoSize = true;
                         labelTitle.MaximumSize = new Size(maxWidthTitle, maxHeightTitle);
