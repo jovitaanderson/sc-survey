@@ -123,19 +123,38 @@ namespace TestingWinForms
         {
             foreach (TabPage tabPage in tabControl.TabPages)
             {
-                foreach (Control control in tabPage.Controls)
-                {
-                    if (control is TextBox textBox)
-                    {
-                        textBox.Multiline = true;
-                        textBox.WordWrap = true;
-                        textBox.ScrollBars = ScrollBars.Vertical; // Enable vertical scrolling
+                // Find the TableLayoutPanel within the TabPage
+                TableLayoutPanel tableLayoutPanel = FindTableLayoutPanel(tabPage);
 
-                        textBox.TextChanged += (sender, e) => TextBox_TextChanged(sender, e, tabPage); // Attach event handler
-                        textBox.KeyPress += TextBox_KeyPress;
+                if (tableLayoutPanel != null)
+                {
+                    foreach (Control control in tableLayoutPanel.Controls)
+                    {
+                        if (control is TextBox textBox)
+                        {
+                            textBox.Multiline = true;
+                            textBox.WordWrap = true;
+                            textBox.ScrollBars = ScrollBars.Vertical; // Enable vertical scrolling
+
+                            textBox.TextChanged += (sender, e) => TextBox_TextChanged(sender, e, tabPage); // Attach event handler
+                            textBox.KeyPress += TextBox_KeyPress;
+                        }
                     }
                 }
             }
+        }
+
+        // Helper method to find the TableLayoutPanel within a control collection
+        private TableLayoutPanel FindTableLayoutPanel(Control control)
+        {
+            foreach (Control childControl in control.Controls)
+            {
+                if (childControl is TableLayoutPanel tableLayoutPanel)
+                {
+                    return tableLayoutPanel;
+                }
+            }
+            return null;
         }
 
 
@@ -1364,7 +1383,7 @@ namespace TestingWinForms
             Application.Exit();
         }
 
-        private TabPage addTab()
+        /*private TabPage addTab()
         {
             string labelText = "";
             if (tabControl.TabPages.Count > 0)
@@ -1629,7 +1648,82 @@ namespace TestingWinForms
             }
 
             return newTabPage;
+        }*/
+
+        private TabPage addTab()
+        {
+            // Create a new tab page
+            TabPage newTabPage = new TabPage();
+            newTabPage.Text = "Question " + (tabControl.TabPages.Count + 1);
+
+            // Create a new TableLayoutPanel and set its properties to match the existing one
+            TableLayoutPanel existingTableLayout = (TableLayoutPanel)tabControl.TabPages[0].Controls.Find("tableLayoutPanel", true)[0];
+            TableLayoutPanel newTableLayout = new TableLayoutPanel();
+            newTableLayout.Name = "tableLayoutPanel";
+            newTableLayout.Dock = existingTableLayout.Dock;
+            newTableLayout.ColumnCount = existingTableLayout.ColumnCount;
+            newTableLayout.RowCount = existingTableLayout.RowCount;
+            newTableLayout.ColumnStyles.Clear();
+            newTableLayout.RowStyles.Clear();
+            foreach (ColumnStyle columnStyle in existingTableLayout.ColumnStyles)
+            {
+                newTableLayout.ColumnStyles.Add(new ColumnStyle(columnStyle.SizeType, columnStyle.Width));
+            }
+            foreach (RowStyle rowStyle in existingTableLayout.RowStyles)
+            {
+                newTableLayout.RowStyles.Add(new RowStyle(rowStyle.SizeType, rowStyle.Height));
+            }
+
+            // Iterate through each control in the existing tab's TableLayoutPanel
+            foreach (Control control in existingTableLayout.Controls)
+            {
+                // Create a new instance of the control type and set its properties
+                Control newControl = (Control)Activator.CreateInstance(control.GetType());
+                newControl.Name = control.Name;
+                newControl.Text = control.Text;
+
+                // Add the new control to the new tab's TableLayoutPanel at the corresponding row and column
+                int row = existingTableLayout.GetRow(control);
+                int column = existingTableLayout.GetColumn(control);
+                newTableLayout.Controls.Add(newControl, column, row);
+            }
+
+            // Add the new TableLayoutPanel to the new tab
+            newTabPage.Controls.Add(newTableLayout);
+
+            // Add auto-scrolling to the TabControl
+            newTabPage.AutoScroll = true;
+
+            // Add the new tab to the TabControl
+            tabControl.TabPages.Add(newTabPage);
+
+            // Set the selected tab to the newly added tab
+            tabControl.SelectedTab = newTabPage;
+
+            // Enable text wrapping for textboxes in the newly added tab
+            EnableTextBoxTextWrapping(tabControl);
+
+            // Adjust the appearance of controls in the new tab
+            foreach (Control control in newTableLayout.Controls)
+            {
+                // Customize the appearance of each control as needed
+                if (control is TextBox textBox)
+                {
+                    // Adjust TextBox properties
+                }
+                else if (control is Button button)
+                {
+                    // Adjust Button properties
+                }
+                else if (control is Label label)
+                {
+                    // Adjust Label properties
+                }
+            }
+
+            return newTabPage;
         }
+
 
         // helper method to change font dynamically
         private void btnChangeFont_Click(object sender, EventArgs e)
