@@ -1586,6 +1586,12 @@ namespace TestingWinForms
                     if (control is Button changeButton && control.Name.StartsWith("btnChange"))
                     {
                         changeButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                        changeButton.AutoSize = true;
+                    }
+                    if (control is Button textChangeButton && control.Name.StartsWith("btnTextChange"))
+                    {
+                        textChangeButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                        textChangeButton.AutoSize = true;
                     }
                     else if (control is Button normalButton)
                     {
