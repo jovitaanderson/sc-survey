@@ -596,6 +596,8 @@ namespace TestingWinForms
         private void nextButton_Click(object sender, EventArgs e)
         {
             hasClicked = false;
+            timer.Dispose();
+            timer = null;
             QuestionForm newForm = new QuestionForm(lastRowNumber); // Navigate to a new page
             newForm.Show();
             nextButton.Visible = false;
