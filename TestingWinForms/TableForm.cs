@@ -437,6 +437,7 @@ namespace TestingWinForms
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
+            LoadTimerFromCSV();
             // check if all admin csv exixts, if dosent prompt message box
             if (!File.Exists(GlobalVariables.csvAdminAdvanceFilePath) || !File.Exists(GlobalVariables.csvAdminQuestionsFilePath))
             {
@@ -471,10 +472,52 @@ namespace TestingWinForms
                     hasClicked = true;
                     Refresh();
                     nextButton.Visible = true;
-                    //timer = new System.Threading.Timer(OnTimerElapsed, null, timerToQuestionPage, Timeout.Infinite); // Start the timer for x seconds
+                    timer = new System.Threading.Timer(OnTimerElapsed, null, timerToQuestionPage, Timeout.Infinite); // Start the timer for x seconds
                 }
             }
             
+        }
+
+        private void LoadTimerFromCSV()
+        {
+            if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
+            {
+                string[] lines;
+                while (true)
+                {
+                    try
+                    {
+                        lines = File.ReadAllLines(GlobalVariables.csvAdminAdvanceFilePath);
+                        break;
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                if (lines.Length > 0)
+                {
+                    string[] values = lines[lines.Length - 1].Split(',');
+
+                    
+                    if (values[0] != null && int.TryParse(values[0], out int interval))
+                    {
+                        timerToQuestionPage = interval * 1000;
+                    }
+                    else
+                    {
+                        timerToQuestionPage = 10 * 1000; // Default timer interval is 10s
+                    }
+                }
+                else
+                {
+                    timerToQuestionPage = 10 * 1000; // Default timer interval is 10s
+                }
+            }
+            else
+            {
+                timerToQuestionPage = 10 * 1000; // Default timer interval is 10s
+            }
         }
 
         private void OnTimerElapsed(object state) 
@@ -486,7 +529,7 @@ namespace TestingWinForms
                 timer.Dispose(); // Dispose the timer
                 timer = null; // Set the timer reference to null
 
-                QuestionForm newForm = new QuestionForm(lastRowNumber); // Navigate to a new page
+                TableForm newForm = new TableForm(); // Navigate to a new page
                 newForm.Show();
                 this.Hide();
             }));
