@@ -1595,6 +1595,16 @@ namespace TestingWinForms
                     if (control is TextBox textBox)
                     {
                         textBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                        int contentWidth = textBox.Width;
+
+                        // Check if the vertical scrollbar is visible
+                        if (textBox.ScrollBars == ScrollBars.Vertical && textBox.Lines.Length > textBox.Height / textBox.Font.Height)
+                        {
+                            int scrollbarWidth = SystemInformation.VerticalScrollBarWidth;
+                            contentWidth -= scrollbarWidth;
+                        }
+
+                        textBox.Size = new Size(contentWidth, textBox.Height);
                     }
                     if (control is ComboBox comboBox)
                     {
