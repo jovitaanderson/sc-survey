@@ -318,11 +318,10 @@
             this.questionLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.questionLabel.AutoSize = true;
             this.questionLabel.BackColor = System.Drawing.Color.Transparent;
-            this.questionLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.questionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.questionLabel.Location = new System.Drawing.Point(500, 156);
+            this.questionLabel.Location = new System.Drawing.Point(501, 157);
             this.questionLabel.Name = "questionLabel";
-            this.questionLabel.Size = new System.Drawing.Size(173, 48);
+            this.questionLabel.Size = new System.Drawing.Size(171, 46);
             this.questionLabel.TabIndex = 4;
             this.questionLabel.Text = "question";
             // 
