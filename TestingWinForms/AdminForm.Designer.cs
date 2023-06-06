@@ -282,7 +282,7 @@ namespace TestingWinForms
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(591, 372);
+            this.tabControl.Size = new System.Drawing.Size(587, 372);
             this.tabControl.TabIndex = 0;
             // 
             // tabTable
@@ -324,7 +324,7 @@ namespace TestingWinForms
             this.tabTable.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabTable.Name = "tabTable";
             this.tabTable.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabTable.Size = new System.Drawing.Size(541, 364);
+            this.tabTable.Size = new System.Drawing.Size(537, 364);
             this.tabTable.TabIndex = 0;
             this.tabTable.Text = "Table";
             // 
@@ -431,8 +431,9 @@ namespace TestingWinForms
             // btnChangeYRightAxis
             // 
             this.btnChangeYRightAxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnChangeYRightAxis.AutoSize = true;
             this.btnChangeYRightAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeYRightAxis.Location = new System.Drawing.Point(195, 342);
+            this.btnChangeYRightAxis.Location = new System.Drawing.Point(334, 342);
             this.btnChangeYRightAxis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeYRightAxis.Name = "btnChangeYRightAxis";
             this.btnChangeYRightAxis.Size = new System.Drawing.Size(100, 34);
@@ -444,8 +445,9 @@ namespace TestingWinForms
             // btnChangeYLeftAxis
             // 
             this.btnChangeYLeftAxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnChangeYLeftAxis.AutoSize = true;
             this.btnChangeYLeftAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeYLeftAxis.Location = new System.Drawing.Point(192, 255);
+            this.btnChangeYLeftAxis.Location = new System.Drawing.Point(331, 255);
             this.btnChangeYLeftAxis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeYLeftAxis.Name = "btnChangeYLeftAxis";
             this.btnChangeYLeftAxis.Size = new System.Drawing.Size(100, 34);
@@ -457,8 +459,9 @@ namespace TestingWinForms
             // btnChangeXBotAxis
             // 
             this.btnChangeXBotAxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnChangeXBotAxis.AutoSize = true;
             this.btnChangeXBotAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeXBotAxis.Location = new System.Drawing.Point(191, 169);
+            this.btnChangeXBotAxis.Location = new System.Drawing.Point(330, 169);
             this.btnChangeXBotAxis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeXBotAxis.Name = "btnChangeXBotAxis";
             this.btnChangeXBotAxis.Size = new System.Drawing.Size(100, 34);
@@ -512,8 +515,9 @@ namespace TestingWinForms
             // btnChangeXTopAxis
             // 
             this.btnChangeXTopAxis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnChangeXTopAxis.AutoSize = true;
             this.btnChangeXTopAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeXTopAxis.Location = new System.Drawing.Point(191, 86);
+            this.btnChangeXTopAxis.Location = new System.Drawing.Point(330, 86);
             this.btnChangeXTopAxis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeXTopAxis.Name = "btnChangeXTopAxis";
             this.btnChangeXTopAxis.Size = new System.Drawing.Size(100, 34);
@@ -545,8 +549,9 @@ namespace TestingWinForms
             // btnChangeTitle
             // 
             this.btnChangeTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnChangeTitle.AutoSize = true;
             this.btnChangeTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeTitle.Location = new System.Drawing.Point(68, 6);
+            this.btnChangeTitle.Location = new System.Drawing.Point(207, 6);
             this.btnChangeTitle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeTitle.Name = "btnChangeTitle";
             this.btnChangeTitle.Size = new System.Drawing.Size(100, 34);
@@ -567,13 +572,12 @@ namespace TestingWinForms
             // 
             // btnSelPointColour
             // 
-            this.btnSelPointColour.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSelPointColour.AutoSize = true;
             this.btnSelPointColour.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSelPointColour.Location = new System.Drawing.Point(185, 546);
             this.btnSelPointColour.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSelPointColour.Name = "btnSelPointColour";
-            this.btnSelPointColour.Size = new System.Drawing.Size(167, 52);
+            this.btnSelPointColour.Size = new System.Drawing.Size(196, 52);
             this.btnSelPointColour.TabIndex = 7;
             this.btnSelPointColour.Text = "Select Colour";
             this.btnSelPointColour.UseVisualStyleBackColor = true;
@@ -601,13 +605,12 @@ namespace TestingWinForms
             // 
             // btnExisColour
             // 
-            this.btnExisColour.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExisColour.AutoSize = true;
             this.btnExisColour.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExisColour.Location = new System.Drawing.Point(185, 459);
             this.btnExisColour.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnExisColour.Name = "btnExisColour";
-            this.btnExisColour.Size = new System.Drawing.Size(167, 52);
+            this.btnExisColour.Size = new System.Drawing.Size(196, 52);
             this.btnExisColour.TabIndex = 6;
             this.btnExisColour.Text = "Select Colour";
             this.btnExisColour.UseVisualStyleBackColor = true;
@@ -700,17 +703,18 @@ namespace TestingWinForms
             this.tabDownload.Location = new System.Drawing.Point(46, 4);
             this.tabDownload.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabDownload.Name = "tabDownload";
-            this.tabDownload.Size = new System.Drawing.Size(541, 364);
+            this.tabDownload.Size = new System.Drawing.Size(537, 364);
             this.tabDownload.TabIndex = 4;
             this.tabDownload.Text = "Download";
             // 
             // btnDownloadRawData
             // 
+            this.btnDownloadRawData.AutoSize = true;
             this.btnDownloadRawData.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDownloadRawData.Location = new System.Drawing.Point(146, 244);
+            this.btnDownloadRawData.Location = new System.Drawing.Point(143, 251);
             this.btnDownloadRawData.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDownloadRawData.Name = "btnDownloadRawData";
-            this.btnDownloadRawData.Size = new System.Drawing.Size(260, 34);
+            this.btnDownloadRawData.Size = new System.Drawing.Size(198, 35);
             this.btnDownloadRawData.TabIndex = 8;
             this.btnDownloadRawData.Text = "Download Raw Data";
             this.btnDownloadRawData.UseVisualStyleBackColor = true;
@@ -718,11 +722,12 @@ namespace TestingWinForms
             // 
             // btnDownloadAll
             // 
+            this.btnDownloadAll.AutoSize = true;
             this.btnDownloadAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDownloadAll.Location = new System.Drawing.Point(146, 180);
+            this.btnDownloadAll.Location = new System.Drawing.Point(143, 187);
             this.btnDownloadAll.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDownloadAll.Name = "btnDownloadAll";
-            this.btnDownloadAll.Size = new System.Drawing.Size(260, 41);
+            this.btnDownloadAll.Size = new System.Drawing.Size(136, 41);
             this.btnDownloadAll.TabIndex = 7;
             this.btnDownloadAll.Text = "Download All";
             this.btnDownloadAll.UseVisualStyleBackColor = true;
@@ -730,11 +735,12 @@ namespace TestingWinForms
             // 
             // btnDownload
             // 
+            this.btnDownload.AutoSize = true;
             this.btnDownload.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDownload.Location = new System.Drawing.Point(146, 126);
+            this.btnDownload.Location = new System.Drawing.Point(143, 133);
             this.btnDownload.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDownload.Name = "btnDownload";
-            this.btnDownload.Size = new System.Drawing.Size(260, 34);
+            this.btnDownload.Size = new System.Drawing.Size(275, 35);
             this.btnDownload.TabIndex = 6;
             this.btnDownload.Text = "Download Consolidated Data";
             this.btnDownload.UseVisualStyleBackColor = true;
@@ -748,7 +754,7 @@ namespace TestingWinForms
             this.dateTimePickerEndDate.Location = new System.Drawing.Point(146, 80);
             this.dateTimePickerEndDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
-            this.dateTimePickerEndDate.Size = new System.Drawing.Size(260, 38);
+            this.dateTimePickerEndDate.Size = new System.Drawing.Size(239, 38);
             this.dateTimePickerEndDate.TabIndex = 5;
             // 
             // dateTimePickerStartDate
@@ -759,7 +765,7 @@ namespace TestingWinForms
             this.dateTimePickerStartDate.Location = new System.Drawing.Point(146, 12);
             this.dateTimePickerStartDate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
-            this.dateTimePickerStartDate.Size = new System.Drawing.Size(260, 38);
+            this.dateTimePickerStartDate.Size = new System.Drawing.Size(239, 38);
             this.dateTimePickerStartDate.TabIndex = 4;
             // 
             // label13
@@ -807,7 +813,7 @@ namespace TestingWinForms
             this.tabAdvance.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabAdvance.Name = "tabAdvance";
             this.tabAdvance.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tabAdvance.Size = new System.Drawing.Size(541, 364);
+            this.tabAdvance.Size = new System.Drawing.Size(537, 364);
             this.tabAdvance.TabIndex = 5;
             this.tabAdvance.Text = "Advance";
             // 
@@ -816,7 +822,7 @@ namespace TestingWinForms
             this.btnChangeEndSurveyFont.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeEndSurveyFont.AutoSize = true;
             this.btnChangeEndSurveyFont.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeEndSurveyFont.Location = new System.Drawing.Point(50, 150);
+            this.btnChangeEndSurveyFont.Location = new System.Drawing.Point(301, 150);
             this.btnChangeEndSurveyFont.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeEndSurveyFont.Name = "btnChangeEndSurveyFont";
             this.btnChangeEndSurveyFont.Size = new System.Drawing.Size(112, 38);
@@ -830,7 +836,7 @@ namespace TestingWinForms
             this.btnTextChangeEndSurveyFont.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeEndSurveyFont.AutoSize = true;
             this.btnTextChangeEndSurveyFont.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeEndSurveyFont.Location = new System.Drawing.Point(329, 150);
+            this.btnTextChangeEndSurveyFont.Location = new System.Drawing.Point(422, 150);
             this.btnTextChangeEndSurveyFont.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeEndSurveyFont.Name = "btnTextChangeEndSurveyFont";
             this.btnTextChangeEndSurveyFont.Size = new System.Drawing.Size(109, 38);
@@ -860,13 +866,12 @@ namespace TestingWinForms
             // 
             // button2
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.AutoSize = true;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.Location = new System.Drawing.Point(252, 588);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(0, 34);
+            this.button2.Size = new System.Drawing.Size(360, 42);
             this.button2.TabIndex = 14;
             this.button2.Text = "Upload Background Image";
             this.button2.UseVisualStyleBackColor = true;
@@ -893,13 +898,12 @@ namespace TestingWinForms
             // 
             // btnUploadImage
             // 
-            this.btnUploadImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUploadImage.AutoSize = true;
             this.btnUploadImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUploadImage.Location = new System.Drawing.Point(280, 342);
             this.btnUploadImage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnUploadImage.Name = "btnUploadImage";
-            this.btnUploadImage.Size = new System.Drawing.Size(0, 34);
+            this.btnUploadImage.Size = new System.Drawing.Size(360, 42);
             this.btnUploadImage.TabIndex = 9;
             this.btnUploadImage.Text = "Upload Background Image";
             this.btnUploadImage.UseVisualStyleBackColor = true;
@@ -913,7 +917,7 @@ namespace TestingWinForms
             this.textBoxEndMessage.Location = new System.Drawing.Point(249, 150);
             this.textBoxEndMessage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxEndMessage.Name = "textBoxEndMessage";
-            this.textBoxEndMessage.Size = new System.Drawing.Size(0, 38);
+            this.textBoxEndMessage.Size = new System.Drawing.Size(46, 38);
             this.textBoxEndMessage.TabIndex = 8;
             // 
             // comboBoxRandomQns
@@ -925,10 +929,10 @@ namespace TestingWinForms
             this.comboBoxRandomQns.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxRandomQns.Location = new System.Drawing.Point(216, 87);
+            this.comboBoxRandomQns.Location = new System.Drawing.Point(249, 93);
             this.comboBoxRandomQns.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.comboBoxRandomQns.Name = "comboBoxRandomQns";
-            this.comboBoxRandomQns.Size = new System.Drawing.Size(0, 40);
+            this.comboBoxRandomQns.Size = new System.Drawing.Size(46, 39);
             this.comboBoxRandomQns.TabIndex = 7;
             // 
             // label17
@@ -936,7 +940,7 @@ namespace TestingWinForms
             this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(234, 26);
+            this.label17.Location = new System.Drawing.Point(301, 25);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(64, 32);
             this.label17.TabIndex = 5;
@@ -947,10 +951,10 @@ namespace TestingWinForms
             this.textBoxTimeOut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxTimeOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTimeOut.Location = new System.Drawing.Point(216, 20);
+            this.textBoxTimeOut.Location = new System.Drawing.Point(249, 19);
             this.textBoxTimeOut.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxTimeOut.Name = "textBoxTimeOut";
-            this.textBoxTimeOut.Size = new System.Drawing.Size(0, 38);
+            this.textBoxTimeOut.Size = new System.Drawing.Size(46, 38);
             this.textBoxTimeOut.TabIndex = 6;
             // 
             // label16
@@ -977,7 +981,7 @@ namespace TestingWinForms
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(14, 89);
+            this.label14.Location = new System.Drawing.Point(14, 96);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(189, 32);
             this.label14.TabIndex = 1;
@@ -987,7 +991,7 @@ namespace TestingWinForms
             // 
             this.labelTimeOut.AutoSize = true;
             this.labelTimeOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTimeOut.Location = new System.Drawing.Point(14, 22);
+            this.labelTimeOut.Location = new System.Drawing.Point(14, 23);
             this.labelTimeOut.Name = "labelTimeOut";
             this.labelTimeOut.Size = new System.Drawing.Size(133, 32);
             this.labelTimeOut.TabIndex = 0;
@@ -1053,7 +1057,7 @@ namespace TestingWinForms
             this.tabQuestion1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabQuestion1.Name = "tabQuestion1";
             this.tabQuestion1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabQuestion1.Size = new System.Drawing.Size(541, 364);
+            this.tabQuestion1.Size = new System.Drawing.Size(537, 364);
             this.tabQuestion1.TabIndex = 1;
             this.tabQuestion1.Text = "Question 1";
             // 
@@ -1062,7 +1066,7 @@ namespace TestingWinForms
             this.btnTextChangeQ1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeQ1.AutoSize = true;
             this.btnTextChangeQ1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeQ1.Location = new System.Drawing.Point(312, 10);
+            this.btnTextChangeQ1.Location = new System.Drawing.Point(345, 10);
             this.btnTextChangeQ1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeQ1.Name = "btnTextChangeQ1";
             this.btnTextChangeQ1.Size = new System.Drawing.Size(110, 34);
@@ -1076,7 +1080,7 @@ namespace TestingWinForms
             this.btnTextChangeA11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA11.AutoSize = true;
             this.btnTextChangeA11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA11.Location = new System.Drawing.Point(312, 194);
+            this.btnTextChangeA11.Location = new System.Drawing.Point(345, 194);
             this.btnTextChangeA11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA11.Name = "btnTextChangeA11";
             this.btnTextChangeA11.Size = new System.Drawing.Size(110, 34);
@@ -1090,7 +1094,7 @@ namespace TestingWinForms
             this.btnTextChangeA18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA18.AutoSize = true;
             this.btnTextChangeA18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA18.Location = new System.Drawing.Point(308, 690);
+            this.btnTextChangeA18.Location = new System.Drawing.Point(341, 690);
             this.btnTextChangeA18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA18.Name = "btnTextChangeA18";
             this.btnTextChangeA18.Size = new System.Drawing.Size(110, 34);
@@ -1104,7 +1108,7 @@ namespace TestingWinForms
             this.btnTextChangeA17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA17.AutoSize = true;
             this.btnTextChangeA17.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA17.Location = new System.Drawing.Point(308, 623);
+            this.btnTextChangeA17.Location = new System.Drawing.Point(341, 623);
             this.btnTextChangeA17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA17.Name = "btnTextChangeA17";
             this.btnTextChangeA17.Size = new System.Drawing.Size(110, 34);
@@ -1118,7 +1122,7 @@ namespace TestingWinForms
             this.btnTextChangeA16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA16.AutoSize = true;
             this.btnTextChangeA16.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA16.Location = new System.Drawing.Point(308, 552);
+            this.btnTextChangeA16.Location = new System.Drawing.Point(341, 552);
             this.btnTextChangeA16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA16.Name = "btnTextChangeA16";
             this.btnTextChangeA16.Size = new System.Drawing.Size(110, 34);
@@ -1132,7 +1136,7 @@ namespace TestingWinForms
             this.btnTextChangeA15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA15.AutoSize = true;
             this.btnTextChangeA15.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA15.Location = new System.Drawing.Point(308, 480);
+            this.btnTextChangeA15.Location = new System.Drawing.Point(341, 480);
             this.btnTextChangeA15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA15.Name = "btnTextChangeA15";
             this.btnTextChangeA15.Size = new System.Drawing.Size(110, 34);
@@ -1146,7 +1150,7 @@ namespace TestingWinForms
             this.btnTextChangeA14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA14.AutoSize = true;
             this.btnTextChangeA14.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA14.Location = new System.Drawing.Point(308, 409);
+            this.btnTextChangeA14.Location = new System.Drawing.Point(341, 409);
             this.btnTextChangeA14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA14.Name = "btnTextChangeA14";
             this.btnTextChangeA14.Size = new System.Drawing.Size(110, 34);
@@ -1160,7 +1164,7 @@ namespace TestingWinForms
             this.btnTextChangeA13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA13.AutoSize = true;
             this.btnTextChangeA13.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA13.Location = new System.Drawing.Point(308, 334);
+            this.btnTextChangeA13.Location = new System.Drawing.Point(341, 334);
             this.btnTextChangeA13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA13.Name = "btnTextChangeA13";
             this.btnTextChangeA13.Size = new System.Drawing.Size(110, 34);
@@ -1174,7 +1178,7 @@ namespace TestingWinForms
             this.btnTextChangeA12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA12.AutoSize = true;
             this.btnTextChangeA12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA12.Location = new System.Drawing.Point(312, 263);
+            this.btnTextChangeA12.Location = new System.Drawing.Point(345, 263);
             this.btnTextChangeA12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA12.Name = "btnTextChangeA12";
             this.btnTextChangeA12.Size = new System.Drawing.Size(110, 34);
@@ -1278,7 +1282,7 @@ namespace TestingWinForms
             this.btnChangeA18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA18.AutoSize = true;
             this.btnChangeA18.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA18.Location = new System.Drawing.Point(35, 690);
+            this.btnChangeA18.Location = new System.Drawing.Point(221, 690);
             this.btnChangeA18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA18.Name = "btnChangeA18";
             this.btnChangeA18.Size = new System.Drawing.Size(112, 34);
@@ -1292,7 +1296,7 @@ namespace TestingWinForms
             this.btnChangeA17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA17.AutoSize = true;
             this.btnChangeA17.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA17.Location = new System.Drawing.Point(35, 623);
+            this.btnChangeA17.Location = new System.Drawing.Point(221, 623);
             this.btnChangeA17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA17.Name = "btnChangeA17";
             this.btnChangeA17.Size = new System.Drawing.Size(112, 34);
@@ -1306,7 +1310,7 @@ namespace TestingWinForms
             this.btnChangeA16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA16.AutoSize = true;
             this.btnChangeA16.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA16.Location = new System.Drawing.Point(35, 552);
+            this.btnChangeA16.Location = new System.Drawing.Point(221, 552);
             this.btnChangeA16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA16.Name = "btnChangeA16";
             this.btnChangeA16.Size = new System.Drawing.Size(112, 34);
@@ -1320,7 +1324,7 @@ namespace TestingWinForms
             this.btnChangeA15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA15.AutoSize = true;
             this.btnChangeA15.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA15.Location = new System.Drawing.Point(35, 480);
+            this.btnChangeA15.Location = new System.Drawing.Point(221, 480);
             this.btnChangeA15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA15.Name = "btnChangeA15";
             this.btnChangeA15.Size = new System.Drawing.Size(112, 34);
@@ -1334,7 +1338,7 @@ namespace TestingWinForms
             this.btnChangeA14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA14.AutoSize = true;
             this.btnChangeA14.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA14.Location = new System.Drawing.Point(35, 409);
+            this.btnChangeA14.Location = new System.Drawing.Point(221, 409);
             this.btnChangeA14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA14.Name = "btnChangeA14";
             this.btnChangeA14.Size = new System.Drawing.Size(112, 34);
@@ -1348,7 +1352,7 @@ namespace TestingWinForms
             this.btnChangeA13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA13.AutoSize = true;
             this.btnChangeA13.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA13.Location = new System.Drawing.Point(35, 334);
+            this.btnChangeA13.Location = new System.Drawing.Point(221, 336);
             this.btnChangeA13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA13.Name = "btnChangeA13";
             this.btnChangeA13.Size = new System.Drawing.Size(112, 34);
@@ -1362,7 +1366,7 @@ namespace TestingWinForms
             this.btnChangeA12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA12.AutoSize = true;
             this.btnChangeA12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA12.Location = new System.Drawing.Point(40, 263);
+            this.btnChangeA12.Location = new System.Drawing.Point(221, 263);
             this.btnChangeA12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA12.Name = "btnChangeA12";
             this.btnChangeA12.Size = new System.Drawing.Size(112, 34);
@@ -1376,7 +1380,7 @@ namespace TestingWinForms
             this.btnChangeA11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA11.AutoSize = true;
             this.btnChangeA11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA11.Location = new System.Drawing.Point(40, 194);
+            this.btnChangeA11.Location = new System.Drawing.Point(221, 194);
             this.btnChangeA11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA11.Name = "btnChangeA11";
             this.btnChangeA11.Size = new System.Drawing.Size(112, 34);
@@ -1390,7 +1394,7 @@ namespace TestingWinForms
             this.btnChangeQ1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeQ1.AutoSize = true;
             this.btnChangeQ1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeQ1.Location = new System.Drawing.Point(40, 10);
+            this.btnChangeQ1.Location = new System.Drawing.Point(221, 10);
             this.btnChangeQ1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeQ1.Name = "btnChangeQ1";
             this.btnChangeQ1.Size = new System.Drawing.Size(112, 34);
@@ -1401,22 +1405,21 @@ namespace TestingWinForms
             // 
             // pictureBoxQ1
             // 
-            this.pictureBoxQ1.Location = new System.Drawing.Point(35, 948);
+            this.pictureBoxQ1.Location = new System.Drawing.Point(35, 917);
             this.pictureBoxQ1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBoxQ1.Name = "pictureBoxQ1";
-            this.pictureBoxQ1.Size = new System.Drawing.Size(184, 148);
+            this.pictureBoxQ1.Size = new System.Drawing.Size(234, 190);
             this.pictureBoxQ1.TabIndex = 25;
             this.pictureBoxQ1.TabStop = false;
             // 
             // btnBackground1
             // 
-            this.btnBackground1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBackground1.AutoSize = true;
             this.btnBackground1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBackground1.Location = new System.Drawing.Point(35, 890);
+            this.btnBackground1.Location = new System.Drawing.Point(210, 845);
             this.btnBackground1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBackground1.Name = "btnBackground1";
-            this.btnBackground1.Size = new System.Drawing.Size(351, 54);
+            this.btnBackground1.Size = new System.Drawing.Size(360, 54);
             this.btnBackground1.TabIndex = 23;
             this.btnBackground1.Text = "Upload Background Image";
             this.btnBackground1.UseVisualStyleBackColor = true;
@@ -1454,7 +1457,7 @@ namespace TestingWinForms
             this.comboBox1.Location = new System.Drawing.Point(164, 82);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(0, 40);
+            this.comboBox1.Size = new System.Drawing.Size(33, 39);
             this.comboBox1.TabIndex = 11;
             // 
             // labelType1
@@ -1475,7 +1478,7 @@ namespace TestingWinForms
             this.btnClear1.Location = new System.Drawing.Point(164, 758);
             this.btnClear1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnClear1.Name = "btnClear1";
-            this.btnClear1.Size = new System.Drawing.Size(131, 41);
+            this.btnClear1.Size = new System.Drawing.Size(164, 41);
             this.btnClear1.TabIndex = 20;
             this.btnClear1.Text = "Clear";
             this.btnClear1.UseVisualStyleBackColor = true;
@@ -1489,7 +1492,7 @@ namespace TestingWinForms
             this.textBoxA18.Location = new System.Drawing.Point(168, 686);
             this.textBoxA18.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA18.Name = "textBoxA18";
-            this.textBoxA18.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA18.Size = new System.Drawing.Size(33, 38);
             this.textBoxA18.TabIndex = 19;
             // 
             // labelA18
@@ -1510,7 +1513,7 @@ namespace TestingWinForms
             this.textBoxA17.Location = new System.Drawing.Point(168, 619);
             this.textBoxA17.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA17.Name = "textBoxA17";
-            this.textBoxA17.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA17.Size = new System.Drawing.Size(33, 38);
             this.textBoxA17.TabIndex = 18;
             // 
             // labelA17
@@ -1531,7 +1534,7 @@ namespace TestingWinForms
             this.textBoxA16.Location = new System.Drawing.Point(168, 548);
             this.textBoxA16.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA16.Name = "textBoxA16";
-            this.textBoxA16.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA16.Size = new System.Drawing.Size(33, 38);
             this.textBoxA16.TabIndex = 17;
             // 
             // labelA16
@@ -1552,7 +1555,7 @@ namespace TestingWinForms
             this.textBoxA15.Location = new System.Drawing.Point(168, 476);
             this.textBoxA15.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA15.Name = "textBoxA15";
-            this.textBoxA15.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA15.Size = new System.Drawing.Size(33, 38);
             this.textBoxA15.TabIndex = 16;
             // 
             // textBoxA14
@@ -1563,7 +1566,7 @@ namespace TestingWinForms
             this.textBoxA14.Location = new System.Drawing.Point(168, 405);
             this.textBoxA14.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA14.Name = "textBoxA14";
-            this.textBoxA14.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA14.Size = new System.Drawing.Size(33, 38);
             this.textBoxA14.TabIndex = 15;
             // 
             // textBoxA13
@@ -1574,7 +1577,7 @@ namespace TestingWinForms
             this.textBoxA13.Location = new System.Drawing.Point(168, 332);
             this.textBoxA13.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA13.Name = "textBoxA13";
-            this.textBoxA13.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA13.Size = new System.Drawing.Size(33, 38);
             this.textBoxA13.TabIndex = 14;
             // 
             // textBoxA12
@@ -1585,7 +1588,7 @@ namespace TestingWinForms
             this.textBoxA12.Location = new System.Drawing.Point(168, 263);
             this.textBoxA12.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA12.Name = "textBoxA12";
-            this.textBoxA12.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA12.Size = new System.Drawing.Size(33, 38);
             this.textBoxA12.TabIndex = 13;
             // 
             // textBoxA11
@@ -1596,7 +1599,7 @@ namespace TestingWinForms
             this.textBoxA11.Location = new System.Drawing.Point(168, 190);
             this.textBoxA11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxA11.Name = "textBoxA11";
-            this.textBoxA11.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA11.Size = new System.Drawing.Size(33, 38);
             this.textBoxA11.TabIndex = 12;
             // 
             // textBoxQ1
@@ -1607,7 +1610,7 @@ namespace TestingWinForms
             this.textBoxQ1.Location = new System.Drawing.Point(164, 9);
             this.textBoxQ1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxQ1.Name = "textBoxQ1";
-            this.textBoxQ1.Size = new System.Drawing.Size(0, 38);
+            this.textBoxQ1.Size = new System.Drawing.Size(33, 38);
             this.textBoxQ1.TabIndex = 10;
             // 
             // labelA15
@@ -1729,7 +1732,7 @@ namespace TestingWinForms
             this.tabQuestion2.Location = new System.Drawing.Point(46, 4);
             this.tabQuestion2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabQuestion2.Name = "tabQuestion2";
-            this.tabQuestion2.Size = new System.Drawing.Size(541, 364);
+            this.tabQuestion2.Size = new System.Drawing.Size(537, 364);
             this.tabQuestion2.TabIndex = 2;
             this.tabQuestion2.Text = "Question 2";
             // 
@@ -1738,7 +1741,7 @@ namespace TestingWinForms
             this.btnTextChangeQ2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeQ2.AutoSize = true;
             this.btnTextChangeQ2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeQ2.Location = new System.Drawing.Point(358, 12);
+            this.btnTextChangeQ2.Location = new System.Drawing.Point(390, 7);
             this.btnTextChangeQ2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeQ2.Name = "btnTextChangeQ2";
             this.btnTextChangeQ2.Size = new System.Drawing.Size(109, 36);
@@ -1752,7 +1755,7 @@ namespace TestingWinForms
             this.btnTextChangeA28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA28.AutoSize = true;
             this.btnTextChangeA28.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA28.Location = new System.Drawing.Point(358, 712);
+            this.btnTextChangeA28.Location = new System.Drawing.Point(390, 712);
             this.btnTextChangeA28.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA28.Name = "btnTextChangeA28";
             this.btnTextChangeA28.Size = new System.Drawing.Size(109, 36);
@@ -1766,7 +1769,7 @@ namespace TestingWinForms
             this.btnTextChangeA27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA27.AutoSize = true;
             this.btnTextChangeA27.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA27.Location = new System.Drawing.Point(358, 636);
+            this.btnTextChangeA27.Location = new System.Drawing.Point(390, 636);
             this.btnTextChangeA27.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA27.Name = "btnTextChangeA27";
             this.btnTextChangeA27.Size = new System.Drawing.Size(109, 36);
@@ -1780,7 +1783,7 @@ namespace TestingWinForms
             this.btnTextChangeA26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA26.AutoSize = true;
             this.btnTextChangeA26.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA26.Location = new System.Drawing.Point(358, 560);
+            this.btnTextChangeA26.Location = new System.Drawing.Point(390, 560);
             this.btnTextChangeA26.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA26.Name = "btnTextChangeA26";
             this.btnTextChangeA26.Size = new System.Drawing.Size(109, 36);
@@ -1794,7 +1797,7 @@ namespace TestingWinForms
             this.btnTextChangeA25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA25.AutoSize = true;
             this.btnTextChangeA25.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA25.Location = new System.Drawing.Point(358, 487);
+            this.btnTextChangeA25.Location = new System.Drawing.Point(390, 487);
             this.btnTextChangeA25.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA25.Name = "btnTextChangeA25";
             this.btnTextChangeA25.Size = new System.Drawing.Size(109, 36);
@@ -1808,7 +1811,7 @@ namespace TestingWinForms
             this.btnTextChangeA24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA24.AutoSize = true;
             this.btnTextChangeA24.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA24.Location = new System.Drawing.Point(358, 412);
+            this.btnTextChangeA24.Location = new System.Drawing.Point(390, 412);
             this.btnTextChangeA24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA24.Name = "btnTextChangeA24";
             this.btnTextChangeA24.Size = new System.Drawing.Size(109, 36);
@@ -1822,7 +1825,7 @@ namespace TestingWinForms
             this.btnTextChangeA23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA23.AutoSize = true;
             this.btnTextChangeA23.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA23.Location = new System.Drawing.Point(358, 342);
+            this.btnTextChangeA23.Location = new System.Drawing.Point(390, 342);
             this.btnTextChangeA23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA23.Name = "btnTextChangeA23";
             this.btnTextChangeA23.Size = new System.Drawing.Size(109, 36);
@@ -1836,7 +1839,7 @@ namespace TestingWinForms
             this.btnTextChangeA22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA22.AutoSize = true;
             this.btnTextChangeA22.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA22.Location = new System.Drawing.Point(358, 266);
+            this.btnTextChangeA22.Location = new System.Drawing.Point(390, 266);
             this.btnTextChangeA22.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA22.Name = "btnTextChangeA22";
             this.btnTextChangeA22.Size = new System.Drawing.Size(109, 36);
@@ -1850,7 +1853,7 @@ namespace TestingWinForms
             this.btnTextChangeA21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA21.AutoSize = true;
             this.btnTextChangeA21.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA21.Location = new System.Drawing.Point(358, 190);
+            this.btnTextChangeA21.Location = new System.Drawing.Point(390, 190);
             this.btnTextChangeA21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA21.Name = "btnTextChangeA21";
             this.btnTextChangeA21.Size = new System.Drawing.Size(109, 36);
@@ -1864,7 +1867,7 @@ namespace TestingWinForms
             this.btnChangeA28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA28.AutoSize = true;
             this.btnChangeA28.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA28.Location = new System.Drawing.Point(51, 714);
+            this.btnChangeA28.Location = new System.Drawing.Point(265, 712);
             this.btnChangeA28.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA28.Name = "btnChangeA28";
             this.btnChangeA28.Size = new System.Drawing.Size(112, 36);
@@ -1878,7 +1881,7 @@ namespace TestingWinForms
             this.btnChangeA27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA27.AutoSize = true;
             this.btnChangeA27.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA27.Location = new System.Drawing.Point(51, 638);
+            this.btnChangeA27.Location = new System.Drawing.Point(265, 636);
             this.btnChangeA27.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA27.Name = "btnChangeA27";
             this.btnChangeA27.Size = new System.Drawing.Size(112, 36);
@@ -1892,7 +1895,7 @@ namespace TestingWinForms
             this.btnChangeA26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA26.AutoSize = true;
             this.btnChangeA26.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA26.Location = new System.Drawing.Point(51, 562);
+            this.btnChangeA26.Location = new System.Drawing.Point(265, 560);
             this.btnChangeA26.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA26.Name = "btnChangeA26";
             this.btnChangeA26.Size = new System.Drawing.Size(112, 36);
@@ -1906,7 +1909,7 @@ namespace TestingWinForms
             this.btnChangeA25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA25.AutoSize = true;
             this.btnChangeA25.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA25.Location = new System.Drawing.Point(51, 490);
+            this.btnChangeA25.Location = new System.Drawing.Point(265, 488);
             this.btnChangeA25.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA25.Name = "btnChangeA25";
             this.btnChangeA25.Size = new System.Drawing.Size(112, 36);
@@ -1920,7 +1923,7 @@ namespace TestingWinForms
             this.btnChangeA24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA24.AutoSize = true;
             this.btnChangeA24.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA24.Location = new System.Drawing.Point(51, 414);
+            this.btnChangeA24.Location = new System.Drawing.Point(265, 412);
             this.btnChangeA24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA24.Name = "btnChangeA24";
             this.btnChangeA24.Size = new System.Drawing.Size(112, 36);
@@ -1934,7 +1937,7 @@ namespace TestingWinForms
             this.btnChangeA23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA23.AutoSize = true;
             this.btnChangeA23.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA23.Location = new System.Drawing.Point(51, 344);
+            this.btnChangeA23.Location = new System.Drawing.Point(265, 342);
             this.btnChangeA23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA23.Name = "btnChangeA23";
             this.btnChangeA23.Size = new System.Drawing.Size(112, 36);
@@ -1948,7 +1951,7 @@ namespace TestingWinForms
             this.btnChangeA22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA22.AutoSize = true;
             this.btnChangeA22.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA22.Location = new System.Drawing.Point(51, 270);
+            this.btnChangeA22.Location = new System.Drawing.Point(265, 268);
             this.btnChangeA22.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA22.Name = "btnChangeA22";
             this.btnChangeA22.Size = new System.Drawing.Size(112, 36);
@@ -1962,7 +1965,7 @@ namespace TestingWinForms
             this.btnChangeA21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA21.AutoSize = true;
             this.btnChangeA21.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA21.Location = new System.Drawing.Point(51, 190);
+            this.btnChangeA21.Location = new System.Drawing.Point(265, 188);
             this.btnChangeA21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA21.Name = "btnChangeA21";
             this.btnChangeA21.Size = new System.Drawing.Size(112, 36);
@@ -1976,7 +1979,7 @@ namespace TestingWinForms
             this.btnChangeQ2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeQ2.AutoSize = true;
             this.btnChangeQ2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeQ2.Location = new System.Drawing.Point(51, 9);
+            this.btnChangeQ2.Location = new System.Drawing.Point(265, 7);
             this.btnChangeQ2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeQ2.Name = "btnChangeQ2";
             this.btnChangeQ2.Size = new System.Drawing.Size(112, 36);
@@ -2077,22 +2080,21 @@ namespace TestingWinForms
             // 
             // pictureBoxQ2
             // 
-            this.pictureBoxQ2.Location = new System.Drawing.Point(34, 958);
+            this.pictureBoxQ2.Location = new System.Drawing.Point(34, 911);
             this.pictureBoxQ2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBoxQ2.Name = "pictureBoxQ2";
-            this.pictureBoxQ2.Size = new System.Drawing.Size(169, 135);
+            this.pictureBoxQ2.Size = new System.Drawing.Size(213, 176);
             this.pictureBoxQ2.TabIndex = 35;
             this.pictureBoxQ2.TabStop = false;
             // 
             // btnBackground2
             // 
-            this.btnBackground2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBackground2.AutoSize = true;
             this.btnBackground2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBackground2.Location = new System.Drawing.Point(34, 900);
+            this.btnBackground2.Location = new System.Drawing.Point(209, 854);
             this.btnBackground2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBackground2.Name = "btnBackground2";
-            this.btnBackground2.Size = new System.Drawing.Size(335, 54);
+            this.btnBackground2.Size = new System.Drawing.Size(360, 54);
             this.btnBackground2.TabIndex = 34;
             this.btnBackground2.Text = "Upload Background Image";
             this.btnBackground2.UseVisualStyleBackColor = true;
@@ -2130,7 +2132,7 @@ namespace TestingWinForms
             this.comboBox2.Location = new System.Drawing.Point(169, 82);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(0, 40);
+            this.comboBox2.Size = new System.Drawing.Size(69, 39);
             this.comboBox2.TabIndex = 22;
             // 
             // btnClear2
@@ -2141,7 +2143,7 @@ namespace TestingWinForms
             this.btnClear2.Location = new System.Drawing.Point(169, 775);
             this.btnClear2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnClear2.Name = "btnClear2";
-            this.btnClear2.Size = new System.Drawing.Size(104, 41);
+            this.btnClear2.Size = new System.Drawing.Size(136, 41);
             this.btnClear2.TabIndex = 31;
             this.btnClear2.Text = "Clear";
             this.btnClear2.UseVisualStyleBackColor = true;
@@ -2165,7 +2167,7 @@ namespace TestingWinForms
             this.textBoxA28.Location = new System.Drawing.Point(169, 714);
             this.textBoxA28.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA28.Name = "textBoxA28";
-            this.textBoxA28.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA28.Size = new System.Drawing.Size(69, 38);
             this.textBoxA28.TabIndex = 30;
             // 
             // labelA28
@@ -2186,7 +2188,7 @@ namespace TestingWinForms
             this.textBoxA27.Location = new System.Drawing.Point(169, 638);
             this.textBoxA27.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA27.Name = "textBoxA27";
-            this.textBoxA27.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA27.Size = new System.Drawing.Size(69, 38);
             this.textBoxA27.TabIndex = 29;
             // 
             // labelA27
@@ -2207,7 +2209,7 @@ namespace TestingWinForms
             this.textBoxA26.Location = new System.Drawing.Point(169, 562);
             this.textBoxA26.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA26.Name = "textBoxA26";
-            this.textBoxA26.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA26.Size = new System.Drawing.Size(69, 38);
             this.textBoxA26.TabIndex = 28;
             // 
             // labelA26
@@ -2228,7 +2230,7 @@ namespace TestingWinForms
             this.textBoxA25.Location = new System.Drawing.Point(169, 487);
             this.textBoxA25.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA25.Name = "textBoxA25";
-            this.textBoxA25.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA25.Size = new System.Drawing.Size(69, 38);
             this.textBoxA25.TabIndex = 27;
             // 
             // textBoxA24
@@ -2239,7 +2241,7 @@ namespace TestingWinForms
             this.textBoxA24.Location = new System.Drawing.Point(169, 414);
             this.textBoxA24.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA24.Name = "textBoxA24";
-            this.textBoxA24.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA24.Size = new System.Drawing.Size(69, 38);
             this.textBoxA24.TabIndex = 26;
             // 
             // textBoxA23
@@ -2250,7 +2252,7 @@ namespace TestingWinForms
             this.textBoxA23.Location = new System.Drawing.Point(169, 342);
             this.textBoxA23.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA23.Name = "textBoxA23";
-            this.textBoxA23.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA23.Size = new System.Drawing.Size(69, 38);
             this.textBoxA23.TabIndex = 25;
             // 
             // textBoxA22
@@ -2261,7 +2263,7 @@ namespace TestingWinForms
             this.textBoxA22.Location = new System.Drawing.Point(169, 268);
             this.textBoxA22.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA22.Name = "textBoxA22";
-            this.textBoxA22.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA22.Size = new System.Drawing.Size(69, 38);
             this.textBoxA22.TabIndex = 24;
             // 
             // textBoxA21
@@ -2272,7 +2274,7 @@ namespace TestingWinForms
             this.textBoxA21.Location = new System.Drawing.Point(169, 190);
             this.textBoxA21.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA21.Name = "textBoxA21";
-            this.textBoxA21.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA21.Size = new System.Drawing.Size(69, 38);
             this.textBoxA21.TabIndex = 23;
             // 
             // textBoxQ2
@@ -2283,7 +2285,7 @@ namespace TestingWinForms
             this.textBoxQ2.Location = new System.Drawing.Point(169, 6);
             this.textBoxQ2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxQ2.Name = "textBoxQ2";
-            this.textBoxQ2.Size = new System.Drawing.Size(0, 38);
+            this.textBoxQ2.Size = new System.Drawing.Size(69, 38);
             this.textBoxQ2.TabIndex = 21;
             // 
             // labelA25
@@ -2405,7 +2407,7 @@ namespace TestingWinForms
             this.tabQuestion3.Location = new System.Drawing.Point(46, 4);
             this.tabQuestion3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabQuestion3.Name = "tabQuestion3";
-            this.tabQuestion3.Size = new System.Drawing.Size(541, 364);
+            this.tabQuestion3.Size = new System.Drawing.Size(537, 364);
             this.tabQuestion3.TabIndex = 3;
             this.tabQuestion3.Text = "Question 3";
             // 
@@ -2414,7 +2416,7 @@ namespace TestingWinForms
             this.btnTextChangeA38.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA38.AutoSize = true;
             this.btnTextChangeA38.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA38.Location = new System.Drawing.Point(374, 741);
+            this.btnTextChangeA38.Location = new System.Drawing.Point(384, 741);
             this.btnTextChangeA38.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA38.Name = "btnTextChangeA38";
             this.btnTextChangeA38.Size = new System.Drawing.Size(109, 36);
@@ -2428,7 +2430,7 @@ namespace TestingWinForms
             this.btnTextChangeA37.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA37.AutoSize = true;
             this.btnTextChangeA37.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA37.Location = new System.Drawing.Point(374, 669);
+            this.btnTextChangeA37.Location = new System.Drawing.Point(384, 669);
             this.btnTextChangeA37.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA37.Name = "btnTextChangeA37";
             this.btnTextChangeA37.Size = new System.Drawing.Size(109, 36);
@@ -2442,7 +2444,7 @@ namespace TestingWinForms
             this.btnTextChangeA36.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA36.AutoSize = true;
             this.btnTextChangeA36.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA36.Location = new System.Drawing.Point(374, 595);
+            this.btnTextChangeA36.Location = new System.Drawing.Point(384, 595);
             this.btnTextChangeA36.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA36.Name = "btnTextChangeA36";
             this.btnTextChangeA36.Size = new System.Drawing.Size(109, 36);
@@ -2456,7 +2458,7 @@ namespace TestingWinForms
             this.btnTextChangeA35.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA35.AutoSize = true;
             this.btnTextChangeA35.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA35.Location = new System.Drawing.Point(374, 520);
+            this.btnTextChangeA35.Location = new System.Drawing.Point(384, 520);
             this.btnTextChangeA35.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA35.Name = "btnTextChangeA35";
             this.btnTextChangeA35.Size = new System.Drawing.Size(109, 36);
@@ -2470,7 +2472,7 @@ namespace TestingWinForms
             this.btnTextChangeA34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA34.AutoSize = true;
             this.btnTextChangeA34.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA34.Location = new System.Drawing.Point(374, 443);
+            this.btnTextChangeA34.Location = new System.Drawing.Point(384, 443);
             this.btnTextChangeA34.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA34.Name = "btnTextChangeA34";
             this.btnTextChangeA34.Size = new System.Drawing.Size(109, 36);
@@ -2484,7 +2486,7 @@ namespace TestingWinForms
             this.btnTextChangeA33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA33.AutoSize = true;
             this.btnTextChangeA33.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA33.Location = new System.Drawing.Point(374, 364);
+            this.btnTextChangeA33.Location = new System.Drawing.Point(384, 364);
             this.btnTextChangeA33.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA33.Name = "btnTextChangeA33";
             this.btnTextChangeA33.Size = new System.Drawing.Size(109, 36);
@@ -2498,7 +2500,7 @@ namespace TestingWinForms
             this.btnTextChangeA32.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA32.AutoSize = true;
             this.btnTextChangeA32.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA32.Location = new System.Drawing.Point(374, 282);
+            this.btnTextChangeA32.Location = new System.Drawing.Point(384, 282);
             this.btnTextChangeA32.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA32.Name = "btnTextChangeA32";
             this.btnTextChangeA32.Size = new System.Drawing.Size(109, 36);
@@ -2512,7 +2514,7 @@ namespace TestingWinForms
             this.btnTextChangeA31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeA31.AutoSize = true;
             this.btnTextChangeA31.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeA31.Location = new System.Drawing.Point(374, 198);
+            this.btnTextChangeA31.Location = new System.Drawing.Point(384, 198);
             this.btnTextChangeA31.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeA31.Name = "btnTextChangeA31";
             this.btnTextChangeA31.Size = new System.Drawing.Size(109, 36);
@@ -2526,7 +2528,7 @@ namespace TestingWinForms
             this.btnTextChangeQ3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTextChangeQ3.AutoSize = true;
             this.btnTextChangeQ3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeQ3.Location = new System.Drawing.Point(374, 12);
+            this.btnTextChangeQ3.Location = new System.Drawing.Point(384, 12);
             this.btnTextChangeQ3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTextChangeQ3.Name = "btnTextChangeQ3";
             this.btnTextChangeQ3.Size = new System.Drawing.Size(109, 36);
@@ -2540,7 +2542,7 @@ namespace TestingWinForms
             this.btnChangeA38.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA38.AutoSize = true;
             this.btnChangeA38.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA38.Location = new System.Drawing.Point(94, 742);
+            this.btnChangeA38.Location = new System.Drawing.Point(264, 741);
             this.btnChangeA38.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA38.Name = "btnChangeA38";
             this.btnChangeA38.Size = new System.Drawing.Size(112, 36);
@@ -2554,7 +2556,7 @@ namespace TestingWinForms
             this.btnChangeA37.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA37.AutoSize = true;
             this.btnChangeA37.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA37.Location = new System.Drawing.Point(94, 670);
+            this.btnChangeA37.Location = new System.Drawing.Point(264, 669);
             this.btnChangeA37.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA37.Name = "btnChangeA37";
             this.btnChangeA37.Size = new System.Drawing.Size(112, 36);
@@ -2568,7 +2570,7 @@ namespace TestingWinForms
             this.btnChangeA36.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA36.AutoSize = true;
             this.btnChangeA36.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA36.Location = new System.Drawing.Point(94, 596);
+            this.btnChangeA36.Location = new System.Drawing.Point(264, 595);
             this.btnChangeA36.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA36.Name = "btnChangeA36";
             this.btnChangeA36.Size = new System.Drawing.Size(112, 36);
@@ -2582,7 +2584,7 @@ namespace TestingWinForms
             this.btnChangeA35.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA35.AutoSize = true;
             this.btnChangeA35.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA35.Location = new System.Drawing.Point(94, 521);
+            this.btnChangeA35.Location = new System.Drawing.Point(264, 520);
             this.btnChangeA35.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA35.Name = "btnChangeA35";
             this.btnChangeA35.Size = new System.Drawing.Size(112, 36);
@@ -2596,7 +2598,7 @@ namespace TestingWinForms
             this.btnChangeA34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA34.AutoSize = true;
             this.btnChangeA34.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA34.Location = new System.Drawing.Point(94, 444);
+            this.btnChangeA34.Location = new System.Drawing.Point(264, 443);
             this.btnChangeA34.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA34.Name = "btnChangeA34";
             this.btnChangeA34.Size = new System.Drawing.Size(112, 36);
@@ -2610,7 +2612,7 @@ namespace TestingWinForms
             this.btnChangeA33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA33.AutoSize = true;
             this.btnChangeA33.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA33.Location = new System.Drawing.Point(94, 364);
+            this.btnChangeA33.Location = new System.Drawing.Point(264, 363);
             this.btnChangeA33.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA33.Name = "btnChangeA33";
             this.btnChangeA33.Size = new System.Drawing.Size(112, 36);
@@ -2624,7 +2626,7 @@ namespace TestingWinForms
             this.btnChangeA32.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA32.AutoSize = true;
             this.btnChangeA32.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA32.Location = new System.Drawing.Point(94, 283);
+            this.btnChangeA32.Location = new System.Drawing.Point(264, 282);
             this.btnChangeA32.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA32.Name = "btnChangeA32";
             this.btnChangeA32.Size = new System.Drawing.Size(112, 36);
@@ -2638,7 +2640,7 @@ namespace TestingWinForms
             this.btnChangeA31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeA31.AutoSize = true;
             this.btnChangeA31.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeA31.Location = new System.Drawing.Point(94, 199);
+            this.btnChangeA31.Location = new System.Drawing.Point(264, 198);
             this.btnChangeA31.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeA31.Name = "btnChangeA31";
             this.btnChangeA31.Size = new System.Drawing.Size(112, 36);
@@ -2652,7 +2654,7 @@ namespace TestingWinForms
             this.btnChangeQ3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnChangeQ3.AutoSize = true;
             this.btnChangeQ3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeQ3.Location = new System.Drawing.Point(94, 12);
+            this.btnChangeQ3.Location = new System.Drawing.Point(264, 11);
             this.btnChangeQ3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeQ3.Name = "btnChangeQ3";
             this.btnChangeQ3.Size = new System.Drawing.Size(112, 36);
@@ -2753,22 +2755,21 @@ namespace TestingWinForms
             // 
             // pictureBoxQ3
             // 
-            this.pictureBoxQ3.Location = new System.Drawing.Point(34, 987);
+            this.pictureBoxQ3.Location = new System.Drawing.Point(33, 948);
             this.pictureBoxQ3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBoxQ3.Name = "pictureBoxQ3";
-            this.pictureBoxQ3.Size = new System.Drawing.Size(178, 148);
+            this.pictureBoxQ3.Size = new System.Drawing.Size(226, 172);
             this.pictureBoxQ3.TabIndex = 46;
             this.pictureBoxQ3.TabStop = false;
             // 
             // btnBackground3
             // 
-            this.btnBackground3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBackground3.AutoSize = true;
             this.btnBackground3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBackground3.Location = new System.Drawing.Point(32, 924);
+            this.btnBackground3.Location = new System.Drawing.Point(208, 876);
             this.btnBackground3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBackground3.Name = "btnBackground3";
-            this.btnBackground3.Size = new System.Drawing.Size(329, 59);
+            this.btnBackground3.Size = new System.Drawing.Size(360, 59);
             this.btnBackground3.TabIndex = 45;
             this.btnBackground3.Text = "Upload Background Image";
             this.btnBackground3.UseVisualStyleBackColor = true;
@@ -2806,7 +2807,7 @@ namespace TestingWinForms
             this.comboBox3.Location = new System.Drawing.Point(183, 89);
             this.comboBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(0, 40);
+            this.comboBox3.Size = new System.Drawing.Size(52, 39);
             this.comboBox3.TabIndex = 33;
             // 
             // labelType3
@@ -2827,7 +2828,7 @@ namespace TestingWinForms
             this.btnClear3.Location = new System.Drawing.Point(183, 807);
             this.btnClear3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnClear3.Name = "btnClear3";
-            this.btnClear3.Size = new System.Drawing.Size(128, 46);
+            this.btnClear3.Size = new System.Drawing.Size(180, 46);
             this.btnClear3.TabIndex = 42;
             this.btnClear3.Text = "Clear";
             this.btnClear3.UseVisualStyleBackColor = true;
@@ -2841,7 +2842,7 @@ namespace TestingWinForms
             this.textBoxA38.Location = new System.Drawing.Point(183, 740);
             this.textBoxA38.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA38.Name = "textBoxA38";
-            this.textBoxA38.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA38.Size = new System.Drawing.Size(52, 38);
             this.textBoxA38.TabIndex = 41;
             // 
             // labelA38
@@ -2862,7 +2863,7 @@ namespace TestingWinForms
             this.textBoxA37.Location = new System.Drawing.Point(183, 668);
             this.textBoxA37.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA37.Name = "textBoxA37";
-            this.textBoxA37.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA37.Size = new System.Drawing.Size(52, 38);
             this.textBoxA37.TabIndex = 40;
             // 
             // labelA37
@@ -2883,7 +2884,7 @@ namespace TestingWinForms
             this.textBoxA36.Location = new System.Drawing.Point(183, 594);
             this.textBoxA36.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA36.Name = "textBoxA36";
-            this.textBoxA36.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA36.Size = new System.Drawing.Size(52, 38);
             this.textBoxA36.TabIndex = 39;
             // 
             // labelA36
@@ -2904,7 +2905,7 @@ namespace TestingWinForms
             this.textBoxA35.Location = new System.Drawing.Point(183, 519);
             this.textBoxA35.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA35.Name = "textBoxA35";
-            this.textBoxA35.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA35.Size = new System.Drawing.Size(52, 38);
             this.textBoxA35.TabIndex = 38;
             // 
             // textBoxA34
@@ -2915,7 +2916,7 @@ namespace TestingWinForms
             this.textBoxA34.Location = new System.Drawing.Point(183, 442);
             this.textBoxA34.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA34.Name = "textBoxA34";
-            this.textBoxA34.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA34.Size = new System.Drawing.Size(52, 38);
             this.textBoxA34.TabIndex = 37;
             // 
             // textBoxA33
@@ -2926,7 +2927,7 @@ namespace TestingWinForms
             this.textBoxA33.Location = new System.Drawing.Point(183, 362);
             this.textBoxA33.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA33.Name = "textBoxA33";
-            this.textBoxA33.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA33.Size = new System.Drawing.Size(52, 38);
             this.textBoxA33.TabIndex = 36;
             // 
             // textBoxA32
@@ -2937,7 +2938,7 @@ namespace TestingWinForms
             this.textBoxA32.Location = new System.Drawing.Point(183, 281);
             this.textBoxA32.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA32.Name = "textBoxA32";
-            this.textBoxA32.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA32.Size = new System.Drawing.Size(52, 38);
             this.textBoxA32.TabIndex = 35;
             // 
             // textBoxA31
@@ -2948,7 +2949,7 @@ namespace TestingWinForms
             this.textBoxA31.Location = new System.Drawing.Point(183, 197);
             this.textBoxA31.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxA31.Name = "textBoxA31";
-            this.textBoxA31.Size = new System.Drawing.Size(0, 38);
+            this.textBoxA31.Size = new System.Drawing.Size(52, 38);
             this.textBoxA31.TabIndex = 34;
             // 
             // textBoxQ3
@@ -2959,7 +2960,7 @@ namespace TestingWinForms
             this.textBoxQ3.Location = new System.Drawing.Point(183, 9);
             this.textBoxQ3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxQ3.Name = "textBoxQ3";
-            this.textBoxQ3.Size = new System.Drawing.Size(0, 38);
+            this.textBoxQ3.Size = new System.Drawing.Size(52, 38);
             this.textBoxQ3.TabIndex = 32;
             // 
             // labelA35

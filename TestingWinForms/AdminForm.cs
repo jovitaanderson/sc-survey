@@ -1623,6 +1623,7 @@ namespace TestingWinForms
                     else if (control is Button normalButton)
                     {
                         normalButton.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                        normalButton.AutoSize = true;
                     }
                 }
             }
@@ -1812,6 +1813,7 @@ namespace TestingWinForms
                     string selectedImagePath = openFileDialog.FileName;
 
                     // Load the selected image into the PictureBox
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBox.Image = Image.FromFile(selectedImagePath);
                 }
             }
@@ -1954,6 +1956,7 @@ namespace TestingWinForms
                     string selectedImagePath = openFileDialog.FileName;
 
                     // Load the selected image into the PictureBox
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBox2.Image = Image.FromFile(selectedImagePath);
                 }
             }
@@ -1971,6 +1974,7 @@ namespace TestingWinForms
                     string selectedImagePath = openFileDialog.FileName;
 
                     // Load the selected image into the PictureBox
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBoxQ1.Image = Image.FromFile(selectedImagePath);
                 }
             }
@@ -1988,6 +1992,7 @@ namespace TestingWinForms
                     string selectedImagePath = openFileDialog.FileName;
 
                     // Load the selected image into the PictureBox
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBoxQ2.Image = Image.FromFile(selectedImagePath);
                 }
             }
@@ -2005,6 +2010,7 @@ namespace TestingWinForms
                     string selectedImagePath = openFileDialog.FileName;
 
                     // Load the selected image into the PictureBox
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBoxQ3.Image = Image.FromFile(selectedImagePath);
                 }
             }
