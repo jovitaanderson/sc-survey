@@ -306,7 +306,7 @@ namespace TestingWinForms
                 }
                 label.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
             }
-            labelTitle.Height = (int)Math.Ceiling(loadedFontTitle.GetHeight()) + Padding.Vertical;
+            label.Height = (int)Math.Ceiling(loadedFontTitle.GetHeight()) + Padding.Vertical;
         }
 
         private string LoadBackgroundImageFromCSV()

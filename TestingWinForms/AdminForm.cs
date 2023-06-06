@@ -437,7 +437,7 @@ namespace TestingWinForms
             string imagePath = null;
 
             // Serialize the font object to a binary string
-            string fontEndText = FontToBinaryString(sampleLabelEndText.Font);
+            string fontEndText = $"{FontToBinaryString(sampleLabelEndText.Font)};{sampleLabelEndText.TextAlign};{sampleLabelEndText.AutoSize}";
 
             //save as root directory
             if (image != null)
@@ -660,6 +660,7 @@ namespace TestingWinForms
                 }
                 label.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
             }
+            label.Height = (int)Math.Ceiling(loadedFontTitle.GetHeight()) + Padding.Vertical;
         }
 
         private void LoadNumQuestions()
@@ -864,11 +865,12 @@ namespace TestingWinForms
                         }
 
                         // Load the font data from the CSV
-                        string fontEndSurvey = values[5]; // Assuming font data is at index 5
+                        //string fontEndSurvey = values[5]; // Assuming font data is at index 5
+                        loadContentToComponent(values, 5, sampleLabelEndText);
                         // Deserialize the font from the font data
-                        Font loadedFontEndSurvey = FontFromBinaryString(fontEndSurvey);
+                        //Font loadedFontEndSurvey = FontFromBinaryString(fontEndSurvey);
                         // Apply the font to the label or control of your choice
-                        sampleLabelEndText.Font = loadedFontEndSurvey;
+                        //sampleLabelEndText.Font = loadedFontEndSurvey;
                     }
                 }
             }
@@ -2027,9 +2029,23 @@ namespace TestingWinForms
         private void btnChangeEndSurveyFont_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelYRightAxis.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelEndText.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnTextChangeEndSurveyFont_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelEndText.TextAlign,
+            sampleLabelEndText.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelEndText.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelEndText.AutoSize = dialog.SelectedWrap;
+                }
             }
         }
 
@@ -2037,6 +2053,7 @@ namespace TestingWinForms
         private void btnChangeQ1_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelQ1.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelQ1.Font = fontDialog.Font;
@@ -2046,6 +2063,7 @@ namespace TestingWinForms
         private void btnChangeA17_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA17.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA17.Font = fontDialog.Font;
@@ -2055,6 +2073,7 @@ namespace TestingWinForms
         private void btnChangeA16_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA16.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA16.Font = fontDialog.Font;
@@ -2064,6 +2083,7 @@ namespace TestingWinForms
         private void btnChangeA15_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA15.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA15.Font = fontDialog.Font;
@@ -2073,6 +2093,7 @@ namespace TestingWinForms
         private void btnChangeA14_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA14.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA14.Font = fontDialog.Font;
@@ -2082,6 +2103,7 @@ namespace TestingWinForms
         private void btnChangeA13_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA13.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA13.Font = fontDialog.Font;
@@ -2091,6 +2113,7 @@ namespace TestingWinForms
         private void btnChangeA12_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA12.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA12.Font = fontDialog.Font;
@@ -2100,6 +2123,7 @@ namespace TestingWinForms
         private void btnChangeA11_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA11.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA11.Font = fontDialog.Font;
@@ -2109,6 +2133,7 @@ namespace TestingWinForms
         private void btnChangeA18_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA18.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA18.Font = fontDialog.Font;
@@ -2118,6 +2143,7 @@ namespace TestingWinForms
         private void btnChangeA28_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA28.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA28.Font = fontDialog.Font;
@@ -2127,6 +2153,7 @@ namespace TestingWinForms
         private void btnChangeA21_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA21.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA21.Font = fontDialog.Font;
@@ -2136,6 +2163,7 @@ namespace TestingWinForms
         private void btnChangeA22_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA22.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA22.Font = fontDialog.Font;
@@ -2145,6 +2173,7 @@ namespace TestingWinForms
         private void btnChangeA23_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA23.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA23.Font = fontDialog.Font;
@@ -2154,6 +2183,7 @@ namespace TestingWinForms
         private void btnChangeA24_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA24.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA24.Font = fontDialog.Font;
@@ -2163,6 +2193,7 @@ namespace TestingWinForms
         private void btnChangeA25_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA25.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA25.Font = fontDialog.Font;
@@ -2172,6 +2203,7 @@ namespace TestingWinForms
         private void btnChangeA26_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA26.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA26.Font = fontDialog.Font;
@@ -2181,6 +2213,7 @@ namespace TestingWinForms
         private void btnChangeA27_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA27.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA27.Font = fontDialog.Font;
@@ -2190,6 +2223,7 @@ namespace TestingWinForms
         private void btnChangeQ2_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelQ2.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelQ2.Font = fontDialog.Font;
@@ -2199,6 +2233,7 @@ namespace TestingWinForms
         private void btnChangeA38_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA38.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA38.Font = fontDialog.Font;
@@ -2208,6 +2243,7 @@ namespace TestingWinForms
         private void btnChangeA31_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA31.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA31.Font = fontDialog.Font;
@@ -2217,6 +2253,7 @@ namespace TestingWinForms
         private void btnChangeA32_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA32.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA32.Font = fontDialog.Font;
@@ -2226,6 +2263,7 @@ namespace TestingWinForms
         private void btnChangeA33_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA33.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA33.Font = fontDialog.Font;
@@ -2235,6 +2273,7 @@ namespace TestingWinForms
         private void btnChangeA34_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA34.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA34.Font = fontDialog.Font;
@@ -2244,6 +2283,7 @@ namespace TestingWinForms
         private void btnChangeA35_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA35.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA35.Font = fontDialog.Font;
@@ -2253,6 +2293,7 @@ namespace TestingWinForms
         private void btnChangeA36_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA36.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA36.Font = fontDialog.Font;
@@ -2262,6 +2303,7 @@ namespace TestingWinForms
         private void btnChangeA37_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA37.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA37.Font = fontDialog.Font;
@@ -2271,6 +2313,7 @@ namespace TestingWinForms
         private void btnChangeQ3_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelQ3.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelQ3.Font = fontDialog.Font;
@@ -2281,7 +2324,6 @@ namespace TestingWinForms
         {
             FontDialog fontDialog = new FontDialog();
             fontDialog.Font = sampleLabelTitle.Font; // Set the initial font
-
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelTitle.Font = fontDialog.Font;
@@ -2305,7 +2347,6 @@ namespace TestingWinForms
         {
             FontDialog fontDialog = new FontDialog();
             fontDialog.Font = sampleLabelXTopAxis.Font;
-
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelXTopAxis.Font = fontDialog.Font;
