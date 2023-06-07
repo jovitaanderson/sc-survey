@@ -25,6 +25,7 @@ namespace TestingWinForms
 
         private string originalPictureLinkTableBackground = "";
         private string originalPictureLinkEndBackground = "";
+        private string originalPictureLinkInnerGraphBackground = "";
 
         public AdminForm()
         {
@@ -506,6 +507,38 @@ namespace TestingWinForms
             }
 
             // Get the image from the PictureBox
+            Image image2 = pictureBox1.Image;
+            string imagePath2 = null;
+
+
+            if (image2 != null && pictureBox1.ImageLocation != originalPictureLinkInnerGraphBackground)
+            {
+                // Get the current root path of the application
+                string rootPath = Directory.GetCurrentDirectory();
+
+                // Specify the directory within the root path to save the image
+                string directoryPath = Path.Combine(rootPath, "Images");
+
+                // Create the directory if it doesn't exist
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                // Generate a unique file name for the image
+                string fileName = Guid.NewGuid().ToString() + ".png";
+
+                // Save the image to the specified directory
+                imagePath2 = Path.Combine(directoryPath, fileName);
+                image2.Save(imagePath2);
+
+            }
+            else
+            {
+                imagePath2 = originalPictureLinkInnerGraphBackground;
+            }
+
+            // Get the image from the PictureBox
             Image image3 = pictureBox2.Image;
             string imagePath3 = null;
 
@@ -537,7 +570,7 @@ namespace TestingWinForms
             }
 
             // Concatenate the data into a comma-separated string
-            string data = string.Format("{0},{1},{2},{3},{4},{5}", timeOut, randomQuestions, endSurveyText, imagePath, imagePath3, fontEndText); 
+            string data = string.Format("{0},{1},{2},{3},{4},{5},{6}", timeOut, randomQuestions, endSurveyText, imagePath, imagePath2, imagePath3, fontEndText); 
 
             // Append the data to the CSV file
             while (true)
@@ -907,7 +940,7 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 6)
+                    if (values.Length == 7)
                     {
                         textBoxTimeOut.Text = values[0];
                         comboBoxRandomQns.Text = values[1];
@@ -925,7 +958,19 @@ namespace TestingWinForms
                             pictureBox.ImageLocation = imagePath;
                         }
 
-                        string imagePath3 = Path.Combine(values[4]);
+                        string imagePath2 = Path.Combine(values[4]);
+
+                        if (File.Exists(imagePath2))
+                        {
+                            Image image = Image.FromFile(imagePath2);
+                            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                            pictureBox1.Image = image;
+                            originalPictureLinkInnerGraphBackground = imagePath2;
+                            // Set the pictureBox.ImageLocation to the new image path
+                            pictureBox1.ImageLocation = imagePath2;
+                        }
+
+                        string imagePath3 = Path.Combine(values[5]);
 
                         if (File.Exists(imagePath3))
                         {
@@ -937,7 +982,7 @@ namespace TestingWinForms
                             pictureBox2.ImageLocation = imagePath3;
                         }
 
-                        loadContentToComponent(values, 5, sampleLabelEndText);
+                        loadContentToComponent(values, 6, sampleLabelEndText);
                     }
                 }
             }
@@ -2315,7 +2360,7 @@ namespace TestingWinForms
                     string selectedImagePath = openFileDialog.FileName;
 
                     // Load the selected image into the PictureBox
-                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBox2.Image = Image.FromFile(selectedImagePath);
 
                     originalPictureLinkEndBackground = selectedImagePath;
@@ -3204,6 +3249,26 @@ namespace TestingWinForms
                     sampleLabelA31.TextAlign = dialog.SelectedAlignment;
                     sampleLabelA31.AutoSize = dialog.SelectedWrap;
 
+                }
+            }
+        }
+
+        private void btnUploadInnerGraphImage_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select Image";
+                openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedImagePath = openFileDialog.FileName;
+
+                    // Load the selected image into the PictureBox
+                    pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox1.Image = Image.FromFile(selectedImagePath);
+
+                    originalPictureLinkInnerGraphBackground = selectedImagePath;
                 }
             }
         }
