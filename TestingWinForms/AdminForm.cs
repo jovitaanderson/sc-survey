@@ -269,11 +269,16 @@ namespace TestingWinForms
             bool textWrap = sampleLabelTitle.AutoSize;
 
             // Serialize the font object to a binary string
-            string fontTitle = $"{FontToBinaryString(sampleLabelTitle.Font)};{sampleLabelTitle.TextAlign};{sampleLabelTitle.AutoSize}";
-            string fontXTopAxis = $"{FontToBinaryString(sampleLabelXTopAxis.Font)};{sampleLabelXTopAxis.TextAlign};{sampleLabelXTopAxis.AutoSize}";
-            string fontXBotAxis = $"{FontToBinaryString(sampleLabelXBotAxis.Font)};{sampleLabelXBotAxis.TextAlign};{sampleLabelXBotAxis.AutoSize}";
-            string fontYLeftAxis = $"{FontToBinaryString(sampleLabelYLeftAxis.Font)};{sampleLabelYLeftAxis.TextAlign};{sampleLabelYLeftAxis.AutoSize}";
-            string fontYRightAxis = $"{FontToBinaryString(sampleLabelYRightAxis.Font)};{sampleLabelYRightAxis.TextAlign};{sampleLabelYRightAxis.AutoSize}";
+            string fontTitle = $"{FontToBinaryString(sampleLabelTitle.Font)};{sampleLabelTitle.TextAlign};" +
+                $"{sampleLabelTitle.AutoSize};{sampleLabelTitle.ForeColor.ToArgb().ToString().Replace(",", "\0")}";
+            string fontXTopAxis = $"{FontToBinaryString(sampleLabelXTopAxis.Font)};{sampleLabelXTopAxis.TextAlign};" +
+                $"{sampleLabelXTopAxis.AutoSize};{sampleLabelXTopAxis.ForeColor.ToArgb().ToString().Replace(",", "\0")}";
+            string fontXBotAxis = $"{FontToBinaryString(sampleLabelXBotAxis.Font)};{sampleLabelXBotAxis.TextAlign};" +
+                $"{sampleLabelXBotAxis.AutoSize};{sampleLabelXBotAxis.ForeColor.ToArgb().ToString().Replace(",", "\0")}";
+            string fontYLeftAxis = $"{FontToBinaryString(sampleLabelYLeftAxis.Font)};{sampleLabelYLeftAxis.TextAlign};" +
+                $"{sampleLabelYLeftAxis.AutoSize};{sampleLabelYLeftAxis.ForeColor.ToArgb().ToString().Replace(",", "\0")}";
+            string fontYRightAxis = $"{FontToBinaryString(sampleLabelYRightAxis.Font)};{sampleLabelYRightAxis.TextAlign};" +
+                $"{sampleLabelYRightAxis.AutoSize};{sampleLabelYRightAxis.ForeColor.ToArgb().ToString().Replace(",", "\0")}";
 
             // Concatenate the data into a comma-separated string
             string titleDate = string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}", 
@@ -369,7 +374,8 @@ namespace TestingWinForms
                     }
                     questions.Add(questionText);
 
-                    string fontQuestionToAdd = $"{FontToBinaryString(sampleLabel.Font)};{sampleLabel.TextAlign};{sampleLabel.AutoSize}";
+                    string fontQuestionToAdd = $"{FontToBinaryString(sampleLabel.Font)};{sampleLabel.TextAlign};" +
+                        $"{sampleLabel.AutoSize};{sampleLabel.ForeColor.ToArgb().ToString().Replace(",", "\0")}"; 
                     fontQuestions.Add(fontQuestionToAdd);
 
                     // Get the answer fonts
@@ -388,7 +394,8 @@ namespace TestingWinForms
 
 
                         Label answerLabel = GetAnswerFontLabel(i, j);
-                        answerFonts.Add($"{FontToBinaryString(answerLabel.Font)};{answerLabel.TextAlign};{answerLabel.AutoSize}");
+                        answerFonts.Add($"{FontToBinaryString(answerLabel.Font)};{answerLabel.TextAlign};" +
+                            $"{answerLabel.AutoSize};{answerLabel.ForeColor.ToArgb().ToString().Replace(",", "\0")}");
                     }
                     answers.Add(answerOptions);
                     fontAnswers.Add(answerFonts);
@@ -481,7 +488,8 @@ namespace TestingWinForms
             string imagePath = null;
 
             // Serialize the font object to a binary string
-            string fontEndText = $"{FontToBinaryString(sampleLabelEndText.Font)};{sampleLabelEndText.TextAlign};{sampleLabelEndText.AutoSize}";
+            string fontEndText = $"{FontToBinaryString(sampleLabelEndText.Font)};{sampleLabelEndText.TextAlign};" +
+                $"{sampleLabelEndText.AutoSize};{sampleLabelEndText.ForeColor.ToArgb().ToString().Replace(",", "\0")}";
 
             //save as root directory
             if (image != null && pictureBox.ImageLocation != originalPictureLinkTableBackground)
@@ -696,9 +704,8 @@ namespace TestingWinForms
 
             Font loadedFontTitle = FontFromBinaryString(fontTitle);
             label.Font = loadedFontTitle;
-            label.Height = (int)Math.Ceiling(FontFromBinaryString(fontTitle).GetHeight()) + Padding.Vertical; ;
 
-            if (textProperties.Length > 2)
+            if (textProperties.Length > 3)
             {
                 String textAlign = textProperties[1]; // Second ; is text align property
                 String textWrap = textProperties[2]; // Third ; is text wrap property
@@ -711,6 +718,20 @@ namespace TestingWinForms
                     label.TextAlign = ContentAlignment.TopLeft; //default ContentAlignment
                 }
                 label.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
+
+                // Retrieve the forecolor value and set it to the label's ForeColor property
+                if (!string.IsNullOrEmpty(textProperties[3]))
+                {
+                    if (int.TryParse(textProperties[3].Replace("\0", ","), out int foreColorArgb))
+                    {
+                        Color foreColor = Color.FromArgb(foreColorArgb);
+                        label.ForeColor = foreColor;
+                    }
+                    else
+                    {
+                        label.ForeColor = Color.Black; // Default forecolor if parsing fails
+                    }
+                }
             }
             label.Height = (int)Math.Ceiling(loadedFontTitle.GetHeight()) + Padding.Vertical;
         }
@@ -836,7 +857,7 @@ namespace TestingWinForms
                         {
                             string[] textProperties = values[0].Split(';'); // Assuming text font and alignment data is at index 5
                             string fontTitle = textProperties[0]; // First ; is text font
-                            if (textProperties.Length > 2)
+                            if (textProperties.Length > 3)
                             {
                                 String textAlign = textProperties[1]; // Second ; is text align properties
                                 String textWrap = textProperties[2];
@@ -854,6 +875,20 @@ namespace TestingWinForms
                                 }
                                 sampleQuestionLabels.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
 
+                                // Retrieve the forecolor value and set it to the label's ForeColor property
+                                if (!string.IsNullOrEmpty(textProperties[3]))
+                                {
+                                    if (int.TryParse(textProperties[3].Replace("\0", ","), out int foreColorArgb))
+                                    {
+                                        Color foreColor = Color.FromArgb(foreColorArgb);
+                                        sampleQuestionLabels.ForeColor = foreColor;
+                                    }
+                                    else
+                                    {
+                                        sampleQuestionLabels.ForeColor = Color.Black; // Default forecolor if parsing fails
+                                    }
+                                }
+
                             }
 
                             sampleQuestionLabels.Font = FontFromBinaryString(fontTitle);
@@ -862,7 +897,7 @@ namespace TestingWinForms
                             {
                                 string[] answerTextProperties = values[i].Split(';');
                                 String font = answerTextProperties[0];
-                                if (answerTextProperties.Length > 2)
+                                if (answerTextProperties.Length > 3)
                                 {
                                     String textAlign = answerTextProperties[1];
                                     String textWrap = answerTextProperties[2];
@@ -879,6 +914,20 @@ namespace TestingWinForms
                                         sampleAnswerLabels[values.Length - 1 - i].TextAlign = ContentAlignment.TopLeft;
                                     }
                                     sampleAnswerLabels[values.Length - 1 - i].AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
+
+                                    // Retrieve the forecolor value and set it to the label's ForeColor property
+                                    if (!string.IsNullOrEmpty(answerTextProperties[3]))
+                                    {
+                                        if (int.TryParse(answerTextProperties[3].Replace("\0", ","), out int foreColorArgb))
+                                        {
+                                            Color foreColor = Color.FromArgb(foreColorArgb);
+                                            sampleAnswerLabels[values.Length - 1 - i].ForeColor = foreColor;
+                                        }
+                                        else
+                                        {
+                                            sampleAnswerLabels[values.Length - 1 - i].ForeColor = Color.Black; // Default forecolor if parsing fails
+                                        }
+                                    }
                                 }
 
                                 sampleAnswerLabels[values.Length - 1 - i].Font = FontFromBinaryString(font);
@@ -1756,12 +1805,14 @@ namespace TestingWinForms
                 Control[] labels = this.Controls.Find(labelName, true);
                 if (labels.Length > 0 && labels[0] is Label label)
                 {
-                    using (CustomText dialog = new CustomText(label.TextAlign, label.AutoSize))
+                    using (CustomText dialog = new CustomText(label))
                     {
                         if (dialog.ShowDialog() == DialogResult.OK)
                         {
-                            label.TextAlign = dialog.SelectedAlignment;
-                            label.AutoSize = dialog.SelectedWrap;
+                            label.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                            label.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                            label.Font = dialog.ChangeTextLabel.Font;
+                            label.ForeColor = dialog.ChangeTextLabel.ForeColor;
                         }
                     }
                 }
@@ -1774,12 +1825,14 @@ namespace TestingWinForms
                 Control[] labels = this.Controls.Find(labelName, true);
                 if (labels.Length > 0 && labels[0] is Label label)
                 {
-                    using (CustomText dialog = new CustomText(label.TextAlign, label.AutoSize))
+                    using (CustomText dialog = new CustomText(label))
                     {
                         if (dialog.ShowDialog() == DialogResult.OK)
                         {
-                            label.TextAlign = dialog.SelectedAlignment;
-                            label.AutoSize = dialog.SelectedWrap;
+                            label.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                            label.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                            label.Font = dialog.ChangeTextLabel.Font;
+                            label.ForeColor = dialog.ChangeTextLabel.ForeColor;
                         }
                     }
                 }
@@ -2182,13 +2235,14 @@ namespace TestingWinForms
 
         private void btnTextChangeEndSurveyFont_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelEndText.TextAlign,
-            sampleLabelEndText.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelEndText))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelEndText.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelEndText.AutoSize = dialog.SelectedWrap;
+                    sampleLabelEndText.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelEndText.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelEndText.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelEndText.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
@@ -2476,13 +2530,14 @@ namespace TestingWinForms
 
         private void btnTextChangeTitle_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelTitle.TextAlign,
-            sampleLabelTitle.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelTitle))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelTitle.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelTitle.AutoSize = dialog.SelectedWrap;
+                    sampleLabelTitle.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelTitle.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelTitle.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelTitle.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
@@ -2500,13 +2555,14 @@ namespace TestingWinForms
 
         private void btnTextChangeXTopAxis_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelXTopAxis.TextAlign,
-            sampleLabelXTopAxis.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelXTopAxis))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelXTopAxis.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelXTopAxis.AutoSize = dialog.SelectedWrap;
+                    sampleLabelXTopAxis.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelXTopAxis.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelXTopAxis.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelXTopAxis.ForeColor = dialog.ChangeTextLabel.ForeColor;
 
                 }
             }
@@ -2523,13 +2579,14 @@ namespace TestingWinForms
         }
         private void btnTextChangeXBotAxis_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelXBotAxis.TextAlign,
-            sampleLabelXBotAxis.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelXBotAxis))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelXBotAxis.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelXBotAxis.AutoSize = dialog.SelectedWrap;
+                    sampleLabelXBotAxis.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelXBotAxis.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelXBotAxis.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelXBotAxis.ForeColor = dialog.ChangeTextLabel.ForeColor;
 
                 }
             }
@@ -2548,13 +2605,14 @@ namespace TestingWinForms
 
         private void btnTextChangeYLeftAxis_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelYLeftAxis.TextAlign,
-            sampleLabelYLeftAxis.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelYLeftAxis))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelYLeftAxis.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelYLeftAxis.AutoSize = dialog.SelectedWrap;
+                    sampleLabelYLeftAxis.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelYLeftAxis.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelYLeftAxis.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelYLeftAxis.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
@@ -2571,320 +2629,322 @@ namespace TestingWinForms
 
         private void btnTextChangeYRightAxis_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelYRightAxis.TextAlign,
-            sampleLabelYRightAxis.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelYRightAxis))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelYRightAxis.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelYRightAxis.AutoSize = dialog.SelectedWrap;
+                    sampleLabelYRightAxis.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelYRightAxis.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelYRightAxis.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelYRightAxis.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeQ1_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelQ1.TextAlign,
-            sampleLabelQ1.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelQ1))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelQ1.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelQ1.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelQ1.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelQ1.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelQ1.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelQ1.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeQ2_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelQ2.TextAlign,
-            sampleLabelQ2.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelQ2))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelQ2.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelQ2.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelQ2.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelQ2.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelQ2.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelQ2.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeQ3_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelQ3.TextAlign,
-            sampleLabelQ3.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelQ3))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelQ3.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelQ3.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelQ3.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelQ3.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelQ3.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelQ3.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA11_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA11.TextAlign,
-            sampleLabelA11.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA11))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA11.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA11.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA11.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA11.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA11.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA11.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA12_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA12.TextAlign,
-            sampleLabelA12.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA12))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA12.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA12.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA12.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA12.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA12.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA12.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA13_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA13.TextAlign,
-            sampleLabelA13.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA13))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA13.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA13.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA13.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA13.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA13.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA13.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA14_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA14.TextAlign,
-            sampleLabelA14.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA14))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA14.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA14.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA14.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA14.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA14.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA14.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA15_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA15.TextAlign,
-            sampleLabelA15.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA15))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA15.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA15.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA15.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA15.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA15.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA15.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA16_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA16.TextAlign,
-            sampleLabelA16.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA16))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA16.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA16.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA16.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA16.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA16.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA16.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA17_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA17.TextAlign,
-            sampleLabelA17.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA17))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA17.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA17.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA17.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA17.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA17.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA17.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA18_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA18.TextAlign,
-            sampleLabelA18.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA18))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA18.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA18.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA18.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA18.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA18.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA18.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA28_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA28.TextAlign,
-            sampleLabelA28.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA28))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA28.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA28.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA28.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA28.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA28.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA28.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA22_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA22.TextAlign,
-            sampleLabelA22.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA22))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA22.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA22.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA22.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA22.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA22.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA22.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA23_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA23.TextAlign,
-            sampleLabelA23.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA23))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA23.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA23.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA23.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA23.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA23.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA23.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA24_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA24.TextAlign,
-            sampleLabelA24.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA24))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA24.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA24.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA24.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA24.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA24.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA24.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA25_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA25.TextAlign,
-            sampleLabelA25.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA25))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA25.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA25.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA25.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA25.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA25.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA25.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA26_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA26.TextAlign,
-            sampleLabelA26.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA26))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA26.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA26.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA26.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA26.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA26.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA26.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA27_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA27.TextAlign,
-            sampleLabelA27.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA27))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA27.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA27.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA27.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA27.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA27.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA27.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA21_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA21.TextAlign,
-            sampleLabelA21.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA21))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA21.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA21.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA21.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA21.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA21.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA21.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA38_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA38.TextAlign,
-            sampleLabelA38.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA38))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA38.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA38.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA38.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA38.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA38.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA38.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA32_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA32.TextAlign,
-            sampleLabelA32.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA32))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA32.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA32.AutoSize = dialog.SelectedWrap;
-
+                    sampleLabelA32.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA32.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA32.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA32.ForeColor = dialog.ChangeTextLabel.ForeColor;
                 }
             }
         }
 
         private void btnTextChangeA33_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA33.TextAlign,
-            sampleLabelA33.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA33))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA33.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA33.AutoSize = dialog.SelectedWrap;
+                    sampleLabelA33.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA33.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA33.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA33.ForeColor = dialog.ChangeTextLabel.ForeColor;
 
                 }
             }
@@ -2892,13 +2952,14 @@ namespace TestingWinForms
 
         private void btnTextChangeA34_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA34.TextAlign,
-            sampleLabelA34.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA34))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA34.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA34.AutoSize = dialog.SelectedWrap;
+                    sampleLabelA34.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA34.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA34.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA34.ForeColor = dialog.ChangeTextLabel.ForeColor;
 
                 }
             }
@@ -2906,13 +2967,14 @@ namespace TestingWinForms
 
         private void btnTextChangeA35_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA35.TextAlign,
-            sampleLabelA35.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA35))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA35.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA35.AutoSize = dialog.SelectedWrap;
+                    sampleLabelA35.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA35.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA35.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA35.ForeColor = dialog.ChangeTextLabel.ForeColor;
 
                 }
             }
@@ -2920,13 +2982,14 @@ namespace TestingWinForms
 
         private void btnTextChangeA36_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA36.TextAlign,
-            sampleLabelA36.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA36))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA36.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA36.AutoSize = dialog.SelectedWrap;
+                    sampleLabelA36.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA36.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA36.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA36.ForeColor = dialog.ChangeTextLabel.ForeColor;
 
                 }
             }
@@ -2934,13 +2997,14 @@ namespace TestingWinForms
 
         private void btnTextChangeA37_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA37.TextAlign,
-            sampleLabelA37.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA37))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA37.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA37.AutoSize = dialog.SelectedWrap;
+                    sampleLabelA37.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA37.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA37.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA37.ForeColor = dialog.ChangeTextLabel.ForeColor;
 
                 }
             }
@@ -2948,13 +3012,14 @@ namespace TestingWinForms
 
         private void btnTextChangeA31_Click(object sender, EventArgs e)
         {
-            using (CustomText dialog = new CustomText(sampleLabelA31.TextAlign,
-            sampleLabelA31.AutoSize))
+            using (CustomText dialog = new CustomText(sampleLabelA31))
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    sampleLabelA31.TextAlign = dialog.SelectedAlignment;
-                    sampleLabelA31.AutoSize = dialog.SelectedWrap;
+                    sampleLabelA31.TextAlign = dialog.ChangeTextLabel.TextAlign;
+                    sampleLabelA31.AutoSize = dialog.ChangeTextLabel.AutoSize;
+                    sampleLabelA31.Font = dialog.ChangeTextLabel.Font;
+                    sampleLabelA31.ForeColor = dialog.ChangeTextLabel.ForeColor;
 
                 }
             }

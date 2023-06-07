@@ -12,20 +12,22 @@ namespace TestingWinForms
 {
     public partial class CustomText : Form
     {
+        public Label ChangeTextLabel { get; private set; }
 
-        public ContentAlignment SelectedAlignment { get; private set; }
-        public bool SelectedWrap { get; private set; }
-
-        public CustomText(ContentAlignment alignment, bool wrap)
+        public CustomText(Label label)
         {
 
-            SelectedAlignment = alignment;
-            SelectedWrap = wrap;
+            //SelectedAlignment = alignment;
+            //SelectedWrap = wrap;
+
+            ChangeTextLabel = label;
 
             InitializeComponent();
             InitializeControls();
 
-            // Set the passed alignment and wrap values
+            comboBoxAlignment.SelectedIndexChanged += comboBoxAlignment_SelectedIndexChanged;
+            comboBoxWrap.SelectedIndexChanged += comboBoxAlignment_SelectedIndexChanged;
+
         }
 
         private void InitializeControls()
@@ -44,13 +46,16 @@ namespace TestingWinForms
                 "Bottom Right"
             });
 
-            comboBoxAlignment.SelectedIndex = GetAlignmentIndex(SelectedAlignment);
+            comboBoxAlignment.SelectedIndex = GetAlignmentIndex(ChangeTextLabel.TextAlign);
 
             this.comboBoxWrap.Items.AddRange(new string[] {
             "NoWrap",
             "Wrap"});
 
-            comboBoxWrap.SelectedIndex = GetWrapIndex(SelectedWrap);
+            comboBoxWrap.SelectedIndex = GetWrapIndex(ChangeTextLabel.AutoSize);
+
+            sampleLabel.Font = ChangeTextLabel.Font;
+            sampleLabel.ForeColor = ChangeTextLabel.ForeColor;
         }
 
 
@@ -142,8 +147,10 @@ namespace TestingWinForms
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            SelectedAlignment = GetSelectedTextAlignment();
-            SelectedWrap = GetSelectedTextWrap();
+            //SelectedAlignment = GetSelectedTextAlignment();
+            //SelectedWrap = GetSelectedTextWrap();
+
+            ChangeTextLabel = sampleLabel;
 
 
 
@@ -155,6 +162,41 @@ namespace TestingWinForms
         {
             DialogResult = DialogResult.Cancel;
             Close();
+        }
+
+        private void comboBoxAlignment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Retrieve the selected alignment and wrap values
+            ContentAlignment selectedAlignment = GetSelectedTextAlignment();
+            bool selectedWrap = GetSelectedTextWrap();
+
+            // Update the label's properties
+            sampleLabel.TextAlign = selectedAlignment;
+            sampleLabel.AutoSize = selectedWrap;
+        }
+
+        private void btnChangeFont_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabel.Font;
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabel.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnChangeColour_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.Color = sampleLabel.ForeColor;
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Get the selected color
+                Color selectedColor = colorDialog.Color;
+
+                // Apply the color to the font
+                sampleLabel.ForeColor = selectedColor;
+            }
         }
     }
 }

@@ -40,15 +40,18 @@ namespace TestingWinForms
                 new Question(0, "MCQ", "Question 1", new List<string> { "Option A", "Option B", "Option C", "Option D", "Option E", "Option C", "Option D", "Option E",}, "",
                 "", new List<string>{ "", "", "", "", "", "", "", ""}, 
                 ContentAlignment.TopLeft, new List<ContentAlignment>{ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft },
-                true, new List<bool>{true, true, true, true, true, true, true, true }),
+                true, new List<bool>{true, true, true, true, true, true, true, true },
+                Color.Black, new List<Color>{ Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black,  Color.Black }),
                 new Question(1, "MCQ", "Question 2", new List<string> { "Option D", "Option E", "Option F", "Option D", "Option E", "Option C", "Option D", "Option E"}, "",
                 "", new List<string>{ "", "", "", "", "", "", "", ""},
                 ContentAlignment.TopLeft, new List<ContentAlignment>{ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft },
-                true, new List<bool>{true, true, true, true, true, true, true, true }),
+                true, new List<bool>{true, true, true, true, true, true, true, true },
+                Color.Black, new List<Color>{ Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black,  Color.Black }),
                 new Question(2, "MRQ", "Question 3", new List<string> { "Option G", "Option H", "Option I", "Option D", "Option E", "Option C", "Option D", "Option E" }, "",
                 "", new List<string>{ "", "", "", "", "", "", "", ""},
                 ContentAlignment.TopLeft, new List<ContentAlignment>{ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft },
-                true, new List<bool>{true, true, true, true, true, true, true, true }),
+                true, new List<bool>{true, true, true, true, true, true, true, true },
+                Color.Black, new List<Color>{ Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black,  Color.Black }),
             };
 
             InitializeComponent();
@@ -196,9 +199,10 @@ namespace TestingWinForms
                                     //string fontQuestion = fontValues[0];
                                     ContentAlignment textAlignQuestion = ContentAlignment.TopLeft;
                                     bool textWrapQuestion = true;
+                                    Color textColor = Color.Black;
                                     string[] fontQuestionProperties = fontValues[0].Split(';'); // Assuming text font and alignment data is at index 5
                                     string fontQuestion = fontQuestionProperties[0]; // First ; is text font
-                                    if (fontQuestionProperties.Length > 2)
+                                    if (fontQuestionProperties.Length > 3)
                                     { 
 
                                         // Parse the textAlignValue as ContentAlignment
@@ -220,6 +224,19 @@ namespace TestingWinForms
                                         {
                                             textWrapQuestion = true;
                                         }
+
+                                        // Retrieve the forecolor value and set it to the label's ForeColor property
+                                        if (!string.IsNullOrEmpty(fontQuestionProperties[3]))
+                                        {
+                                            if (int.TryParse(fontQuestionProperties[3].Replace("\0", ","), out int foreColorArgb))
+                                            {
+                                                textColor = Color.FromArgb(foreColorArgb);
+                                            }
+                                            else
+                                            {
+                                                textColor = Color.Black; // Default forecolor if parsing fails
+                                            }
+                                        }
                                     }
 
                                     //string fontQuestion = fontValues[0];
@@ -229,16 +246,18 @@ namespace TestingWinForms
                                     List<string> fontOptions = new List<string>();
                                     List<ContentAlignment> textAlignOptions = new List<ContentAlignment>();
                                     List<bool> textWrapOptions = new List<bool>();
+                                    List<Color> textColorOptions = new List<Color>();
 
                                     for (int i = 1; i < 9; i++)
                                     {
                                         string[] answerData = fontValues[i].Split(';');
 
-                                        if (answerData.Length >= 3)
+                                        if (answerData.Length >= 4)
                                         {
                                             string answerValue1 = answerData[0];
                                             string answerValue2 = answerData[1];
                                             string answerValue3 = answerData[2];
+                                            string answerValue4 = answerData[3];
 
                                             // Add the three data values to the answer list
                                             fontOptions.Add(answerValue1);
@@ -266,11 +285,24 @@ namespace TestingWinForms
                                                 // Here, we'll add a default value to the textWrapOptions list
                                                 textWrapOptions.Add(true);
                                             }
+
+                                            // Retrieve the forecolor value and set it to the label's ForeColor property
+                                            if (!string.IsNullOrEmpty(answerValue4))
+                                            {
+                                                if (int.TryParse(answerValue4.Replace("\0", ","), out int foreColorArgb))
+                                                {
+                                                    textColorOptions.Add(Color.FromArgb(foreColorArgb));
+                                                }
+                                                else
+                                                {
+                                                    textColorOptions.Add(Color.Black); // Default forecolor if parsing fails
+                                                }
+                                            }
                                         }
                                     }
 
                                     questions.Add(new Question(currQuestionIndex, questionText, type, options, imagePath, fontQuestion, fontOptions,
-                                        textAlignQuestion, textAlignOptions, textWrapQuestion, textWrapOptions));
+                                        textAlignQuestion, textAlignOptions, textWrapQuestion, textWrapOptions, textColor, textColorOptions));
                                     currQuestionIndex++;
                                 }
                                 else
@@ -429,6 +461,7 @@ namespace TestingWinForms
                 questionLabel.MaximumSize = new Size(maxWidthAxis, 0);
                 questionLabel.MinimumSize = new Size(0, 0);
                 questionLabel.Height = (int)Math.Ceiling(questionFont.GetHeight()) + Padding.Vertical;
+                questionLabel.ForeColor = currentQuestion.QuestionColor;
 
                 int numOptions = 8;
 
@@ -449,6 +482,7 @@ namespace TestingWinForms
                         radioButton.Font = FontFromBinaryString(currentQuestion.FontValues[i]);
                         radioButton.TextAlign = currentQuestion.TextAligns[i];
                         radioButton.AutoSize = currentQuestion.AutoSizes[i];
+                        radioButton.ForeColor = currentQuestion.AnswerColors[i];
                     }
 
                     // Clear the selection for any remaining radio buttons
@@ -493,6 +527,7 @@ namespace TestingWinForms
                         
                         checkbox.TextAlign = currentQuestion.TextAligns[i];
                         checkbox.AutoSize = currentQuestion.AutoSizes[i];
+                        checkbox.ForeColor = currentQuestion.AnswerColors[i];
                     }
 
                     // Clear the selection for any remaining checkboxes
@@ -778,8 +813,13 @@ namespace TestingWinForms
 
         public List<bool> AutoSizes { get; set; }
 
+        public Color QuestionColor { get; set; }
+
+        public List<Color> AnswerColors { get; set; }
+
         public Question(int index, string text, string type, List<string> options, string imagePath, 
-            string fontQuestion, List<string> fontValues, ContentAlignment questionAlignment, List<ContentAlignment> textAligns, bool questionAutoSize, List<bool> autoSizes)
+            string fontQuestion, List<string> fontValues, ContentAlignment questionAlignment, List<ContentAlignment> textAligns, 
+            bool questionAutoSize, List<bool> autoSizes, Color questionColor, List<Color> answerColors)
         {
             Index = index;
             Text = text;
@@ -792,6 +832,8 @@ namespace TestingWinForms
             TextAligns = textAligns;
             QuestionAutoSize = questionAutoSize;
             AutoSizes = autoSizes;
+            QuestionColor = questionColor;
+            AnswerColors = answerColors;
         }
     }
 }
