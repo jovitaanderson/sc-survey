@@ -197,7 +197,8 @@ namespace TestingWinForms
         private TextBox GetQuestionTextBox(int questionIndex)
         {
             string textBoxName = "textBoxQ" + (questionIndex + 1);
-            return Controls.Find(textBoxName, true).FirstOrDefault() as TextBox;
+            TextBox textbox = Controls.Find(textBoxName, true).FirstOrDefault() as TextBox;
+            return textbox;
         }
 
         private ComboBox GetQuestionComboBox(int questionIndex)
@@ -705,7 +706,14 @@ namespace TestingWinForms
                     try
                     {
                         lines = File.ReadAllLines(GlobalVariables.csvAdminQuestionsFilePath);
-                        questionsNumber = lines.Length;
+                        if (lines.Length < 3)
+                        {
+                            questionsNumber = 3;
+                        } else
+                        {
+                            questionsNumber = lines.Length;
+                        }
+                        
                         break;
                     }
                     catch (IOException ex)
