@@ -25,6 +25,7 @@ namespace TestingWinForms
 
         private string originalPictureLinkTableBackground = "";
         private string originalPictureLinkEndBackground = "";
+        private List<string> originalPictureLinkQuestionBackground = new List<string>() { "", "", "" };
 
         public AdminForm()
         {
@@ -56,7 +57,7 @@ namespace TestingWinForms
             LoadNumQuestions();
             for (int i = 0; i < questionsNumber - 3; i++)
             {
-                addTab(); 
+                addTab();
             }
 
             // Customize the appearance of the TabControl for vertical tabs
@@ -319,14 +320,14 @@ namespace TestingWinForms
 
                 // Get the image from the PictureBox
                 Image image;
-                if (GetPictureBox(i).Image != null)
+                if (GetPictureBox(i).Image != null )
                 {
                     image = GetPictureBox(i).Image;
 
                     string imagePath = null;
 
                     //save as root directory
-                    if (image != null)
+                    if (image != null && GetPictureBox(i).ImageLocation != originalPictureLinkQuestionBackground[i])
                     {
                         // Get the current root path of the application
                         string rootPath = Directory.GetCurrentDirectory();
@@ -347,8 +348,12 @@ namespace TestingWinForms
                         imagePath = Path.Combine(directoryPath, fileName);
                         image.Save(imagePath);
                         imagePaths.Add(imagePath);
+                    } else
+                    {
+                        imagePaths.Add(originalPictureLinkQuestionBackground[i]);
                     }
-                } else
+                }
+                else
                 {
                     imagePaths.Add("");
                 }
@@ -789,6 +794,8 @@ namespace TestingWinForms
                                 Image image = Image.FromFile(imagePath);
                                 questionPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                                 questionPictureBox.Image = image;
+                                questionPictureBox.ImageLocation = imagePath;
+                                originalPictureLinkQuestionBackground[questionIndex] = imagePath;
                             }
                         }
                     }
@@ -1421,276 +1428,12 @@ namespace TestingWinForms
             Application.Exit();
         }
 
-        /*
-        private TabPage addTab()
-        {
-            string labelText = "";
-            if (tabControl.TabPages.Count > 0)
-            {
-                TabPage lastTabPage = tabControl.TabPages[tabControl.TabPages.Count - 1];
-                if (lastTabPage != null)
-                {
-                    labelText = lastTabPage.Text;
-                }
-            }
-
-            int newQuestionNumber = 0;
-            // Extract the current question number from the previous tab text
-            string numberText = labelText.Substring("Question ".Length);
-            if (int.TryParse(numberText, out newQuestionNumber))
-            {
-                // Increment the question number
-                newQuestionNumber++;
-            }
-
-            TabPage newTabPage = new TabPage();
-            newTabPage.Text = "Question " + newQuestionNumber;
-
-
-            // Copy the controls from the previous tab to the new tab
-            if (tabControl.TabPages.Count > 0)
-            {
-                TabPage previousTabPage = tabControl.TabPages[tabControl.TabPages.Count - 1];
-                previousTabPage.VerticalScroll.Value = 0;
-
-                foreach (Control control in previousTabPage.Controls)   
-                {
-                    Control newControl = (Control)Activator.CreateInstance(control.GetType());
-                    newControl.Location = control.Location;
-                    newControl.Size = control.Size;
-
-                    string previousControlName = control.Name;
-
-                    // Get the last tab index from the previous tab
-                    int tabIndexOffset = previousTabPage.TabIndex + 1;
-
-                    //textBox
-                    if (newControl is TextBox textBox && (control.Name.StartsWith("textBoxQ")))
-                    {
-                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
-                        int lastDigitValue = int.Parse(lastDigit);
-                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
-                        textBox.Name = newTabName; // Update the Label with the new tab name
-
-                        textBox.Text = ""; // Set the TextBox to blank
-                    }
-                    else if (newControl is TextBox textBoxA)
-                    {
-                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
-                        int secondLastDigitValue = int.Parse(secondLastDigit);
-                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
-                        textBoxA.Name = newTabName;
-
-                        textBoxA.Text = "";
-                    }
-                    //label
-                    else if (newControl is Label label && (control.Name.StartsWith("labelQ")))
-                    {
-                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
-                        int lastDigitValue = int.Parse(lastDigit);
-                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
-                        label.Name = newTabName; // Update the Label with the new tab name
-
-                        string previousControlText = control.Text;
-                        string newTabText = previousControlText.Substring(0, previousControlText.Length - 1) + (lastDigitValue + 1);
-                        label.Text = newTabText;
-
-                    }
-                    //this is controls for answers
-                    else if (newControl is Label labelA && control.Name.StartsWith("labelA"))
-                    {
-                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
-                        int secondLastDigitValue = int.Parse(secondLastDigit);
-                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
-                        labelA.Name = newTabName; // Update the Label with the new tab name
-
-                        labelA.Text = control.Text;
-                    }
-                    else if (newControl is Label labelT && control.Name.StartsWith("label"))
-                    {
-                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
-                        int lastDigitValue = int.Parse(lastDigit);
-                        string newLabelTypeName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
-                        labelT.Name = newLabelTypeName; // Update the Label with the new tab name
-
-                        labelT.Text = control.Text;
-
-                        labelT.Font = control.Font;
-                    }
-                    else if (newControl is Label labelSampleQuestion && control.Name.StartsWith("sampleLabelQ"))
-                    {
-                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
-                        int lastDigitValue = int.Parse(lastDigit);
-                        string newLabelTypeName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
-                        labelSampleQuestion.Name = newLabelTypeName; // Update the Label with the new tab name
-
-                        labelSampleQuestion.Text = control.Text;
-
-                        // Set the default font style and size
-                        labelSampleQuestion.Font = new Font("Microsoft Sans Serif", 16f, FontStyle.Regular);
-
-                    }
-                    else if (newControl is Label labelSampleAnswer && control.Name.StartsWith("sampleLabelA"))
-                    {
-                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
-                        int secondLastDigitValue = int.Parse(secondLastDigit);
-                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
-                        labelSampleAnswer.Name = newTabName; // Update the Label with the new tab name
-
-                        labelSampleAnswer.Text = control.Text;
-
-                        // Set the default font style and size 
-                        labelSampleAnswer.Font = new Font("Microsoft Sans Serif", 16f, FontStyle.Regular);
-
-                    }
-                    else if (newControl is Button fontButtonQ && control.Name.StartsWith("btnChangeQ"))
-                    {
-                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
-                        int lastDigitValue = int.Parse(lastDigit);
-                        string newFontButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
-                        fontButtonQ.Name = newFontButtonName; // Update the Label with the new tab name
-                        fontButtonQ.Text = control.Text;
-                        fontButtonQ.Click += btnChangeFont_Click;
-                        fontButtonQ.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
-                    }
-                    else if (newControl is Button textChangeButtonQ && control.Name.StartsWith("btnTextChangeQ"))
-                    {
-                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
-                        int lastDigitValue = int.Parse(lastDigit);
-                        string newFontButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
-                        textChangeButtonQ.Name = newFontButtonName; // Update the Label with the new tab name
-                        textChangeButtonQ.Text = control.Text;
-                        textChangeButtonQ.Click += btnTextChange_Click;
-                        textChangeButtonQ.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
-                    }
-                    else if (newControl is Button fontButtonA && control.Name.StartsWith("btnChangeA"))
-                    {
-                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
-                        int secondLastDigitValue = int.Parse(secondLastDigit);
-                        string newFontButtonA = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
-                        fontButtonA.Name = newFontButtonA; // Update the Label with the new tab name
-                        fontButtonA.Text = control.Text;
-                        fontButtonA.Click += btnChangeFont_Click;
-                        fontButtonA.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
-                    }
-                    else if (newControl is Button textChangeButtonA && control.Name.StartsWith("btnTextChangeA"))
-                    {
-                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
-                        int secondLastDigitValue = int.Parse(secondLastDigit);
-                        string newFontButtonA = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
-                        textChangeButtonA.Name = newFontButtonA; // Update the Label with the new tab name
-                        textChangeButtonA.Text = control.Text;
-                        textChangeButtonA.Click += btnTextChange_Click;
-                        textChangeButtonA.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
-                    }
-
-                    else if (newControl is Button button && control.Name.StartsWith("btnClear"))
-                    {
-                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
-                        int lastDigitValue = int.Parse(lastDigit);
-                        string newButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
-                        button.Name = newButtonName;
-                        button.Text = control.Text;
-                        button.Click += ClearButton_Click;
-                    }
-                    else if (newControl is ComboBox comboBox && control.Name.StartsWith("comboBox"))
-                    {
-                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
-                        int lastDigitValue = int.Parse(lastDigit);
-                        string newButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
-                        comboBox.Name = newButtonName;
-                        comboBox.Text = "MRQ"; //Default is pick MRQ
-
-                        // Copy items from the previous ComboBox
-                        if (control is ComboBox previousComboBox)
-                        {
-                            foreach (var item in previousComboBox.Items)
-                            {
-                                comboBox.Items.Add(item);
-                            }
-                        }
-                    }
-                    else if (newControl is PictureBox pictureBox && control.Name.StartsWith("pictureBoxQ"))
-                    {
-                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
-                        int lastDigitValue = int.Parse(lastDigit);
-                        string newPictureBoxName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
-                        pictureBox.Name = newPictureBoxName;
-
-                    }
-                    else if (newControl is Button buttonBackground && control.Name.StartsWith("btnBackground"))
-                    {
-                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
-                        int lastDigitValue = int.Parse(lastDigit);
-                        string newButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
-                        buttonBackground.Name = newButtonName;
-                        buttonBackground.Text = control.Text;
-                        buttonBackground.Click += UploadBackground_Click;
-                    }
-
-                    newControl.TabIndex = control.TabIndex + tabIndexOffset;
-                    // Copy any other desired properties or event handlers
-                    newTabPage.Controls.Add(newControl);
-                }
-                
-            }
-            // Add auto-scrolling to the TabControl
-            newTabPage.AutoScroll = true;
-
-            tabControl.TabPages.Add(newTabPage);
-
-            // Set the selected tab to the newly added tab
-            tabControl.SelectedTab = newTabPage;
-
-            // Enable text wrapping for textboxes in the newly added tab
-            EnableTextBoxTextWrapping(tabControl);
-
-            foreach (TabPage tabPage in tabControl.TabPages)
-            {
-                tabPage.Font = new Font(tabPage.Font.FontFamily, 16, FontStyle.Regular);
-                foreach (Control control in tabPage.Controls)
-                {
-                    if (control is TextBox textBox)
-                    {
-                        textBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-                        int contentWidth = textBox.Width;
-
-                        // Check if the vertical scrollbar is visible
-                        if (textBox.ScrollBars == ScrollBars.Vertical && textBox.Lines.Length > textBox.Height / textBox.Font.Height)
-                        {
-                            int scrollbarWidth = SystemInformation.VerticalScrollBarWidth;
-                            contentWidth -= scrollbarWidth;
-                        }
-
-                        textBox.Size = new Size(contentWidth, textBox.Height);
-                    }
-                    if (control is ComboBox comboBox)
-                    {
-                        comboBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-                    }
-                    if (control is Button changeButton && control.Name.StartsWith("btnChange"))
-                    {
-                        changeButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-                        changeButton.AutoSize = true;
-                    }
-                    if (control is Button textChangeButton && control.Name.StartsWith("btnTextChange"))
-                    {
-                        textChangeButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-                        textChangeButton.AutoSize = true;
-                    }
-                    else if (control is Button normalButton)
-                    {
-                        normalButton.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-                        normalButton.AutoSize = true;
-                    }
-                }
-            }
-
-            return newTabPage;
-        }*/
+        
 
         private TabPage addTab()
         {
+            originalPictureLinkQuestionBackground.Add("");
+
             string labelText = "";
             if (tabControl.TabPages.Count > 0)
             {
@@ -2108,6 +1851,8 @@ namespace TestingWinForms
                         // Load the selected image into the PictureBox
                         pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                         pictureBox.Image = Image.FromFile(selectedImagePath);
+
+                        originalPictureLinkQuestionBackground[buttonIndex - 1] = selectedImagePath;
                     }
                 }
             }
@@ -2130,6 +1875,7 @@ namespace TestingWinForms
             {
                 TabPage lastTabPage = tabControl.TabPages[tabControl.TabPages.Count - 1];
                 tabControl.TabPages.Remove(lastTabPage);
+                originalPictureLinkQuestionBackground.RemoveAt(originalPictureLinkQuestionBackground.Count - 1);
                 questionsNumber--;
             }
         }
@@ -2337,6 +2083,8 @@ namespace TestingWinForms
                     // Load the selected image into the PictureBox
                     pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBoxQ1.Image = Image.FromFile(selectedImagePath);
+
+                    originalPictureLinkQuestionBackground[0] = selectedImagePath;
                 }
             }
         }
@@ -2355,6 +2103,8 @@ namespace TestingWinForms
                     // Load the selected image into the PictureBox
                     pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBoxQ2.Image = Image.FromFile(selectedImagePath);
+
+                    originalPictureLinkQuestionBackground[1] = selectedImagePath;
                 }
             }
         }
@@ -2373,6 +2123,8 @@ namespace TestingWinForms
                     // Load the selected image into the PictureBox
                     pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBoxQ3.Image = Image.FromFile(selectedImagePath);
+
+                    originalPictureLinkQuestionBackground[2] = selectedImagePath;
                 }
             }
         }
