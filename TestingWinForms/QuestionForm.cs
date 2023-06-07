@@ -488,8 +488,8 @@ namespace TestingWinForms
                         radioButton.AutoSize = currentQuestion.AutoSizes[i];
                         radioButton.ForeColor = currentQuestion.AnswerColors[i];
 
-                        radioButton.AutoEllipsis = false;
-                        radioButton.MaximumSize = new Size(150, 0);
+                        //radioButton.AutoEllipsis = false;
+                        //radioButton.MaximumSize = new Size(150, 0);
                     }
 
                     // Clear the selection for any remaining radio buttons
@@ -542,9 +542,9 @@ namespace TestingWinForms
                         checkbox.ForeColor = currentQuestion.AnswerColors[i];
 
                         // testing to wrap text
-                        checkbox.AutoEllipsis = false;
-                        checkbox.MaximumSize = new Size(350, 0);
-                        checkbox.Height = checkbox.PreferredSize.Height;
+                        //checkbox.AutoEllipsis = false;
+                        //checkbox.MaximumSize = new Size(350, 0);
+                        //checkbox.Height = checkbox.PreferredSize.Height;
 
                     }
 
