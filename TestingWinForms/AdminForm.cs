@@ -136,6 +136,9 @@ namespace TestingWinForms
                             textBox.WordWrap = true;
                             textBox.ScrollBars = ScrollBars.Vertical; // Enable vertical scrolling
 
+                            // Adjust the height of the textbox to the desired size
+                            textBox.Height = TextRenderer.MeasureText("A", textBox.Font).Height * 2;
+
                             textBox.TextChanged += (sender, e) => TextBox_TextChanged(sender, e, tabPage); // Attach event handler
                             textBox.KeyPress += TextBox_KeyPress;
                         }
