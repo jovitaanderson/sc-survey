@@ -41,6 +41,17 @@ namespace TestingWinForms
             
         }
 
+        // Helper method to prevent flickering
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams handleParams = base.CreateParams;
+                handleParams.ExStyle = 0x02000000;
+                return handleParams;
+            }
+        }
+
         private string LoadBackgroundImageFromCSV()
         {
             if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
@@ -137,16 +148,44 @@ namespace TestingWinForms
                     if (values[5] != null)
                     {
                         // Load the font data from the CSV
-                        string fontEndSurvey = values[5]; // Assuming font data is at index 5
+                        //string fontEndSurvey = values[5]; // Assuming font data is at index 5
                         // Deserialize the font from the font data
-                        Font loadedFontEndSurvey = FontFromBinaryString(fontEndSurvey);
+                        //Font loadedFontEndSurvey = FontFromBinaryString(fontEndSurvey);
                         // Apply the font to the label or control of your choice
-                        labelEndMessage.Font = loadedFontEndSurvey;
+                        //labelEndMessage.Font = loadedFontEndSurvey;
+
+                        loadContentToComponent(values, 5, labelEndMessage);
                     }
                 }
             }
             // Start the timer
             timer1.Start();
+        }
+
+        void loadContentToComponent(string[] values, int ValueIndex, Label label)
+        {
+            string[] textProperties = values[ValueIndex].Split(';'); // Assuming text font and alignment data is at index 5
+            string fontTitle = textProperties[0]; // First ; is text font
+
+            Font loadedFontTitle = FontFromBinaryString(fontTitle);
+            label.Font = loadedFontTitle;
+            label.Height = (int)Math.Ceiling(FontFromBinaryString(fontTitle).GetHeight()) + Padding.Vertical; ;
+
+            if (textProperties.Length > 2)
+            {
+                String textAlign = textProperties[1]; // Second ; is text align property
+                String textWrap = textProperties[2]; // Third ; is text wrap property
+                if (Enum.TryParse(textAlign, out ContentAlignment alignment))
+                {
+                    label.TextAlign = alignment;
+                }
+                else
+                {
+                    label.TextAlign = ContentAlignment.TopLeft; //default ContentAlignment
+                }
+                label.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
+            }
+            label.Height = (int)Math.Ceiling(loadedFontTitle.GetHeight()) + Padding.Vertical;
         }
 
         private void btnMain_Click(object sender, EventArgs e)

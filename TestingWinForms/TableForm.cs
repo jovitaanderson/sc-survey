@@ -227,26 +227,28 @@ namespace TestingWinForms
                         labelYAxis2.Text = values[4];
 
                         int maxWidthTitle = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.25);
+                        int maxHeightTitle = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.20);
                         int maxWidthAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.40);
-
+                        int maxHeightXAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height * 0.11);
+                        int maxHeightYAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height * 0.35);
                         // Title 
                         labelTitle.AutoSize = true;
-                        labelTitle.MaximumSize = new Size(maxWidthTitle, 0);
-                        labelTitle.MinimumSize = new Size(maxWidthTitle, 0);
+                        labelTitle.MaximumSize = new Size(maxWidthTitle, maxHeightTitle);
+                        labelTitle.MinimumSize = new Size(0, 0);
                         labelTitle.TextAlign = ContentAlignment.MiddleLeft;
 
                         // Left y axis label
                         labelYAxis.AutoSize = true;
-                        labelYAxis.MaximumSize = new Size(300, 0);
-                        labelYAxis.MinimumSize = new Size(300, 0);
+                        labelYAxis.MaximumSize = new Size(300, maxHeightYAxis);
+                        labelYAxis.MinimumSize = new Size(0, 0);
                         labelYAxis.TextAlign = ContentAlignment.MiddleCenter;
                         labelYAxis.Left = (this.ClientSize.Width - drawingArea.Width - labelYAxis.Width ) / 2;
                         labelYAxis.Top = (this.ClientSize.Height - labelYAxis.Height) / 2;
 
                         // Right y axis label
                         labelYAxis2.AutoSize = true;
-                        labelYAxis2.MaximumSize = new Size(300, 0);
-                        labelYAxis2.MinimumSize = new Size(300, 0);
+                        labelYAxis2.MaximumSize = new Size(300, maxHeightYAxis);
+                        labelYAxis2.MinimumSize = new Size(0, 0);
                         labelYAxis2.TextAlign = ContentAlignment.MiddleCenter;
                         //labelYAxis2.Left = (this.ClientSize.Width/2) + (drawingArea.Width/2);
                         labelYAxis2.Top = (this.ClientSize.Height - labelYAxis2.Height) / 2;
@@ -254,16 +256,16 @@ namespace TestingWinForms
 
                         // Top x axis label
                         labelXAxis2.AutoSize = true;
-                        labelXAxis2.MaximumSize = new Size(maxWidthAxis, 0);
-                        labelXAxis2.MinimumSize = new Size(maxWidthAxis, 0);
+                        labelXAxis2.MaximumSize = new Size(maxWidthAxis, maxHeightXAxis);
+                        labelXAxis2.MinimumSize = new Size(0, 0);
                         labelXAxis2.TextAlign = ContentAlignment.TopCenter;
                         labelXAxis2.Left = (this.ClientSize.Width - labelXAxis2.Width) / 2;
 
 
                         // Bottom x axis label
                         labelXAxis.AutoSize = true;
-                        labelXAxis.MaximumSize = new Size(maxWidthAxis, 0);
-                        labelXAxis.MinimumSize = new Size(maxWidthAxis, 0);
+                        labelXAxis.MaximumSize = new Size(maxWidthAxis, maxHeightXAxis);
+                        labelXAxis.MinimumSize = new Size(0, 0);
                         labelXAxis.TextAlign = ContentAlignment.TopCenter;
                         labelXAxis.Left = (this.ClientSize.Width - labelXAxis.Width) / 2;
 
@@ -271,19 +273,41 @@ namespace TestingWinForms
                         existingColour = ColorTranslator.FromHtml(values[5]);
                         selectedColour = ColorTranslator.FromHtml(values[6]);
 
-                        string fontTitle = values[7]; 
-                        Font loadedFontTitle = FontFromBinaryString(fontTitle);
-                        labelTitle.Font = loadedFontTitle;
-                        
-                        labelXAxis2.Font = FontFromBinaryString(values[8]);
-                        labelXAxis.Font = FontFromBinaryString(values[9]);
-                        labelYAxis.Font = FontFromBinaryString(values[10]);
-                        labelYAxis2.Font = FontFromBinaryString(values[11]);
-
+                        loadContentToComponent(values, 7, labelTitle);
+                        loadContentToComponent(values, 8, labelXAxis2);
+                        loadContentToComponent(values, 9, labelXAxis);
+                        loadContentToComponent(values, 10, labelYAxis);
+                        loadContentToComponent(values, 11, labelYAxis2);
 
                     }
                 }
             } 
+        }
+
+        void loadContentToComponent(string[] values, int ValueIndex, Label label)
+        {
+            string[] textProperties = values[ValueIndex].Split(';'); // Assuming text font and alignment data is at index 5
+            string fontTitle = textProperties[0]; // First ; is text font
+
+            Font loadedFontTitle = FontFromBinaryString(fontTitle);
+            label.Font = loadedFontTitle;
+            label.Height = (int)Math.Ceiling(FontFromBinaryString(fontTitle).GetHeight()) + Padding.Vertical; ;
+
+            if (textProperties.Length > 2)
+            {
+                String textAlign = textProperties[1]; // Second ; is text align property
+                String textWrap = textProperties[2]; // Third ; is text wrap property
+                if (Enum.TryParse(textAlign, out ContentAlignment alignment))
+                {
+                    label.TextAlign = alignment;
+                }
+                else
+                {
+                    label.TextAlign = ContentAlignment.TopLeft; //default ContentAlignment
+                }
+                label.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
+            }
+            label.Height = (int)Math.Ceiling(loadedFontTitle.GetHeight()) + Padding.Vertical;
         }
 
         private string LoadBackgroundImageFromCSV()
@@ -413,6 +437,7 @@ namespace TestingWinForms
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
+            LoadTimerFromCSV();
             // check if all admin csv exixts, if dosent prompt message box
             if (!File.Exists(GlobalVariables.csvAdminAdvanceFilePath) || !File.Exists(GlobalVariables.csvAdminQuestionsFilePath))
             {
@@ -447,10 +472,52 @@ namespace TestingWinForms
                     hasClicked = true;
                     Refresh();
                     nextButton.Visible = true;
-                    //timer = new System.Threading.Timer(OnTimerElapsed, null, timerToQuestionPage, Timeout.Infinite); // Start the timer for x seconds
+                    timer = new System.Threading.Timer(OnTimerElapsed, null, timerToQuestionPage, Timeout.Infinite); // Start the timer for x seconds
                 }
             }
             
+        }
+
+        private void LoadTimerFromCSV()
+        {
+            if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
+            {
+                string[] lines;
+                while (true)
+                {
+                    try
+                    {
+                        lines = File.ReadAllLines(GlobalVariables.csvAdminAdvanceFilePath);
+                        break;
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+                if (lines.Length > 0)
+                {
+                    string[] values = lines[lines.Length - 1].Split(',');
+
+                    
+                    if (values[0] != null && int.TryParse(values[0], out int interval))
+                    {
+                        timerToQuestionPage = interval * 1000;
+                    }
+                    else
+                    {
+                        timerToQuestionPage = 10 * 1000; // Default timer interval is 10s
+                    }
+                }
+                else
+                {
+                    timerToQuestionPage = 10 * 1000; // Default timer interval is 10s
+                }
+            }
+            else
+            {
+                timerToQuestionPage = 10 * 1000; // Default timer interval is 10s
+            }
         }
 
         private void OnTimerElapsed(object state) 
@@ -462,7 +529,7 @@ namespace TestingWinForms
                 timer.Dispose(); // Dispose the timer
                 timer = null; // Set the timer reference to null
 
-                QuestionForm newForm = new QuestionForm(lastRowNumber); // Navigate to a new page
+                TableForm newForm = new TableForm(); // Navigate to a new page
                 newForm.Show();
                 this.Hide();
             }));
@@ -529,6 +596,8 @@ namespace TestingWinForms
         private void nextButton_Click(object sender, EventArgs e)
         {
             hasClicked = false;
+            timer.Dispose();
+            timer = null;
             QuestionForm newForm = new QuestionForm(lastRowNumber); // Navigate to a new page
             newForm.Show();
             nextButton.Visible = false;

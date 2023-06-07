@@ -123,19 +123,38 @@ namespace TestingWinForms
         {
             foreach (TabPage tabPage in tabControl.TabPages)
             {
-                foreach (Control control in tabPage.Controls)
-                {
-                    if (control is TextBox textBox)
-                    {
-                        textBox.Multiline = true;
-                        textBox.WordWrap = true;
-                        textBox.ScrollBars = ScrollBars.Vertical; // Enable vertical scrolling
+                // Find the TableLayoutPanel within the TabPage
+                TableLayoutPanel tableLayoutPanel = FindTableLayoutPanel(tabPage);
 
-                        textBox.TextChanged += (sender, e) => TextBox_TextChanged(sender, e, tabPage); // Attach event handler
-                        textBox.KeyPress += TextBox_KeyPress;
+                if (tableLayoutPanel != null)
+                {
+                    foreach (Control control in tableLayoutPanel.Controls)
+                    {
+                        if (control is TextBox textBox)
+                        {
+                            textBox.Multiline = true;
+                            textBox.WordWrap = true;
+                            textBox.ScrollBars = ScrollBars.Vertical; // Enable vertical scrolling
+
+                            textBox.TextChanged += (sender, e) => TextBox_TextChanged(sender, e, tabPage); // Attach event handler
+                            textBox.KeyPress += TextBox_KeyPress;
+                        }
                     }
                 }
             }
+        }
+
+        // Helper method to find the TableLayoutPanel within a control collection
+        private TableLayoutPanel FindTableLayoutPanel(Control control)
+        {
+            foreach (Control childControl in control.Controls)
+            {
+                if (childControl is TableLayoutPanel tableLayoutPanel)
+                {
+                    return tableLayoutPanel;
+                }
+            }
+            return null;
         }
 
 
@@ -237,12 +256,16 @@ namespace TestingWinForms
             string existingColour = ColorTranslator.ToHtml(btnExisColour.BackColor);
             string newColour = ColorTranslator.ToHtml(btnSelPointColour.BackColor);
 
+
+            ContentAlignment textAlignment = sampleLabelTitle.TextAlign;
+            bool textWrap = sampleLabelTitle.AutoSize;
+
             // Serialize the font object to a binary string
-            string fontTitle = FontToBinaryString(sampleLabelTitle.Font);
-            string fontXTopAxis = FontToBinaryString(sampleLabelXTopAxis.Font);
-            string fontXBotAxis = FontToBinaryString(sampleLabelXBotAxis.Font);
-            string fontYLeftAxis = FontToBinaryString(sampleLabelYLeftAxis.Font);
-            string fontYRightAxis = FontToBinaryString(sampleLabelYRightAxis.Font);
+            string fontTitle = $"{FontToBinaryString(sampleLabelTitle.Font)};{sampleLabelTitle.TextAlign};{sampleLabelTitle.AutoSize}";
+            string fontXTopAxis = $"{FontToBinaryString(sampleLabelXTopAxis.Font)};{sampleLabelXTopAxis.TextAlign};{sampleLabelXTopAxis.AutoSize}";
+            string fontXBotAxis = $"{FontToBinaryString(sampleLabelXBotAxis.Font)};{sampleLabelXBotAxis.TextAlign};{sampleLabelXBotAxis.AutoSize}";
+            string fontYLeftAxis = $"{FontToBinaryString(sampleLabelYLeftAxis.Font)};{sampleLabelYLeftAxis.TextAlign};{sampleLabelYLeftAxis.AutoSize}";
+            string fontYRightAxis = $"{FontToBinaryString(sampleLabelYRightAxis.Font)};{sampleLabelYRightAxis.TextAlign};{sampleLabelYRightAxis.AutoSize}";
 
             // Concatenate the data into a comma-separated string
             string titleDate = string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}", 
@@ -327,8 +350,15 @@ namespace TestingWinForms
 
                 if (!string.IsNullOrWhiteSpace(textBoxQuestion.Text))
                 {
-                    questions.Add(textBoxQuestion.Text);
-                    fontQuestions.Add(FontToBinaryString(sampleLabel.Font));
+                    string questionText = textBoxQuestion.Text;
+                    if (questionText.Contains(","))
+                    {
+                        questionText = questionText.Replace(",", "\0");
+                    }
+                    questions.Add(questionText);
+
+                    string fontQuestionToAdd = $"{FontToBinaryString(sampleLabel.Font)};{sampleLabel.TextAlign};{sampleLabel.AutoSize}";
+                    fontQuestions.Add(fontQuestionToAdd);
 
                     // Get the answer fonts
                     List<string> answerFonts = new List<string>();
@@ -338,10 +368,15 @@ namespace TestingWinForms
                     {
                         TextBox textBoxAnswer = GetAnswerTextBox(i, j);
                         string answer = textBoxAnswer.Text;
+                        if (answer.Contains(","))
+                        {
+                            answer = answer.Replace(",", "\0");
+                        }
                         answerOptions.Add(answer);
 
+
                         Label answerLabel = GetAnswerFontLabel(i, j);
-                        answerFonts.Add(FontToBinaryString(answerLabel.Font));
+                        answerFonts.Add($"{FontToBinaryString(answerLabel.Font)};{answerLabel.TextAlign};{answerLabel.AutoSize}");
                     }
                     answers.Add(answerOptions);
                     fontAnswers.Add(answerFonts);
@@ -430,7 +465,7 @@ namespace TestingWinForms
             string imagePath = null;
 
             // Serialize the font object to a binary string
-            string fontEndText = FontToBinaryString(sampleLabelEndText.Font);
+            string fontEndText = $"{FontToBinaryString(sampleLabelEndText.Font)};{sampleLabelEndText.TextAlign};{sampleLabelEndText.AutoSize}";
 
             //save as root directory
             if (image != null)
@@ -619,20 +654,41 @@ namespace TestingWinForms
                         btnSelPointColour.BackColor = ColorTranslator.FromHtml(values[6]);
 
                         // Load the font data from the CSV
-                        string fontTitle = values[7]; // Assuming font data is at index 5
-                        // Deserialize the font from the font data
-                        Font loadedFontTitle = FontFromBinaryString(fontTitle);
-                        // Apply the font to the label or control of your choice
-                        sampleLabelTitle.Font = loadedFontTitle;
-                        
-                        sampleLabelXTopAxis.Font = FontFromBinaryString(values[8]);
-                        sampleLabelXBotAxis.Font = FontFromBinaryString(values[9]);
-                        sampleLabelYLeftAxis.Font = FontFromBinaryString(values[10]);
-                        sampleLabelYRightAxis.Font = FontFromBinaryString(values[11]);
+                        loadContentToComponent(values, 7, sampleLabelTitle);
+                        loadContentToComponent(values, 8, sampleLabelXTopAxis);
+                        loadContentToComponent(values, 9, sampleLabelXBotAxis);
+                        loadContentToComponent(values, 10, sampleLabelYLeftAxis);
+                        loadContentToComponent(values, 11, sampleLabelYRightAxis);
+
                     }
                 }
             }
 
+        }
+
+        void loadContentToComponent(string[] values, int ValueIndex, Label label) {
+            string[] textProperties = values[ValueIndex].Split(';'); // Assuming text font and alignment data is at index 5
+            string fontTitle = textProperties[0]; // First ; is text font
+
+            Font loadedFontTitle = FontFromBinaryString(fontTitle);
+            label.Font = loadedFontTitle;
+            label.Height = (int)Math.Ceiling(FontFromBinaryString(fontTitle).GetHeight()) + Padding.Vertical; ;
+
+            if (textProperties.Length > 2)
+            {
+                String textAlign = textProperties[1]; // Second ; is text align property
+                String textWrap = textProperties[2]; // Third ; is text wrap property
+                if (Enum.TryParse(textAlign, out ContentAlignment alignment))
+                {
+                    label.TextAlign = alignment;
+                }
+                else
+                {
+                    label.TextAlign = ContentAlignment.TopLeft; //default ContentAlignment
+                }
+                label.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
+            }
+            label.Height = (int)Math.Ceiling(loadedFontTitle.GetHeight()) + Padding.Vertical;
         }
 
         private void LoadNumQuestions()
@@ -681,30 +737,37 @@ namespace TestingWinForms
                 {
                     string[] values = lines[questionIndex].Split(',');
 
-                    TextBox questionTextBox = tabPage.Controls.OfType<TextBox>().FirstOrDefault(c => c.Name.StartsWith("textBoxQ"));
-                    TextBox[] answerTextBoxes = tabPage.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + "A" + (questionIndex + 1))).ToArray();
-                    ComboBox questionTypeComboBox = tabPage.Controls.OfType<ComboBox>().FirstOrDefault(c => c.Name.StartsWith("comboBox"));
-                    PictureBox questionPictureBox = tabPage.Controls.OfType<PictureBox>().FirstOrDefault(c => c.Name.StartsWith("pictureBoxQ"));
+                    TableLayoutPanel layoutPanel = tabPage.Controls.OfType<TableLayoutPanel>().FirstOrDefault();
 
-                    if (questionTextBox != null && answerTextBoxes.Length == optionsNumber && questionTypeComboBox != null)
+                    if (layoutPanel != null)
                     {
-                        questionTextBox.Text = values[1];
-                        for (int i = values.Length - 4; i >= 0; i--)
-                        {
-                            answerTextBoxes[values.Length - 4 - i].Text = values[i + 3];
-                        }
-                        questionTypeComboBox.Text = values[2];
+                        TextBox[] answerTextBoxes = layoutPanel.Controls.OfType<TextBox>().Where(c => c.Name.StartsWith("textBox" + "A" + (questionIndex + 1))).OrderBy(c => c.Location.Y).ToArray();
+                        TextBox questionTextBox = layoutPanel.Controls.OfType<TextBox>().FirstOrDefault(c => c.Name.StartsWith("textBoxQ"));
+                        ComboBox questionTypeComboBox = layoutPanel.Controls.OfType<ComboBox>().FirstOrDefault(c => c.Name.StartsWith("comboBox"));
+                        PictureBox questionPictureBox = layoutPanel.Controls.OfType<PictureBox>().FirstOrDefault(c => c.Name.StartsWith("pictureBoxQ"));
 
-                        string imagePath = Path.Combine(values[0]);
-                        if (File.Exists(imagePath))
+                        if (questionTextBox != null && answerTextBoxes.Length == optionsNumber && questionTypeComboBox != null)
                         {
-                            Image image = Image.FromFile(imagePath);
-                            questionPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                            questionPictureBox.Image = image;
-                        }
+                            //if got comma, change back to comma
+                            questionTextBox.Text = values[1].Replace("\0", ",");
 
+                            for (int i = 0; i < values.Length - 3; i++)
+                            {
+                                answerTextBoxes[i].Text = values[i + 3].Replace("\0", ",");
+                            }
+                            questionTypeComboBox.Text = values[2];
+
+                            string imagePath = Path.Combine(values[0]);
+                            if (File.Exists(imagePath))
+                            {
+                                Image image = Image.FromFile(imagePath);
+                                questionPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                                questionPictureBox.Image = image;
+                            }
+                        }
                     }
                 }
+
             }
         }
 
@@ -730,16 +793,67 @@ namespace TestingWinForms
                 {
                     string[] values = lines[questionIndex].Split(',');
 
-                    Label sampleQuestionLabels = tabPage.Controls.OfType<Label>().FirstOrDefault(c => c.Name.StartsWith("sampleLabelQ"));
-                    Label[] sampleAnswerLabels = tabPage.Controls.OfType<Label>().Where(c => c.Name.StartsWith("sampleLabelA" + (questionIndex + 1))).ToArray();
-                   
-                    if (sampleQuestionLabels != null && sampleAnswerLabels.Length == optionsNumber)
+                    TableLayoutPanel layoutPanel = tabPage.Controls.OfType<TableLayoutPanel>().FirstOrDefault();
+                    if (layoutPanel != null)
                     {
-                        sampleQuestionLabels.Font = FontFromBinaryString(values[0]);
-                        for (int i = values.Length - 1; i >= 1; i--)
+                        Label sampleQuestionLabels = layoutPanel.Controls.OfType<Label>().FirstOrDefault(c => c.Name.StartsWith("sampleLabelQ"));
+                        Label[] sampleAnswerLabels = layoutPanel.Controls.OfType<Label>().Where(c => c.Name.StartsWith("sampleLabelA" + (questionIndex + 1))).ToArray();
+
+                        if (sampleQuestionLabels != null && sampleAnswerLabels.Length == optionsNumber)
                         {
-                            sampleAnswerLabels[values.Length - 1 - i].Font = FontFromBinaryString(values[i]);
+                            string[] textProperties = values[0].Split(';'); // Assuming text font and alignment data is at index 5
+                            string fontTitle = textProperties[0]; // First ; is text font
+                            if (textProperties.Length > 2)
+                            {
+                                String textAlign = textProperties[1]; // Second ; is text align properties
+                                String textWrap = textProperties[2];
+                                // Load text alignment
+                                if (Enum.TryParse(textAlign, out ContentAlignment alignment))
+                                {
+                                    // Conversion succeeded, and the alignment variable now contains the corresponding enum value
+                                    // You can use the alignment variable as needed
+                                    sampleQuestionLabels.TextAlign = alignment;
+                                }
+                                else
+                                {
+                                    // Conversion failed, handle the error or set a default value
+                                    sampleQuestionLabels.TextAlign = ContentAlignment.MiddleCenter;
+                                }
+                                sampleQuestionLabels.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
+
+                            }
+
+                            sampleQuestionLabels.Font = FontFromBinaryString(fontTitle);
+
+                            for (int i = values.Length - 1; i >= 1; i--)
+                            {
+                                string[] answerTextProperties = values[i].Split(';');
+                                String font = answerTextProperties[0];
+                                if (answerTextProperties.Length > 2)
+                                {
+                                    String textAlign = answerTextProperties[1];
+                                    String textWrap = answerTextProperties[2];
+
+                                    if (Enum.TryParse(textAlign, out ContentAlignment alignment))
+                                    {
+                                        // Conversion succeeded, and the alignment variable now contains the corresponding enum value
+                                        // You can use the alignment variable as needed
+                                        sampleAnswerLabels[values.Length - 1 - i].TextAlign = alignment;
+                                    }
+                                    else
+                                    {
+                                        // Conversion failed, handle the error or set a default value
+                                        sampleAnswerLabels[values.Length - 1 - i].TextAlign = ContentAlignment.TopLeft;
+                                    }
+                                    sampleAnswerLabels[values.Length - 1 - i].AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
+                                }
+
+                                sampleAnswerLabels[values.Length - 1 - i].Font = FontFromBinaryString(font);
+
+                            }
                         }
+
+                        
                     }
                 }
             }
@@ -792,11 +906,12 @@ namespace TestingWinForms
                         }
 
                         // Load the font data from the CSV
-                        string fontEndSurvey = values[5]; // Assuming font data is at index 5
+                        //string fontEndSurvey = values[5]; // Assuming font data is at index 5
+                        loadContentToComponent(values, 5, sampleLabelEndText);
                         // Deserialize the font from the font data
-                        Font loadedFontEndSurvey = FontFromBinaryString(fontEndSurvey);
+                        //Font loadedFontEndSurvey = FontFromBinaryString(fontEndSurvey);
                         // Apply the font to the label or control of your choice
-                        sampleLabelEndText.Font = loadedFontEndSurvey;
+                        //sampleLabelEndText.Font = loadedFontEndSurvey;
                     }
                 }
             }
@@ -1280,7 +1395,8 @@ namespace TestingWinForms
             Application.Exit();
         }
 
-        private void addTab()
+        /*
+        private TabPage addTab()
         {
             string labelText = "";
             if (tabControl.TabPages.Count > 0)
@@ -1303,6 +1419,8 @@ namespace TestingWinForms
 
             TabPage newTabPage = new TabPage();
             newTabPage.Text = "Question " + newQuestionNumber;
+
+
             // Copy the controls from the previous tab to the new tab
             if (tabControl.TabPages.Count > 0)
             {
@@ -1409,6 +1527,16 @@ namespace TestingWinForms
                         fontButtonQ.Click += btnChangeFont_Click;
                         fontButtonQ.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
                     }
+                    else if (newControl is Button textChangeButtonQ && control.Name.StartsWith("btnTextChangeQ"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newFontButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        textChangeButtonQ.Name = newFontButtonName; // Update the Label with the new tab name
+                        textChangeButtonQ.Text = control.Text;
+                        textChangeButtonQ.Click += btnTextChange_Click;
+                        textChangeButtonQ.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
+                    }
                     else if (newControl is Button fontButtonA && control.Name.StartsWith("btnChangeA"))
                     {
                         string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
@@ -1418,6 +1546,16 @@ namespace TestingWinForms
                         fontButtonA.Text = control.Text;
                         fontButtonA.Click += btnChangeFont_Click;
                         fontButtonA.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
+                    }
+                    else if (newControl is Button textChangeButtonA && control.Name.StartsWith("btnTextChangeA"))
+                    {
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newFontButtonA = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        textChangeButtonA.Name = newFontButtonA; // Update the Label with the new tab name
+                        textChangeButtonA.Text = control.Text;
+                        textChangeButtonA.Click += btnTextChange_Click;
+                        textChangeButtonA.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
                     }
 
                     else if (newControl is Button button && control.Name.StartsWith("btnClear"))
@@ -1478,6 +1616,9 @@ namespace TestingWinForms
             // Set the selected tab to the newly added tab
             tabControl.SelectedTab = newTabPage;
 
+            // Enable text wrapping for textboxes in the newly added tab
+            EnableTextBoxTextWrapping(tabControl);
+
             foreach (TabPage tabPage in tabControl.TabPages)
             {
                 tabPage.Font = new Font(tabPage.Font.FontFamily, 16, FontStyle.Regular);
@@ -1486,6 +1627,16 @@ namespace TestingWinForms
                     if (control is TextBox textBox)
                     {
                         textBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                        int contentWidth = textBox.Width;
+
+                        // Check if the vertical scrollbar is visible
+                        if (textBox.ScrollBars == ScrollBars.Vertical && textBox.Lines.Length > textBox.Height / textBox.Font.Height)
+                        {
+                            int scrollbarWidth = SystemInformation.VerticalScrollBarWidth;
+                            contentWidth -= scrollbarWidth;
+                        }
+
+                        textBox.Size = new Size(contentWidth, textBox.Height);
                     }
                     if (control is ComboBox comboBox)
                     {
@@ -1494,13 +1645,290 @@ namespace TestingWinForms
                     if (control is Button changeButton && control.Name.StartsWith("btnChange"))
                     {
                         changeButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                        changeButton.AutoSize = true;
+                    }
+                    if (control is Button textChangeButton && control.Name.StartsWith("btnTextChange"))
+                    {
+                        textChangeButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                        textChangeButton.AutoSize = true;
                     }
                     else if (control is Button normalButton)
                     {
                         normalButton.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                        normalButton.AutoSize = true;
                     }
                 }
             }
+
+            return newTabPage;
+        }*/
+
+        private TabPage addTab()
+        {
+            string labelText = "";
+            if (tabControl.TabPages.Count > 0)
+            {
+                TabPage lastTabPage = tabControl.TabPages[tabControl.TabPages.Count - 1];
+                if (lastTabPage != null)
+                {
+                    labelText = lastTabPage.Text;
+                }
+            }
+
+            int newQuestionNumber = 0;
+            // Extract the current question number from the previous tab text
+            string numberText = labelText.Substring("Question ".Length);
+            if (int.TryParse(numberText, out newQuestionNumber))
+            {
+                // Increment the question number
+                newQuestionNumber++;
+            }
+
+            TabPage newTabPage = new TabPage();
+            newTabPage.Text = "Question " + newQuestionNumber;
+
+            // Get the TableLayoutPanel from the previous tab
+            TableLayoutPanel previousLayout = null;
+            if (tabControl.TabPages.Count > 0)
+            {
+                TabPage previousTabPage = tabControl.TabPages[tabControl.TabPages.Count - 1];
+                previousLayout = previousTabPage.Controls.OfType<TableLayoutPanel>().FirstOrDefault();
+            }
+
+            // Copy the controls from the previous tab to the new tab
+            if (previousLayout != null)
+            {
+                TableLayoutPanel newLayout = new TableLayoutPanel();
+                newLayout.RowCount = previousLayout.RowCount;
+                newLayout.ColumnCount = previousLayout.ColumnCount;
+                newLayout.Dock = previousLayout.Dock;
+                newLayout.AutoSize = previousLayout.AutoSize;
+                newLayout.AutoScroll = previousLayout.AutoScroll;
+                newLayout.ColumnStyles.Clear();
+                newLayout.RowStyles.Clear();
+
+                // Copy the row and column styles
+                // Clone the column styles
+                foreach (ColumnStyle style in previousLayout.ColumnStyles)
+                {
+                    newLayout.ColumnStyles.Add(new ColumnStyle(style.SizeType, style.Width));
+                }
+
+                // Clone the row styles
+                foreach (RowStyle style in previousLayout.RowStyles)
+                {
+                    newLayout.RowStyles.Add(new RowStyle(style.SizeType, style.Height));
+                }
+
+                // Copy the controls
+                foreach (Control control in previousLayout.Controls)
+                {
+                    Control newControl = (Control)Activator.CreateInstance(control.GetType());
+                    newControl.Location = control.Location;
+                    newControl.Size = control.Size;
+
+                    // Get the row and column assignment of the control in the previous layout
+                    int row = previousLayout.GetRow(control);
+                    int column = previousLayout.GetColumn(control);
+                    int rowSpan = previousLayout.GetRowSpan(control);
+                    int columnSpan = previousLayout.GetColumnSpan(control);
+
+                    string previousControlName = control.Name;
+
+                    if (newControl is TextBox textBox && (control.Name.StartsWith("textBoxQ")))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        textBox.Name = newTabName; // Update the Label with the new tab name
+
+                        textBox.Text = ""; // Set the TextBox to blank
+                        textBox.Font = control.Font;
+                    }
+                    else if (newControl is TextBox textBoxA)
+                    {
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        textBoxA.Name = newTabName;
+
+                        textBoxA.Text = "";
+                        textBoxA.Font = control.Font;
+                    }
+                    //label
+                    else if (newControl is Label label && (control.Name.StartsWith("labelQ")))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        label.Name = newTabName; // Update the Label with the new tab name
+
+                        string previousControlText = control.Text;
+                        string newTabText = previousControlText.Substring(0, previousControlText.Length - 1) + (lastDigitValue + 1);
+                        label.Text = newTabText;
+                        label.Font = control.Font;
+
+                    }//this is controls for answers
+                    else if (newControl is Label labelA && control.Name.StartsWith("labelA"))
+                    {
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        labelA.Name = newTabName; // Update the Label with the new tab name
+
+                        labelA.Text = control.Text;
+                        labelA.Font = control.Font;
+                    }
+                    else if (newControl is Label labelT && control.Name.StartsWith("label"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newLabelTypeName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        labelT.Name = newLabelTypeName; // Update the Label with the new tab name
+
+                        labelT.Text = control.Text;
+
+                        labelT.Font = control.Font;
+                    }
+                    else if (newControl is Label labelSampleQuestion && control.Name.StartsWith("sampleLabelQ"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newLabelTypeName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        labelSampleQuestion.Name = newLabelTypeName; // Update the Label with the new tab name
+
+                        labelSampleQuestion.Text = control.Text;
+
+                        // Set the default font style and size
+                        labelSampleQuestion.Font = new Font("Microsoft Sans Serif", 16f, FontStyle.Regular);
+                        labelSampleQuestion.AutoSize = true;
+
+                    }
+                    else if (newControl is Label labelSampleAnswer && control.Name.StartsWith("sampleLabelA"))
+                    {
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newTabName = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        labelSampleAnswer.Name = newTabName; // Update the Label with the new tab name
+
+                        labelSampleAnswer.Text = control.Text;
+
+                        // Set the default font style and size 
+                        labelSampleAnswer.Font = new Font("Microsoft Sans Serif", 16f, FontStyle.Regular);
+                        labelSampleAnswer.AutoSize = true;
+
+                    }
+                    else if (newControl is Button fontButtonQ && control.Name.StartsWith("btnChangeQ"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newFontButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        fontButtonQ.Name = newFontButtonName; // Update the Label with the new tab name
+                        fontButtonQ.Text = control.Text;
+                        fontButtonQ.Click += btnChangeFont_Click;
+                        fontButtonQ.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
+                    }
+                    else if (newControl is Button textChangeButtonQ && control.Name.StartsWith("btnTextChangeQ"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newFontButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        textChangeButtonQ.Name = newFontButtonName; // Update the Label with the new tab name
+                        textChangeButtonQ.Text = control.Text;
+                        textChangeButtonQ.Click += btnTextChange_Click;
+                        textChangeButtonQ.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
+                    }
+                    else if (newControl is Button fontButtonA && control.Name.StartsWith("btnChangeA"))
+                    {
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newFontButtonA = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        fontButtonA.Name = newFontButtonA; // Update the Label with the new tab name
+                        fontButtonA.Text = control.Text;
+                        fontButtonA.Click += btnChangeFont_Click;
+                        fontButtonA.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
+                    }
+                    else if (newControl is Button textChangeButtonA && control.Name.StartsWith("btnTextChangeA"))
+                    {
+                        string secondLastDigit = previousControlName.Substring(previousControlName.Length - 2, 1);
+                        int secondLastDigitValue = int.Parse(secondLastDigit);
+                        string newFontButtonA = previousControlName.Substring(0, previousControlName.Length - 2) + (secondLastDigitValue + 1) + previousControlName.Substring(previousControlName.Length - 1);
+                        textChangeButtonA.Name = newFontButtonA; // Update the Label with the new tab name
+                        textChangeButtonA.Text = control.Text;
+                        textChangeButtonA.Click += btnTextChange_Click;
+                        textChangeButtonA.Font = new Font("Microsoft Sans Serif", 7.8f, FontStyle.Regular);
+                    }
+
+                    else if (newControl is Button button && control.Name.StartsWith("btnClear"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        button.Name = newButtonName;
+                        button.Text = control.Text;
+                        button.Click += ClearButton_Click;
+                        button.Font = control.Font;
+                    }
+                    else if (newControl is ComboBox comboBox && control.Name.StartsWith("comboBox"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        comboBox.Name = newButtonName;
+                        comboBox.Text = "MRQ"; //Default is pick MRQ
+                        comboBox.Font = control.Font;
+
+                        // Copy items from the previous ComboBox
+                        if (control is ComboBox previousComboBox)
+                        {
+                            foreach (var item in previousComboBox.Items)
+                            {
+                                comboBox.Items.Add(item);
+                            }
+                        }
+                    }
+                    else if (newControl is PictureBox pictureBox && control.Name.StartsWith("pictureBoxQ"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newPictureBoxName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        pictureBox.Name = newPictureBoxName;
+
+                    }
+                    else if (newControl is Button buttonBackground && control.Name.StartsWith("btnBackground"))
+                    {
+                        string lastDigit = previousControlName.Substring(previousControlName.Length - 1);
+                        int lastDigitValue = int.Parse(lastDigit);
+                        string newButtonName = previousControlName.Substring(0, previousControlName.Length - 1) + (lastDigitValue + 1);
+                        buttonBackground.Name = newButtonName;
+                        buttonBackground.Text = control.Text;
+                        buttonBackground.Click += UploadBackground_Click;
+                        buttonBackground.Font = control.Font;
+                    }
+
+
+                    // Set the row and column assignment for the control in the new layout
+                    newLayout.Controls.Add(newControl, column, row);
+                    newLayout.SetRowSpan(newControl, rowSpan);
+                    newLayout.SetColumnSpan(newControl, columnSpan);
+                }
+
+                // Add the new layout to the new tab page
+                newTabPage.Controls.Add(newLayout);
+            }
+
+            // Add auto-scrolling to the TabControl
+            newTabPage.AutoScroll = true;
+
+            tabControl.TabPages.Add(newTabPage);
+
+            // Set the selected tab to the newly added tab
+            tabControl.SelectedTab = newTabPage;
+
+            // Enable text wrapping for textboxes in the newly added tab
+            EnableTextBoxTextWrapping(tabControl);
+
+            return newTabPage;
         }
 
         // helper method to change font dynamically
@@ -1545,23 +1973,91 @@ namespace TestingWinForms
             }
         }
 
+        // helper method to change font dynamically
+        private void btnTextChange_Click(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            string buttonName = clickedButton.Name;
+
+            if (buttonName.StartsWith("btnTextChangeQ"))
+            {
+                string lastDigit = buttonName.Substring(buttonName.Length - 1);
+                string labelName = "sampleLabelQ" + lastDigit;
+
+                Control[] labels = this.Controls.Find(labelName, true);
+                if (labels.Length > 0 && labels[0] is Label label)
+                {
+                    using (CustomText dialog = new CustomText(label.TextAlign, label.AutoSize))
+                    {
+                        if (dialog.ShowDialog() == DialogResult.OK)
+                        {
+                            label.TextAlign = dialog.SelectedAlignment;
+                            label.AutoSize = dialog.SelectedWrap;
+                        }
+                    }
+                }
+            }
+            else if (buttonName.StartsWith("btnTextChangeA"))
+            {
+                string lastTwoDigits = buttonName.Substring(buttonName.Length - 2);
+                string labelName = "sampleLabelA" + lastTwoDigits;
+
+                Control[] labels = this.Controls.Find(labelName, true);
+                if (labels.Length > 0 && labels[0] is Label label)
+                {
+                    using (CustomText dialog = new CustomText(label.TextAlign, label.AutoSize))
+                    {
+                        if (dialog.ShowDialog() == DialogResult.OK)
+                        {
+                            label.TextAlign = dialog.SelectedAlignment;
+                            label.AutoSize = dialog.SelectedWrap;
+                        }
+                    }
+                }
+            }
+        }
+
         private void ClearButton_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            TabPage tabPage = (TabPage)button.Parent; // Get the parent tab page
+            TabPage tabPage = FindParentTabPage(button);
 
-            // Clear the text of all textboxes within the tab page
-            foreach (Control control in tabPage.Controls)
+            // Find the TableLayoutPanel within the tab page
+            TableLayoutPanel tableLayoutPanel = FindTableLayoutPanel(tabPage);
+
+            // Clear the text of all textboxes and comboboxes within the TableLayoutPanel
+            foreach (Control control in tableLayoutPanel.Controls)
             {
                 if (control is TextBox textBox)
                 {
                     textBox.Text = "";
                 }
-                if (control is ComboBox comboBox)
+                else if (control is ComboBox comboBox)
                 {
                     comboBox.Text = "";
                 }
+                else if (control is PictureBox pictureBox)
+                {
+                    pictureBox.Image = null;
+                }
+                else if (control is Label label && label.Name.StartsWith("sampleLabel"))
+                {
+                    label.Font = new Font("Microsoft Sans Serif", 16f, FontStyle.Regular);
+                    label.AutoSize = true;
+                    label.TextAlign = ContentAlignment.TopLeft;
+                }
             }
+        }
+
+        // Helper method to find the parent TabPage of a control
+        private TabPage FindParentTabPage(Control control)
+        {
+            while (control != null && !(control is TabPage))
+            {
+                control = control.Parent;
+            }
+
+            return (TabPage)control;
         }
 
         private void UploadBackground_Click(object sender, EventArgs e)
@@ -1594,8 +2090,12 @@ namespace TestingWinForms
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            addTab();
+            TabPage newTabPage = addTab();
             questionsNumber++;
+
+            // Set the selected tab to the newly added tab
+            tabControl.SelectedTab = newTabPage;
+
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -1643,6 +2143,7 @@ namespace TestingWinForms
                     string selectedImagePath = openFileDialog.FileName;
 
                     // Load the selected image into the PictureBox
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBox.Image = Image.FromFile(selectedImagePath);
                 }
             }
@@ -1785,6 +2286,7 @@ namespace TestingWinForms
                     string selectedImagePath = openFileDialog.FileName;
 
                     // Load the selected image into the PictureBox
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBox2.Image = Image.FromFile(selectedImagePath);
                 }
             }
@@ -1802,6 +2304,7 @@ namespace TestingWinForms
                     string selectedImagePath = openFileDialog.FileName;
 
                     // Load the selected image into the PictureBox
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBoxQ1.Image = Image.FromFile(selectedImagePath);
                 }
             }
@@ -1819,6 +2322,7 @@ namespace TestingWinForms
                     string selectedImagePath = openFileDialog.FileName;
 
                     // Load the selected image into the PictureBox
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBoxQ2.Image = Image.FromFile(selectedImagePath);
                 }
             }
@@ -1836,26 +2340,9 @@ namespace TestingWinForms
                     string selectedImagePath = openFileDialog.FileName;
 
                     // Load the selected image into the PictureBox
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBoxQ3.Image = Image.FromFile(selectedImagePath);
                 }
-            }
-        }
-
-        private void fontButton_Click(object sender, EventArgs e)
-        {
-            FontDialog fontDialog = new FontDialog();
-            if (fontDialog.ShowDialog() == DialogResult.OK)
-            {
-                sampleLabelTitle.Font = fontDialog.Font;
-            }
-        }
-
-        private void fontButtonXAxis_Click(object sender, EventArgs e)
-        {
-            FontDialog fontDialog = new FontDialog();
-            if (fontDialog.ShowDialog() == DialogResult.OK)
-            {
-                sampleLabelXTopAxis.Font = fontDialog.Font;
             }
         }
 
@@ -1903,9 +2390,23 @@ namespace TestingWinForms
         private void btnChangeEndSurveyFont_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelYRightAxis.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelEndText.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnTextChangeEndSurveyFont_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelEndText.TextAlign,
+            sampleLabelEndText.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelEndText.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelEndText.AutoSize = dialog.SelectedWrap;
+                }
             }
         }
 
@@ -1913,6 +2414,7 @@ namespace TestingWinForms
         private void btnChangeQ1_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelQ1.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelQ1.Font = fontDialog.Font;
@@ -1922,6 +2424,7 @@ namespace TestingWinForms
         private void btnChangeA17_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA17.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA17.Font = fontDialog.Font;
@@ -1931,6 +2434,7 @@ namespace TestingWinForms
         private void btnChangeA16_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA16.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA16.Font = fontDialog.Font;
@@ -1940,6 +2444,7 @@ namespace TestingWinForms
         private void btnChangeA15_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA15.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA15.Font = fontDialog.Font;
@@ -1949,6 +2454,7 @@ namespace TestingWinForms
         private void btnChangeA14_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA14.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA14.Font = fontDialog.Font;
@@ -1958,6 +2464,7 @@ namespace TestingWinForms
         private void btnChangeA13_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA13.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA13.Font = fontDialog.Font;
@@ -1967,6 +2474,7 @@ namespace TestingWinForms
         private void btnChangeA12_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA12.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA12.Font = fontDialog.Font;
@@ -1976,6 +2484,7 @@ namespace TestingWinForms
         private void btnChangeA11_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA11.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA11.Font = fontDialog.Font;
@@ -1985,6 +2494,7 @@ namespace TestingWinForms
         private void btnChangeA18_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA18.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA18.Font = fontDialog.Font;
@@ -1994,6 +2504,7 @@ namespace TestingWinForms
         private void btnChangeA28_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA28.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA28.Font = fontDialog.Font;
@@ -2003,6 +2514,7 @@ namespace TestingWinForms
         private void btnChangeA21_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA21.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA21.Font = fontDialog.Font;
@@ -2012,6 +2524,7 @@ namespace TestingWinForms
         private void btnChangeA22_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA22.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA22.Font = fontDialog.Font;
@@ -2021,6 +2534,7 @@ namespace TestingWinForms
         private void btnChangeA23_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA23.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA23.Font = fontDialog.Font;
@@ -2030,6 +2544,7 @@ namespace TestingWinForms
         private void btnChangeA24_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA24.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA24.Font = fontDialog.Font;
@@ -2039,6 +2554,7 @@ namespace TestingWinForms
         private void btnChangeA25_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA25.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA25.Font = fontDialog.Font;
@@ -2048,6 +2564,7 @@ namespace TestingWinForms
         private void btnChangeA26_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA26.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA26.Font = fontDialog.Font;
@@ -2057,6 +2574,7 @@ namespace TestingWinForms
         private void btnChangeA27_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA27.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA27.Font = fontDialog.Font;
@@ -2066,6 +2584,7 @@ namespace TestingWinForms
         private void btnChangeQ2_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelQ2.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelQ2.Font = fontDialog.Font;
@@ -2075,6 +2594,7 @@ namespace TestingWinForms
         private void btnChangeA38_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA38.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA38.Font = fontDialog.Font;
@@ -2084,6 +2604,7 @@ namespace TestingWinForms
         private void btnChangeA31_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA31.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA31.Font = fontDialog.Font;
@@ -2093,6 +2614,7 @@ namespace TestingWinForms
         private void btnChangeA32_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA32.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA32.Font = fontDialog.Font;
@@ -2102,6 +2624,7 @@ namespace TestingWinForms
         private void btnChangeA33_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA33.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA33.Font = fontDialog.Font;
@@ -2111,6 +2634,7 @@ namespace TestingWinForms
         private void btnChangeA34_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA34.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA34.Font = fontDialog.Font;
@@ -2120,6 +2644,7 @@ namespace TestingWinForms
         private void btnChangeA35_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA35.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA35.Font = fontDialog.Font;
@@ -2129,6 +2654,7 @@ namespace TestingWinForms
         private void btnChangeA36_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA36.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA36.Font = fontDialog.Font;
@@ -2138,6 +2664,7 @@ namespace TestingWinForms
         private void btnChangeA37_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelA37.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelA37.Font = fontDialog.Font;
@@ -2147,36 +2674,506 @@ namespace TestingWinForms
         private void btnChangeQ3_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelQ3.Font;
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelQ3.Font = fontDialog.Font;
             }
         }
 
+        private void btnChangeTitle_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelTitle.Font; // Set the initial font
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelTitle.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnTextChangeTitle_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelTitle.TextAlign,
+            sampleLabelTitle.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelTitle.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelTitle.AutoSize = dialog.SelectedWrap;
+                }
+            }
+        }
+
+        private void btnChangeXTopAxis_Click(object sender, EventArgs e)
+        {
+            FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelXTopAxis.Font;
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                sampleLabelXTopAxis.Font = fontDialog.Font;
+            }
+        }
+
+
+        private void btnTextChangeXTopAxis_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelXTopAxis.TextAlign,
+            sampleLabelXTopAxis.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelXTopAxis.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelXTopAxis.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
         private void btnChangeXBotAxis_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelXBotAxis.Font; // Set the initial font
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelXBotAxis.Font = fontDialog.Font;
             }
         }
+        private void btnTextChangeXBotAxis_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelXBotAxis.TextAlign,
+            sampleLabelXBotAxis.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelXBotAxis.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelXBotAxis.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+
+        }
 
         private void btnChangeYLeftAxis_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelYLeftAxis.Font; // Set the initial font
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelYLeftAxis.Font = fontDialog.Font;
             }
         }
 
+        private void btnTextChangeYLeftAxis_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelYLeftAxis.TextAlign,
+            sampleLabelYLeftAxis.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelYLeftAxis.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelYLeftAxis.AutoSize = dialog.SelectedWrap;
+                }
+            }
+        }
+
         private void btnChangeYRightAxis_Click(object sender, EventArgs e)
         {
             FontDialog fontDialog = new FontDialog();
+            fontDialog.Font = sampleLabelYRightAxis.Font; // Set the initial font
             if (fontDialog.ShowDialog() == DialogResult.OK)
             {
                 sampleLabelYRightAxis.Font = fontDialog.Font;
+            }
+        }
+
+        private void btnTextChangeYRightAxis_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelYRightAxis.TextAlign,
+            sampleLabelYRightAxis.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelYRightAxis.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelYRightAxis.AutoSize = dialog.SelectedWrap;
+                }
+            }
+        }
+
+        private void btnTextChangeQ1_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelQ1.TextAlign,
+            sampleLabelQ1.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelQ1.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelQ1.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeQ2_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelQ2.TextAlign,
+            sampleLabelQ2.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelQ2.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelQ2.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeQ3_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelQ3.TextAlign,
+            sampleLabelQ3.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelQ3.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelQ3.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA11_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA11.TextAlign,
+            sampleLabelA11.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA11.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA11.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA12_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA12.TextAlign,
+            sampleLabelA12.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA12.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA12.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA13_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA13.TextAlign,
+            sampleLabelA13.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA13.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA13.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA14_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA14.TextAlign,
+            sampleLabelA14.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA14.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA14.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA15_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA15.TextAlign,
+            sampleLabelA15.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA15.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA15.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA16_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA16.TextAlign,
+            sampleLabelA16.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA16.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA16.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA17_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA17.TextAlign,
+            sampleLabelA17.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA17.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA17.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA18_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA18.TextAlign,
+            sampleLabelA18.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA18.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA18.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA28_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA28.TextAlign,
+            sampleLabelA28.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA28.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA28.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA22_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA22.TextAlign,
+            sampleLabelA22.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA22.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA22.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA23_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA23.TextAlign,
+            sampleLabelA23.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA23.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA23.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA24_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA24.TextAlign,
+            sampleLabelA24.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA24.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA24.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA25_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA25.TextAlign,
+            sampleLabelA25.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA25.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA25.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA26_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA26.TextAlign,
+            sampleLabelA26.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA26.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA26.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA27_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA27.TextAlign,
+            sampleLabelA27.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA27.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA27.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA21_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA21.TextAlign,
+            sampleLabelA21.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA21.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA21.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA38_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA38.TextAlign,
+            sampleLabelA38.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA38.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA38.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA32_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA32.TextAlign,
+            sampleLabelA32.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA32.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA32.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA33_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA33.TextAlign,
+            sampleLabelA33.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA33.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA33.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA34_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA34.TextAlign,
+            sampleLabelA34.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA34.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA34.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA35_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA35.TextAlign,
+            sampleLabelA35.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA35.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA35.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA36_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA36.TextAlign,
+            sampleLabelA36.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA36.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA36.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA37_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA37.TextAlign,
+            sampleLabelA37.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA37.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA37.AutoSize = dialog.SelectedWrap;
+
+                }
+            }
+        }
+
+        private void btnTextChangeA31_Click(object sender, EventArgs e)
+        {
+            using (CustomText dialog = new CustomText(sampleLabelA31.TextAlign,
+            sampleLabelA31.AutoSize))
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    sampleLabelA31.TextAlign = dialog.SelectedAlignment;
+                    sampleLabelA31.AutoSize = dialog.SelectedWrap;
+
+                }
             }
         }
     }
