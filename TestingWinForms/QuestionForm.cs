@@ -464,6 +464,7 @@ namespace TestingWinForms
                 questionLabel.ForeColor = currentQuestion.QuestionColor;
 
                 int numOptions = 8;
+                int numAns = 0;
 
                 //TODO: change to dynamic (loop)
                 if (currentQuestion.Type == "MCQ")
@@ -476,6 +477,9 @@ namespace TestingWinForms
                         RadioButton radioButton = radioButtons[i];
                         string optionText = currentQuestion.Options[i];
 
+                        if (!string.IsNullOrEmpty(optionText))
+                            numAns++;
+
                         radioButton.Visible = !string.IsNullOrEmpty(optionText);
                         radioButton.Text = optionText;
                         radioButton.Checked = false;
@@ -483,6 +487,9 @@ namespace TestingWinForms
                         radioButton.TextAlign = currentQuestion.TextAligns[i];
                         radioButton.AutoSize = currentQuestion.AutoSizes[i];
                         radioButton.ForeColor = currentQuestion.AnswerColors[i];
+
+                        radioButton.AutoEllipsis = false;
+                        radioButton.MaximumSize = new Size(150, 0);
                     }
 
                     // Clear the selection for any remaining radio buttons
@@ -505,6 +512,8 @@ namespace TestingWinForms
                     tableLayoutPanelRadioButton.Visible = true;
                     tableLayoutPanelCheckBox.Visible = false;
 
+                    AdjustRadioTableLayoutPanelScroll(numAns);
+
                 } else
                 {
                     labelMCQorMRQ.Text = "Select multiple options.";
@@ -519,6 +528,9 @@ namespace TestingWinForms
                         //Panel panel = panels[i];
                         string optionText = currentQuestion.Options[i];
 
+                        if (!string.IsNullOrEmpty(optionText))
+                            numAns++;
+
                         checkbox.Visible = !string.IsNullOrEmpty(optionText);
                         checkbox.Text = optionText;
                         checkbox.Checked = false;
@@ -528,6 +540,12 @@ namespace TestingWinForms
                         checkbox.TextAlign = currentQuestion.TextAligns[i];
                         checkbox.AutoSize = currentQuestion.AutoSizes[i];
                         checkbox.ForeColor = currentQuestion.AnswerColors[i];
+
+                        // testing to wrap text
+                        checkbox.AutoEllipsis = false;
+                        checkbox.MaximumSize = new Size(350, 0);
+                        checkbox.Height = checkbox.PreferredSize.Height;
+
                     }
 
                     // Clear the selection for any remaining checkboxes
@@ -547,6 +565,9 @@ namespace TestingWinForms
                         radioButton.Text = string.Empty;
                         radioButton.Checked = false;
                     }
+
+                    AdjustCheckboxTableLayoutPanelScroll(numAns);
+
                 }
                 // Enable the submit button
                 submitButton.Enabled = true;
@@ -573,7 +594,95 @@ namespace TestingWinForms
                 thankYouForm.Show();
                 this.Close();
             }
+
+
         }
+
+        private void AdjustRadioTableLayoutPanelScroll(int numAns)
+        {
+            int totalHeight = 0;
+
+            // Iterate through each row in the TableLayoutPanel
+            for (int row = 0; row < numAns; row++)
+            {
+                int rowHeight = GetRadioButtonRowHeight(tableLayoutPanelRadioButton, row);
+                totalHeight += rowHeight;
+            }
+
+            //int tableHeight = maxHeight * numOptions;
+            int availableHeight = tableLayoutPanelRadioButton.Parent.Height;
+
+            if (totalHeight > availableHeight)
+            {
+                tableLayoutPanelRadioButton.AutoScroll = true; //true
+            }
+            else
+            {
+                tableLayoutPanelRadioButton.AutoScroll = false;
+            }
+        }
+
+        private int GetRadioButtonRowHeight(TableLayoutPanel tableLayoutPanel, int row)
+        {
+            int radioButtonHeight = 0;
+
+            // Check if the row contains a RadioButton control
+            foreach (Control control in tableLayoutPanel.Controls)
+            {
+                if (tableLayoutPanel.GetRow(control) == row && control is RadioButton radioButton)
+                {
+                    // Get the current height of the RadioButton control
+                    radioButtonHeight = radioButton.Height;
+                    break; // Exit the loop once a RadioButton is found in the row
+                }
+            }
+
+            return radioButtonHeight;
+        }
+
+
+        private void AdjustCheckboxTableLayoutPanelScroll(int numAns)
+        {
+            int totalHeight = 0;
+
+            // Iterate through each row in the TableLayoutPanel
+            for (int row = 0; row < numAns; row++)
+            {
+                int rowHeight = GetCheckBoxRowHeight(tableLayoutPanelCheckBox, row);
+                totalHeight += rowHeight;
+            }
+
+            //int tableHeight = maxHeight * numOptions;
+            int availableHeight = tableLayoutPanelCheckBox.Parent.Height;
+
+            if (totalHeight > availableHeight)
+            {
+                tableLayoutPanelCheckBox.AutoScroll = true; //true
+            }
+            else
+            {
+                tableLayoutPanelCheckBox.AutoScroll = false;
+            }
+        }
+
+        private int GetCheckBoxRowHeight(TableLayoutPanel tableLayoutPanel, int row)
+        {
+            int checkBoxHeight = 0;
+
+            // Check if the row contains a RadioButton control
+            foreach (Control control in tableLayoutPanel.Controls)
+            {
+                if (tableLayoutPanel.GetRow(control) == row && control is CheckBox checkBox)
+                {
+                    // Get the current height of the RadioButton control
+                    checkBoxHeight = checkBox.Height;
+                    break; // Exit the loop once a RadioButton is found in the row
+                }
+            }
+
+            return checkBoxHeight;
+        }
+
 
         //for checkboxes
         private void CheckBox_CheckedChanged(object sender, EventArgs e)
