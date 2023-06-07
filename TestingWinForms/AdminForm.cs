@@ -23,6 +23,9 @@ namespace TestingWinForms
         double[] percentageCount;
         private static int optionsNumber = 8;
 
+        private string originalPictureLinkTableBackground = "";
+        private string originalPictureLinkEndBackground = "";
+
         public AdminForm()
         {
             InitializeComponent();
@@ -463,6 +466,10 @@ namespace TestingWinForms
                 timeOut = "10"; // Assigning default value of 10
             }
             string randomQuestions = comboBoxRandomQns.Text;
+            if (string.IsNullOrEmpty(randomQuestions))
+            {
+                randomQuestions = "No"; // Assigning default value of No
+            }
             string endSurveyText = textBoxEndMessage.Text;
             // Get the image from the PictureBox
             Image image = pictureBox.Image;
@@ -472,7 +479,7 @@ namespace TestingWinForms
             string fontEndText = $"{FontToBinaryString(sampleLabelEndText.Font)};{sampleLabelEndText.TextAlign};{sampleLabelEndText.AutoSize}";
 
             //save as root directory
-            if (image != null)
+            if (image != null && pictureBox.ImageLocation != originalPictureLinkTableBackground)
             {
                 // Get the current root path of the application
                 string rootPath = Directory.GetCurrentDirectory();
@@ -492,6 +499,10 @@ namespace TestingWinForms
                 // Save the image to the specified directory
                 imagePath = Path.Combine(directoryPath, fileName);
                 image.Save(imagePath);
+
+            } else
+            {
+                imagePath = originalPictureLinkTableBackground;
             }
 
             // Get the image from the PictureBox
@@ -499,7 +510,7 @@ namespace TestingWinForms
             string imagePath3 = null;
 
             //save as root directory
-            if (image3 != null)
+            if (image3 != null && pictureBox2.ImageLocation != originalPictureLinkEndBackground)
             {
                 // Get the current root path of the application
                 string rootPath = Directory.GetCurrentDirectory();
@@ -519,6 +530,10 @@ namespace TestingWinForms
                 // Save the image to the specified directory
                 imagePath3 = Path.Combine(directoryPath, fileName);
                 image3.Save(imagePath3);
+            }
+            else
+            {
+                imagePath3 = originalPictureLinkEndBackground;
             }
 
             // Concatenate the data into a comma-separated string
@@ -905,6 +920,9 @@ namespace TestingWinForms
                             Image image = Image.FromFile(imagePath);
                             pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                             pictureBox.Image = image;
+                            originalPictureLinkTableBackground = imagePath;
+                            // Set the pictureBox.ImageLocation to the new image path
+                            pictureBox.ImageLocation = imagePath;
                         }
 
                         string imagePath3 = Path.Combine(values[4]);
@@ -914,15 +932,12 @@ namespace TestingWinForms
                             Image image3 = Image.FromFile(imagePath3);
                             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
                             pictureBox2.Image = image3;
+                            originalPictureLinkEndBackground = imagePath3;
+                            // Set the pictureBox.ImageLocation to the new image path
+                            pictureBox2.ImageLocation = imagePath3;
                         }
 
-                        // Load the font data from the CSV
-                        //string fontEndSurvey = values[5]; // Assuming font data is at index 5
                         loadContentToComponent(values, 5, sampleLabelEndText);
-                        // Deserialize the font from the font data
-                        //Font loadedFontEndSurvey = FontFromBinaryString(fontEndSurvey);
-                        // Apply the font to the label or control of your choice
-                        //sampleLabelEndText.Font = loadedFontEndSurvey;
                     }
                 }
             }
@@ -2156,6 +2171,9 @@ namespace TestingWinForms
                     // Load the selected image into the PictureBox
                     pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBox.Image = Image.FromFile(selectedImagePath);
+
+                    originalPictureLinkTableBackground = selectedImagePath;
+
                 }
             }
         }
@@ -2299,6 +2317,8 @@ namespace TestingWinForms
                     // Load the selected image into the PictureBox
                     pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBox2.Image = Image.FromFile(selectedImagePath);
+
+                    originalPictureLinkEndBackground = selectedImagePath;
                 }
             }
         }
