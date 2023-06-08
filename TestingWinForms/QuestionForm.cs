@@ -538,8 +538,8 @@ namespace TestingWinForms
                         if (!string.IsNullOrEmpty(optionText))
                             numAns++;
 
-                        radioButton.Visible = !string.IsNullOrEmpty(optionText);
-                        radioButton.Text = optionText;
+                        radioButton.Visible = !string.IsNullOrEmpty(optionText); 
+                        //radioButton.Text = optionText;
                         radioButton.Checked = false;
                         radioButton.Font = FontFromBinaryString(currentQuestion.FontValues[i]);
                         radioButton.TextAlign = currentQuestion.TextAligns[i];
@@ -561,16 +561,9 @@ namespace TestingWinForms
                         //Change appearance to a button
                         radioButton.Appearance = Appearance.Button;
 
-                       
-                    }
+                        radioButton.Text = GetCharacterFromIndex(i) + " " + optionText;
 
-                    // Clear the selection for any remaining radio buttons
-                    for (int i = numOptions; i < radioButtons.Length; i++)
-                    {
-                        RadioButton radioButton = radioButtons[i];
-                        radioButton.Visible = false;
-                        radioButton.Text = string.Empty;
-                        radioButton.Checked = false;
+
                     }
 
                     // Hide checkboxes
@@ -604,13 +597,13 @@ namespace TestingWinForms
                             numAns++;
 
                         checkbox.Visible = !string.IsNullOrEmpty(optionText);
-                        checkbox.Text = optionText;
+                        //checkbox.Text = optionText;
                         checkbox.Checked = false;
                         Font textFont = FontFromBinaryString(currentQuestion.FontValues[i]);
                         checkbox.Font = textFont;
                         
-                        checkbox.TextAlign = currentQuestion.TextAligns[i];
-                        checkbox.AutoSize = currentQuestion.AutoSizes[i];
+                        //checkbox.TextAlign = currentQuestion.TextAligns[i];
+                        //checkbox.AutoSize = currentQuestion.AutoSizes[i];
                         checkbox.ForeColor = currentQuestion.AnswerColors[i];
 
                         checkbox.AutoSize = false;
@@ -625,8 +618,37 @@ namespace TestingWinForms
 
                         checkbox.FlatStyle = FlatStyle.Flat;
                         checkbox.Appearance = Appearance.Button;
-                        //checkbox.Text = GetCharacterFromIndex(i) + " " + optionText; // Set the desired character for the left side of the button
-                        //checkbox.TextImageRelation = TextImageRelation.ImageBeforeText;
+
+                        // Create a label to hold the text parts
+                        Label label = new Label();
+
+                        // Set the font for GetCharacterFromIndex(i)
+                        Font characterFont = new Font("Arial", 18, FontStyle.Bold); // Replace with your desired font and size
+                        label.Text = GetCharacterFromIndex(i);
+                        label.Font = characterFont;
+
+                        // Create a separate label for optionText
+                        Label optionTextLabel = new Label();
+                        optionTextLabel.Text = optionText;
+                        optionTextLabel.TextAlign = currentQuestion.TextAligns[i];
+                        optionTextLabel.AutoSize = true;
+                        optionTextLabel.ForeColor = currentQuestion.AnswerColors[i];
+                        optionTextLabel.Font = textFont;
+
+                        optionTextLabel.MaximumSize = new Size(availableWidth, 0);
+                        optionTextLabel.AutoEllipsis = false;
+                        optionTextLabel.Height = (int)optionTextLabel.CreateGraphics().MeasureString(optionText, textFont, availableWidth).Height;
+
+                        // Add the labels to the checkbox
+                        checkbox.Controls.Add(label);
+                        checkbox.Controls.Add(optionTextLabel);
+
+                        // Adjust the position and size of the labels
+                        label.Location = new Point(0, 0);
+                        optionTextLabel.Location = new Point(label.Width + 5, 0);
+
+                        //checkbox.Text = GetCharacterFromIndex(i) + " " + optionText;
+                        checkbox.Text = "";
 
                     }
 
@@ -726,13 +748,18 @@ namespace TestingWinForms
             {
                 int rowHeight = GetRadioButtonRowHeight(tableLayoutPanelRadioButton, row);
                 totalHeight += rowHeight;
+                
             }
 
             int availableHeight = tableLayoutPanelRadioButton.Parent.Height;
 
+           //tableLayoutPanelRadioButton.MaximumSize = new Size(tableLayoutPanelRadioButton.Width, totalHeight);
+
+
             if (totalHeight > availableHeight)
             {
-                tableLayoutPanelRadioButton.AutoScroll = true; 
+                tableLayoutPanelRadioButton.VerticalScroll.Value = 0;
+                tableLayoutPanelRadioButton.AutoScroll = true;
             }
             else
             {
@@ -818,22 +845,15 @@ namespace TestingWinForms
                         {
                             checkBox.Paint -= CheckBox_Paint; // Unsubscribe from the previous Paint event handler
                             checkBox.Paint += CheckBox_Paint; // Subscribe to the new Paint event handler
-                            //checkBox.BackColor = ;
                             checkboxValues[checkboxName] = checkBox.Text;
                         }
                         else
                         {
                             checkBox.Paint -= CheckBox_Paint; // Unsubscribe from the Paint event handler
-                            //checkBox.BackColor = Color.Transparent;
-                            //checkBox.BackColor = Color.FromArgb(100, Color.White);
                             checkboxValues[checkboxName] = " ";
                         }
-
                         
                     }
-
-
-
                     // Recursively loop through child controls if the control is a container control
                     if (control.Controls.Count > 0)
                     {
@@ -850,8 +870,6 @@ namespace TestingWinForms
 
             // Set the background color with transparency
             Color backgroundColor = Color.FromArgb(100, Color.Green);
-
-            
 
             
             // Create a brush with the translucent background color
