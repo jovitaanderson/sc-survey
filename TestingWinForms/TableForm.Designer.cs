@@ -86,7 +86,7 @@
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(133, 46);
             this.nextButton.TabIndex = 8;
-            this.nextButton.Text = "Next";
+            this.nextButton.Text = "Next ▶";
             this.nextButton.UseVisualStyleBackColor = true;
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 

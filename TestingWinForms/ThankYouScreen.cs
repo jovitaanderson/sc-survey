@@ -169,9 +169,8 @@ namespace TestingWinForms
 
             Font loadedFontTitle = FontFromBinaryString(fontTitle);
             label.Font = loadedFontTitle;
-            label.Height = (int)Math.Ceiling(FontFromBinaryString(fontTitle).GetHeight()) + Padding.Vertical; ;
 
-            if (textProperties.Length > 2)
+            if (textProperties.Length > 3)
             {
                 String textAlign = textProperties[1]; // Second ; is text align property
                 String textWrap = textProperties[2]; // Third ; is text wrap property
@@ -184,6 +183,19 @@ namespace TestingWinForms
                     label.TextAlign = ContentAlignment.TopLeft; //default ContentAlignment
                 }
                 label.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
+
+                if (!string.IsNullOrEmpty(textProperties[3]))
+                {
+                    if (int.TryParse(textProperties[3].Replace("\0", ","), out int foreColorArgb))
+                    {
+                        Color foreColor = Color.FromArgb(foreColorArgb);
+                        label.ForeColor = foreColor;
+                    }
+                    else
+                    {
+                        label.ForeColor = Color.Black; // Default forecolor if parsing fails
+                    }
+                }
             }
             label.Height = (int)Math.Ceiling(loadedFontTitle.GetHeight()) + Padding.Vertical;
         }
