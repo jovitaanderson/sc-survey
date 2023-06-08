@@ -153,38 +153,39 @@ namespace TestingWinForms
                 // Adjust the background image display settings
                 this.BackgroundImageLayout = ImageLayout.Stretch;
             }
+
+            int percentageWidth = 70; // Width percentage (50%)
+            int percentageHeight = 80; // Height percentage (50%)
+
+            // Get the screen dimensions
+            int screenWidth = Screen.PrimaryScreen.Bounds.Width;
+            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+
+            // Calculate the desired dimensions based on the percentages
+            int desiredWidth = (int)(screenWidth * (percentageWidth / 100.0));
+            int desiredHeight = (int)(screenHeight * (percentageHeight / 100.0));
+
+            // Set the size of the graphPanel
+            graphPanel.Size = new Size(desiredWidth, desiredHeight);
+            //graphPanel.Size = new Size(500, 500); // Set the size of the smaller panel
+
+            // Calculate the coordinates to center the smaller Panel on a maximized window
+            int x = (screenWidth - graphPanel.Width) / 2;
+            int y = (screenHeight - graphPanel.Height) / 2;
+
+            // Set the location of the smaller Panel
+            graphPanel.Location = new Point(x, y + 40);
+
+            //this.Controls.Add(smallerPanel); // Add it to the form or a container control
+            CalculateDrawingArea();
+
             if (!string.IsNullOrEmpty(InnerGraphBackgroundPath) && File.Exists(InnerGraphBackgroundPath))
             {
                 // Set the background image of the Windows Forms application
                 Image image = Image.FromFile(InnerGraphBackgroundPath);
                 graphPanel.BackgroundImage = image; // Set the smaller image as the background image
                 graphPanel.BackgroundImageLayout = ImageLayout.Stretch;
-
-                int percentageWidth =  70; // Width percentage (50%)
-                int percentageHeight = 80; // Height percentage (50%)
-
-                // Get the screen dimensions
-                int screenWidth = Screen.PrimaryScreen.Bounds.Width;
-                int screenHeight = Screen.PrimaryScreen.Bounds.Height;
-
-                // Calculate the desired dimensions based on the percentages
-                int desiredWidth = (int)(screenWidth * (percentageWidth / 100.0));
-                int desiredHeight = (int)(screenHeight * (percentageHeight / 100.0));
-
-                // Set the size of the graphPanel
-                graphPanel.Size = new Size(desiredWidth, desiredHeight);
-                //graphPanel.Size = new Size(500, 500); // Set the size of the smaller panel
-
-                // Calculate the coordinates to center the smaller Panel on a maximized window
-                int x = (screenWidth - graphPanel.Width) / 2;
-                int y = (screenHeight - graphPanel.Height) / 2;
-
-                // Set the location of the smaller Panel
-                graphPanel.Location = new Point(x, y + 40);
-
-                //this.Controls.Add(smallerPanel); // Add it to the form or a container control
-                CalculateDrawingArea();
-            }
+            } 
 
             LoadTableFromCSV();
         }
