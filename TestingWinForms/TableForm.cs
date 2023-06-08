@@ -45,6 +45,12 @@ namespace TestingWinForms
         {
             if (e.Control && e.KeyCode == Keys.A)
             {
+                if(timer != null)
+                {
+                    timer.Dispose();
+                    timer = null;
+                }
+
                 AdminForm newForm = new AdminForm();
                 newForm.Show();
                 this.Hide();
@@ -170,17 +176,15 @@ namespace TestingWinForms
 
             // Set the size of the graphPanel
             graphPanel.Size = new Size(desiredWidth, desiredHeight);
-            //graphPanel.Size = new Size(500, 500); // Set the size of the smaller panel
 
             // Calculate the coordinates to center the smaller Panel on a maximized window
             int x = (screenWidth - graphPanel.Width) / 2;
             int y = (screenHeight - graphPanel.Height) / 2;
-
+            
             // Set the location of the smaller Panel
             graphPanel.Location = new Point(x, y + 40);
             graphPanel.BorderRadius = backgroundRadius;
 
-            //this.Controls.Add(smallerPanel); // Add it to the form or a container control
             CalculateDrawingArea();
 
             if (!string.IsNullOrEmpty(InnerGraphBackgroundPath) && File.Exists(InnerGraphBackgroundPath))
@@ -190,8 +194,6 @@ namespace TestingWinForms
                 graphPanel.BackgroundImage = image; // Set the smaller image as the background image
                 graphPanel.BackgroundImageLayout = ImageLayout.Stretch;
 
-                //roundedPanel1.BackgroundImage = image;
-                //roundedPanel1.BackgroundImageLayout = ImageLayout.Stretch;
             } 
 
             LoadTableFromCSV();
@@ -282,7 +284,6 @@ namespace TestingWinForms
 
                         int maxWidthTitle = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width - (margin * 2));
                         int maxHeightTitle = Convert.ToInt32( graphPanel.Location.Y - (margin * 2));
-                        //int maxHeightYAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height * 0.35);
 
                         // Title 
                         labelTitle.MinimumSize = new Size(maxWidthTitle, maxHeightTitle);
@@ -296,9 +297,6 @@ namespace TestingWinForms
                         // Left y axis label
                         labelYAxis.MinimumSize = new Size(0, 0);
                         labelYAxis.MaximumSize = new Size(maxWidthYAxis, maxHeightYAxis);
-                        //labelYAxis.Left = (this.ClientSize.Width - drawingArea.Width - labelYAxis.Width ) / 2;
-                        //labelYAxis.Location = new Point(graphPanel.Location.X, graphPanel.Location.Y);
-                        //labelYAxis.Location = new Point((graphPanel.Width - labelYAxis.Width) / 2, (graphPanel.Height - labelYAxis.Height) / 2);
                         int yAxisLeft_left = drawingArea.Left - labelYAxis.Width - margin;
                         int yAxisLeft_top = 0;
                         if (labelYAxis.Height == maxHeightYAxis)
@@ -310,9 +308,6 @@ namespace TestingWinForms
                         }
                         
                         labelYAxis.Location = new Point(yAxisLeft_left, yAxisLeft_top);
-                        //labelYAxis.Top = (this.ClientSize.Height - labelYAxis.Height) / 2;
-                        //int padding = (graphPanel.Height - labelYAxis.Height) / 2;
-                        //labelYAxis.Padding = new Padding(left_padding+100, padding, 0, padding);
 
                         // Right y axis label
                         labelYAxis2.MinimumSize = new Size(0, 0);
@@ -328,8 +323,7 @@ namespace TestingWinForms
                             yAxisRight_top = (graphPanel.Height / 2) - (labelYAxis2.Height / 2);
                         }
                         labelYAxis2.Location = new Point(yAxisRight_left, yAxisRight_top);
-                        //labelYAxis2.Left = (this.ClientSize.Width/2) + (drawingArea.Width/2);
-                        //labelYAxis2.Top = (this.ClientSize.Height - labelYAxis2.Height) / 2;
+
 
                         // X axis height and width constraints 
                         int maxWidthXAxis = graphPanel.Width - margin * 2;
@@ -338,12 +332,9 @@ namespace TestingWinForms
                         // Top x axis label
                         labelXAxis2.MinimumSize = new Size(0, 0);
                         labelXAxis2.MaximumSize = new Size(maxWidthXAxis, maxHeightXAxis);
-                        //labelXAxis2.TextAlign = ContentAlignment.TopCenter;
                         int xAxisTop_left = (graphPanel.Width / 2) - (labelXAxis2.Width /2);
                         int xAxisTop_top = drawingArea.Top - labelXAxis2.Height - margin;
                         labelXAxis2.Location = new Point(xAxisTop_left, xAxisTop_top);
-                        //labelXAxis2.Left = (this.ClientSize.Width - labelXAxis2.Width) / 2;
-
 
                         // Bottom x axis label
                         labelXAxis.MinimumSize = new Size(0, 0);
@@ -352,8 +343,6 @@ namespace TestingWinForms
                         int xAxisBot_left = (graphPanel.Width / 2) - (labelXAxis.Width / 2);
                         int xAxisBot_top = drawingArea.Bottom + labelXAxis.Height - margin;
                         labelXAxis.Location = new Point(xAxisBot_left, xAxisBot_top);
-                        //labelXAxis.Left = (this.ClientSize.Width - labelXAxis.Width) / 2;
-
 
                         existingColour = ColorTranslator.FromHtml(values[5]);
                         selectedColour = ColorTranslator.FromHtml(values[6]);
@@ -542,7 +531,6 @@ namespace TestingWinForms
                         // Scale back the coordinates to the original dimensions
                         float originalX = (x * inverseScaleX) + drawingArea.X + (drawingArea.Width / 2f);
                         float originalY = (y * inverseScaleY) + drawingArea.Y + (drawingArea.Height / 2f);
-                        //float originalY = (10f - y) * inverseScaleY + drawingArea.Y + (drawingArea.Height / 2f);
                         existingClickedPositions.Add(new PointF(originalX, originalY));
                     }
                 }
@@ -596,15 +584,14 @@ namespace TestingWinForms
                     float scaledX = ((e.Location.X - drawingArea.X) * scaleX) - 10f; // Range: -10 to 10
                     float scaledY = 10f - ((e.Location.Y - drawingArea.Y) * scaleY); // Range 10 to -10
 
-                    //int scaledXInt = (int)Math.Round(scaledX);
-                    //int scaledYInt = (int)Math.Round(scaledY);
 
                     PointF point = new PointF(scaledX, scaledY); // Create a PointF instance with the float values
 
                     existingClickedPositions.Add(point);
                     clickedPosition = e.Location;
 
-                    Refresh(); // Redraw the form to display the dots
+                    //Refresh(); // Redraw the form to display the dots
+                    graphPanel.Invalidate();
                     SavePointToCSV(point);
                     hasClicked = true;
                     //Refresh();
@@ -678,9 +665,6 @@ namespace TestingWinForms
 
         private void graphPanel_Paint(object sender, PaintEventArgs e)
         {
-            //ControlPaint.DrawBorder(e.Graphics, drawingArea, Color.Black, 2, ButtonBorderStyle.Solid, Color.Black, 2, ButtonBorderStyle.Solid, Color.Black, 2, ButtonBorderStyle.Solid, Color.Black, 2, ButtonBorderStyle.Solid);
-            //ControlPaint.DrawBorder(e.Graphics, verticalLine, Color.Transparent, lineWidth, ButtonBorderStyle.Solid, Color.Transparent, lineWidth, ButtonBorderStyle.Solid, Color.Black, lineWidth, ButtonBorderStyle.Solid, Color.Transparent, lineWidth, ButtonBorderStyle.Solid);
-            //ControlPaint.DrawBorder(e.Graphics, horizontalLine, Color.Transparent, lineWidth, ButtonBorderStyle.Solid, Color.Transparent, lineWidth, ButtonBorderStyle.Solid, Color.Transparent, lineWidth, ButtonBorderStyle.Solid, Color.Black, lineWidth, ButtonBorderStyle.Solid);
 
             // Get the graphics object
             Graphics g = e.Graphics;
@@ -694,7 +678,6 @@ namespace TestingWinForms
             int y = drawingArea.Location.Y + drawingArea.Height/2;
 
             // Draw a horizontal line
-            //g.DrawLine(Pens.Black, startX, y, endX, y);
             float lineWidth = 5.0f; // Desired line width
 
             using (Pen pen = new Pen(Color.Black, lineWidth))
@@ -706,8 +689,7 @@ namespace TestingWinForms
 
             endX = endX + (int)Math.Ceiling(lineWidth);
             endY = endY - (int)Math.Ceiling(lineWidth );
-            //x = x - (int)Math.Ceiling(lineWidth / 2.0);
-            //y = y - (int)Math.Ceiling(lineWidth / 2.0);
+
 
 
             // Draw the arrowhead
@@ -739,8 +721,7 @@ namespace TestingWinForms
                 foreach (PointF position in existingClickedPositions)
                 {
                     Point roundedPosition = Point.Round(position); // Convert PointF to Point
-                    if (drawingArea.Contains(roundedPosition))
-                    {
+
                         float dotX = position.X - dotSize / 2;
                         float dotY = position.Y - dotSize / 2;
 
@@ -756,7 +737,7 @@ namespace TestingWinForms
                         {
                             e.Graphics.FillEllipse(Brushes.Blue, dotX, dotY, dotSize, dotSize);
                         }
-                    }
+                    
                 }
             }
 
@@ -782,9 +763,10 @@ namespace TestingWinForms
 
         }
 
+        /*
         protected override void OnPaint(PaintEventArgs e)
         { 
-            /*
+            
             base.OnPaint(e);
 
             ControlPaint.DrawBorder(e.Graphics, drawingArea, Color.Black, 2, ButtonBorderStyle.Solid, Color.Black, 2, ButtonBorderStyle.Solid, Color.Black, 2, ButtonBorderStyle.Solid, Color.Black, 2, ButtonBorderStyle.Solid);
@@ -838,8 +820,8 @@ namespace TestingWinForms
                     e.Graphics.FillEllipse(Brushes.Red, dotX, dotY, dotSize, dotSize);
                 }
             }
-            */
-        }
+            
+        }*/
 
         private void nextButton_Click(object sender, EventArgs e)
         {
