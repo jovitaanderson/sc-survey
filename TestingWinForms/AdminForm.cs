@@ -1063,39 +1063,36 @@ namespace TestingWinForms
                             pictureBox2.ImageLocation = imagePath3;
                         }
 
-                        if (values.Length == 7)
+                        loadContentToComponent(values, 6, sampleLabelEndText);
+
+                        //For next button font colour and background color
+                        string[] textProperties = values[7].Split(';'); // Assuming text font and alignment data is at index 5
+                        string backgroundColor = textProperties[0]; // First ; is text font
+                        string foreColor = textProperties[1];
+
+                        // Retrieve the forecolor value and set it to the label's ForeColor property
+                        if (!string.IsNullOrEmpty(backgroundColor))
                         {
-                            loadContentToComponent(values, 6, sampleLabelEndText);
-
-                            //For next button font colour and background color
-                            string[] textProperties = values[6].Split(';'); // Assuming text font and alignment data is at index 5
-                            string backgroundColor = textProperties[0]; // First ; is text font
-                            string foreColor = textProperties[1];
-
-                            // Retrieve the forecolor value and set it to the label's ForeColor property
-                            if (!string.IsNullOrEmpty(backgroundColor))
+                            if (int.TryParse(backgroundColor.Replace("\0", ","), out int foreColorArgb))
                             {
-                                if (int.TryParse(backgroundColor.Replace("\0", ","), out int foreColorArgb))
-                                {
-                                    Color nextBackground = Color.FromArgb(foreColorArgb);
-                                    sampleNextButton.BackColor = nextBackground;
-                                }
-                                else
-                                {
-                                    sampleNextButton.BackColor = Color.Transparent; // Default forecolor if parsing fails
-                                }
+                                Color nextBackground = Color.FromArgb(foreColorArgb);
+                                sampleNextButton.BackColor = nextBackground;
                             }
-                            if (!string.IsNullOrEmpty(foreColor))
+                            else
                             {
-                                if (int.TryParse(foreColor.Replace("\0", ","), out int foreColorArgb))
-                                {
-                                    Color nextForeground = Color.FromArgb(foreColorArgb);
-                                    sampleNextButton.ForeColor = nextForeground;
-                                }
-                                else
-                                {
-                                    sampleNextButton.ForeColor = Color.Black; // Default forecolor if parsing fails
-                                }
+                                sampleNextButton.BackColor = Color.Transparent; // Default forecolor if parsing fails
+                            }
+                        }
+                        if (!string.IsNullOrEmpty(foreColor))
+                        {
+                            if (int.TryParse(foreColor.Replace("\0", ","), out int foreColorArgb))
+                            {
+                                Color nextForeground = Color.FromArgb(foreColorArgb);
+                                sampleNextButton.ForeColor = nextForeground;
+                            }
+                            else
+                            {
+                                sampleNextButton.ForeColor = Color.Black; // Default forecolor if parsing fails
                             }
                         }
                     }

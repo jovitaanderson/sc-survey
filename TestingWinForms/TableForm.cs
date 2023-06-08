@@ -416,8 +416,8 @@ namespace TestingWinForms
                     string[] values = lines[lines.Length - 1].Split(',');
                     if (values.Length >= 5)
                     {
-                        if (values[6] != null)
-                            loadContentToComponentForNextButton(values[6], nextButton);
+                        if (values[7] != null)
+                            loadContentToComponentForNextButton(values[7], nextButton);
 
                         if (values[3] != null)
                         {
