@@ -255,10 +255,30 @@ namespace TestingWinForms
             // Get the data from the TextBox
             //Table
             string title = textBoxTitle.Text;
+            if (title.Contains(","))
+            {
+                title = title.Replace(",", "\0");
+            }
             string x_axis_top = textBoxXAxisTop.Text;
+            if (x_axis_top.Contains(","))
+            {
+                x_axis_top = x_axis_top.Replace(",", "\0");
+            }
             string x_axis_bottom = textBoxXAxisBottom.Text;
+            if (x_axis_bottom.Contains(","))
+            {
+                x_axis_bottom = x_axis_bottom.Replace(",", "\0");
+            }
             string y_axis_left = textBoxYAxisLeft.Text;
+            if (y_axis_left.Contains(","))
+            {
+                y_axis_left = y_axis_left.Replace(",", "\0");
+            }
             string y_axis_right = textBoxYAxisRight.Text;
+            if (y_axis_right.Contains(","))
+            {
+                y_axis_right = y_axis_right.Replace(",", "\0");
+            }
 
             // Convert the Color to a string representation
             string existingColour = ColorTranslator.ToHtml(btnExisColour.BackColor);
@@ -696,11 +716,11 @@ namespace TestingWinForms
 
                     if (values.Length == 12)
                     {
-                        textBoxTitle.Text = values[0];
-                        textBoxXAxisTop.Text = values[1];
-                        textBoxXAxisBottom.Text = values[2];
-                        textBoxYAxisLeft.Text = values[3];
-                        textBoxYAxisRight.Text = values[4];
+                        textBoxTitle.Text = values[0].Replace("\0", ",");
+                        textBoxXAxisTop.Text = values[1].Replace("\0", ",");
+                        textBoxXAxisBottom.Text = values[2].Replace("\0", ",");
+                        textBoxYAxisLeft.Text = values[3].Replace("\0", ",");
+                        textBoxYAxisRight.Text = values[4].Replace("\0", ",");
 
                         btnExisColour.BackColor = ColorTranslator.FromHtml(values[5]);
                         btnSelPointColour.BackColor = ColorTranslator.FromHtml(values[6]);
