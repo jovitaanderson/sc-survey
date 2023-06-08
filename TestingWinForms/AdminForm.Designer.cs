@@ -781,12 +781,9 @@ namespace TestingWinForms
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel6.Controls.Add(this.textBoxEndMessage, 1, 2);
-            this.tableLayoutPanel6.Controls.Add(this.pictureBox2, 0, 7);
             this.tableLayoutPanel6.Controls.Add(this.comboBoxRandomQns, 1, 1);
             this.tableLayoutPanel6.Controls.Add(this.textBoxTimeOut, 1, 0);
-            this.tableLayoutPanel6.Controls.Add(this.button2, 1, 6);
             this.tableLayoutPanel6.Controls.Add(this.labelTimeOut, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.label9, 0, 6);
             this.tableLayoutPanel6.Controls.Add(this.label14, 0, 1);
             this.tableLayoutPanel6.Controls.Add(this.pictureBox, 0, 5);
             this.tableLayoutPanel6.Controls.Add(this.sampleLabelEndText, 0, 3);
@@ -795,13 +792,16 @@ namespace TestingWinForms
             this.tableLayoutPanel6.Controls.Add(this.label17, 2, 0);
             this.tableLayoutPanel6.Controls.Add(this.label16, 0, 4);
             this.tableLayoutPanel6.Controls.Add(this.btnTextChangeEndSurveyFont, 2, 2);
-            this.tableLayoutPanel6.Controls.Add(this.label10, 0, 8);
-            this.tableLayoutPanel6.Controls.Add(this.btnUploadInnerGraphImage, 1, 8);
             this.tableLayoutPanel6.Controls.Add(this.btnChangeNextBackground, 1, 10);
-            this.tableLayoutPanel6.Controls.Add(this.pictureBox1, 0, 9);
             this.tableLayoutPanel6.Controls.Add(this.sampleNextButton, 1, 11);
             this.tableLayoutPanel6.Controls.Add(this.label8, 0, 10);
             this.tableLayoutPanel6.Controls.Add(this.btnChangeNextText, 2, 10);
+            this.tableLayoutPanel6.Controls.Add(this.pictureBox2, 0, 9);
+            this.tableLayoutPanel6.Controls.Add(this.pictureBox1, 0, 7);
+            this.tableLayoutPanel6.Controls.Add(this.button2, 1, 8);
+            this.tableLayoutPanel6.Controls.Add(this.btnUploadInnerGraphImage, 1, 6);
+            this.tableLayoutPanel6.Controls.Add(this.label9, 0, 8);
+            this.tableLayoutPanel6.Controls.Add(this.label10, 0, 6);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
@@ -834,7 +834,7 @@ namespace TestingWinForms
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(2, 356);
+            this.pictureBox2.Location = new System.Drawing.Point(2, 592);
             this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(172, 188);
@@ -845,7 +845,7 @@ namespace TestingWinForms
             // 
             this.btnUploadInnerGraphImage.AutoSize = true;
             this.btnUploadInnerGraphImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUploadInnerGraphImage.Location = new System.Drawing.Point(248, 549);
+            this.btnUploadInnerGraphImage.Location = new System.Drawing.Point(248, 317);
             this.btnUploadInnerGraphImage.Name = "btnUploadInnerGraphImage";
             this.btnUploadInnerGraphImage.Size = new System.Drawing.Size(360, 36);
             this.btnUploadInnerGraphImage.TabIndex = 48;
@@ -855,9 +855,9 @@ namespace TestingWinForms
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(3, 591);
+            this.pictureBox1.Location = new System.Drawing.Point(3, 359);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(230, 232);
+            this.pictureBox1.Size = new System.Drawing.Size(172, 188);
             this.pictureBox1.TabIndex = 20;
             this.pictureBox1.TabStop = false;
             // 
@@ -891,7 +891,7 @@ namespace TestingWinForms
             // 
             this.button2.AutoSize = true;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(247, 316);
+            this.button2.Location = new System.Drawing.Point(247, 552);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(360, 36);
@@ -915,7 +915,7 @@ namespace TestingWinForms
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(2, 314);
+            this.label9.Location = new System.Drawing.Point(2, 550);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(179, 26);
@@ -1016,7 +1016,7 @@ namespace TestingWinForms
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(2, 826);
+            this.label8.Location = new System.Drawing.Point(2, 782);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(129, 26);
@@ -1027,7 +1027,7 @@ namespace TestingWinForms
             // 
             this.btnChangeNextBackground.AutoSize = true;
             this.btnChangeNextBackground.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeNextBackground.Location = new System.Drawing.Point(247, 828);
+            this.btnChangeNextBackground.Location = new System.Drawing.Point(247, 784);
             this.btnChangeNextBackground.Margin = new System.Windows.Forms.Padding(2);
             this.btnChangeNextBackground.Name = "btnChangeNextBackground";
             this.btnChangeNextBackground.Size = new System.Drawing.Size(203, 36);
@@ -1040,7 +1040,7 @@ namespace TestingWinForms
             // 
             this.btnChangeNextText.AutoSize = true;
             this.btnChangeNextText.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeNextText.Location = new System.Drawing.Point(613, 828);
+            this.btnChangeNextText.Location = new System.Drawing.Point(613, 784);
             this.btnChangeNextText.Margin = new System.Windows.Forms.Padding(2);
             this.btnChangeNextText.Name = "btnChangeNextText";
             this.btnChangeNextText.Size = new System.Drawing.Size(135, 36);
@@ -1053,7 +1053,7 @@ namespace TestingWinForms
             // 
             this.sampleNextButton.AutoSize = true;
             this.sampleNextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sampleNextButton.Location = new System.Drawing.Point(247, 868);
+            this.sampleNextButton.Location = new System.Drawing.Point(247, 824);
             this.sampleNextButton.Margin = new System.Windows.Forms.Padding(2);
             this.sampleNextButton.Name = "sampleNextButton";
             this.sampleNextButton.Size = new System.Drawing.Size(89, 36);
@@ -2908,7 +2908,7 @@ namespace TestingWinForms
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(2, 546);
+            this.label10.Location = new System.Drawing.Point(2, 314);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(241, 26);
