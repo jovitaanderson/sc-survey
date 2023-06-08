@@ -40,15 +40,18 @@ namespace TestingWinForms
                 new Question(0, "MCQ", "Question 1", new List<string> { "Option A", "Option B", "Option C", "Option D", "Option E", "Option C", "Option D", "Option E",}, "",
                 "", new List<string>{ "", "", "", "", "", "", "", ""}, 
                 ContentAlignment.TopLeft, new List<ContentAlignment>{ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft },
-                true, new List<bool>{true, true, true, true, true, true, true, true }),
+                true, new List<bool>{true, true, true, true, true, true, true, true },
+                Color.Black, new List<Color>{ Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black,  Color.Black }),
                 new Question(1, "MCQ", "Question 2", new List<string> { "Option D", "Option E", "Option F", "Option D", "Option E", "Option C", "Option D", "Option E"}, "",
                 "", new List<string>{ "", "", "", "", "", "", "", ""},
                 ContentAlignment.TopLeft, new List<ContentAlignment>{ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft },
-                true, new List<bool>{true, true, true, true, true, true, true, true }),
+                true, new List<bool>{true, true, true, true, true, true, true, true },
+                Color.Black, new List<Color>{ Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black,  Color.Black }),
                 new Question(2, "MRQ", "Question 3", new List<string> { "Option G", "Option H", "Option I", "Option D", "Option E", "Option C", "Option D", "Option E" }, "",
                 "", new List<string>{ "", "", "", "", "", "", "", ""},
                 ContentAlignment.TopLeft, new List<ContentAlignment>{ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft, ContentAlignment.TopLeft },
-                true, new List<bool>{true, true, true, true, true, true, true, true }),
+                true, new List<bool>{true, true, true, true, true, true, true, true },
+                Color.Black, new List<Color>{ Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black,  Color.Black }),
             };
 
             InitializeComponent();
@@ -112,6 +115,29 @@ namespace TestingWinForms
             //tableLayoutPanel1.ResumeLayout();
             
             
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // Subscribe the event handlers to the CheckedChanged event of each checkbox
+            optionACheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionBCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionCCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionDCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionECheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionFCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionGCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionHCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+
+            // Subscribe the event handlers to the CheckedChanged event of each radio button
+            optionARadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionBRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionCRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionDRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionERadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionFRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionGRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionHRadioButton.CheckedChanged += RadioButton_CheckedChanged;
         }
 
         protected override CreateParams CreateParams
@@ -196,9 +222,10 @@ namespace TestingWinForms
                                     //string fontQuestion = fontValues[0];
                                     ContentAlignment textAlignQuestion = ContentAlignment.TopLeft;
                                     bool textWrapQuestion = true;
+                                    Color textColor = Color.Black;
                                     string[] fontQuestionProperties = fontValues[0].Split(';'); // Assuming text font and alignment data is at index 5
                                     string fontQuestion = fontQuestionProperties[0]; // First ; is text font
-                                    if (fontQuestionProperties.Length > 2)
+                                    if (fontQuestionProperties.Length > 3)
                                     { 
 
                                         // Parse the textAlignValue as ContentAlignment
@@ -220,6 +247,19 @@ namespace TestingWinForms
                                         {
                                             textWrapQuestion = true;
                                         }
+
+                                        // Retrieve the forecolor value and set it to the label's ForeColor property
+                                        if (!string.IsNullOrEmpty(fontQuestionProperties[3]))
+                                        {
+                                            if (int.TryParse(fontQuestionProperties[3].Replace("\0", ","), out int foreColorArgb))
+                                            {
+                                                textColor = Color.FromArgb(foreColorArgb);
+                                            }
+                                            else
+                                            {
+                                                textColor = Color.Black; // Default forecolor if parsing fails
+                                            }
+                                        }
                                     }
 
                                     //string fontQuestion = fontValues[0];
@@ -229,16 +269,18 @@ namespace TestingWinForms
                                     List<string> fontOptions = new List<string>();
                                     List<ContentAlignment> textAlignOptions = new List<ContentAlignment>();
                                     List<bool> textWrapOptions = new List<bool>();
+                                    List<Color> textColorOptions = new List<Color>();
 
                                     for (int i = 1; i < 9; i++)
                                     {
                                         string[] answerData = fontValues[i].Split(';');
 
-                                        if (answerData.Length >= 3)
+                                        if (answerData.Length >= 4)
                                         {
                                             string answerValue1 = answerData[0];
                                             string answerValue2 = answerData[1];
                                             string answerValue3 = answerData[2];
+                                            string answerValue4 = answerData[3];
 
                                             // Add the three data values to the answer list
                                             fontOptions.Add(answerValue1);
@@ -266,11 +308,24 @@ namespace TestingWinForms
                                                 // Here, we'll add a default value to the textWrapOptions list
                                                 textWrapOptions.Add(true);
                                             }
+
+                                            // Retrieve the forecolor value and set it to the label's ForeColor property
+                                            if (!string.IsNullOrEmpty(answerValue4))
+                                            {
+                                                if (int.TryParse(answerValue4.Replace("\0", ","), out int foreColorArgb))
+                                                {
+                                                    textColorOptions.Add(Color.FromArgb(foreColorArgb));
+                                                }
+                                                else
+                                                {
+                                                    textColorOptions.Add(Color.Black); // Default forecolor if parsing fails
+                                                }
+                                            }
                                         }
                                     }
 
                                     questions.Add(new Question(currQuestionIndex, questionText, type, options, imagePath, fontQuestion, fontOptions,
-                                        textAlignQuestion, textAlignOptions, textWrapQuestion, textWrapOptions));
+                                        textAlignQuestion, textAlignOptions, textWrapQuestion, textWrapOptions, textColor, textColorOptions));
                                     currQuestionIndex++;
                                 }
                                 else
@@ -339,6 +394,8 @@ namespace TestingWinForms
                     {
                         timerInterval = 10 * 1000; // Default timer interval is 10s
                     }
+                    if (values[6] != null)
+                        loadContentToComponent(values, submitButton);
                 }
                 else
                 {
@@ -348,6 +405,39 @@ namespace TestingWinForms
             else
             {
                 timerInterval = 10 * 1000; // Default timer interval is 10s
+            }
+        }
+
+        void loadContentToComponent(string[] values, Button button)
+        {
+            string[] textProperties = values[6].Split(';'); // Assuming text font and alignment data is at index 5
+            string backgroundColor = textProperties[0]; // First ; is text font
+            string foreColor = textProperties[1];
+
+            // Retrieve the forecolor value and set it to the label's ForeColor property
+            if (!string.IsNullOrEmpty(backgroundColor))
+            {
+                if (int.TryParse(backgroundColor.Replace("\0", ","), out int foreColorArgb))
+                {
+                    Color nextBackground = Color.FromArgb(foreColorArgb);
+                    button.BackColor = nextBackground;
+                }
+                else
+                {
+                    button.BackColor = Color.Transparent; // Default forecolor if parsing fails
+                }
+            }
+            if (!string.IsNullOrEmpty(foreColor))
+            {
+                if (int.TryParse(foreColor.Replace("\0", ","), out int foreColorArgb))
+                {
+                    Color nextForeground = Color.FromArgb(foreColorArgb);
+                    button.ForeColor = nextForeground;
+                }
+                else
+                {
+                    button.ForeColor = Color.Black; // Default forecolor if parsing fails
+                }
             }
         }
 
@@ -429,8 +519,10 @@ namespace TestingWinForms
                 questionLabel.MaximumSize = new Size(maxWidthAxis, 0);
                 questionLabel.MinimumSize = new Size(0, 0);
                 questionLabel.Height = (int)Math.Ceiling(questionFont.GetHeight()) + Padding.Vertical;
+                questionLabel.ForeColor = currentQuestion.QuestionColor;
 
                 int numOptions = 8;
+                int numAns = 0;
 
                 //TODO: change to dynamic (loop)
                 if (currentQuestion.Type == "MCQ")
@@ -443,12 +535,33 @@ namespace TestingWinForms
                         RadioButton radioButton = radioButtons[i];
                         string optionText = currentQuestion.Options[i];
 
+                        if (!string.IsNullOrEmpty(optionText))
+                            numAns++;
+
                         radioButton.Visible = !string.IsNullOrEmpty(optionText);
                         radioButton.Text = optionText;
                         radioButton.Checked = false;
                         radioButton.Font = FontFromBinaryString(currentQuestion.FontValues[i]);
                         radioButton.TextAlign = currentQuestion.TextAligns[i];
                         radioButton.AutoSize = currentQuestion.AutoSizes[i];
+                        radioButton.ForeColor = currentQuestion.AnswerColors[i];
+
+                        radioButton.AutoSize = false;
+
+                        // Measure the required size for the text
+
+                        SizeF textSize = TextRenderer.MeasureText(optionText, radioButton.Font);
+                        int availableWidth = tableLayoutPanelRadioButton.Parent.Width;
+                        int lineCount = (int)Math.Ceiling(textSize.Width / availableWidth);
+                        int minHeight = (int)(textSize.Height * 1.5);
+                        int height = (int)(textSize.Height * lineCount);
+                        radioButton.Height = Math.Max(minHeight, height);
+
+                        radioButton.FlatStyle = FlatStyle.Flat;
+                        //Change appearance to a button
+                        radioButton.Appearance = Appearance.Button;
+
+                       
                     }
 
                     // Clear the selection for any remaining radio buttons
@@ -471,6 +584,8 @@ namespace TestingWinForms
                     tableLayoutPanelRadioButton.Visible = true;
                     tableLayoutPanelCheckBox.Visible = false;
 
+                    AdjustRadioTableLayoutPanelScroll(numAns);
+
                 } else
                 {
                     labelMCQorMRQ.Text = "Select multiple options.";
@@ -485,6 +600,9 @@ namespace TestingWinForms
                         //Panel panel = panels[i];
                         string optionText = currentQuestion.Options[i];
 
+                        if (!string.IsNullOrEmpty(optionText))
+                            numAns++;
+
                         checkbox.Visible = !string.IsNullOrEmpty(optionText);
                         checkbox.Text = optionText;
                         checkbox.Checked = false;
@@ -493,6 +611,23 @@ namespace TestingWinForms
                         
                         checkbox.TextAlign = currentQuestion.TextAligns[i];
                         checkbox.AutoSize = currentQuestion.AutoSizes[i];
+                        checkbox.ForeColor = currentQuestion.AnswerColors[i];
+
+                        checkbox.AutoSize = false;
+
+                        // Measure the required size for the text
+                        SizeF textSize = TextRenderer.MeasureText(optionText, checkbox.Font);
+                        int availableWidth = tableLayoutPanelCheckBox.Parent.Width;
+                        int lineCount = (int)Math.Ceiling(textSize.Width / availableWidth);
+                        int minHeight = (int)(textSize.Height * 1.5);
+                        int height = (int)(textSize.Height * lineCount);
+                        checkbox.Height = Math.Max(minHeight, height);
+
+                        checkbox.FlatStyle = FlatStyle.Flat;
+                        checkbox.Appearance = Appearance.Button;
+                        //checkbox.Text = GetCharacterFromIndex(i) + " " + optionText; // Set the desired character for the left side of the button
+                        //checkbox.TextImageRelation = TextImageRelation.ImageBeforeText;
+
                     }
 
                     // Clear the selection for any remaining checkboxes
@@ -512,6 +647,9 @@ namespace TestingWinForms
                         radioButton.Text = string.Empty;
                         radioButton.Checked = false;
                     }
+
+                    AdjustCheckboxTableLayoutPanelScroll(numAns);
+
                 }
                 // Enable the submit button
                 submitButton.Enabled = true;
@@ -538,7 +676,128 @@ namespace TestingWinForms
                 thankYouForm.Show();
                 this.Close();
             }
+
+
         }
+
+        //Helper method to get the letter for displaying answer
+        private string GetCharacterFromIndex(int index)
+        {
+            string character;
+            switch (index)
+            {
+                case 0:
+                    character = "A";
+                    break;
+                case 1:
+                    character = "B";
+                    break;
+                case 2:
+                    character = "C";
+                    break;
+                case 3:
+                    character = "D";
+                    break;
+                case 4:
+                    character = "E";
+                    break;
+                case 5:
+                    character = "F";
+                    break;
+                case 6:
+                    character = "G";
+                    break;
+                case 7:
+                    character = "H";
+                    break;
+                default:
+                    character = ""; // Handle other index values if needed
+                    break;
+            }
+            return character;
+        }
+
+        private void AdjustRadioTableLayoutPanelScroll(int numAns)
+        {
+            int totalHeight = 0;
+
+            // Iterate through each row in the TableLayoutPanel
+            for (int row = 0; row < numAns; row++)
+            {
+                int rowHeight = GetRadioButtonRowHeight(tableLayoutPanelRadioButton, row);
+                totalHeight += rowHeight;
+            }
+
+            int availableHeight = tableLayoutPanelRadioButton.Parent.Height;
+
+            if (totalHeight > availableHeight)
+            {
+                tableLayoutPanelRadioButton.AutoScroll = true; 
+            }
+            else
+            {
+                tableLayoutPanelRadioButton.AutoScroll = false;
+            }
+        }
+
+        private int GetRadioButtonRowHeight(TableLayoutPanel tableLayoutPanel, int row)
+        {
+            int radioButtonHeight = 0;
+
+            // Check if the row contains a RadioButton control
+            foreach (Control control in tableLayoutPanel.Controls)
+            {
+                if (tableLayoutPanel.GetRow(control) == row && control is RadioButton radioButton)
+                {
+                    radioButtonHeight = radioButton.Height;
+                    break;
+                }
+            }
+
+            return radioButtonHeight;
+        }
+
+
+        private void AdjustCheckboxTableLayoutPanelScroll(int numAns)
+        {
+            int totalHeight = 0;
+
+            // Iterate through each row in the TableLayoutPanel
+            for (int row = 0; row < numAns; row++)
+            {
+                int rowHeight = GetCheckBoxRowHeight(tableLayoutPanelCheckBox, row);
+                totalHeight += rowHeight;
+            }
+
+            int availableHeight = tableLayoutPanelCheckBox.Parent.Height;
+
+            if (totalHeight > availableHeight)
+            {
+                tableLayoutPanelCheckBox.AutoScroll = true; 
+            }
+            else
+            {
+                tableLayoutPanelCheckBox.AutoScroll = false;
+            }
+        }
+
+        private int GetCheckBoxRowHeight(TableLayoutPanel tableLayoutPanel, int row)
+        {
+            int checkBoxHeight = 0;
+
+            // Check if the row contains a RadioButton control
+            foreach (Control control in tableLayoutPanel.Controls)
+            {
+                if (tableLayoutPanel.GetRow(control) == row && control is CheckBox checkBox)
+                {
+                    checkBoxHeight = checkBox.Height;
+                    break; 
+                }
+            }
+
+            return checkBoxHeight;
+        }
+
 
         //for checkboxes
         private void CheckBox_CheckedChanged(object sender, EventArgs e)
@@ -559,15 +818,18 @@ namespace TestingWinForms
                         {
                             checkBox.Paint -= CheckBox_Paint; // Unsubscribe from the previous Paint event handler
                             checkBox.Paint += CheckBox_Paint; // Subscribe to the new Paint event handler
-                            //checkBox.BackColor = Color.Green;
+                            //checkBox.BackColor = ;
                             checkboxValues[checkboxName] = checkBox.Text;
                         }
                         else
                         {
                             checkBox.Paint -= CheckBox_Paint; // Unsubscribe from the Paint event handler
                             //checkBox.BackColor = Color.Transparent;
+                            //checkBox.BackColor = Color.FromArgb(100, Color.White);
                             checkboxValues[checkboxName] = " ";
                         }
+
+                        
                     }
 
 
@@ -589,14 +851,44 @@ namespace TestingWinForms
             // Set the background color with transparency
             Color backgroundColor = Color.FromArgb(100, Color.Green);
 
+            
+
+            
             // Create a brush with the translucent background color
             Brush brush = new SolidBrush(backgroundColor);
 
             // Draw the background
             e.Graphics.FillRectangle(brush, checkBox.ClientRectangle);
 
+            // Draw the curved border
+            /*
+            // Set the border color and width
+            Color borderColor = Color.DarkBlue;
+            int borderWidth = 2;
+
+            // Set the corner radius for curved border (e.g., 8 pixels)
+            int cornerRadius = 20;
+
+
+            using (Pen borderPen = new Pen(borderColor, borderWidth))
+            {
+                Rectangle borderRect = checkBox.ClientRectangle;
+                borderRect.Inflate(-borderWidth / 2, -borderWidth / 2);
+
+                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                e.Graphics.DrawArc(borderPen, borderRect.Left, borderRect.Top, cornerRadius * 2, cornerRadius * 2, 180, 90);
+                e.Graphics.DrawArc(borderPen, borderRect.Right - (cornerRadius * 2), borderRect.Top, cornerRadius * 2, cornerRadius * 2, 270, 90);
+                e.Graphics.DrawArc(borderPen, borderRect.Left, borderRect.Bottom - (cornerRadius * 2), cornerRadius * 2, cornerRadius * 2, 90, 90);
+                e.Graphics.DrawArc(borderPen, borderRect.Right - (cornerRadius * 2), borderRect.Bottom - (cornerRadius * 2), cornerRadius * 2, cornerRadius * 2, 0, 90);
+                e.Graphics.DrawLine(borderPen, borderRect.Left + cornerRadius, borderRect.Top, borderRect.Right - cornerRadius, borderRect.Top);
+                e.Graphics.DrawLine(borderPen, borderRect.Left + cornerRadius, borderRect.Bottom, borderRect.Right - cornerRadius, borderRect.Bottom);
+                e.Graphics.DrawLine(borderPen, borderRect.Left, borderRect.Top + cornerRadius, borderRect.Left, borderRect.Bottom - cornerRadius);
+                e.Graphics.DrawLine(borderPen, borderRect.Right, borderRect.Top + cornerRadius, borderRect.Right, borderRect.Bottom - cornerRadius);
+            }*/
+
             // Clean up resources
             brush.Dispose();
+
         }
 
 
@@ -778,8 +1070,13 @@ namespace TestingWinForms
 
         public List<bool> AutoSizes { get; set; }
 
+        public Color QuestionColor { get; set; }
+
+        public List<Color> AnswerColors { get; set; }
+
         public Question(int index, string text, string type, List<string> options, string imagePath, 
-            string fontQuestion, List<string> fontValues, ContentAlignment questionAlignment, List<ContentAlignment> textAligns, bool questionAutoSize, List<bool> autoSizes)
+            string fontQuestion, List<string> fontValues, ContentAlignment questionAlignment, List<ContentAlignment> textAligns, 
+            bool questionAutoSize, List<bool> autoSizes, Color questionColor, List<Color> answerColors)
         {
             Index = index;
             Text = text;
@@ -792,6 +1089,8 @@ namespace TestingWinForms
             TextAligns = textAligns;
             QuestionAutoSize = questionAutoSize;
             AutoSizes = autoSizes;
+            QuestionColor = questionColor;
+            AnswerColors = answerColors;
         }
     }
 }

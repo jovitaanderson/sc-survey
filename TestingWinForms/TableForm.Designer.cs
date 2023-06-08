@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.labelYAxis = new System.Windows.Forms.Label();
             this.labelXAxis = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
@@ -91,7 +92,7 @@
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(100, 38);
             this.nextButton.TabIndex = 8;
-            this.nextButton.Text = "Next";
+            this.nextButton.Text = "Next ▶";
             this.nextButton.UseVisualStyleBackColor = true;
             this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
             // 
