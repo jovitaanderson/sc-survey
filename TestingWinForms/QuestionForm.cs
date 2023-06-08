@@ -559,17 +559,23 @@ namespace TestingWinForms
                         radioButton.FlatStyle = FlatStyle.Flat;
                         radioButton.Appearance = Appearance.Button;
 
+                        if (radioButton.Controls.Count > 0)
+                        {
+                            radioButton.Controls.RemoveAt(0);
+                        }
+
                         // Create a label to hold the text parts
                         Label label = new Label();
-                        Font characterFont = new Font("Arial", 18, FontStyle.Bold);
+                        Font characterFont = new Font("Times New Roman", 32, FontStyle.Bold);
                         label.Text = GetCharacterFromIndex(i);
                         label.Font = characterFont;
+                        label.AutoSize = true;
                         radioButton.Controls.Add(label);
 
                         // Adjust the position and size of the labels
                         int labelMarginTop = (radioButton.Height - label.Height) / 2; // Align vertically to the middle
-                        label.Location = new Point(0, labelMarginTop);
-                        radioButton.Padding = new Padding(label.Width + 5, 0, 0, 0);
+                        label.Location = new Point(20, labelMarginTop);
+                        radioButton.Padding = new Padding(label.Width + 20, 0, 0, 0);
                     }
 
                     // Hide checkboxes
@@ -623,17 +629,24 @@ namespace TestingWinForms
                         checkbox.FlatStyle = FlatStyle.Flat;
                         checkbox.Appearance = Appearance.Button;
 
+
+                        if (checkbox.Controls.Count > 0)
+                        {
+                            checkbox.Controls.RemoveAt(0);
+                        }
+
                         // Create a label to hold the text parts
                         Label label = new Label();
-                        Font characterFont = new Font("Arial", 18, FontStyle.Bold); 
+                        Font characterFont = new Font("Times New Roman", 32, FontStyle.Bold); 
                         label.Text = GetCharacterFromIndex(i);
                         label.Font = characterFont;
+                        label.AutoSize = true;
                         checkbox.Controls.Add(label);
 
                         // Adjust the position and size of the labels
                         int labelMarginTop = (checkbox.Height - label.Height) / 2; // Align vertically to the middle
-                        label.Location = new Point(10, labelMarginTop);
-                        checkbox.Padding = new Padding(label.Width + 10, 0, 0, 0);
+                        label.Location = new Point(20, labelMarginTop);
+                        checkbox.Padding = new Padding(label.Width + 20, 0, 0, 0);
                     }
 
                     // Clear the selection for any remaining checkboxes
@@ -737,12 +750,11 @@ namespace TestingWinForms
 
             int availableHeight = tableLayoutPanelRadioButton.Parent.Height;
 
-           //tableLayoutPanelRadioButton.MaximumSize = new Size(tableLayoutPanelRadioButton.Width, totalHeight);
-
-
             if (totalHeight > availableHeight)
             {
                 tableLayoutPanelRadioButton.VerticalScroll.Value = 0;
+                // To reset the scroll bar
+                tableLayoutPanelRadioButton.AutoScroll = false;
                 tableLayoutPanelRadioButton.AutoScroll = true;
             }
             else
@@ -784,7 +796,11 @@ namespace TestingWinForms
 
             if (totalHeight > availableHeight)
             {
-                tableLayoutPanelCheckBox.AutoScroll = true; 
+                tableLayoutPanelCheckBox.VerticalScroll.Value = 0;
+                // To reset the scroll bar
+                tableLayoutPanelCheckBox.AutoScroll = false;
+                tableLayoutPanelCheckBox.AutoScroll = true;
+                tableLayoutPanelCheckBox.HorizontalScroll.Visible = false;
             }
             else
             {
