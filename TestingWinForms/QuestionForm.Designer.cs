@@ -74,7 +74,7 @@
             // optionACheckBox
             // 
             this.optionACheckBox.AutoSize = true;
-            this.optionACheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.optionACheckBox.BackColor = System.Drawing.Color.White;
             this.optionACheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionACheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionACheckBox.Location = new System.Drawing.Point(10, 10);
@@ -88,7 +88,7 @@
             // optionBCheckBox
             // 
             this.optionBCheckBox.AutoSize = true;
-            this.optionBCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.optionBCheckBox.BackColor = System.Drawing.Color.White;
             this.optionBCheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionBCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionBCheckBox.Location = new System.Drawing.Point(10, 80);
@@ -102,7 +102,7 @@
             // optionCCheckBox
             // 
             this.optionCCheckBox.AutoSize = true;
-            this.optionCCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.optionCCheckBox.BackColor = System.Drawing.Color.White;
             this.optionCCheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionCCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionCCheckBox.Location = new System.Drawing.Point(10, 150);
@@ -116,7 +116,7 @@
             // optionDCheckBox
             // 
             this.optionDCheckBox.AutoSize = true;
-            this.optionDCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.optionDCheckBox.BackColor = System.Drawing.Color.White;
             this.optionDCheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionDCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionDCheckBox.Location = new System.Drawing.Point(10, 220);
@@ -130,7 +130,7 @@
             // optionECheckBox
             // 
             this.optionECheckBox.AutoSize = true;
-            this.optionECheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.optionECheckBox.BackColor = System.Drawing.Color.White;
             this.optionECheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionECheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionECheckBox.Location = new System.Drawing.Point(10, 290);
@@ -144,7 +144,7 @@
             // optionFCheckBox
             // 
             this.optionFCheckBox.AutoSize = true;
-            this.optionFCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.optionFCheckBox.BackColor = System.Drawing.Color.White;
             this.optionFCheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionFCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionFCheckBox.Location = new System.Drawing.Point(10, 360);
@@ -158,7 +158,7 @@
             // optionGCheckBox
             // 
             this.optionGCheckBox.AutoSize = true;
-            this.optionGCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.optionGCheckBox.BackColor = System.Drawing.Color.White;
             this.optionGCheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionGCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionGCheckBox.Location = new System.Drawing.Point(10, 430);
@@ -172,7 +172,7 @@
             // optionARadioButton
             // 
             this.optionARadioButton.AutoSize = true;
-            this.optionARadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.optionARadioButton.BackColor = System.Drawing.Color.White;
             this.optionARadioButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionARadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionARadioButton.Location = new System.Drawing.Point(10, 10);
@@ -188,7 +188,7 @@
             // optionBRadioButton
             // 
             this.optionBRadioButton.AutoSize = true;
-            this.optionBRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.optionBRadioButton.BackColor = System.Drawing.Color.White;
             this.optionBRadioButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionBRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionBRadioButton.Location = new System.Drawing.Point(10, 86);
@@ -204,7 +204,7 @@
             // optionERadioButton
             // 
             this.optionERadioButton.AutoSize = true;
-            this.optionERadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.optionERadioButton.BackColor = System.Drawing.Color.White;
             this.optionERadioButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionERadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionERadioButton.Location = new System.Drawing.Point(10, 314);
@@ -220,7 +220,7 @@
             // optionFRadioButton
             // 
             this.optionFRadioButton.AutoSize = true;
-            this.optionFRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.optionFRadioButton.BackColor = System.Drawing.Color.White;
             this.optionFRadioButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionFRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionFRadioButton.Location = new System.Drawing.Point(10, 390);
@@ -236,7 +236,7 @@
             // optionGRadioButton
             // 
             this.optionGRadioButton.AutoSize = true;
-            this.optionGRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.optionGRadioButton.BackColor = System.Drawing.Color.White;
             this.optionGRadioButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionGRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionGRadioButton.Location = new System.Drawing.Point(10, 466);
@@ -252,7 +252,7 @@
             // optionDRadioButton
             // 
             this.optionDRadioButton.AutoSize = true;
-            this.optionDRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.optionDRadioButton.BackColor = System.Drawing.Color.White;
             this.optionDRadioButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionDRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionDRadioButton.Location = new System.Drawing.Point(10, 238);
@@ -268,7 +268,7 @@
             // optionCRadioButton
             // 
             this.optionCRadioButton.AutoSize = true;
-            this.optionCRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.optionCRadioButton.BackColor = System.Drawing.Color.White;
             this.optionCRadioButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionCRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionCRadioButton.Location = new System.Drawing.Point(10, 162);
@@ -284,7 +284,7 @@
             // optionHRadioButton
             // 
             this.optionHRadioButton.AutoSize = true;
-            this.optionHRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.optionHRadioButton.BackColor = System.Drawing.Color.White;
             this.optionHRadioButton.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionHRadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionHRadioButton.Location = new System.Drawing.Point(10, 542);
@@ -300,7 +300,7 @@
             // optionHCheckBox
             // 
             this.optionHCheckBox.AutoSize = true;
-            this.optionHCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.optionHCheckBox.BackColor = System.Drawing.Color.White;
             this.optionHCheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionHCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.optionHCheckBox.Location = new System.Drawing.Point(10, 500);
@@ -372,6 +372,7 @@
             // tableLayoutPanelRadioButton
             // 
             this.tableLayoutPanelRadioButton.AutoScroll = true;
+            this.tableLayoutPanelRadioButton.AutoSize = true;
             this.tableLayoutPanelRadioButton.ColumnCount = 1;
             this.tableLayoutPanelRadioButton.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelRadioButton.Controls.Add(this.optionHRadioButton, 0, 7);
@@ -399,6 +400,7 @@
             // 
             // tableLayoutPanelCheckBox
             // 
+            this.tableLayoutPanelCheckBox.AutoScroll = true;
             this.tableLayoutPanelCheckBox.ColumnCount = 1;
             this.tableLayoutPanelCheckBox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelCheckBox.Controls.Add(this.optionHCheckBox, 0, 7);
@@ -436,6 +438,7 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.tableLayoutPanelRadioButton.ResumeLayout(false);
             this.tableLayoutPanelRadioButton.PerformLayout();
             this.tableLayoutPanelCheckBox.ResumeLayout(false);

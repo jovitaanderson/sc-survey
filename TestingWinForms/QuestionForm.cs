@@ -570,6 +570,7 @@ namespace TestingWinForms
                         label.Text = GetCharacterFromIndex(i);
                         label.Font = characterFont;
                         label.AutoSize = true;
+                        label.BackColor = Color.Transparent;
                         radioButton.Controls.Add(label);
 
                         // Adjust the position and size of the labels
@@ -641,7 +642,9 @@ namespace TestingWinForms
                         label.Text = GetCharacterFromIndex(i);
                         label.Font = characterFont;
                         label.AutoSize = true;
+                        label.BackColor = Color.Transparent;
                         checkbox.Controls.Add(label);
+                        
 
                         // Adjust the position and size of the labels
                         int labelMarginTop = (checkbox.Height - label.Height) / 2; // Align vertically to the middle
@@ -850,6 +853,7 @@ namespace TestingWinForms
                         else
                         {
                             checkBox.Paint -= CheckBox_Paint; // Unsubscribe from the Paint event handler
+                            checkBox.BackColor = Color.White;
                             checkboxValues[checkboxName] = " ";
                         }
                         
@@ -936,7 +940,8 @@ namespace TestingWinForms
                         else
                         {
                             radioButton.Paint -= RadioButton_Paint; // Unsubscribe from the Paint event handler
-                            radioButton.BackColor = Color.Transparent;
+                            //radioButton.BackColor = Color.Transparent;
+                            radioButton.BackColor = Color.White;
                             checkboxValues[radioButtonName] = " ";
                         }
                     }
