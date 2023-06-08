@@ -539,7 +539,7 @@ namespace TestingWinForms
                             numAns++;
 
                         radioButton.Visible = !string.IsNullOrEmpty(optionText); 
-                        //radioButton.Text = optionText;
+                        radioButton.Text = optionText;
                         radioButton.Checked = false;
                         radioButton.Font = FontFromBinaryString(currentQuestion.FontValues[i]);
                         radioButton.TextAlign = currentQuestion.TextAligns[i];
@@ -549,7 +549,6 @@ namespace TestingWinForms
                         radioButton.AutoSize = false;
 
                         // Measure the required size for the text
-
                         SizeF textSize = TextRenderer.MeasureText(optionText, radioButton.Font);
                         int availableWidth = tableLayoutPanelRadioButton.Parent.Width;
                         int lineCount = (int)Math.Ceiling(textSize.Width / availableWidth);
@@ -558,12 +557,26 @@ namespace TestingWinForms
                         radioButton.Height = Math.Max(minHeight, height);
 
                         radioButton.FlatStyle = FlatStyle.Flat;
-                        //Change appearance to a button
                         radioButton.Appearance = Appearance.Button;
 
-                        radioButton.Text = GetCharacterFromIndex(i) + " " + optionText;
+                        if (radioButton.Controls.Count > 0)
+                        {
+                            radioButton.Controls.RemoveAt(0);
+                        }
 
+                        // Create a label to hold the text parts
+                        Label label = new Label();
+                        Font characterFont = new Font("Times New Roman", 32, FontStyle.Bold);
+                        label.Text = GetCharacterFromIndex(i);
+                        label.Font = characterFont;
+                        label.AutoSize = true;
+                        label.BackColor = Color.Transparent;
+                        radioButton.Controls.Add(label);
 
+                        // Adjust the position and size of the labels
+                        int labelMarginTop = (radioButton.Height - label.Height) / 2; // Align vertically to the middle
+                        label.Location = new Point(20, labelMarginTop);
+                        radioButton.Padding = new Padding(label.Width + 20, 0, 0, 0);
                     }
 
                     // Hide checkboxes
@@ -590,20 +603,18 @@ namespace TestingWinForms
                     for (int i = 0; i < numOptions; i++)
                     {
                         CheckBox checkbox = checkboxes[i];
-                        //Panel panel = panels[i];
                         string optionText = currentQuestion.Options[i];
 
                         if (!string.IsNullOrEmpty(optionText))
                             numAns++;
 
                         checkbox.Visible = !string.IsNullOrEmpty(optionText);
-                        //checkbox.Text = optionText;
+                        checkbox.Text = optionText;
                         checkbox.Checked = false;
                         Font textFont = FontFromBinaryString(currentQuestion.FontValues[i]);
                         checkbox.Font = textFont;
-                        
-                        //checkbox.TextAlign = currentQuestion.TextAligns[i];
-                        //checkbox.AutoSize = currentQuestion.AutoSizes[i];
+                        checkbox.TextAlign = currentQuestion.TextAligns[i];
+                        checkbox.AutoSize = currentQuestion.AutoSizes[i];
                         checkbox.ForeColor = currentQuestion.AnswerColors[i];
 
                         checkbox.AutoSize = false;
@@ -619,37 +630,26 @@ namespace TestingWinForms
                         checkbox.FlatStyle = FlatStyle.Flat;
                         checkbox.Appearance = Appearance.Button;
 
+
+                        if (checkbox.Controls.Count > 0)
+                        {
+                            checkbox.Controls.RemoveAt(0);
+                        }
+
                         // Create a label to hold the text parts
                         Label label = new Label();
-
-                        // Set the font for GetCharacterFromIndex(i)
-                        Font characterFont = new Font("Arial", 18, FontStyle.Bold); // Replace with your desired font and size
+                        Font characterFont = new Font("Times New Roman", 32, FontStyle.Bold); 
                         label.Text = GetCharacterFromIndex(i);
                         label.Font = characterFont;
-
-                        // Create a separate label for optionText
-                        Label optionTextLabel = new Label();
-                        optionTextLabel.Text = optionText;
-                        optionTextLabel.TextAlign = currentQuestion.TextAligns[i];
-                        optionTextLabel.AutoSize = true;
-                        optionTextLabel.ForeColor = currentQuestion.AnswerColors[i];
-                        optionTextLabel.Font = textFont;
-
-                        optionTextLabel.MaximumSize = new Size(availableWidth, 0);
-                        optionTextLabel.AutoEllipsis = false;
-                        optionTextLabel.Height = (int)optionTextLabel.CreateGraphics().MeasureString(optionText, textFont, availableWidth).Height;
-
-                        // Add the labels to the checkbox
+                        label.AutoSize = true;
+                        label.BackColor = Color.Transparent;
                         checkbox.Controls.Add(label);
-                        checkbox.Controls.Add(optionTextLabel);
+                        
 
                         // Adjust the position and size of the labels
-                        label.Location = new Point(0, 0);
-                        optionTextLabel.Location = new Point(label.Width + 5, 0);
-
-                        //checkbox.Text = GetCharacterFromIndex(i) + " " + optionText;
-                        checkbox.Text = "";
-
+                        int labelMarginTop = (checkbox.Height - label.Height) / 2; // Align vertically to the middle
+                        label.Location = new Point(20, labelMarginTop);
+                        checkbox.Padding = new Padding(label.Width + 20, 0, 0, 0);
                     }
 
                     // Clear the selection for any remaining checkboxes
@@ -753,12 +753,11 @@ namespace TestingWinForms
 
             int availableHeight = tableLayoutPanelRadioButton.Parent.Height;
 
-           //tableLayoutPanelRadioButton.MaximumSize = new Size(tableLayoutPanelRadioButton.Width, totalHeight);
-
-
             if (totalHeight > availableHeight)
             {
                 tableLayoutPanelRadioButton.VerticalScroll.Value = 0;
+                // To reset the scroll bar
+                tableLayoutPanelRadioButton.AutoScroll = false;
                 tableLayoutPanelRadioButton.AutoScroll = true;
             }
             else
@@ -800,7 +799,11 @@ namespace TestingWinForms
 
             if (totalHeight > availableHeight)
             {
-                tableLayoutPanelCheckBox.AutoScroll = true; 
+                tableLayoutPanelCheckBox.VerticalScroll.Value = 0;
+                // To reset the scroll bar
+                tableLayoutPanelCheckBox.AutoScroll = false;
+                tableLayoutPanelCheckBox.AutoScroll = true;
+                tableLayoutPanelCheckBox.HorizontalScroll.Visible = false;
             }
             else
             {
@@ -850,6 +853,7 @@ namespace TestingWinForms
                         else
                         {
                             checkBox.Paint -= CheckBox_Paint; // Unsubscribe from the Paint event handler
+                            checkBox.BackColor = Color.White;
                             checkboxValues[checkboxName] = " ";
                         }
                         
@@ -936,7 +940,8 @@ namespace TestingWinForms
                         else
                         {
                             radioButton.Paint -= RadioButton_Paint; // Unsubscribe from the Paint event handler
-                            radioButton.BackColor = Color.Transparent;
+                            //radioButton.BackColor = Color.Transparent;
+                            radioButton.BackColor = Color.White;
                             checkboxValues[radioButtonName] = " ";
                         }
                     }
