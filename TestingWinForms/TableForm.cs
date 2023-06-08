@@ -185,6 +185,9 @@ namespace TestingWinForms
                 Image image = Image.FromFile(InnerGraphBackgroundPath);
                 graphPanel.BackgroundImage = image; // Set the smaller image as the background image
                 graphPanel.BackgroundImageLayout = ImageLayout.Stretch;
+
+                //roundedPanel1.BackgroundImage = image;
+                //roundedPanel1.BackgroundImageLayout = ImageLayout.Stretch;
             } 
 
             LoadTableFromCSV();
@@ -565,7 +568,7 @@ namespace TestingWinForms
             }
         }
 
-        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        private void graphPanel_MouseClick(object sender, MouseEventArgs e)
         {
             LoadTimerFromCSV();
             // check if all admin csv exixts, if dosent prompt message box
@@ -600,7 +603,8 @@ namespace TestingWinForms
                     Refresh(); // Redraw the form to display the dots
                     SavePointToCSV(point);
                     hasClicked = true;
-                    Refresh();
+                    //Refresh();
+                    graphPanel.Invalidate();
                     nextButton.Visible = true;
                     timer = new System.Threading.Timer(OnTimerElapsed, null, timerToQuestionPage, Timeout.Infinite); // Start the timer for x seconds
                 }

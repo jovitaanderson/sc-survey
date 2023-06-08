@@ -66,6 +66,9 @@
       <DependentUpon>CustomText.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalVariables.cs" />
+    <Compile Include="RoundedPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TableForm.cs">
       <SubType>Form</SubType>
     </Compile>
