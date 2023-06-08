@@ -744,7 +744,7 @@ namespace TestingWinForms
 
             Font loadedFontTitle = FontFromBinaryString(fontTitle);
             label.Font = loadedFontTitle;
-            label.Height = (int)Math.Ceiling(FontFromBinaryString(fontTitle).GetHeight()) + Padding.Vertical; ;
+            label.Height = (int)Math.Ceiling(FontFromBinaryString(fontTitle).GetHeight()) + Padding.Vertical;
 
             if (textProperties.Length > 2)
             {
@@ -760,7 +760,7 @@ namespace TestingWinForms
                 }
                 label.AutoSize = textWrap.Equals("true", StringComparison.OrdinalIgnoreCase);
             }
-            label.Height = (int)Math.Ceiling(loadedFontTitle.GetHeight()) + Padding.Vertical;
+            //label.Height = (int)Math.Ceiling(loadedFontTitle.GetHeight()) + Padding.Vertical;
         }
 
         private void LoadNumQuestions()

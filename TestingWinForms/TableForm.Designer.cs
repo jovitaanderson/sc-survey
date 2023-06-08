@@ -127,6 +127,7 @@
             // 
             // graphPanel
             // 
+            this.graphPanel.BackColor = System.Drawing.Color.Transparent;
             this.graphPanel.Controls.Add(this.labelYAxis);
             this.graphPanel.Controls.Add(this.labelXAxis2);
             this.graphPanel.Controls.Add(this.labelXAxis);

@@ -256,13 +256,13 @@ namespace TestingWinForms
                     if (values.Length == 12)
                     {
                         labelTitle.Text = values[0].Replace("\0", ",");
-                        labelXAxis.Text = values[1].Replace("\0", ",");
-                        labelXAxis2.Text = values[2].Replace("\0", ",");
+                        labelXAxis2.Text = values[1].Replace("\0", ",");
+                        labelXAxis.Text = values[2].Replace("\0", ",");
                         labelYAxis.Text = values[3].Replace("\0", ",");
                         labelYAxis2.Text = values[4].Replace("\0", ",");
 
                         // Load saved font and text properties
-                        loadContentToComponent(values, 7, labelTitle);
+                        loadContentToComponent(values, 7, labelTitle); //auto size for title effect as  height and width is set
                         loadContentToComponent(values, 8, labelXAxis2);
                         loadContentToComponent(values, 9, labelXAxis);
                         loadContentToComponent(values, 10, labelYAxis);
@@ -273,69 +273,76 @@ namespace TestingWinForms
 
                         int maxWidthTitle = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width - (margin * 2));
                         int maxHeightTitle = Convert.ToInt32( graphPanel.Location.Y - (margin * 2));
-                        int maxWidthAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Width * 0.40);
-                        int maxHeightXAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height * 0.11);
-                        int maxHeightYAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height * 0.35);
-                        
+                        //int maxHeightYAxis = Convert.ToInt32(Screen.PrimaryScreen.Bounds.Height * 0.35);
+
                         // Title 
-                        labelTitle.AutoSize = true;
-                        labelTitle.MaximumSize = new Size(maxWidthTitle, maxHeightTitle);
                         labelTitle.MinimumSize = new Size(maxWidthTitle, maxHeightTitle);
-                        int mid = Screen.PrimaryScreen.Bounds.Width / 2 - labelTitle.Width/2;
-                        int mid_h = Screen.PrimaryScreen.Bounds.Height / 2;  
+                        labelTitle.MaximumSize = new Size(maxWidthTitle, maxHeightTitle);
                         labelTitle.Location = new Point(margin, margin);
 
-                        //int maxWidthYAxis = (graphPanel.Width - drawingArea.Width) / 2 - margin*2;
+                        // Y axis height and width constraints 
                         int maxWidthYAxis = drawingArea.Left - margin * 2;
-                        int maxHeightYAxiss = graphPanel.Height - ((graphPanel.Height - drawingArea.Height) + margin * 2);
+                        int maxHeightYAxis = graphPanel.Height - (drawingArea.Top * 2 + margin * 2);
+
                         // Left y axis label
-                        labelYAxis.AutoSize = true;
-                        labelYAxis.MaximumSize = new Size(maxWidthYAxis, maxHeightYAxiss);
                         labelYAxis.MinimumSize = new Size(0, 0);
-                        int height = labelYAxis.Height;
-                        labelYAxis.TextAlign = ContentAlignment.MiddleCenter;
+                        labelYAxis.MaximumSize = new Size(maxWidthYAxis, maxHeightYAxis);
                         //labelYAxis.Left = (this.ClientSize.Width - drawingArea.Width - labelYAxis.Width ) / 2;
                         //labelYAxis.Location = new Point(graphPanel.Location.X, graphPanel.Location.Y);
-                        int left_padding = (Screen.PrimaryScreen.Bounds.Width) / 2;
                         //labelYAxis.Location = new Point((graphPanel.Width - labelYAxis.Width) / 2, (graphPanel.Height - labelYAxis.Height) / 2);
-                        int left_position = (graphPanel.Width/2 - drawingArea.Width/ 2) - labelYAxis.Width - margin;
-                        int middle_position = (graphPanel.Height / 2) - (labelYAxis.Height/2);
-                        labelYAxis.Location = new Point(left_position, middle_position);
+                        int yAxisLeft_left = drawingArea.Left - labelYAxis.Width - margin;
+                        int yAxisLeft_top = 0;
+                        if (labelYAxis.Height == maxHeightYAxis)
+                        {
+                            yAxisLeft_top = (graphPanel.Height / 2) - (labelYAxis.Height / 2) + margin;
+                        }
+                        else {
+                            yAxisLeft_top = (graphPanel.Height / 2) - (labelYAxis.Height / 2) ;
+                        }
+                        
+                        labelYAxis.Location = new Point(yAxisLeft_left, yAxisLeft_top);
                         //labelYAxis.Top = (this.ClientSize.Height - labelYAxis.Height) / 2;
                         //int padding = (graphPanel.Height - labelYAxis.Height) / 2;
                         //labelYAxis.Padding = new Padding(left_padding+100, padding, 0, padding);
 
                         // Right y axis label
-                        int yAxisRight_left = (graphPanel.Width / 2) + drawingArea.Width / 2 + margin;
-                        labelYAxis2.AutoSize = true;
-                        labelYAxis2.MaximumSize = new Size(maxWidthYAxis, maxHeightYAxiss);
                         labelYAxis2.MinimumSize = new Size(0, 0);
-                        labelYAxis2.TextAlign = ContentAlignment.MiddleCenter;
-                        int middle2_position = (graphPanel.Height / 2) - (labelYAxis2.Height / 2);
-
-                        labelYAxis2.Location = new Point(yAxisRight_left, middle2_position);
+                        labelYAxis2.MaximumSize = new Size(maxWidthYAxis, maxHeightYAxis);
+                        int yAxisRight_left = drawingArea.Right + margin;
+                        int yAxisRight_top = 0;
+                        if (labelYAxis.Height == maxHeightYAxis)
+                        {
+                            yAxisRight_top = (graphPanel.Height / 2) - (labelYAxis2.Height / 2) + margin;
+                        }
+                        else
+                        {
+                            yAxisRight_top = (graphPanel.Height / 2) - (labelYAxis2.Height / 2);
+                        }
+                        labelYAxis2.Location = new Point(yAxisRight_left, yAxisRight_top);
                         //labelYAxis2.Left = (this.ClientSize.Width/2) + (drawingArea.Width/2);
                         //labelYAxis2.Top = (this.ClientSize.Height - labelYAxis2.Height) / 2;
 
+                        // X axis height and width constraints 
+                        int maxWidthXAxis = graphPanel.Width - margin * 2;
+                        int maxHeightXAxis = drawingArea.Top - margin * 2;
 
                         // Top x axis label
-                        labelXAxis2.AutoSize = true;
-                        labelXAxis2.MaximumSize = new Size(maxWidthAxis, maxHeightXAxis);
                         labelXAxis2.MinimumSize = new Size(0, 0);
+                        labelXAxis2.MaximumSize = new Size(maxWidthXAxis, maxHeightXAxis);
                         //labelXAxis2.TextAlign = ContentAlignment.TopCenter;
-                        int center = (graphPanel.Width / 2) - (labelXAxis2.Width /2);
-                        int xAxisTop_top = (graphPanel.Height - drawingArea.Height)/2 - labelXAxis2.Height/2 - margin;
-                        labelXAxis2.Location = new Point(center, xAxisTop_top);
+                        int xAxisTop_left = (graphPanel.Width / 2) - (labelXAxis2.Width /2);
+                        int xAxisTop_top = drawingArea.Top - labelXAxis2.Height - margin;
+                        labelXAxis2.Location = new Point(xAxisTop_left, xAxisTop_top);
                         //labelXAxis2.Left = (this.ClientSize.Width - labelXAxis2.Width) / 2;
 
 
                         // Bottom x axis label
-                        labelXAxis.AutoSize = true;
-                        labelXAxis.MaximumSize = new Size(maxWidthAxis, maxHeightXAxis);
                         labelXAxis.MinimumSize = new Size(0, 0);
-                        labelXAxis.TextAlign = ContentAlignment.TopCenter;
-                        int xAxisBot_top = graphPanel.Height - (((graphPanel.Height - drawingArea.Height) / 2) - (labelXAxis.Height / 2) - margin);
-                        labelXAxis.Location = new Point(center, xAxisBot_top);
+                        labelXAxis.MaximumSize = new Size(maxWidthXAxis, maxHeightXAxis);
+
+                        int xAxisBot_left = (graphPanel.Width / 2) - (labelXAxis.Width / 2);
+                        int xAxisBot_top = drawingArea.Bottom + labelXAxis.Height - margin;
+                        labelXAxis.Location = new Point(xAxisBot_left, xAxisBot_top);
                         //labelXAxis.Left = (this.ClientSize.Width - labelXAxis.Width) / 2;
 
 
