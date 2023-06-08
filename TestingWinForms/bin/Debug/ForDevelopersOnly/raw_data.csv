@@ -436,3 +436,90 @@ date,point_x,point_y,question1,question2,question3,question4,question5,question6
 '08/06/2023 10:07:35,5.572289,-5.481928
 '08/06/2023 10:08:13,-3.403614,-2.138555, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
 '08/06/2023 10:08:50,-2.740964,0.3614455, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:14:22,5.030121,1.355421, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:14:54,4.668675,-2.680723, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:15:56,2.108434,0.8132528, ; ; ; ; ; ; ; , ; ; ;fdsafdsafd; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ;safdsa; ; ; , ; ; ;hg; ; ; ; ,djgfd;sh; ;fdjhfd;jfd; ; ; , ;j; ; ; ; ; ; 
+'08/06/2023 10:16:36,1.656627,-3.855422, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:17:18,3.584338,1.355421, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:17:54,1.445783,1.536144,fdfgsgfdsgfsgfdsgfdsgfdsgfdsgfdsg gfd sgfdsgfdsgfdsgfdsgfds gfds gfdsg fdsg fds gfdsg fdsgfdsg fdsg fdsgsd gs;afa; ; ; ; ; ; , ; ; ; ; ; ; ;fsadsafsadsafdsadsadagdsagfsagdshgfdshfdshgfdjfdjhfdjgfdhdgfsgsfdj saljfksal fjdksal fdjsahfdjasfhl djakl fhdjkafh djksalfh djk, ;fdsafds;fdsafdsafdsafdsafdsafdsafdsafdsafdsafdjskallhgjksalhgdsjkalhfdjksalhfdjksalhfdjksalhfdjslahfdjksahfdjksahfdjkslahfjdksahfdjksalfjdjakfdlafjdslafjdksla;fjdklsa;jflkdsa;jfkdsla;fjdsalhfdjskafhdjsafhdjsakfhjdksalhfjdksalhfdjkhskfhdjaklfhdjaklhfdkalhfjdkalhfj; ; ; ; ; , ; ; ;fdsaf; ; ; ; , ; ;gdfhgfdj; ; ; ; ; , ;sh;dshg; ; ; ; ; , ; ; ;hgfdhgs; ; ; ; 
+'08/06/2023 10:18:27,2.710844,-3.222892, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ;fdsafdsafdsafdsafdsafdsafdsafdsafdsafdjskallhgjksalhgdsjkalhfdjksalhfdjksalhfdjksalhfdjslahfdjksahfdjksahfdjkslahfjdksahfdjksalfjdjakfdlafjdslafjdksla;fjdklsa;jflkdsa;jfkdsla;fjdsalhfdjskafhdjsafhdjsakfhjdksalhfjdksalhfdjkhskfhdjaklfhdjaklhfdkalhfjdkalhfj; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:19:21,8.012049,4.246988, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:19:35,6.20482,-5.240964, ; ; ; ; ; ; ; , ; ; ; ;dadsad; ; ; ,dasfd; ; ; ; ; ; ; , ; ;afdsa; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:20:15,1.746988,4.096385, ; ; ; ; ; ; ; , ; ;gfsdfds; ; ; ; ; ,dasfd; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:21:34,4.819277,0.8132528
+'08/06/2023 10:22:16,4.36747,0.451807
+'08/06/2023 10:23:10,2.078314,2.018072, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:23:48,1.415663,3.704819, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:24:09,4.819277,1.626506, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:25:12,3.253012,0.7831323, ; ; ; ; ; ;aFDF;DSA, ; ; ; ; ; ; ;fsadsafsadsafdsadsadagdsagfsagdshgfdshfdshgfdjfdjhfdjgfdhdgfsgsfdj saljfksal fjdksal fdjsahfdjasfhl djakl fhdjkafh djksalfh djk, ;fdsafds; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:25:37,4.36747,0.9036142, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:26:06,3.10241,1.415662, ; ; ; ; ; ; ; , ; ; ; ; ; ;sadsafdg; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:26:20,2.46988,-2.259037
+'08/06/2023 10:29:06,1.174699,2.168674, ; ; ; ; ; ; ; , ; ; ; ; ; ; ;fsadsafsadsafdsadsadagdsagfsagdshgfdshfdshgfdjfdjhfdjgfdhdgfsgsfdj saljfksal fjdksal fdjsahfdjasfhl djakl fhdjkafh djksalfh djk, ; ;fdsafdsafdsafdsafdsafdsafdsafdsafdsafdjskallhgjksalhgdsjkalhfdjksalhfdjksalhfdjksalhfdjslahfdjksahfdjksahfdjkslahfjdksahfdjksalfjdjakfdlafjdslafjdksla;fjdklsa;jflkdsa;jfkdsla;fjdsalhfdjskafhdjsafhdjsakfhjdksalhfjdksalhfdjkhskfhdjaklfhdjaklhfdkalhfjdkalhfj; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:29:24,7.710844,-3.493976,fdfgsgfdsgfsgfdsgfdsgfdsgfdsgfdsg gfd sgfdsgfdsgfdsgfdsgfds gfds gfdsg fdsg fds gfdsg fdsgfdsg fdsg fdsgsd gs; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ;safdsa; ; ; , ; ;gdfhgfdj; ; ; ; ; ,djgfd; ; ;fdjhfd; ; ; ; , ; ;fjhdjhfd; ; ; ; ; 
+'08/06/2023 10:29:41,3.70482,-2.921687,fdfgsgfdsgfsgfdsgfdsgfdsgfdsgfdsg gfd sgfdsgfdsgfdsgfdsgfds gfds gfdsg fdsg fds gfdsg fdsgfdsg fdsg fdsgsd gs; ; ; ; ;sad;aFDF;DSA, ; ; ; ; ; ; ;fsadsafsadsafdsadsadagdsagfsagdshgfdshfdshgfdjfdjhfdjgfdhdgfsgsfdj saljfksal fjdksal fdjsahfdjasfhl djakl fhdjkafh djksalfh djk, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:30:56,2.409639,3.704819, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:31:15,9.668675,-4.457832
+'08/06/2023 10:37:23,2.921687,2.138554, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:45:17,5.903615,2.921687
+'08/06/2023 10:45:49,2.951807,2.078313
+'08/06/2023 10:45:58,3.70482,2.108433
+'08/06/2023 10:46:45,2.831326,3.012048, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ;fdsafdsafdsafdsafdsafdsafdsafdsafdsafdjskallhgjksalhgdsjkalhfdjksalhfdjksalhfdjksalhfdjslahfdjksahfdjksahfdjkslahfjdksahfdjksalfjdjakfdlafjdslafjdksla;fjdklsa;jflkdsa;jfkdsla;fjdsalhfdjskafhdjsafhdjsakfhjdksalhfjdksalhfdjkhskfhdjaklfhdjaklhfdkalhfjdkalhfj; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:48:18,5.813253,-2.801205, ; ; ; ; ; ; ; , ; ; ; ;dadsad; ; ; , ; ;fdsafdsafdsafdsafdsafdsafdsafdsafdsafdjskallhgjksalhgdsjkalhfdjksalhfdjksalhfdjksalhfdjslahfdjksahfdjksahfdjkslahfjdksahfdjksalfjdjakfdlafjdslafjdksla;fjdklsa;jflkdsa;jfkdsla;fjdsalhfdjskafhdjsafhdjsakfhjdksalhfjdksalhfdjkhskfhdjaklfhdjaklhfdkalhfjdkalhfj; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:48:59,-1.686747,3.283132, ; ; ; ; ; ; ; , ; ;gfsdfds; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:49:27,7.078314,0.8132528, ; ; ; ; ; ; ; , ; ; ;fdsafdsafd; ; ; ; , ; ;fdsafdsafdsafdsafdsafdsafdsafdsafdsafdjskallhgjksalhgdsjkalhfdjksalhfdjksalhfdjksalhfdjslahfdjksahfdjksahfdjkslahfjdksahfdjksalfjdjakfdlafjdslafjdksla;fjdklsa;jflkdsa;jfkdsla;fjdsalhfdjskafhdjsafhdjsakfhjdksalhfjdksalhfdjkhskfhdjaklfhdjaklhfdkalhfjdkalhfj; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:49:50,6.656627,-4.487952
+'08/06/2023 10:50:27,6.987952,1.445783, ; ; ; ; ; ; ; , ; ; ; ;dadsad; ; ; , ; ;fdsafdsafdsafdsafdsafdsafdsafdsafdsafdjskallhgjksalhgdsjkalhfdjksalhfdjksalhfdjksalhfdjslahfdjksahfdjksahfdjkslahfjdksahfdjksalfjdjakfdlafjdslafjdksla;fjdklsa;jflkdsa;jfkdsla;fjdsalhfdjskafhdjsafhdjsakfhjdksalhfjdksalhfdjkhskfhdjaklfhdjaklhfdkalhfjdkalhfj; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:51:17,2.680723,3.554217, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:51:30,6.23494,-6.084338, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:51:55,8.222892,-3.524097, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:59:34,1.83735,-3.042169, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 10:59:45,6.957832,-5.993976, ; ; ; ; ; ; ; , ; ; ; ; ; ; ;fsadsafsadsafdsadsadagdsagfsagdshgfdshfdshgfdjfdjhfdjgfdhdgfsgsfdj saljfksal fjdksal fdjsahfdjasfhl djakl fhdjkafh djksalfh djk, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:02:40,-0.4216865,2.620482, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:02:48,8.222892,-6.987952, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:03:12,4.33735,-1.536145, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:03:45,5.60241,2.439759, ; ; ; ; ; ; ; , ; ;gfsdfds; ; ; ; ; , ; ;fdsafdsafdsafdsafdsafdsafdsafdsafdsafdjskallhgjksalhgdsjkalhfdjksalhfdjksalhfdjksalhfdjslahfdjksahfdjksahfdjkslahfjdksahfdjksalfjdjakfdlafjdslafjdksla;fjdklsa;jflkdsa;jfkdsla;fjdsalhfdjskafhdjsafhdjsakfhjdksalhfjdksalhfdjkhskfhdjaklfhdjaklhfdkalhfjdkalhfj; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:05:06,3.554217,1.777108, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:05:32,5.933735,1.355421, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:06:07,5.783133,2.349397
+'08/06/2023 11:07:46,5.301205,2.891566, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:09:53,4.427711,0.5421684, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ;fdsafdsafdsafdsafdsafdsafdsafdsafdsafdjskallhgjksalhgdsjkalhfdjksalhfdjksalhfdjksalhfdjslahfdjksahfdjksahfdjkslahfjdksahfdjksalfjdjakfdlafjdslafjdksla;fjdklsa;jflkdsa;jfkdsla;fjdsalhfdjskafhdjsafhdjsakfhjdksalhfjdksalhfdjkhskfhdjaklfhdjaklhfdkalhfjdkalhfj; ; ; ; ; , ; ;afdsa; ; ; ; ; , ; ; ;hg; ; ; ; , ;sh;dshg; ; ; ; ; , ; ;fjhdjhfd; ; ; ; ; 
+'08/06/2023 11:10:52,3.192771,2.439759, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:11:13,4.548193,3.253012
+'08/06/2023 11:12:59,-2.379518,3.433735, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:13:21,7.740964,0.0903612
+'08/06/2023 11:15:25,5.210844,2.138554, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:16:04,-3.73494,1.26506, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:17:14,0.361446,-0.2710846,fdfgsgfdsgfsgfdsgfdsgfdsgfdsgfdsg gfd sgfdsgfdsgfdsgfdsgfds gfds gfdsg fdsg fds gfdsg fdsgfdsg fdsg fdsgsd gs; ; ; ; ; ; ; , ; ; ; ; ; ; ;fsadsafsadsafdsadsadagdsagfsagdshgfdshfdshgfdjfdjhfdjgfdhdgfsgsfdj saljfksal fjdksal fdjsahfdjasfhl djakl fhdjkafh djksalfh djk, ; ;fdsafdsafdsafdsafdsafdsafdsafdsafdsafdjskallhgjksalhgdsjkalhfdjksalhfdjksalhfdjksalhfdjslahfdjksahfdjksahfdjkslahfjdksahfdjksalfjdjakfdlafjdslafjdksla;fjdklsa;jflkdsa;jfkdsla;fjdsalhfdjskafhdjsafhdjsakfhjdksalhfjdksalhfdjkhskfhdjaklfhdjaklhfdkalhfjdkalhfj; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:18:27,4.698795,0.8433733,fdfgsgfdsgfsgfdsgfdsgfdsgfdsgfdsg gfd sgfdsgfdsgfdsgfdsgfds gfds gfdsg fdsg fds gfdsg fdsgfdsg fdsg fdsgsd gs; ; ; ; ; ; ; , ; ; ; ; ; ; ;fsadsafsadsafdsadsadagdsagfsagdshgfdshfdshgfdjfdjhfdjgfdhdgfsgsfdj saljfksal fjdksal fdjsahfdjasfhl djakl fhdjkafh djksalfh djk, ; ;fdsafdsafdsafdsafdsafdsafdsafdsafdsafdjskallhgjksalhgdsjkalhfdjksalhfdjksalhfdjksalhfdjslahfdjksahfdjksahfdjkslahfjdksahfdjksalfjdjakfdlafjdslafjdksla;fjdklsa;jflkdsa;jfkdsla;fjdsalhfdjskafhdjsafhdjsakfhjdksalhfjdksalhfdjkhskfhdjaklfhdjaklhfdkalhfjdkalhfj; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:21:40,1.987952,-1.295181, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:22:03,-0.1204817,2.018072,fdfgsgfdsgfsgfdsgfdsgfdsgfdsgfdsg gfd sgfdsgfdsgfdsgfdsgfds gfds gfdsg fdsg fds gfdsg fdsgfdsg fdsg fdsgsd gs; ; ; ; ; ; ; , ; ;gfsdfds; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:23:06,4.126506,4.39759
+'08/06/2023 11:26:28,3.162651,0.2108431, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ;fdsafdsafdsafdsafdsafdsafdsafdsafdsafdjskallhgjksalhgdsjkalhfdjksalhfdjksalhfdjksalhfdjslahfdjksahfdjksahfdjkslahfjdksahfdjksalfjdjakfdlafjdslafjdksla;fjdklsa;jflkdsa;jfkdsla;fjdsalhfdjskafhdjsafhdjsakfhjdksalhfjdksalhfdjkhskfhdjaklfhdjaklhfdkalhfjdkalhfj; ; ; ; ; , ; ; ;fdsaf; ; ; ; , ; ;gdfhgfdj; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:27:33,4.487952,1.26506, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ;fdsafdsafdsafdsafdsafdsafdsafdsafdsafdjskallhgjksalhgdsjkalhfdjksalhfdjksalhfdjksalhfdjslahfdjksahfdjksahfdjkslahfjdksahfdjksalfjdjakfdlafjdslafjdksla;fjdklsa;jflkdsa;jfkdsla;fjdsalhfdjskafhdjsafhdjsakfhjdksalhfjdksalhfdjkhskfhdjaklfhdjaklhfdkalhfjdkalhfj; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:27:58,4.548193,2.650602, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ;fdsaf; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:28:38,2.078314,-0.3313256, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ;safdsa; ; ; , ; ; ;hg; ; ; ; , ; ; ; ;jfd; ; ; , ; ;fjhdjhfd; ; ; ; ; 
+'08/06/2023 11:34:31,-0.6325299,2.168674, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:36:37,2.740964,-1.807229, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:37:10,2.289157,0.6927708, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:39:10,2.921687,-2.458692E-07, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:39:23,5.421687,-3.70482, ; ; ; ; ; ;checkBox7; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:39:33,1.566265,-9.849398
+'08/06/2023 11:40:47,6.144579,-4.036145,;; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; ,; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:42:11,-2.319277,0.4216865, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:43:24,-6.927711,6.445783, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:43:40,7.439759,-3.524097, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; ,A fdsafd; ; ; ; ; ; ; ,A FDSGFDS; ; ; ; ; ; ; , ;B sh; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:46:56,6.536145,-0.3313256,A fdfgsgfdsgfsgfdsgfdsgfdsgfdsgfdsg gfd sgfdsgfdsgfdsgfdsgfds gfds gfdsg fdsg fds gfdsg fdsgfdsg fdsg fdsgsd gs;B afa; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 11:47:13,-4.548193,-0.4518075, ;B afa; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 12:02:59,0.03012073,-1.506024, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 12:03:40,5.60241,0.6626503, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 12:04:08,5.240964,0.7530118, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 12:07:52,6.295181,3.222891,; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 12:08:04,-4.728916,-3.13253, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; ,;;; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 12:09:25,6.897591,0.6626503, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 12:09:39,4.487952,-1.86747, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ;; ;;; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 12:11:32,4.066266,2.018072, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 12:11:43,1.686747,-3.433735, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 12:12:04,4.036145,-6.23494, ;; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 12:13:07,-3.253012,-1.506024, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 
+'08/06/2023 13:05:57,-1.626506,1.596385, ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; , ; ; ; ; ; ; ; 

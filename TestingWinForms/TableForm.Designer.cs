@@ -28,14 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.labelYAxis = new System.Windows.Forms.Label();
             this.labelXAxis = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
             this.nextButton = new System.Windows.Forms.Button();
             this.labelYAxis2 = new System.Windows.Forms.Label();
             this.labelXAxis2 = new System.Windows.Forms.Label();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
             // labelYAxis
@@ -120,12 +118,6 @@
             this.labelXAxis2.Text = "labelXAxis2";
             this.labelXAxis2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // TableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -153,7 +145,6 @@
         private System.Windows.Forms.Button nextButton;
         private System.Windows.Forms.Label labelYAxis2;
         private System.Windows.Forms.Label labelXAxis2;
-        private System.Windows.Forms.ImageList imageList1;
     }
 }
 

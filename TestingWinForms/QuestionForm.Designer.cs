@@ -371,7 +371,7 @@
             // 
             // tableLayoutPanelRadioButton
             // 
-            this.tableLayoutPanelRadioButton.AutoSize = true;
+            this.tableLayoutPanelRadioButton.AutoScroll = true;
             this.tableLayoutPanelRadioButton.ColumnCount = 1;
             this.tableLayoutPanelRadioButton.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelRadioButton.Controls.Add(this.optionHRadioButton, 0, 7);
@@ -436,7 +436,6 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.tableLayoutPanelRadioButton.ResumeLayout(false);
             this.tableLayoutPanelRadioButton.PerformLayout();
             this.tableLayoutPanelCheckBox.ResumeLayout(false);
