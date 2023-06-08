@@ -117,6 +117,29 @@ namespace TestingWinForms
             
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // Subscribe the event handlers to the CheckedChanged event of each checkbox
+            optionACheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionBCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionCCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionDCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionECheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionFCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionGCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            optionHCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+
+            // Subscribe the event handlers to the CheckedChanged event of each radio button
+            optionARadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionBRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionCRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionDRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionERadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionFRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionGRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+            optionHRadioButton.CheckedChanged += RadioButton_CheckedChanged;
+        }
+
         protected override CreateParams CreateParams
         {
             get
@@ -488,8 +511,22 @@ namespace TestingWinForms
                         radioButton.AutoSize = currentQuestion.AutoSizes[i];
                         radioButton.ForeColor = currentQuestion.AnswerColors[i];
 
-                        //radioButton.AutoEllipsis = false;
-                        //radioButton.MaximumSize = new Size(150, 0);
+                        radioButton.AutoSize = false;
+
+                        // Measure the required size for the text
+
+                        SizeF textSize = TextRenderer.MeasureText(optionText, radioButton.Font);
+                        int availableWidth = tableLayoutPanelRadioButton.Parent.Width;
+                        int lineCount = (int)Math.Ceiling(textSize.Width / availableWidth);
+                        int minHeight = (int)(textSize.Height * 1.5);
+                        int height = (int)(textSize.Height * lineCount);
+                        radioButton.Height = Math.Max(minHeight, height);
+
+                        radioButton.FlatStyle = FlatStyle.Flat;
+                        //Change appearance to a button
+                        radioButton.Appearance = Appearance.Button;
+
+                       
                     }
 
                     // Clear the selection for any remaining radio buttons
@@ -541,10 +578,20 @@ namespace TestingWinForms
                         checkbox.AutoSize = currentQuestion.AutoSizes[i];
                         checkbox.ForeColor = currentQuestion.AnswerColors[i];
 
-                        // testing to wrap text
-                        //checkbox.AutoEllipsis = false;
-                        //checkbox.MaximumSize = new Size(350, 0);
-                        //checkbox.Height = checkbox.PreferredSize.Height;
+                        checkbox.AutoSize = false;
+
+                        // Measure the required size for the text
+                        SizeF textSize = TextRenderer.MeasureText(optionText, checkbox.Font);
+                        int availableWidth = tableLayoutPanelCheckBox.Parent.Width;
+                        int lineCount = (int)Math.Ceiling(textSize.Width / availableWidth);
+                        int minHeight = (int)(textSize.Height * 1.5);
+                        int height = (int)(textSize.Height * lineCount);
+                        checkbox.Height = Math.Max(minHeight, height);
+
+                        checkbox.FlatStyle = FlatStyle.Flat;
+                        checkbox.Appearance = Appearance.Button;
+                        //checkbox.Text = GetCharacterFromIndex(i) + " " + optionText; // Set the desired character for the left side of the button
+                        //checkbox.TextImageRelation = TextImageRelation.ImageBeforeText;
 
                     }
 
@@ -598,6 +645,43 @@ namespace TestingWinForms
 
         }
 
+        //Helper method to get the letter for displaying answer
+        private string GetCharacterFromIndex(int index)
+        {
+            string character;
+            switch (index)
+            {
+                case 0:
+                    character = "A";
+                    break;
+                case 1:
+                    character = "B";
+                    break;
+                case 2:
+                    character = "C";
+                    break;
+                case 3:
+                    character = "D";
+                    break;
+                case 4:
+                    character = "E";
+                    break;
+                case 5:
+                    character = "F";
+                    break;
+                case 6:
+                    character = "G";
+                    break;
+                case 7:
+                    character = "H";
+                    break;
+                default:
+                    character = ""; // Handle other index values if needed
+                    break;
+            }
+            return character;
+        }
+
         private void AdjustRadioTableLayoutPanelScroll(int numAns)
         {
             int totalHeight = 0;
@@ -609,12 +693,11 @@ namespace TestingWinForms
                 totalHeight += rowHeight;
             }
 
-            //int tableHeight = maxHeight * numOptions;
             int availableHeight = tableLayoutPanelRadioButton.Parent.Height;
 
             if (totalHeight > availableHeight)
             {
-                tableLayoutPanelRadioButton.AutoScroll = true; //true
+                tableLayoutPanelRadioButton.AutoScroll = true; 
             }
             else
             {
@@ -631,9 +714,8 @@ namespace TestingWinForms
             {
                 if (tableLayoutPanel.GetRow(control) == row && control is RadioButton radioButton)
                 {
-                    // Get the current height of the RadioButton control
                     radioButtonHeight = radioButton.Height;
-                    break; // Exit the loop once a RadioButton is found in the row
+                    break;
                 }
             }
 
@@ -652,12 +734,11 @@ namespace TestingWinForms
                 totalHeight += rowHeight;
             }
 
-            //int tableHeight = maxHeight * numOptions;
             int availableHeight = tableLayoutPanelCheckBox.Parent.Height;
 
             if (totalHeight > availableHeight)
             {
-                tableLayoutPanelCheckBox.AutoScroll = true; //true
+                tableLayoutPanelCheckBox.AutoScroll = true; 
             }
             else
             {
@@ -674,9 +755,8 @@ namespace TestingWinForms
             {
                 if (tableLayoutPanel.GetRow(control) == row && control is CheckBox checkBox)
                 {
-                    // Get the current height of the RadioButton control
                     checkBoxHeight = checkBox.Height;
-                    break; // Exit the loop once a RadioButton is found in the row
+                    break; 
                 }
             }
 
@@ -703,15 +783,18 @@ namespace TestingWinForms
                         {
                             checkBox.Paint -= CheckBox_Paint; // Unsubscribe from the previous Paint event handler
                             checkBox.Paint += CheckBox_Paint; // Subscribe to the new Paint event handler
-                            //checkBox.BackColor = Color.Green;
+                            //checkBox.BackColor = ;
                             checkboxValues[checkboxName] = checkBox.Text;
                         }
                         else
                         {
                             checkBox.Paint -= CheckBox_Paint; // Unsubscribe from the Paint event handler
                             //checkBox.BackColor = Color.Transparent;
+                            //checkBox.BackColor = Color.FromArgb(100, Color.White);
                             checkboxValues[checkboxName] = " ";
                         }
+
+                        
                     }
 
 
@@ -733,14 +816,44 @@ namespace TestingWinForms
             // Set the background color with transparency
             Color backgroundColor = Color.FromArgb(100, Color.Green);
 
+            
+
+            
             // Create a brush with the translucent background color
             Brush brush = new SolidBrush(backgroundColor);
 
             // Draw the background
             e.Graphics.FillRectangle(brush, checkBox.ClientRectangle);
 
+            // Draw the curved border
+            /*
+            // Set the border color and width
+            Color borderColor = Color.DarkBlue;
+            int borderWidth = 2;
+
+            // Set the corner radius for curved border (e.g., 8 pixels)
+            int cornerRadius = 20;
+
+
+            using (Pen borderPen = new Pen(borderColor, borderWidth))
+            {
+                Rectangle borderRect = checkBox.ClientRectangle;
+                borderRect.Inflate(-borderWidth / 2, -borderWidth / 2);
+
+                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                e.Graphics.DrawArc(borderPen, borderRect.Left, borderRect.Top, cornerRadius * 2, cornerRadius * 2, 180, 90);
+                e.Graphics.DrawArc(borderPen, borderRect.Right - (cornerRadius * 2), borderRect.Top, cornerRadius * 2, cornerRadius * 2, 270, 90);
+                e.Graphics.DrawArc(borderPen, borderRect.Left, borderRect.Bottom - (cornerRadius * 2), cornerRadius * 2, cornerRadius * 2, 90, 90);
+                e.Graphics.DrawArc(borderPen, borderRect.Right - (cornerRadius * 2), borderRect.Bottom - (cornerRadius * 2), cornerRadius * 2, cornerRadius * 2, 0, 90);
+                e.Graphics.DrawLine(borderPen, borderRect.Left + cornerRadius, borderRect.Top, borderRect.Right - cornerRadius, borderRect.Top);
+                e.Graphics.DrawLine(borderPen, borderRect.Left + cornerRadius, borderRect.Bottom, borderRect.Right - cornerRadius, borderRect.Bottom);
+                e.Graphics.DrawLine(borderPen, borderRect.Left, borderRect.Top + cornerRadius, borderRect.Left, borderRect.Bottom - cornerRadius);
+                e.Graphics.DrawLine(borderPen, borderRect.Right, borderRect.Top + cornerRadius, borderRect.Right, borderRect.Bottom - cornerRadius);
+            }*/
+
             // Clean up resources
             brush.Dispose();
+
         }
 
 

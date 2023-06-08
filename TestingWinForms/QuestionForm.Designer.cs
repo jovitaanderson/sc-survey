@@ -59,10 +59,10 @@
             // 
             // submitButton
             // 
-            this.submitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.submitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.submitButton.AutoSize = true;
             this.submitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.submitButton.Location = new System.Drawing.Point(941, 650);
+            this.submitButton.Location = new System.Drawing.Point(1059, 640);
             this.submitButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.submitButton.Name = "submitButton";
             this.submitButton.Size = new System.Drawing.Size(112, 42);
@@ -321,15 +321,15 @@
             this.tableLayoutPanel2.Controls.Add(this.labelMCQorMRQ, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.questionLabel, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.panel1, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.submitButton, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.submitButton, 2, 2);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 65F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1174, 721);
             this.tableLayoutPanel2.TabIndex = 25;
             // 
@@ -366,7 +366,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(120, 183);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(933, 462);
+            this.panel1.Size = new System.Drawing.Size(933, 498);
             this.panel1.TabIndex = 27;
             // 
             // tableLayoutPanelRadioButton
@@ -394,7 +394,7 @@
             this.tableLayoutPanelRadioButton.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelRadioButton.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelRadioButton.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelRadioButton.Size = new System.Drawing.Size(933, 462);
+            this.tableLayoutPanelRadioButton.Size = new System.Drawing.Size(933, 498);
             this.tableLayoutPanelRadioButton.TabIndex = 0;
             // 
             // tableLayoutPanelCheckBox
@@ -421,7 +421,7 @@
             this.tableLayoutPanelCheckBox.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelCheckBox.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelCheckBox.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelCheckBox.Size = new System.Drawing.Size(933, 462);
+            this.tableLayoutPanelCheckBox.Size = new System.Drawing.Size(933, 498);
             this.tableLayoutPanelCheckBox.TabIndex = 26;
             // 
             // QuestionForm
