@@ -504,6 +504,12 @@ namespace TestingWinForms
                 randomQuestions = "No"; // Assigning default value of No
             }
             string endSurveyText = textBoxEndMessage.Text;
+            string backgroundRadius = textBoxBackgroundRadius.Text;
+            if (string.IsNullOrEmpty(backgroundRadius))
+            {
+                backgroundRadius = "90"; // Assigning default value of 90
+            }
+
             // Get the image from the PictureBox
             Image image = pictureBox.Image;
             string imagePath = null;
@@ -608,7 +614,7 @@ namespace TestingWinForms
             // Concatenate the data into a comma-separated string
             //string data = string.Format("{0},{1},{2},{3},{4},{5},{6}", timeOut, randomQuestions, endSurveyText, imagePath, imagePath2, imagePath3, fontEndText); 
             //string data = string.Format("{0},{1},{2},{3},{4},{5},{6}", timeOut, randomQuestions, endSurveyText, imagePath, imagePath3, fontEndText, fontNextButton); 
-            string data = string.Format("{0},{1},{2},{3},{4},{5},{6},{7}", timeOut, randomQuestions, endSurveyText, imagePath,imagePath2, imagePath3, fontEndText, fontNextButton); 
+            string data = string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}", timeOut, randomQuestions, endSurveyText, imagePath, imagePath2, backgroundRadius, imagePath3, fontEndText, fontNextButton); 
 
             // Append the data to the CSV file
             while (true)
@@ -1051,7 +1057,9 @@ namespace TestingWinForms
                             pictureBox1.ImageLocation = imagePath2;
                         }
 
-                        string imagePath3 = Path.Combine(values[5]);
+                        textBoxBackgroundRadius.Text = values[5];
+
+                        string imagePath3 = Path.Combine(values[6]);
 
                         if (File.Exists(imagePath3))
                         {
@@ -1063,10 +1071,10 @@ namespace TestingWinForms
                             pictureBox2.ImageLocation = imagePath3;
                         }
 
-                        loadContentToComponent(values, 6, sampleLabelEndText);
+                        loadContentToComponent(values, 7, sampleLabelEndText);
 
                         //For next button font colour and background color
-                        string[] textProperties = values[7].Split(';'); // Assuming text font and alignment data is at index 5
+                        string[] textProperties = values[8].Split(';'); // Assuming text font and alignment data is at index 5
                         string backgroundColor = textProperties[0]; // First ; is text font
                         string foreColor = textProperties[1];
 

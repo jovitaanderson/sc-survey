@@ -76,7 +76,7 @@ namespace TestingWinForms
 
                     if (values[5] != null)
                     {
-                        string imagePath = Path.Combine(values[5]);
+                        string imagePath = Path.Combine(values[6]);
                         return imagePath;
                     }
                     else
@@ -154,7 +154,7 @@ namespace TestingWinForms
                         // Apply the font to the label or control of your choice
                         //labelEndMessage.Font = loadedFontEndSurvey;
 
-                        loadContentToComponent(values, 6, labelEndMessage);
+                        loadContentToComponent(values, 7, labelEndMessage);
                     }
                 }
             }

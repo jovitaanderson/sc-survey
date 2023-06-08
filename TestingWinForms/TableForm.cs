@@ -28,6 +28,7 @@ namespace TestingWinForms
 
         private string columnNames;
         private int timerToQuestionPage = 1000;
+        private int backgroundRadius = 90;
         private int timerToShowAllPoints = 1000;
 
         private int lastRowNumber;
@@ -139,8 +140,10 @@ namespace TestingWinForms
             WindowState = FormWindowState.Maximized; // Maximize the window
 
             //this.MouseClick += Form1_MouseClick; // Wire up the event handler
-            
+
             //LoadPointsFromCSV(); // Load points from CSV file
+
+            LoadTimerAndRadiusFromCSV();
 
             //Display Background Image
             string imagePath = LoadBackgroundImageFromCSV();
@@ -175,6 +178,7 @@ namespace TestingWinForms
 
             // Set the location of the smaller Panel
             graphPanel.Location = new Point(x, y + 40);
+            graphPanel.BorderRadius = backgroundRadius;
 
             //this.Controls.Add(smallerPanel); // Add it to the form or a container control
             CalculateDrawingArea();
@@ -419,8 +423,8 @@ namespace TestingWinForms
                     string[] values = lines[lines.Length - 1].Split(',');
                     if (values.Length >= 5)
                     {
-                        if (values[7] != null)
-                            loadContentToComponentForNextButton(values[7], nextButton);
+                        if (values.Length >= 9)
+                            loadContentToComponentForNextButton(values[8], nextButton);
 
                         if (values[3] != null)
                         {
@@ -570,7 +574,7 @@ namespace TestingWinForms
 
         private void graphPanel_MouseClick(object sender, MouseEventArgs e)
         {
-            LoadTimerFromCSV();
+            
             // check if all admin csv exixts, if dosent prompt message box
             if (!File.Exists(GlobalVariables.csvAdminAdvanceFilePath) || !File.Exists(GlobalVariables.csvAdminQuestionsFilePath))
             {
@@ -612,7 +616,7 @@ namespace TestingWinForms
             
         }
 
-        private void LoadTimerFromCSV()
+        private void LoadTimerAndRadiusFromCSV()
         {
             if (File.Exists(GlobalVariables.csvAdminAdvanceFilePath))
             {
@@ -641,6 +645,9 @@ namespace TestingWinForms
                     else
                     {
                         timerToQuestionPage = 10 * 1000; // Default timer interval is 10s
+                    }
+                    if (values.Length >= 6 && int.TryParse(values[5], out int radius)) {
+                        backgroundRadius = radius;
                     }
                 }
                 else
