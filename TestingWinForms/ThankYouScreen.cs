@@ -74,9 +74,9 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values[4] != null)
+                    if (values.Length >= 7 && values[6] != null)
                     {
-                        string imagePath = Path.Combine(values[4]);
+                        string imagePath = Path.Combine(values[6]);
                         return imagePath;
                     }
                     else
@@ -145,7 +145,7 @@ namespace TestingWinForms
                         btnMain.Location = new Point((this.ClientSize.Width - btnMain.Width) / 2, labelEndMessage.Bottom + 20);
 
                     }
-                    if (values[5] != null)
+                    if (values.Length >= 8)
                     {
                         // Load the font data from the CSV
                         //string fontEndSurvey = values[5]; // Assuming font data is at index 5
@@ -154,7 +154,7 @@ namespace TestingWinForms
                         // Apply the font to the label or control of your choice
                         //labelEndMessage.Font = loadedFontEndSurvey;
 
-                        loadContentToComponent(values, 5, labelEndMessage);
+                        loadContentToComponent(values, 7, labelEndMessage);
                     }
                 }
             }

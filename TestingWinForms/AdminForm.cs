@@ -25,6 +25,7 @@ namespace TestingWinForms
 
         private string originalPictureLinkTableBackground = "";
         private string originalPictureLinkEndBackground = "";
+        private string originalPictureLinkInnerGraphBackground = "";
         private List<string> originalPictureLinkQuestionBackground = new List<string>() { "", "", "" };
 
         public AdminForm()
@@ -255,10 +256,30 @@ namespace TestingWinForms
             // Get the data from the TextBox
             //Table
             string title = textBoxTitle.Text;
+            if (title.Contains(","))
+            {
+                title = title.Replace(",", "\0");
+            }
             string x_axis_top = textBoxXAxisTop.Text;
+            if (x_axis_top.Contains(","))
+            {
+                x_axis_top = x_axis_top.Replace(",", "\0");
+            }
             string x_axis_bottom = textBoxXAxisBottom.Text;
+            if (x_axis_bottom.Contains(","))
+            {
+                x_axis_bottom = x_axis_bottom.Replace(",", "\0");
+            }
             string y_axis_left = textBoxYAxisLeft.Text;
+            if (y_axis_left.Contains(","))
+            {
+                y_axis_left = y_axis_left.Replace(",", "\0");
+            }
             string y_axis_right = textBoxYAxisRight.Text;
+            if (y_axis_right.Contains(","))
+            {
+                y_axis_right = y_axis_right.Replace(",", "\0");
+            }
 
             // Convert the Color to a string representation
             string existingColour = ColorTranslator.ToHtml(btnExisColour.BackColor);
@@ -483,6 +504,12 @@ namespace TestingWinForms
                 randomQuestions = "No"; // Assigning default value of No
             }
             string endSurveyText = textBoxEndMessage.Text;
+            string backgroundRadius = textBoxBackgroundRadius.Text;
+            if (string.IsNullOrEmpty(backgroundRadius))
+            {
+                backgroundRadius = "90"; // Assigning default value of 90
+            }
+
             // Get the image from the PictureBox
             Image image = pictureBox.Image;
             string imagePath = null;
@@ -522,6 +549,38 @@ namespace TestingWinForms
             }
 
             // Get the image from the PictureBox
+            Image image2 = pictureBox1.Image;
+            string imagePath2 = null;
+
+
+            if (image2 != null && pictureBox1.ImageLocation != originalPictureLinkInnerGraphBackground)
+            {
+                // Get the current root path of the application
+                string rootPath = Directory.GetCurrentDirectory();
+
+                // Specify the directory within the root path to save the image
+                string directoryPath = Path.Combine(rootPath, "Images");
+
+                // Create the directory if it doesn't exist
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                // Generate a unique file name for the image
+                string fileName = Guid.NewGuid().ToString() + ".png";
+
+                // Save the image to the specified directory
+                imagePath2 = Path.Combine(directoryPath, fileName);
+                image2.Save(imagePath2);
+
+            }
+            else
+            {
+                imagePath2 = originalPictureLinkInnerGraphBackground;
+            }
+
+            // Get the image from the PictureBox
             Image image3 = pictureBox2.Image;
             string imagePath3 = null;
 
@@ -553,7 +612,9 @@ namespace TestingWinForms
             }
 
             // Concatenate the data into a comma-separated string
-            string data = string.Format("{0},{1},{2},{3},{4},{5},{6}", timeOut, randomQuestions, endSurveyText, imagePath, imagePath3, fontEndText, fontNextButton); 
+            //string data = string.Format("{0},{1},{2},{3},{4},{5},{6}", timeOut, randomQuestions, endSurveyText, imagePath, imagePath2, imagePath3, fontEndText); 
+            //string data = string.Format("{0},{1},{2},{3},{4},{5},{6}", timeOut, randomQuestions, endSurveyText, imagePath, imagePath3, fontEndText, fontNextButton); 
+            string data = string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}", timeOut, randomQuestions, endSurveyText, imagePath, imagePath2, backgroundRadius, imagePath3, fontEndText, fontNextButton); 
 
             // Append the data to the CSV file
             while (true)
@@ -679,11 +740,11 @@ namespace TestingWinForms
 
                     if (values.Length == 12)
                     {
-                        textBoxTitle.Text = values[0];
-                        textBoxXAxisTop.Text = values[1];
-                        textBoxXAxisBottom.Text = values[2];
-                        textBoxYAxisLeft.Text = values[3];
-                        textBoxYAxisRight.Text = values[4];
+                        textBoxTitle.Text = values[0].Replace("\0", ",");
+                        textBoxXAxisTop.Text = values[1].Replace("\0", ",");
+                        textBoxXAxisBottom.Text = values[2].Replace("\0", ",");
+                        textBoxYAxisLeft.Text = values[3].Replace("\0", ",");
+                        textBoxYAxisRight.Text = values[4].Replace("\0", ",");
 
                         btnExisColour.BackColor = ColorTranslator.FromHtml(values[5]);
                         btnSelPointColour.BackColor = ColorTranslator.FromHtml(values[6]);
@@ -966,7 +1027,7 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 7)
+                    if (values.Length >= 6)
                     {
                         textBoxTimeOut.Text = values[0];
                         comboBoxRandomQns.Text = values[1];
@@ -984,7 +1045,21 @@ namespace TestingWinForms
                             pictureBox.ImageLocation = imagePath;
                         }
 
-                        string imagePath3 = Path.Combine(values[4]);
+                        string imagePath2 = Path.Combine(values[4]);
+
+                        if (File.Exists(imagePath2))
+                        {
+                            Image image = Image.FromFile(imagePath2);
+                            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                            pictureBox1.Image = image;
+                            originalPictureLinkInnerGraphBackground = imagePath2;
+                            // Set the pictureBox.ImageLocation to the new image path
+                            pictureBox1.ImageLocation = imagePath2;
+                        }
+
+                        textBoxBackgroundRadius.Text = values[5];
+
+                        string imagePath3 = Path.Combine(values[6]);
 
                         if (File.Exists(imagePath3))
                         {
@@ -996,10 +1071,10 @@ namespace TestingWinForms
                             pictureBox2.ImageLocation = imagePath3;
                         }
 
-                        loadContentToComponent(values, 5, sampleLabelEndText);
+                        loadContentToComponent(values, 7, sampleLabelEndText);
 
                         //For next button font colour and background color
-                        string[] textProperties = values[6].Split(';'); // Assuming text font and alignment data is at index 5
+                        string[] textProperties = values[8].Split(';'); // Assuming text font and alignment data is at index 5
                         string backgroundColor = textProperties[0]; // First ; is text font
                         string foreColor = textProperties[1];
 
@@ -2148,7 +2223,7 @@ namespace TestingWinForms
                     string selectedImagePath = openFileDialog.FileName;
 
                     // Load the selected image into the PictureBox
-                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBox2.Image = Image.FromFile(selectedImagePath);
 
                     originalPictureLinkEndBackground = selectedImagePath;
@@ -3059,6 +3134,25 @@ namespace TestingWinForms
             }
         }
 
+        private void btnUploadInnerGraphImage_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select Image";
+                openFileDialog.Filter = "Image Files (*.png; *.jpg; *.jpeg; *.gif; *.bmp)|*.png; *.jpg; *.jpeg; *.gif; *.bmp";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedImagePath = openFileDialog.FileName;
+
+                    // Load the selected image into the PictureBox
+                    pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox1.Image = Image.FromFile(selectedImagePath);
+
+                    originalPictureLinkInnerGraphBackground = selectedImagePath;
+                }
+            }
+        }
         private void btnTextChangeNext_Click(object sender, EventArgs e)
         {
             // Create and configure a ColorDialog

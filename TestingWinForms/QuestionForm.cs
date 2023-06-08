@@ -394,7 +394,7 @@ namespace TestingWinForms
                     {
                         timerInterval = 10 * 1000; // Default timer interval is 10s
                     }
-                    if (values[6] != null)
+                    if (values[8] != null)
                         loadContentToComponent(values, submitButton);
                 }
                 else
@@ -410,7 +410,7 @@ namespace TestingWinForms
 
         void loadContentToComponent(string[] values, Button button)
         {
-            string[] textProperties = values[6].Split(';'); // Assuming text font and alignment data is at index 5
+            string[] textProperties = values[8].Split(';'); // Assuming text font and alignment data is at index 5
             string backgroundColor = textProperties[0]; // First ; is text font
             string foreColor = textProperties[1];
 
