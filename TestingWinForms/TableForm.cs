@@ -136,7 +136,7 @@ namespace TestingWinForms
             FormBorderStyle = FormBorderStyle.None; // Remove the border
             WindowState = FormWindowState.Maximized; // Maximize the window
 
-            this.MouseClick += Form1_MouseClick; // Wire up the event handler
+            
             //LoadPointsFromCSV(); // Load points from CSV file
             LoadTableFromCSV();
 
@@ -151,6 +151,8 @@ namespace TestingWinForms
                 // Adjust the background image display settings
                 this.BackgroundImageLayout = ImageLayout.Stretch;
             }
+
+            this.MouseClick += Form1_MouseClick; // Wire up the event handler
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -344,6 +346,9 @@ namespace TestingWinForms
                     string[] values = lines[lines.Length - 1].Split(',');
                     if (values.Length >= 4)
                     {
+                        if (values[6] != null)
+                            loadContentToComponentForNextButton(values[6], nextButton);
+
                         if (values[3] != null)
                         {
                             string imagePath = Path.Combine(values[3]);
@@ -353,6 +358,8 @@ namespace TestingWinForms
                         {
                             return null;
                         }
+
+                        
                     }
                     else {
                         return null;
@@ -366,6 +373,40 @@ namespace TestingWinForms
             else
             {
                 return null;
+            }
+        }
+
+        //helper method to load Next button font styles to page
+        void loadContentToComponentForNextButton(string value, Button button)
+        {
+            string[] textProperties = value.Split(';'); // Assuming text font and alignment data is at index 5
+            string backgroundColor = textProperties[0]; // First ; is text font
+            string foreColor = textProperties[1];
+
+            // Retrieve the forecolor value and set it to the label's ForeColor property
+            if (!string.IsNullOrEmpty(backgroundColor))
+            {
+                if (int.TryParse(backgroundColor.Replace("\0", ","), out int foreColorArgb))
+                {
+                    Color nextBackground = Color.FromArgb(foreColorArgb);
+                    button.BackColor = nextBackground;
+                }
+                else
+                {
+                    button.BackColor = Color.Transparent; // Default forecolor if parsing fails
+                }
+            }
+            if (!string.IsNullOrEmpty(foreColor))
+            {
+                if (int.TryParse(foreColor.Replace("\0", ","), out int foreColorArgb))
+                {
+                    Color nextForeground = Color.FromArgb(foreColorArgb);
+                    button.ForeColor = nextForeground;
+                }
+                else
+                {
+                    button.ForeColor = Color.Black; // Default forecolor if parsing fails
+                }
             }
         }
 

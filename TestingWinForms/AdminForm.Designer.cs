@@ -72,7 +72,6 @@ namespace TestingWinForms
             this.textBoxEndMessage = new System.Windows.Forms.TextBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.comboBoxRandomQns = new System.Windows.Forms.ComboBox();
-            this.btnTextChangeEndSurveyFont = new System.Windows.Forms.Button();
             this.textBoxTimeOut = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.labelTimeOut = new System.Windows.Forms.Label();
@@ -84,6 +83,7 @@ namespace TestingWinForms
             this.label15 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.btnTextChangeEndSurveyFont = new System.Windows.Forms.Button();
             this.tabQuestion1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnTextChangeA11 = new System.Windows.Forms.Button();
@@ -224,6 +224,10 @@ namespace TestingWinForms
             this.btnEndApp = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.btnChangeNextBackground = new System.Windows.Forms.Button();
+            this.btnChangeNextText = new System.Windows.Forms.Button();
+            this.sampleNextButton = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabTable.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -313,7 +317,7 @@ namespace TestingWinForms
             this.tableLayoutPanel4.Controls.Add(this.sampleLabelTitle, 0, 9);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 4);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 14;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -645,7 +649,7 @@ namespace TestingWinForms
             this.tableLayoutPanel5.Controls.Add(this.dateTimePickerEndDate, 1, 1);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 5;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -758,7 +762,6 @@ namespace TestingWinForms
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel6.Controls.Add(this.textBoxEndMessage, 1, 2);
             this.tableLayoutPanel6.Controls.Add(this.pictureBox2, 0, 7);
             this.tableLayoutPanel6.Controls.Add(this.comboBoxRandomQns, 1, 1);
@@ -774,11 +777,17 @@ namespace TestingWinForms
             this.tableLayoutPanel6.Controls.Add(this.label17, 2, 0);
             this.tableLayoutPanel6.Controls.Add(this.label16, 0, 4);
             this.tableLayoutPanel6.Controls.Add(this.btnTextChangeEndSurveyFont, 2, 2);
+            this.tableLayoutPanel6.Controls.Add(this.label8, 0, 8);
+            this.tableLayoutPanel6.Controls.Add(this.btnChangeNextBackground, 1, 8);
+            this.tableLayoutPanel6.Controls.Add(this.btnChangeNextText, 2, 8);
+            this.tableLayoutPanel6.Controls.Add(this.sampleNextButton, 1, 9);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 8;
+            this.tableLayoutPanel6.RowCount = 10;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -824,19 +833,6 @@ namespace TestingWinForms
             this.comboBoxRandomQns.Name = "comboBoxRandomQns";
             this.comboBoxRandomQns.Size = new System.Drawing.Size(480, 39);
             this.comboBoxRandomQns.TabIndex = 7;
-            // 
-            // btnTextChangeEndSurveyFont
-            // 
-            this.btnTextChangeEndSurveyFont.AutoSize = true;
-            this.btnTextChangeEndSurveyFont.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextChangeEndSurveyFont.Location = new System.Drawing.Point(756, 95);
-            this.btnTextChangeEndSurveyFont.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnTextChangeEndSurveyFont.Name = "btnTextChangeEndSurveyFont";
-            this.btnTextChangeEndSurveyFont.Size = new System.Drawing.Size(131, 33);
-            this.btnTextChangeEndSurveyFont.TabIndex = 19;
-            this.btnTextChangeEndSurveyFont.Text = "Text Design";
-            this.btnTextChangeEndSurveyFont.UseVisualStyleBackColor = true;
-            this.btnTextChangeEndSurveyFont.Click += new System.EventHandler(this.btnTextChangeEndSurveyFont_Click);
             // 
             // textBoxTimeOut
             // 
@@ -954,6 +950,19 @@ namespace TestingWinForms
             this.label16.TabIndex = 3;
             this.label16.Text = "Graph Background:";
             // 
+            // btnTextChangeEndSurveyFont
+            // 
+            this.btnTextChangeEndSurveyFont.AutoSize = true;
+            this.btnTextChangeEndSurveyFont.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTextChangeEndSurveyFont.Location = new System.Drawing.Point(756, 95);
+            this.btnTextChangeEndSurveyFont.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnTextChangeEndSurveyFont.Name = "btnTextChangeEndSurveyFont";
+            this.btnTextChangeEndSurveyFont.Size = new System.Drawing.Size(131, 33);
+            this.btnTextChangeEndSurveyFont.TabIndex = 19;
+            this.btnTextChangeEndSurveyFont.Text = "Text Design";
+            this.btnTextChangeEndSurveyFont.UseVisualStyleBackColor = true;
+            this.btnTextChangeEndSurveyFont.Click += new System.EventHandler(this.btnTextChangeEndSurveyFont_Click);
+            // 
             // tabQuestion1
             // 
             this.tabQuestion1.AutoScroll = true;
@@ -1069,7 +1078,7 @@ namespace TestingWinForms
             this.sampleLabelA18.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sampleLabelA18.Location = new System.Drawing.Point(3, 1037);
             this.sampleLabelA18.Name = "sampleLabelA18";
-            this.sampleLabelA18.Size = new System.Drawing.Size(348, 32);
+            this.sampleLabelA18.Size = new System.Drawing.Size(348, 33);
             this.sampleLabelA18.TabIndex = 43;
             this.sampleLabelA18.Text = "Answer8";
             // 
@@ -2734,6 +2743,53 @@ namespace TestingWinForms
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(3, 635);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(168, 32);
+            this.label8.TabIndex = 20;
+            this.label8.Text = "Next button:";
+            // 
+            // btnChangeNextBackground
+            // 
+            this.btnChangeNextBackground.AutoSize = true;
+            this.btnChangeNextBackground.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChangeNextBackground.Location = new System.Drawing.Point(270, 637);
+            this.btnChangeNextBackground.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnChangeNextBackground.Name = "btnChangeNextBackground";
+            this.btnChangeNextBackground.Size = new System.Drawing.Size(262, 42);
+            this.btnChangeNextBackground.TabIndex = 21;
+            this.btnChangeNextBackground.Text = "Background colour";
+            this.btnChangeNextBackground.UseVisualStyleBackColor = true;
+            this.btnChangeNextBackground.Click += new System.EventHandler(this.btnTextChangeNext_Click);
+            // 
+            // btnChangeNextText
+            // 
+            this.btnChangeNextText.AutoSize = true;
+            this.btnChangeNextText.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChangeNextText.Location = new System.Drawing.Point(756, 637);
+            this.btnChangeNextText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnChangeNextText.Name = "btnChangeNextText";
+            this.btnChangeNextText.Size = new System.Drawing.Size(173, 42);
+            this.btnChangeNextText.TabIndex = 23;
+            this.btnChangeNextText.Text = "Font Colour";
+            this.btnChangeNextText.UseVisualStyleBackColor = true;
+            this.btnChangeNextText.Click += new System.EventHandler(this.btnChangeNextText_Click);
+            // 
+            // sampleNextButton
+            // 
+            this.sampleNextButton.AutoSize = true;
+            this.sampleNextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sampleNextButton.Location = new System.Drawing.Point(270, 684);
+            this.sampleNextButton.Name = "sampleNextButton";
+            this.sampleNextButton.Size = new System.Drawing.Size(108, 42);
+            this.sampleNextButton.TabIndex = 24;
+            this.sampleNextButton.Text = "Next ▶";
+            this.sampleNextButton.UseVisualStyleBackColor = true;
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2974,5 +3030,9 @@ namespace TestingWinForms
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnChangeNextBackground;
+        private System.Windows.Forms.Button btnChangeNextText;
+        private System.Windows.Forms.Button sampleNextButton;
     }
 }

@@ -491,6 +491,9 @@ namespace TestingWinForms
             string fontEndText = $"{FontToBinaryString(sampleLabelEndText.Font)};{sampleLabelEndText.TextAlign};" +
                 $"{sampleLabelEndText.AutoSize};{sampleLabelEndText.ForeColor.ToArgb().ToString().Replace(",", "\0")}";
 
+            string fontNextButton = $"{sampleNextButton.BackColor.ToArgb().ToString().Replace(",", "\0")};" +
+                $"{sampleNextButton.ForeColor.ToArgb().ToString().Replace(",", "\0")}";
+
             //save as root directory
             if (image != null && pictureBox.ImageLocation != originalPictureLinkTableBackground)
             {
@@ -550,7 +553,7 @@ namespace TestingWinForms
             }
 
             // Concatenate the data into a comma-separated string
-            string data = string.Format("{0},{1},{2},{3},{4},{5}", timeOut, randomQuestions, endSurveyText, imagePath, imagePath3, fontEndText); 
+            string data = string.Format("{0},{1},{2},{3},{4},{5},{6}", timeOut, randomQuestions, endSurveyText, imagePath, imagePath3, fontEndText, fontNextButton); 
 
             // Append the data to the CSV file
             while (true)
@@ -963,7 +966,7 @@ namespace TestingWinForms
                 {
                     string[] values = lines[lines.Length - 1].Split(',');
 
-                    if (values.Length == 6)
+                    if (values.Length == 7)
                     {
                         textBoxTimeOut.Text = values[0];
                         comboBoxRandomQns.Text = values[1];
@@ -994,6 +997,37 @@ namespace TestingWinForms
                         }
 
                         loadContentToComponent(values, 5, sampleLabelEndText);
+
+                        //For next button font colour and background color
+                        string[] textProperties = values[6].Split(';'); // Assuming text font and alignment data is at index 5
+                        string backgroundColor = textProperties[0]; // First ; is text font
+                        string foreColor = textProperties[1];
+
+                        // Retrieve the forecolor value and set it to the label's ForeColor property
+                        if (!string.IsNullOrEmpty(backgroundColor))
+                        {
+                            if (int.TryParse(backgroundColor.Replace("\0", ","), out int foreColorArgb))
+                            {
+                                Color nextBackground = Color.FromArgb(foreColorArgb);
+                                sampleNextButton.BackColor = nextBackground;
+                            }
+                            else
+                            {
+                                sampleNextButton.BackColor = Color.Transparent; // Default forecolor if parsing fails
+                            }
+                        }
+                        if (!string.IsNullOrEmpty(foreColor))
+                        {
+                            if (int.TryParse(foreColor.Replace("\0", ","), out int foreColorArgb))
+                            {
+                                Color nextForeground = Color.FromArgb(foreColorArgb);
+                                sampleNextButton.ForeColor = nextForeground;
+                            }
+                            else
+                            {
+                                sampleNextButton.ForeColor = Color.Black; // Default forecolor if parsing fails
+                            }
+                        }
                     }
                 }
             }
@@ -3022,6 +3056,46 @@ namespace TestingWinForms
                     sampleLabelA31.ForeColor = dialog.ChangeTextLabel.ForeColor;
 
                 }
+            }
+        }
+
+        private void btnTextChangeNext_Click(object sender, EventArgs e)
+        {
+            // Create and configure a ColorDialog
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.AnyColor = true;
+            colorDialog.SolidColorOnly = false;
+            colorDialog.Color = sampleNextButton.BackColor;
+
+            // Show the color dialog and check if the user clicked OK
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Get the selected color from the dialog
+                Color selectedColor = colorDialog.Color;
+
+                // Set the background color of the desired control
+                // For example, assuming you have a panel named "myPanel":
+                sampleNextButton.BackColor = selectedColor;
+            }
+        }
+
+        private void btnChangeNextText_Click(object sender, EventArgs e)
+        {
+            // Create and configure a ColorDialog
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.AnyColor = true;
+            colorDialog.SolidColorOnly = false;
+            colorDialog.Color = sampleNextButton.ForeColor;
+
+            // Show the color dialog and check if the user clicked OK
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Get the selected color from the dialog
+                Color selectedColor = colorDialog.Color;
+
+                // Set the background color of the desired control
+                // For example, assuming you have a panel named "myPanel":
+                sampleNextButton.ForeColor = selectedColor;
             }
         }
     }
