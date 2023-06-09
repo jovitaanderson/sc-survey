@@ -488,7 +488,7 @@ namespace TestingWinForms
             optionFCheckBox.Visible = false;
             optionGCheckBox.Visible = false;
             optionHCheckBox.Visible = false;
-
+           
 
             if (currentQuestionIndex < questions.Count)
             {
@@ -546,6 +546,21 @@ namespace TestingWinForms
                         if (!string.IsNullOrEmpty(optionText))
                             numAns++;
 
+                        //Remove all existing labels in controls
+                        if (radioButton.Controls.Count > 0)
+                        {
+                            radioButton.Controls.RemoveAt(0);
+                        }
+
+                        // Create a new label to hold the text parts
+                        Label label = new Label();
+                        Font characterFont = new Font("Times New Roman", 36, FontStyle.Bold);
+                        label.Text = GetCharacterFromIndex(i);
+                        label.Font = characterFont;
+                        label.AutoSize = true;
+                        label.BackColor = Color.Transparent;
+                        radioButton.Controls.Add(label);
+
                         radioButton.Visible = !string.IsNullOrEmpty(optionText); 
                         radioButton.Text = optionText;
                         radioButton.Checked = false;
@@ -567,22 +582,7 @@ namespace TestingWinForms
                         radioButton.FlatStyle = FlatStyle.Flat;
                         radioButton.Appearance = Appearance.Button;
                         radioButton.FlatAppearance.BorderSize = 0;
-
-                        //Remove all existing labels in controls
-                        if (radioButton.Controls.Count > 0)
-                        {
-                            radioButton.Controls.RemoveAt(0);
-                        }
-
-                        // Create a new label to hold the text parts
-                        Label label = new Label();
-                        Font characterFont = new Font("Times New Roman", 36, FontStyle.Bold);
-                        label.Text = GetCharacterFromIndex(i);
-                        label.Font = characterFont;
-                        label.AutoSize = true;
-                        label.BackColor = Color.Transparent;
-                        radioButton.Controls.Add(label);
-
+                        
                         // Adjust the position and size of the labels
                         int labelMarginTop = (radioButton.Height - label.Height) / 2; // Align vertically to the middle
                         label.Location = new Point(20, labelMarginTop);
@@ -617,6 +617,21 @@ namespace TestingWinForms
                         if (!string.IsNullOrEmpty(optionText))
                             numAns++;
 
+                        //Remove all existing labels in controls
+                        if (checkbox.Controls.Count > 0)
+                        {
+                            checkbox.Controls.RemoveAt(0);
+                        }
+
+                        // Create a new label to hold the text parts
+                        Label label = new Label();
+                        Font characterFont = new Font("Times New Roman", 36, FontStyle.Bold);
+                        label.Text = GetCharacterFromIndex(i);
+                        label.Font = characterFont;
+                        label.AutoSize = true;
+                        label.BackColor = Color.Transparent;
+                        checkbox.Controls.Add(label);
+
                         checkbox.Visible = !string.IsNullOrEmpty(optionText);
                         checkbox.Text = optionText;
                         checkbox.Checked = false;
@@ -639,21 +654,6 @@ namespace TestingWinForms
                         checkbox.FlatStyle = FlatStyle.Flat;
                         checkbox.Appearance = Appearance.Button;
                         checkbox.FlatAppearance.BorderSize = 0;
-
-                        //Remove all existing labels in controls
-                        if (checkbox.Controls.Count > 0)
-                        {
-                            checkbox.Controls.RemoveAt(0);
-                        }
-
-                        // Create a new label to hold the text parts
-                        Label label = new Label();
-                        Font characterFont = new Font("Times New Roman", 36, FontStyle.Bold); 
-                        label.Text = GetCharacterFromIndex(i);
-                        label.Font = characterFont;
-                        label.AutoSize = true;
-                        label.BackColor = Color.Transparent;
-                        checkbox.Controls.Add(label);
 
                         // Adjust the position and size of the labels
                         int labelMarginTop = (checkbox.Height - label.Height) / 2; // Align vertically to the middle
@@ -701,6 +701,7 @@ namespace TestingWinForms
                 thankYouForm.Show();
                 this.Close();
             }
+
 
 
         }
