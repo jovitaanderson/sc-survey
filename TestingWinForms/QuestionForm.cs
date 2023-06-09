@@ -539,10 +539,6 @@ namespace TestingWinForms
                         if (!string.IsNullOrEmpty(optionText))
                             numAns++;
 
-                        radioButton.FlatStyle = FlatStyle.Flat;
-                        radioButton.Appearance = Appearance.Button;
-                        radioButton.FlatAppearance.BorderSize = 0;
-
                         radioButton.Visible = !string.IsNullOrEmpty(optionText); 
                         radioButton.Text = optionText;
                         radioButton.Checked = false;
@@ -584,6 +580,8 @@ namespace TestingWinForms
                         int labelMarginTop = (radioButton.Height - label.Height) / 2; // Align vertically to the middle
                         label.Location = new Point(20, labelMarginTop);
                         radioButton.Padding = new Padding(label.Width + 20, 10, 20, 10);
+
+                        SetRoundedShape(radioButton);
                     }
 
                     // Hide checkboxes
@@ -717,22 +715,34 @@ namespace TestingWinForms
             path.CloseFigure();
             control.Region = new Region(path);
 
-            SubscribePaintEvent(control, path);
+            // Store the previous path in the control's tag
+            if (control.Tag is GraphicsPath previousPath)
+                previousPath.Dispose();
+            control.Tag = path;
+
+            SubscribePaintEvent(control);
 
             return path;
         }
 
-        private void SubscribePaintEvent(Control control, GraphicsPath path)
+        private void SubscribePaintEvent(Control control)
         {
             control.Paint -= RoundedShapePaint;
             control.Paint += RoundedShapePaint;
+        }
 
-            // Helper method to draw borders
-            void RoundedShapePaint(object sender, PaintEventArgs e)
+        private void RoundedShapePaint(object sender, PaintEventArgs e)
+        {
+            Control control = (Control)sender;
+            GraphicsPath path = control.Tag as GraphicsPath;
+
+            if (path != null)
             {
-                using (var pen = new Pen(control.ForeColor, 4))
+                using (var pen = new Pen(control.ForeColor, 5))
                 {
                     e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+                    // Draw path
                     e.Graphics.DrawPath(pen, path);
                 }
             }
