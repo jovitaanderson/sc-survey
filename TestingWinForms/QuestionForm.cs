@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -117,7 +118,7 @@ namespace TestingWinForms
             
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        /*private void Form1_Load(object sender, EventArgs e)
         {
             // Subscribe the event handlers to the CheckedChanged event of each checkbox
             optionACheckBox.CheckedChanged += CheckBox_CheckedChanged;
@@ -138,7 +139,7 @@ namespace TestingWinForms
             optionFRadioButton.CheckedChanged += RadioButton_CheckedChanged;
             optionGRadioButton.CheckedChanged += RadioButton_CheckedChanged;
             optionHRadioButton.CheckedChanged += RadioButton_CheckedChanged;
-        }
+        }*/
 
         protected override CreateParams CreateParams
         {
@@ -557,20 +558,22 @@ namespace TestingWinForms
                         int availableWidth = tableLayoutPanelRadioButton.Parent.Width;
                         int lineCount = (int)Math.Ceiling(textSize.Width / availableWidth);
                         int minHeight = (int)(textSize.Height * 1.5);
-                        int height = (int)(textSize.Height * lineCount);
+                        int height = (int)(textSize.Height * lineCount) + 40;
                         radioButton.Height = Math.Max(minHeight, height);
 
                         radioButton.FlatStyle = FlatStyle.Flat;
                         radioButton.Appearance = Appearance.Button;
+                        radioButton.FlatAppearance.BorderSize = 0;
 
+                        //Remove all existing labels in controls
                         if (radioButton.Controls.Count > 0)
                         {
                             radioButton.Controls.RemoveAt(0);
                         }
 
-                        // Create a label to hold the text parts
+                        // Create a new label to hold the text parts
                         Label label = new Label();
-                        Font characterFont = new Font("Times New Roman", 32, FontStyle.Bold);
+                        Font characterFont = new Font("Times New Roman", 36, FontStyle.Bold);
                         label.Text = GetCharacterFromIndex(i);
                         label.Font = characterFont;
                         label.AutoSize = true;
@@ -580,7 +583,7 @@ namespace TestingWinForms
                         // Adjust the position and size of the labels
                         int labelMarginTop = (radioButton.Height - label.Height) / 2; // Align vertically to the middle
                         label.Location = new Point(20, labelMarginTop);
-                        radioButton.Padding = new Padding(label.Width + 20, 0, 0, 0);
+                        radioButton.Padding = new Padding(label.Width + 20, 10, 20, 10);
                     }
 
                     // Hide checkboxes
@@ -612,10 +615,6 @@ namespace TestingWinForms
                         if (!string.IsNullOrEmpty(optionText))
                             numAns++;
 
-                        checkbox.FlatStyle = FlatStyle.Flat;
-                        checkbox.Appearance = Appearance.Button;
-                        checkbox.FlatAppearance.BorderSize = 0;
-
                         checkbox.Visible = !string.IsNullOrEmpty(optionText);
                         checkbox.Text = optionText;
                         checkbox.Checked = false;
@@ -625,51 +624,43 @@ namespace TestingWinForms
                         checkbox.AutoSize = currentQuestion.AutoSizes[i];
                         checkbox.ForeColor = currentQuestion.AnswerColors[i];
 
-                        checkbox.AutoSize = false;
+                        checkbox.AutoSize = false; 
 
                         // Measure the required size for the text
                         SizeF textSize = TextRenderer.MeasureText(optionText, checkbox.Font);
                         int availableWidth = tableLayoutPanelCheckBox.Parent.Width;
                         int lineCount = (int)Math.Ceiling(textSize.Width / availableWidth);
                         int minHeight = (int)(textSize.Height * 1.5);
-                        int height = (int)(textSize.Height * lineCount);
+                        int height = (int)(textSize.Height * lineCount) + 40; // + 20 from padding below
                         checkbox.Height = Math.Max(minHeight, height);
 
                         checkbox.FlatStyle = FlatStyle.Flat;
                         checkbox.Appearance = Appearance.Button;
+                        checkbox.FlatAppearance.BorderSize = 0;
 
-
+                        //Remove all existing labels in controls
                         if (checkbox.Controls.Count > 0)
                         {
                             checkbox.Controls.RemoveAt(0);
                         }
 
-                        // Create a label to hold the text parts
+                        // Create a new label to hold the text parts
                         Label label = new Label();
-                        Font characterFont = new Font("Times New Roman", 32, FontStyle.Bold); 
+                        Font characterFont = new Font("Times New Roman", 36, FontStyle.Bold); 
                         label.Text = GetCharacterFromIndex(i);
                         label.Font = characterFont;
                         label.AutoSize = true;
                         label.BackColor = Color.Transparent;
                         checkbox.Controls.Add(label);
-                        
 
                         // Adjust the position and size of the labels
                         int labelMarginTop = (checkbox.Height - label.Height) / 2; // Align vertically to the middle
                         label.Location = new Point(20, labelMarginTop);
-                        checkbox.Padding = new Padding(label.Width + 20, 0, 0, 0);
-                    }
+                        checkbox.Padding = new Padding(label.Width + 20, 10, 20, 10);
 
-                    // Clear the selection for any remaining checkboxes
-                    for (int i = numOptions; i < checkboxes.Length; i++)
-                    {
-                        CheckBox checkbox = checkboxes[i];
-                        //Panel panel = panels[i];
-                        checkbox.Visible = false;
-                        checkbox.Text = string.Empty;
-                        checkbox.Checked = false;
-                    }
+                        SetRoundedShape(checkbox);
 
+                    }
                     // Hide radio buttons
                     foreach (RadioButton radioButton in radioButtons)
                     {
@@ -708,6 +699,43 @@ namespace TestingWinForms
             }
 
 
+        }
+
+        // Helper method to draw arc
+        private GraphicsPath SetRoundedShape(Control control)
+        {
+            int borderRadius = 40; // Adjust the radius as needed
+            GraphicsPath path = new GraphicsPath();
+            // Top-left corner
+            path.AddArc(0, 0, borderRadius, borderRadius, 180, 90);
+            // Top-right corner
+            path.AddArc(control.Width - borderRadius, 0, borderRadius, borderRadius, 270, 90);
+            // Bottom-right corner
+            path.AddArc(control.Width - borderRadius, control.Height - borderRadius, borderRadius, borderRadius, 0, 90);
+            // Bottom-left corner
+            path.AddArc(0, control.Height - borderRadius, borderRadius, borderRadius, 90, 90);
+            path.CloseFigure();
+            control.Region = new Region(path);
+
+            SubscribePaintEvent(control, path);
+
+            return path;
+        }
+
+        private void SubscribePaintEvent(Control control, GraphicsPath path)
+        {
+            control.Paint -= RoundedShapePaint;
+            control.Paint += RoundedShapePaint;
+
+            // Helper method to draw borders
+            void RoundedShapePaint(object sender, PaintEventArgs e)
+            {
+                using (var pen = new Pen(control.ForeColor, 4))
+                {
+                    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                    e.Graphics.DrawPath(pen, path);
+                }
+            }
         }
 
         //Helper method to get the letter for displaying answer
@@ -889,32 +917,6 @@ namespace TestingWinForms
 
             // Draw the background
             e.Graphics.FillRectangle(brush, checkBox.ClientRectangle);
-
-            // Draw the curved border
-            /*
-            // Set the border color and width
-            Color borderColor = Color.DarkBlue;
-            int borderWidth = 2;
-
-            // Set the corner radius for curved border (e.g., 8 pixels)
-            int cornerRadius = 20;
-
-
-            using (Pen borderPen = new Pen(borderColor, borderWidth))
-            {
-                Rectangle borderRect = checkBox.ClientRectangle;
-                borderRect.Inflate(-borderWidth / 2, -borderWidth / 2);
-
-                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                e.Graphics.DrawArc(borderPen, borderRect.Left, borderRect.Top, cornerRadius * 2, cornerRadius * 2, 180, 90);
-                e.Graphics.DrawArc(borderPen, borderRect.Right - (cornerRadius * 2), borderRect.Top, cornerRadius * 2, cornerRadius * 2, 270, 90);
-                e.Graphics.DrawArc(borderPen, borderRect.Left, borderRect.Bottom - (cornerRadius * 2), cornerRadius * 2, cornerRadius * 2, 90, 90);
-                e.Graphics.DrawArc(borderPen, borderRect.Right - (cornerRadius * 2), borderRect.Bottom - (cornerRadius * 2), cornerRadius * 2, cornerRadius * 2, 0, 90);
-                e.Graphics.DrawLine(borderPen, borderRect.Left + cornerRadius, borderRect.Top, borderRect.Right - cornerRadius, borderRect.Top);
-                e.Graphics.DrawLine(borderPen, borderRect.Left + cornerRadius, borderRect.Bottom, borderRect.Right - cornerRadius, borderRect.Bottom);
-                e.Graphics.DrawLine(borderPen, borderRect.Left, borderRect.Top + cornerRadius, borderRect.Left, borderRect.Bottom - cornerRadius);
-                e.Graphics.DrawLine(borderPen, borderRect.Right, borderRect.Top + cornerRadius, borderRect.Right, borderRect.Bottom - cornerRadius);
-            }*/
 
             // Clean up resources
             brush.Dispose();

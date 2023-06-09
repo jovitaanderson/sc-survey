@@ -29,7 +29,7 @@ namespace TestingWinForms
         private string columnNames;
         private int timerToQuestionPage = 1000;
         private int backgroundRadius = 90;
-        private int timerToShowAllPoints = 1000;
+       // private int timerToShowAllPoints = 1000;
 
         private int lastRowNumber;
         private bool hasClicked = false;
