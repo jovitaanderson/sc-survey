@@ -538,6 +538,10 @@ namespace TestingWinForms
                         if (!string.IsNullOrEmpty(optionText))
                             numAns++;
 
+                        radioButton.FlatStyle = FlatStyle.Flat;
+                        radioButton.Appearance = Appearance.Button;
+                        radioButton.FlatAppearance.BorderSize = 0;
+
                         radioButton.Visible = !string.IsNullOrEmpty(optionText); 
                         radioButton.Text = optionText;
                         radioButton.Checked = false;
@@ -607,6 +611,10 @@ namespace TestingWinForms
 
                         if (!string.IsNullOrEmpty(optionText))
                             numAns++;
+
+                        checkbox.FlatStyle = FlatStyle.Flat;
+                        checkbox.Appearance = Appearance.Button;
+                        checkbox.FlatAppearance.BorderSize = 0;
 
                         checkbox.Visible = !string.IsNullOrEmpty(optionText);
                         checkbox.Text = optionText;
