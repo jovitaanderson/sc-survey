@@ -90,11 +90,7 @@ namespace TestingWinForms
             {
                 savedAnswers[i] = semicolonString;
             }
-            
-        }
 
-        private void QuestionForm_Load(object sender, EventArgs e)
-        {
             // Create an array or list of radio buttons
             RadioButton[] radioButtons = new RadioButton[]
             {
@@ -119,7 +115,6 @@ namespace TestingWinForms
                     optionGCheckBox,
                     optionHCheckBox
            };
-            DisplayQuestion(); //Display first question
 
             // Subscribe to the CheckedChanged event for each radio button
             foreach (RadioButton radioButton in radioButtons)
@@ -132,6 +127,12 @@ namespace TestingWinForms
             {
                 checkBox.CheckedChanged += CheckBox_CheckedChanged;
             }
+        }
+
+        private void QuestionForm_Load(object sender, EventArgs e)
+        {
+            
+            DisplayQuestion(); //Display first question
         }
 
         protected override CreateParams CreateParams
