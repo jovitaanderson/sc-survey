@@ -70,27 +70,6 @@ namespace TestingWinForms
 
             this.rowNumber = rowNumber;
 
-            // Subscribe the same event handler method to the CheckedChanged event of each checkbox
-            optionACheckBox.CheckedChanged += CheckBox_CheckedChanged;
-            optionBCheckBox.CheckedChanged += CheckBox_CheckedChanged;
-            optionCCheckBox.CheckedChanged += CheckBox_CheckedChanged;
-            optionDCheckBox.CheckedChanged += CheckBox_CheckedChanged;
-            optionECheckBox.CheckedChanged += CheckBox_CheckedChanged;
-            optionFCheckBox.CheckedChanged += CheckBox_CheckedChanged;
-            optionGCheckBox.CheckedChanged += CheckBox_CheckedChanged;
-            optionHCheckBox.CheckedChanged += CheckBox_CheckedChanged;
-
-
-            //subscribe for radio Buttons
-            optionARadioButton.CheckedChanged += RadioButton_CheckedChanged;
-            optionBRadioButton.CheckedChanged += RadioButton_CheckedChanged;
-            optionCRadioButton.CheckedChanged += RadioButton_CheckedChanged;
-            optionDRadioButton.CheckedChanged += RadioButton_CheckedChanged;
-            optionERadioButton.CheckedChanged += RadioButton_CheckedChanged;
-            optionFRadioButton.CheckedChanged += RadioButton_CheckedChanged;
-            optionGRadioButton.CheckedChanged += RadioButton_CheckedChanged;
-            optionHRadioButton.CheckedChanged += RadioButton_CheckedChanged;
-
             currentQuestionIndex = 0;
 
             // Set up the timer
@@ -111,35 +90,49 @@ namespace TestingWinForms
             {
                 savedAnswers[i] = semicolonString;
             }
-            DisplayQuestion(); //Display first question
-            //DisplayBackground();
-            //tableLayoutPanel1.ResumeLayout();
-            
             
         }
 
-        /*private void Form1_Load(object sender, EventArgs e)
+        private void QuestionForm_Load(object sender, EventArgs e)
         {
-            // Subscribe the event handlers to the CheckedChanged event of each checkbox
-            optionACheckBox.CheckedChanged += CheckBox_CheckedChanged;
-            optionBCheckBox.CheckedChanged += CheckBox_CheckedChanged;
-            optionCCheckBox.CheckedChanged += CheckBox_CheckedChanged;
-            optionDCheckBox.CheckedChanged += CheckBox_CheckedChanged;
-            optionECheckBox.CheckedChanged += CheckBox_CheckedChanged;
-            optionFCheckBox.CheckedChanged += CheckBox_CheckedChanged;
-            optionGCheckBox.CheckedChanged += CheckBox_CheckedChanged;
-            optionHCheckBox.CheckedChanged += CheckBox_CheckedChanged;
+            // Create an array or list of radio buttons
+            RadioButton[] radioButtons = new RadioButton[]
+            {
+                optionARadioButton,
+                optionBRadioButton,
+                optionCRadioButton,
+                optionDRadioButton,
+                optionERadioButton,
+                optionFRadioButton,
+                optionGRadioButton,
+                optionHRadioButton
+            };
 
-            // Subscribe the event handlers to the CheckedChanged event of each radio button
-            optionARadioButton.CheckedChanged += RadioButton_CheckedChanged;
-            optionBRadioButton.CheckedChanged += RadioButton_CheckedChanged;
-            optionCRadioButton.CheckedChanged += RadioButton_CheckedChanged;
-            optionDRadioButton.CheckedChanged += RadioButton_CheckedChanged;
-            optionERadioButton.CheckedChanged += RadioButton_CheckedChanged;
-            optionFRadioButton.CheckedChanged += RadioButton_CheckedChanged;
-            optionGRadioButton.CheckedChanged += RadioButton_CheckedChanged;
-            optionHRadioButton.CheckedChanged += RadioButton_CheckedChanged;
-        }*/
+            CheckBox[] checkboxes = new CheckBox[]
+           {
+                    optionACheckBox,
+                    optionBCheckBox,
+                    optionCCheckBox,
+                    optionDCheckBox,
+                    optionECheckBox,
+                    optionFCheckBox,
+                    optionGCheckBox,
+                    optionHCheckBox
+           };
+            DisplayQuestion(); //Display first question
+
+            // Subscribe to the CheckedChanged event for each radio button
+            foreach (RadioButton radioButton in radioButtons)
+            {
+                radioButton.CheckedChanged += RadioButton_CheckedChanged;
+            }
+
+            // Subscribe to the CheckedChanged event for each radio button
+            foreach (CheckBox checkBox in checkboxes)
+            {
+                checkBox.CheckedChanged += CheckBox_CheckedChanged;
+            }
+        }
 
         protected override CreateParams CreateParams
         {
@@ -165,7 +158,6 @@ namespace TestingWinForms
                 questionLabel.MaximumSize = new Size(maxWidth, 0);
             }
 
-            //questionLabel.TextAlign = ContentAlignment.MiddleCenter;
             // Calculate the center position of the form
             int centerX = Width / 2;
             // Calculate the center position of the question label
@@ -293,8 +285,6 @@ namespace TestingWinForms
                                             }
                                             else
                                             {
-                                                // Handle parsing error (e.g., provide a default value or error handling logic)
-                                                // Here, we'll add a default value to the textAlignOptions list
                                                 textAlignOptions.Add(ContentAlignment.TopLeft);
                                             }
 
@@ -305,8 +295,6 @@ namespace TestingWinForms
                                             }
                                             else
                                             {
-                                                // Handle parsing error (e.g., provide a default value or error handling logic)
-                                                // Here, we'll add a default value to the textWrapOptions list
                                                 textWrapOptions.Add(true);
                                             }
 
@@ -601,9 +589,6 @@ namespace TestingWinForms
                 {
                     labelMCQorMRQ.Text = "Select multiple options.";
 
-                    tableLayoutPanelRadioButton.Visible = false;
-                    tableLayoutPanelCheckBox.Visible = true;
-
                     // Update the options visibility and text
                     for (int i = 0; i < numOptions; i++)
                     {
@@ -665,6 +650,9 @@ namespace TestingWinForms
                         radioButton.Text = string.Empty;
                         radioButton.Checked = false;
                     }
+
+                    tableLayoutPanelRadioButton.Visible = false;
+                    tableLayoutPanelCheckBox.Visible = true;
 
                     AdjustCheckboxTableLayoutPanelScroll(numAns);
 
@@ -888,6 +876,7 @@ namespace TestingWinForms
                     {
                         // Extract the radio button name (e.g., optionA, optionB, etc.)
                         string checkboxName = checkBox.Name.Replace("CheckBox", "");
+                        SetRoundedShape(checkBox);
 
                         if (checkBox.Checked)
                         {
@@ -948,6 +937,7 @@ namespace TestingWinForms
                     {
                         // Extract the radio button name (e.g., optionA, optionB, etc.)
                         string radioButtonName = radioButton.Name.Replace("RadioButton", "");
+                        SetRoundedShape(radioButton);
 
                         if (radioButton.Checked)
                         {
@@ -959,7 +949,6 @@ namespace TestingWinForms
                         else
                         {
                             radioButton.Paint -= RadioButton_Paint; // Unsubscribe from the Paint event handler
-                            //radioButton.BackColor = Color.Transparent;
                             radioButton.BackColor = Color.White;
                             checkboxValues[radioButtonName] = " ";
                         }
@@ -1086,6 +1075,7 @@ namespace TestingWinForms
             timer.Start();
         }
 
+       
     }
 
     public class Question

@@ -49,8 +49,8 @@
             this.questionLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanelRadioButton = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanelCheckBox = new System.Windows.Forms.TableLayoutPanel();
             this.optionARadioButton = new System.Windows.Forms.RadioButton();
+            this.tableLayoutPanelCheckBox = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanelRadioButton.SuspendLayout();
@@ -77,10 +77,10 @@
             this.optionACheckBox.BackColor = System.Drawing.Color.White;
             this.optionACheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionACheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionACheckBox.Location = new System.Drawing.Point(14, 13);
+            this.optionACheckBox.Location = new System.Drawing.Point(11, 10);
             this.optionACheckBox.Margin = new System.Windows.Forms.Padding(11, 10, 11, 10);
             this.optionACheckBox.Name = "optionACheckBox";
-            this.optionACheckBox.Size = new System.Drawing.Size(1111, 63);
+            this.optionACheckBox.Size = new System.Drawing.Size(889, 50);
             this.optionACheckBox.TabIndex = 6;
             this.optionACheckBox.Text = "checkBox1";
             this.optionACheckBox.UseVisualStyleBackColor = false;
@@ -91,10 +91,10 @@
             this.optionBCheckBox.BackColor = System.Drawing.Color.White;
             this.optionBCheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionBCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionBCheckBox.Location = new System.Drawing.Point(14, 100);
+            this.optionBCheckBox.Location = new System.Drawing.Point(11, 80);
             this.optionBCheckBox.Margin = new System.Windows.Forms.Padding(11, 10, 11, 10);
             this.optionBCheckBox.Name = "optionBCheckBox";
-            this.optionBCheckBox.Size = new System.Drawing.Size(1111, 63);
+            this.optionBCheckBox.Size = new System.Drawing.Size(889, 50);
             this.optionBCheckBox.TabIndex = 7;
             this.optionBCheckBox.Text = "checkBox2";
             this.optionBCheckBox.UseVisualStyleBackColor = false;
@@ -105,10 +105,10 @@
             this.optionCCheckBox.BackColor = System.Drawing.Color.White;
             this.optionCCheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionCCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionCCheckBox.Location = new System.Drawing.Point(14, 188);
+            this.optionCCheckBox.Location = new System.Drawing.Point(11, 150);
             this.optionCCheckBox.Margin = new System.Windows.Forms.Padding(11, 10, 11, 10);
             this.optionCCheckBox.Name = "optionCCheckBox";
-            this.optionCCheckBox.Size = new System.Drawing.Size(1111, 63);
+            this.optionCCheckBox.Size = new System.Drawing.Size(889, 50);
             this.optionCCheckBox.TabIndex = 8;
             this.optionCCheckBox.Text = "checkBox3";
             this.optionCCheckBox.UseVisualStyleBackColor = false;
@@ -119,10 +119,10 @@
             this.optionDCheckBox.BackColor = System.Drawing.Color.White;
             this.optionDCheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionDCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionDCheckBox.Location = new System.Drawing.Point(14, 275);
+            this.optionDCheckBox.Location = new System.Drawing.Point(11, 220);
             this.optionDCheckBox.Margin = new System.Windows.Forms.Padding(11, 10, 11, 10);
             this.optionDCheckBox.Name = "optionDCheckBox";
-            this.optionDCheckBox.Size = new System.Drawing.Size(1111, 63);
+            this.optionDCheckBox.Size = new System.Drawing.Size(889, 50);
             this.optionDCheckBox.TabIndex = 9;
             this.optionDCheckBox.Text = "checkBox4";
             this.optionDCheckBox.UseVisualStyleBackColor = false;
@@ -133,10 +133,10 @@
             this.optionECheckBox.BackColor = System.Drawing.Color.White;
             this.optionECheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionECheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionECheckBox.Location = new System.Drawing.Point(14, 363);
+            this.optionECheckBox.Location = new System.Drawing.Point(11, 290);
             this.optionECheckBox.Margin = new System.Windows.Forms.Padding(11, 10, 11, 10);
             this.optionECheckBox.Name = "optionECheckBox";
-            this.optionECheckBox.Size = new System.Drawing.Size(1111, 63);
+            this.optionECheckBox.Size = new System.Drawing.Size(889, 50);
             this.optionECheckBox.TabIndex = 10;
             this.optionECheckBox.Text = "checkBox5";
             this.optionECheckBox.UseVisualStyleBackColor = false;
@@ -147,10 +147,10 @@
             this.optionFCheckBox.BackColor = System.Drawing.Color.White;
             this.optionFCheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionFCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionFCheckBox.Location = new System.Drawing.Point(14, 450);
+            this.optionFCheckBox.Location = new System.Drawing.Point(11, 360);
             this.optionFCheckBox.Margin = new System.Windows.Forms.Padding(11, 10, 11, 10);
             this.optionFCheckBox.Name = "optionFCheckBox";
-            this.optionFCheckBox.Size = new System.Drawing.Size(1111, 63);
+            this.optionFCheckBox.Size = new System.Drawing.Size(889, 50);
             this.optionFCheckBox.TabIndex = 11;
             this.optionFCheckBox.Text = "checkBox6";
             this.optionFCheckBox.UseVisualStyleBackColor = false;
@@ -161,10 +161,10 @@
             this.optionGCheckBox.BackColor = System.Drawing.Color.White;
             this.optionGCheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionGCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionGCheckBox.Location = new System.Drawing.Point(14, 538);
+            this.optionGCheckBox.Location = new System.Drawing.Point(11, 430);
             this.optionGCheckBox.Margin = new System.Windows.Forms.Padding(11, 10, 11, 10);
             this.optionGCheckBox.Name = "optionGCheckBox";
-            this.optionGCheckBox.Size = new System.Drawing.Size(1111, 63);
+            this.optionGCheckBox.Size = new System.Drawing.Size(889, 50);
             this.optionGCheckBox.TabIndex = 12;
             this.optionGCheckBox.Text = "checkBox7";
             this.optionGCheckBox.UseVisualStyleBackColor = false;
@@ -275,7 +275,7 @@
             this.optionHRadioButton.Margin = new System.Windows.Forms.Padding(11, 10, 11, 10);
             this.optionHRadioButton.Name = "optionHRadioButton";
             this.optionHRadioButton.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.optionHRadioButton.Size = new System.Drawing.Size(889, 115);
+            this.optionHRadioButton.Size = new System.Drawing.Size(889, 54);
             this.optionHRadioButton.TabIndex = 21;
             this.optionHRadioButton.TabStop = true;
             this.optionHRadioButton.Text = "radioButton8";
@@ -287,10 +287,10 @@
             this.optionHCheckBox.BackColor = System.Drawing.Color.White;
             this.optionHCheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.optionHCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionHCheckBox.Location = new System.Drawing.Point(14, 625);
+            this.optionHCheckBox.Location = new System.Drawing.Point(11, 500);
             this.optionHCheckBox.Margin = new System.Windows.Forms.Padding(11, 10, 11, 10);
             this.optionHCheckBox.Name = "optionHCheckBox";
-            this.optionHCheckBox.Size = new System.Drawing.Size(1111, 63);
+            this.optionHCheckBox.Size = new System.Drawing.Size(889, 50);
             this.optionHCheckBox.TabIndex = 20;
             this.optionHCheckBox.Text = "checkBox8";
             this.optionHCheckBox.UseVisualStyleBackColor = false;
@@ -386,6 +386,22 @@
             this.tableLayoutPanelRadioButton.Size = new System.Drawing.Size(932, 500);
             this.tableLayoutPanelRadioButton.TabIndex = 0;
             // 
+            // optionARadioButton
+            // 
+            this.optionARadioButton.AutoSize = true;
+            this.optionARadioButton.BackColor = System.Drawing.Color.White;
+            this.optionARadioButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.optionARadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.optionARadioButton.Location = new System.Drawing.Point(11, 10);
+            this.optionARadioButton.Margin = new System.Windows.Forms.Padding(11, 10, 11, 10);
+            this.optionARadioButton.Name = "optionARadioButton";
+            this.optionARadioButton.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.optionARadioButton.Size = new System.Drawing.Size(889, 54);
+            this.optionARadioButton.TabIndex = 14;
+            this.optionARadioButton.TabStop = true;
+            this.optionARadioButton.Text = "radioButton1";
+            this.optionARadioButton.UseVisualStyleBackColor = false;
+            // 
             // tableLayoutPanelCheckBox
             // 
             this.tableLayoutPanelCheckBox.AutoScroll = true;
@@ -415,22 +431,6 @@
             this.tableLayoutPanelCheckBox.Size = new System.Drawing.Size(932, 500);
             this.tableLayoutPanelCheckBox.TabIndex = 26;
             // 
-            // optionARadioButton
-            // 
-            this.optionARadioButton.AutoSize = true;
-            this.optionARadioButton.BackColor = System.Drawing.Color.White;
-            this.optionARadioButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.optionARadioButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.optionARadioButton.Location = new System.Drawing.Point(11, 10);
-            this.optionARadioButton.Margin = new System.Windows.Forms.Padding(11, 10, 11, 10);
-            this.optionARadioButton.Name = "optionARadioButton";
-            this.optionARadioButton.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.optionARadioButton.Size = new System.Drawing.Size(889, 54);
-            this.optionARadioButton.TabIndex = 14;
-            this.optionARadioButton.TabStop = true;
-            this.optionARadioButton.Text = "radioButton1";
-            this.optionARadioButton.UseVisualStyleBackColor = false;
-            // 
             // QuestionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -440,6 +440,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "QuestionForm";
             this.Text = "Form2";
+            this.Load += new System.EventHandler(this.QuestionForm_Load);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.panel1.ResumeLayout(false);
