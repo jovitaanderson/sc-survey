@@ -19,6 +19,7 @@ namespace TestingWinForms
             this.BackColor = Color.White;
             this.ForeColor = Color.Black;
             this.Size = new Size(350, 200);
+            this.DoubleBuffered = true;
         }
 
         //Properties
@@ -60,6 +61,16 @@ namespace TestingWinForms
                 this.Region = new Region(rectangleF);
             }
 
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000; // WS_EX_COMPOSITED
+                return cp;
+            }
         }
 
     }
