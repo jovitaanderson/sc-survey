@@ -13,6 +13,8 @@ namespace TestingWinForms
     {
         //Fields
         private int borderRadius = 30;
+        private int borderThickness = 5;
+        private Color borderColor = Color.Red;
 
         //Constructor
         public RoundedPanel() { 
@@ -27,6 +29,18 @@ namespace TestingWinForms
         {
             get => borderRadius;
             set { borderRadius = value; this.Invalidate(); } 
+        }
+
+        public int BorderThickness 
+        { 
+            get => borderThickness; 
+            set { borderThickness = value; this.Invalidate(); }
+        }
+
+        public Color BorderColor 
+        { 
+            get => borderColor;
+            set { borderColor = value; this.Invalidate(); }
         }
 
         //Methods
@@ -55,13 +69,44 @@ namespace TestingWinForms
                 {
                     this.Region = new Region(graphicsPath);
                     e.Graphics.DrawPath(pen, graphicsPath);
-                }        
+                    using (Pen borderPen = new Pen(borderColor, borderThickness)) // Specify the border color and thickness here
+                    {
+                        e.Graphics.DrawPath(borderPen, graphicsPath);
+                    }
+                }
             }
             else {
                 this.Region = new Region(rectangleF);
             }
 
         }
+        /*
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            // BorderRadius
+            RectangleF rectangleF = new RectangleF(0, 0, this.Width, this.Height);
+            if (borderRadius > 2)
+            {
+                using (GraphicsPath graphicsPath = GetRoundedPath(rectangleF, borderRadius))
+                using (Pen borderPen = new Pen(Color.Red, 5)) // Specify the border color and thickness here
+                {
+                    this.Region = new Region(graphicsPath);
+                    
+
+                    // Draw the inner region with the background color
+                    e.Graphics.FillPath(new SolidBrush(this.BackColor), graphicsPath);
+                    e.Graphics.DrawPath(borderPen, graphicsPath);
+                }
+            }
+            else
+            {
+                this.Region = new Region(rectangleF);
+                //e.Graphics.FillRectangle(new SolidBrush(this.BackColor), ClientRectangle);
+            }
+        }*/
+
 
         protected override CreateParams CreateParams
         {
