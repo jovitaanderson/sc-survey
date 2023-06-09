@@ -554,8 +554,8 @@ namespace TestingWinForms
                         int availableWidth = tableLayoutPanelRadioButton.Parent.Width;
                         int lineCount = (int)Math.Ceiling(textSize.Width / availableWidth);
                         int minHeight = (int)(textSize.Height * 1.5);
-                        int height = (int)(textSize.Height * lineCount) + 40;
-                        radioButton.Height = Math.Max(minHeight, height);
+                        int height = (int)(textSize.Height * lineCount);
+                        radioButton.Height = Math.Max(minHeight, height) + 40;
 
                         radioButton.FlatStyle = FlatStyle.Flat;
                         radioButton.Appearance = Appearance.Button;
@@ -629,8 +629,8 @@ namespace TestingWinForms
                         int availableWidth = tableLayoutPanelCheckBox.Parent.Width;
                         int lineCount = (int)Math.Ceiling(textSize.Width / availableWidth);
                         int minHeight = (int)(textSize.Height * 1.5);
-                        int height = (int)(textSize.Height * lineCount) + 40; // + 20 from padding below
-                        checkbox.Height = Math.Max(minHeight, height);
+                        int height = (int)(textSize.Height * lineCount); // + 20 from padding below
+                        checkbox.Height = Math.Max(minHeight, height) + 40;
 
                         checkbox.FlatStyle = FlatStyle.Flat;
                         checkbox.Appearance = Appearance.Button;
@@ -657,7 +657,6 @@ namespace TestingWinForms
                         checkbox.Padding = new Padding(label.Width + 20, 10, 20, 10);
 
                         SetRoundedShape(checkbox);
-
                     }
                     // Hide radio buttons
                     foreach (RadioButton radioButton in radioButtons)
