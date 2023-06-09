@@ -26,3 +26,4 @@ C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\obj\Debug\TestingWinFo
 C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\obj\Debug\SurveyForm.csproj.AssemblyReference.cache
 C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\TestingWinForms.CustomText.resources
 C:\Users\ngsha\Documents\GitHub\SC-Survey\TestingWinForms\obj\Debug\TestingWinForms.CustomText.resources
+C:\Users\jovit\source\repos\TestingWinForms\TestingWinForms\obj\Debug\SurveyForm.csproj.AssemblyReference.cache
