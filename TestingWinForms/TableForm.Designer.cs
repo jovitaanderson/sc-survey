@@ -67,7 +67,9 @@
             // graphPanel
             // 
             this.graphPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.graphPanel.BorderColor = System.Drawing.Color.Transparent;
             this.graphPanel.BorderRadius = 90;
+            this.graphPanel.BorderThickness = 0;
             this.graphPanel.Controls.Add(this.labelYAxis);
             this.graphPanel.Controls.Add(this.labelXAxis);
             this.graphPanel.Controls.Add(this.labelXAxis2);
