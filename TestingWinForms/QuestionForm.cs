@@ -91,9 +91,9 @@ namespace TestingWinForms
                 savedAnswers[i] = semicolonString;
             }
 
-            int vertScrollWidth = SystemInformation.VerticalScrollBarWidth;
-            tableLayoutPanelCheckBox.Padding = new Padding(0, 0, vertScrollWidth, 0);
-            tableLayoutPanelRadioButton.Padding = new Padding(0, 0, vertScrollWidth, 0);
+            //int vertScrollWidth = SystemInformation.VerticalScrollBarWidth;
+            //tableLayoutPanelCheckBox.Padding = new Padding(0, 0, vertScrollWidth, 0);
+            //tableLayoutPanelRadioButton.Padding = new Padding(0, 0, vertScrollWidth, 0);
 
         }
 
@@ -493,7 +493,6 @@ namespace TestingWinForms
             optionFCheckBox.Visible = false;
             optionGCheckBox.Visible = false;
             optionHCheckBox.Visible = false;
-           
 
             if (currentQuestionIndex < questions.Count)
             {
@@ -592,6 +591,7 @@ namespace TestingWinForms
                         int labelMarginTop = (radioButton.Height - label.Height) / 2; // Align vertically to the middle
                         label.Location = new Point(20, labelMarginTop);
                         radioButton.Padding = new Padding(label.Width + 20, 10, 20, 10);
+                        radioButton.Margin = new Padding(10, 10, 30, 10);
 
                         SetRoundedShape(radioButton);
                     }
@@ -664,6 +664,7 @@ namespace TestingWinForms
                         int labelMarginTop = (checkbox.Height - label.Height) / 2; // Align vertically to the middle
                         label.Location = new Point(20, labelMarginTop);
                         checkbox.Padding = new Padding(label.Width + 20, 10, 20, 10);
+                        checkbox.Margin = new Padding(10, 10, 30, 10);
 
                         SetRoundedShape(checkbox);
                     }
@@ -815,7 +816,10 @@ namespace TestingWinForms
             {
                 tableLayoutPanelRadioButton.VerticalScroll.Value = 0;
                 // To reset the scroll bar
+                tableLayoutPanelRadioButton.HorizontalScroll.Maximum = 0;
                 tableLayoutPanelRadioButton.AutoScroll = false;
+                tableLayoutPanelRadioButton.HorizontalScroll.Enabled = false;
+                tableLayoutPanelRadioButton.VerticalScroll.Visible = false;
                 tableLayoutPanelRadioButton.AutoScroll = true;
             }
             else
@@ -859,7 +863,10 @@ namespace TestingWinForms
             {
                 tableLayoutPanelCheckBox.VerticalScroll.Value = 0;
                 // To reset the scroll bar
+                tableLayoutPanelCheckBox.HorizontalScroll.Maximum = 0;
                 tableLayoutPanelCheckBox.AutoScroll = false;
+                tableLayoutPanelCheckBox.HorizontalScroll.Enabled = false;
+                tableLayoutPanelCheckBox.VerticalScroll.Visible = false;
                 tableLayoutPanelCheckBox.AutoScroll = true;
             }
             else
