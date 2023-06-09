@@ -91,6 +91,10 @@ namespace TestingWinForms
                 savedAnswers[i] = semicolonString;
             }
 
+            int vertScrollWidth = SystemInformation.VerticalScrollBarWidth;
+            tableLayoutPanelCheckBox.Padding = new Padding(0, 0, vertScrollWidth, 0);
+            tableLayoutPanelRadioButton.Padding = new Padding(0, 0, vertScrollWidth, 0);
+
         }
 
         private void QuestionForm_Load(object sender, EventArgs e)
@@ -131,6 +135,7 @@ namespace TestingWinForms
             {
                 checkBox.CheckedChanged += CheckBox_CheckedChanged;
             }
+
             DisplayQuestion(); //Display first question
         }
 
@@ -856,12 +861,12 @@ namespace TestingWinForms
                 // To reset the scroll bar
                 tableLayoutPanelCheckBox.AutoScroll = false;
                 tableLayoutPanelCheckBox.AutoScroll = true;
-                tableLayoutPanelCheckBox.HorizontalScroll.Visible = false;
             }
             else
             {
                 tableLayoutPanelCheckBox.AutoScroll = false;
             }
+
         }
 
         private int GetCheckBoxRowHeight(TableLayoutPanel tableLayoutPanel, int row)
