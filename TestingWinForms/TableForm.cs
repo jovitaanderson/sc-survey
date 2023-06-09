@@ -658,6 +658,8 @@ namespace TestingWinForms
                 timer = null; // Set the timer reference to null
 
                 TableForm newForm = new TableForm(); // Navigate to a new page
+                newForm.WindowState = FormWindowState.Maximized;
+                newForm.FormBorderStyle = FormBorderStyle.None;
                 newForm.Show();
                 this.Hide();
             }));
@@ -828,9 +830,37 @@ namespace TestingWinForms
             hasClicked = false;
             timer.Dispose();
             timer = null;
-            QuestionForm newForm = new QuestionForm(lastRowNumber); // Navigate to a new page
+
+            // Set the opacity of the current form to 0
+           // this.Opacity = 1;
+
+            // Create a new instance of the form
+            QuestionForm newForm = new QuestionForm(lastRowNumber);
+            newForm.WindowState = FormWindowState.Maximized;
+            newForm.FormBorderStyle = FormBorderStyle.None;
+
+            /*newForm.Opacity = 0;
+
+            // Subscribe to the Load event of the new form
+            newForm.Load += (loadSender, loadEventArgs) =>
+            {
+                // When the new form has finished loading, gradually increase its opacity
+                System.Windows.Forms.Timer opacityTimer = new System.Windows.Forms.Timer();
+                opacityTimer.Interval = 30; // Adjust the interval as needed
+                opacityTimer.Tick += (timerSender, timerEventArgs) =>
+                {
+                    if (newForm.Opacity < 1)
+                        newForm.Opacity += 0.1; // Adjust the increment as needed
+                    else
+                        opacityTimer.Stop(); // Stop the timer when opacity reaches 1
+                };
+                opacityTimer.Start();
+            };*/
+
+            // Show the new form
             newForm.Show();
-            nextButton.Visible = false;
+
+            // Hide the current form
             this.Hide();
         }
     }

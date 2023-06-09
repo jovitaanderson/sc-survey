@@ -34,6 +34,7 @@ namespace TestingWinForms
 
         public QuestionForm(int rowNumber)
         {
+            InitializeComponent();
 
             // Initialize the list of questions
             defaultQuestions = new List<Question>()
@@ -55,8 +56,8 @@ namespace TestingWinForms
                 Color.Black, new List<Color>{ Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black, Color.Black,  Color.Black }),
             };
 
-            InitializeComponent();
-            DoubleBuffered = true;
+            //InitializeComponent();
+            //DoubleBuffered = true;
             BackgroundImageLayout = ImageLayout.None;
 
 
@@ -65,8 +66,8 @@ namespace TestingWinForms
             // Check if admin wants questions to be in random
             LoadRandomQuestionsAndTimerIntervalData();
 
-            FormBorderStyle = FormBorderStyle.None; // Remove the border
-            WindowState = FormWindowState.Maximized; // Maximize the window
+            //FormBorderStyle = FormBorderStyle.None; // Remove the border
+            //WindowState = FormWindowState.Maximized; // Maximize the window
 
             this.rowNumber = rowNumber;
 
@@ -703,9 +704,13 @@ namespace TestingWinForms
                 AppendDataToSpecificRow(GlobalVariables.csvRawDataFilePath, rowNumber, string.Join(",", savedAnswers));
                 
                 timer.Stop();
+
                 ThankYouScreen thankYouForm = new ThankYouScreen();
+                thankYouForm.WindowState = FormWindowState.Maximized;
+                thankYouForm.FormBorderStyle = FormBorderStyle.None;
                 thankYouForm.Show();
-                this.Close();
+
+                this.Hide();
             }
 
 
@@ -1096,9 +1101,13 @@ namespace TestingWinForms
             AppendDataToSpecificRow(GlobalVariables.csvRawDataFilePath, rowNumber, string.Join(",", savedAnswers));
             
             timer.Stop();
+
             TableForm form1 = new TableForm();
+            form1.WindowState = FormWindowState.Maximized;
+            form1.FormBorderStyle = FormBorderStyle.None;
             form1.Show();
-            this.Close();
+
+            this.Hide();
         }
 
         private void ResetTimer()

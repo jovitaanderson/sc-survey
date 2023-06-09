@@ -20,8 +20,8 @@ namespace TestingWinForms
             InitializeComponent();
             DoubleBuffered = true;
 
-            FormBorderStyle = FormBorderStyle.None; // Remove the border
-            WindowState = FormWindowState.Maximized; // Maximize the window
+            //FormBorderStyle = FormBorderStyle.None; // Remove the border
+            //WindowState = FormWindowState.Maximized; // Maximize the window
 
             //Display Background Image
             string imagePath = LoadBackgroundImageFromCSV();
@@ -102,6 +102,8 @@ namespace TestingWinForms
 
             // Close the Thank You screen and show the home screen (Form1)
             TableForm form1 = new TableForm();
+            form1.WindowState = FormWindowState.Maximized;
+            form1.FormBorderStyle = FormBorderStyle.None;
             form1.Show();
             this.Close();
         }
@@ -202,9 +204,14 @@ namespace TestingWinForms
 
         private void btnMain_Click(object sender, EventArgs e)
         {
-            TableForm form1 = new TableForm();
-            form1.Show();
-            this.Close();
+            // Stop the timer
+            timer1.Stop();
+
+            TableForm tableForm = new TableForm();
+            tableForm.WindowState = FormWindowState.Maximized;
+            tableForm.FormBorderStyle = FormBorderStyle.None;
+            tableForm.Show();
+            this.Hide();
         }
 
         private void labelEndMessage_Click(object sender, EventArgs e)
