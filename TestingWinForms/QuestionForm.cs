@@ -91,6 +91,10 @@ namespace TestingWinForms
                 savedAnswers[i] = semicolonString;
             }
 
+        }
+
+        private void QuestionForm_Load(object sender, EventArgs e)
+        {
             // Create an array or list of radio buttons
             RadioButton[] radioButtons = new RadioButton[]
             {
@@ -127,11 +131,6 @@ namespace TestingWinForms
             {
                 checkBox.CheckedChanged += CheckBox_CheckedChanged;
             }
-        }
-
-        private void QuestionForm_Load(object sender, EventArgs e)
-        {
-            
             DisplayQuestion(); //Display first question
         }
 
@@ -471,6 +470,25 @@ namespace TestingWinForms
                     optionHCheckBox
             };
 
+            // Hide the default radio buttons and checkboxes
+            optionARadioButton.Visible = false;
+            optionBRadioButton.Visible = false;
+            optionCRadioButton.Visible = false;
+            optionDRadioButton.Visible = false;
+            optionERadioButton.Visible = false;
+            optionFRadioButton.Visible = false;
+            optionGRadioButton.Visible = false;
+            optionHRadioButton.Visible = false;
+
+            optionACheckBox.Visible = false;
+            optionBCheckBox.Visible = false;
+            optionCCheckBox.Visible = false;
+            optionDCheckBox.Visible = false;
+            optionECheckBox.Visible = false;
+            optionFCheckBox.Visible = false;
+            optionGCheckBox.Visible = false;
+            optionHCheckBox.Visible = false;
+
 
             if (currentQuestionIndex < questions.Count)
             {
@@ -542,9 +560,9 @@ namespace TestingWinForms
                         SizeF textSize = TextRenderer.MeasureText(optionText, radioButton.Font);
                         int availableWidth = tableLayoutPanelRadioButton.Parent.Width;
                         int lineCount = (int)Math.Ceiling(textSize.Width / availableWidth);
-                        int minHeight = (int)(textSize.Height * 1.5);
-                        int height = (int)(textSize.Height * lineCount);
-                        radioButton.Height = Math.Max(minHeight, height) + 40;
+                        int minHeight = (int)(textSize.Height * 2);
+                        int height = (int)(textSize.Height * (lineCount + 1)) + 40; // + 20 from padding below
+                        radioButton.Height = Math.Max(minHeight, height);
 
                         radioButton.FlatStyle = FlatStyle.Flat;
                         radioButton.Appearance = Appearance.Button;
@@ -614,9 +632,9 @@ namespace TestingWinForms
                         SizeF textSize = TextRenderer.MeasureText(optionText, checkbox.Font);
                         int availableWidth = tableLayoutPanelCheckBox.Parent.Width;
                         int lineCount = (int)Math.Ceiling(textSize.Width / availableWidth);
-                        int minHeight = (int)(textSize.Height * 1.5);
-                        int height = (int)(textSize.Height * lineCount); // + 20 from padding below
-                        checkbox.Height = Math.Max(minHeight, height) + 40;
+                        int minHeight = (int)(textSize.Height * 2);
+                        int height = (int)(textSize.Height * (lineCount + 1)) + 40; // + 20 from padding below
+                        checkbox.Height = Math.Max(minHeight, height);
 
                         checkbox.FlatStyle = FlatStyle.Flat;
                         checkbox.Appearance = Appearance.Button;
